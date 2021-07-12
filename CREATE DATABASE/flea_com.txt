@@ -1,0 +1,7 @@
+CREATE TABLE flea_com(
+flea_com_no INT NOT NULL auto_increment,
+ flea_no INT NOT NULL,
+ flea_com_writer VARCHAR(20) NOT NULL,
+ flea_com_date DATE NOT NULL,
+ flea_com_content VARCHAR(4096) NOT NULL,
+ primary KEY(flea_com_no));

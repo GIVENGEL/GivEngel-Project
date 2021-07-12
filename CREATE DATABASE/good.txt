@@ -1,0 +1,12 @@
+CREATE TABLE good(
+good_no INT NOT NULL auto_increment,
+good_name VARCHAR(100) NOT NULL,
+good_price INT NOT NULL default -1,
+good_tag VARCHAR(500) NOT NULL default 'none',
+good_like INT NOT NULL default 0,
+good_stock INT NOT NULL default -1,
+good_detail VARCHAR(4096) NOT NULL,
+good_img VARCHAR(500) NOT NULL,
+spon_no INT NOT NULL DEFAULT -1,
+primary key(good_no)
+ );

@@ -1,0 +1,10 @@
+CREATE TABLE flea(
+flea_no INT NOT NULL auto_increment,
+flea_title VARCHAR(200) NOT NULL,
+flea_price INT NOT NULL default -1,
+flea_date DATE NOT NULL,
+flea_writer VARCHAR(40) NOT NULL,
+flea_isokay BOOLEAN NOT NULL default false,
+flea_content VARCHAR(4096) NOT NULL,
+flea_img varchar(500) NOT NULL,
+primary key(flea_no));

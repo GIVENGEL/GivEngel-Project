@@ -1,0 +1,7 @@
+CREATE TABLE spon_com(
+spon_com_no INT NOT NULL auto_increment,
+ spon_no INT NOT NULL,
+ spon_com_writer VARCHAR(20) NOT NULL,
+ spon_com_date DATE NOT NULL,
+ spon_com_content VARCHAR(4096) NOT NULL,
+ primary KEY(spon_com_no));

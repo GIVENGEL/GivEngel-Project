@@ -1,0 +1,7 @@
+CREATE TABLE good_com(
+ good_com_no INT NOT NULL auto_increment,
+ good_no INT NOT NULL,
+ good_com_writer VARCHAR(20) NOT NULL,
+ good_com_date DATE NOT NULL,
+ good_com_content VARCHAR(4096) NOT NULL,
+ primary KEY(good_com_no));

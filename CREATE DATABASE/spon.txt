@@ -1,0 +1,10 @@
+ CREATE TABLE spon(
+ spon_no INT NOT NULL auto_increment,
+ spon_name VARCHAR(200) NOT NULL,
+ spon_total INT NOT NULL default 0,
+ spon_iscampaign BOOLEAN NOT NULL default false,
+ spon_start DATE NOT NULL,
+ spon_end DATE NOT NULL default '2999-12-13',
+ spon_url VARCHAR(300),
+ spon_comment VARCHAR(4096),
+ primary key(spon_no, spon_name));

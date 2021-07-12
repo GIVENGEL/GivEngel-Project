@@ -1,0 +1,6 @@
+ CREATE TABLE cart(
+ cart_no INT NOT NULL auto_increment,
+ user_no INT NOT NULL,
+ good_no INT NOT NULL,
+ cart_count INT NOT NULL,
+ primary key(cart_no));
