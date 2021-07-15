@@ -16,10 +16,5 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 	
-	@RequestMapping("/test.giv")
-	public void Test(Model m) {
-		List<UserVO> list = loginService.test();
-		System.out.println("내용 출력"+list.get(0).getUser_id());  
-		m.addAttribute("test",loginService.test());
-	}
+	
 }

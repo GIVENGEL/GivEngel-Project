@@ -11,7 +11,7 @@
 <hr>
 
 <br>
-		<br> <a href="test.giv">데이터베이스 내용 출력</a>
+		<br> <a href="index.giv">메인으로 가기</a>
 
 </body>
 </html>
