@@ -9,4 +9,5 @@ user_date DATE NOT NULL,
 user_addr VARCHAR(200),
 user_total INT NOT NULL default 0,
 user_cash INT NOT NULL default 0,
+user_bought VARCHAR(400),
 primary key(user_no, user_id));
