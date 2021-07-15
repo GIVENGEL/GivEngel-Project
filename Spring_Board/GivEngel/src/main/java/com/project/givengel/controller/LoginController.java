@@ -16,5 +16,28 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 	
+	@RequestMapping("/joinForm.giv")
+	public void joinForm() {
+		
+	}
+	
+	@RequestMapping("/findForm.giv")
+	public void findForm() {
+		
+	}
+	
+	@RequestMapping("/joinAction.giv")
+	public String joinAction(UserVO vo,String confirm_pw) {
+		
+		System.out.println("JoinAction : " + vo.getUser_id());
+		System.out.println("JoinAction : " + confirm_pw);
+		return loginService.join(vo,confirm_pw);
+		
+	}
+	
+	@RequestMapping("/findAfter.giv")
+	public void findAfter() {
+		
+	}
 	
 }

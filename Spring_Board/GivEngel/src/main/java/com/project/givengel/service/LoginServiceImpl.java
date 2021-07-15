@@ -21,19 +21,15 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public void join(UserVO vo) {
+	public String join(UserVO vo,String confirm_pw) {
 		
-		loginDAO.join(vo);
+		return loginDAO.join(vo,confirm_pw);
 	}
 
 	@Override
 	public void find(UserVO vo) {
 		
 		loginDAO.find(vo);
-	}
-	
-	public List<UserVO> test() {
-		return loginDAO.test();
 	}
 
 }

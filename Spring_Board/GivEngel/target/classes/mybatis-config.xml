@@ -6,7 +6,7 @@
 
 	<!-- Alias 설정 -->
 	<typeAliases>
-		<typeAlias alias="user" type="com.project.givengel.vo.UserVO" />		
+		<typeAlias alias="userVO" type="com.project.givengel.vo.UserVO" />		
 	</typeAliases>
 
 

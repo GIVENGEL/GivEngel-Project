@@ -7,9 +7,10 @@ import com.project.givengel.vo.UserVO;
 public interface LoginDAO {
 	public void login(UserVO vo);
 	
-	public void join(UserVO vo);
+	public String join(UserVO vo,String confirm_pw);
 	
 	public void find(UserVO vo);
+
 	
-	public List<UserVO> test();
+	public int idChk(UserVO vo);
 }
