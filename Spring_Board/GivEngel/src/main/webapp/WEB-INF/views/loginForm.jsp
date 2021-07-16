@@ -54,7 +54,7 @@
 						<div >
 							<section class="container">
 								<section class="login-form">
-									<form method="post" action="" role="login">
+									<form method="post" action="loginAction.giv"  role="login">
 										<h2>로그인</h2>
 										<p>등록하신 계정을 입력하세요.</p>
 										<div class="form-group">
@@ -62,7 +62,7 @@
 												<div class="input-group-addon">
 													<span class="text-primary glyphicon glyphicon-envelope"></span>
 												</div>
-												<input type="email" name="email" placeholder="이메일 아이디"
+												<input type="email" name="user_id" placeholder="이메일 아이디"
 													required class="form-control" />
 											</div>
 										</div>
@@ -71,7 +71,7 @@
 												<div class="input-group-addon">
 													<span class="text-primary glyphicon glyphicon-lock"></span>
 												</div>
-												<input type="password" name="password" placeholder="비밀번호"
+												<input type="password" name="user_pw" placeholder="비밀번호"
 													required class="form-control" />
 											</div>
 										</div>

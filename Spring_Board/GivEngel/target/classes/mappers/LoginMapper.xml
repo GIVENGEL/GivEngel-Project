@@ -17,5 +17,31 @@ VALUES(#{user_id},#{user_name},#{user_pw},#{user_tel},#{user_jumin},sysdate(),#{
 		WHERE user_id=#{user_id}
 		]]>
 	</select>
+	
+	 <!-- 로그인 -->
+	<select id="login" resultType="userVO">
+		SELECT * 
+		  FROM user
+		 WHERE user_id = #{user_id}
+		   AND user_pw = #{user_pw}   
+	</select>
+	
+	<select id="idFind" resultType="userVO">
+		<![CDATA[
+		SELECT COUNT(*) FROM user
+		WHERE user_name=#{user_name}
+		AND user_tel = #{user_tel}
+		]]>
+	</select>
+	
+	<select id="pwFind" resultType="userVO">
+		<![CDATA[
+		SELECT COUNT(*) FROM user
+		WHERE user_id=#{user_id}
+		AND user_name = #{user_pw}
+		AND user_tel = #{user_tel}
+		AND user_jumin = #{user_jumin}
+		]]>
+	</select>
 
 </mapper>

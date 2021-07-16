@@ -15,9 +15,11 @@ public class LoginDAOImpl implements LoginDAO {
 	private SqlSessionTemplate mybatis;
 	
 	@Override
-	public void login(UserVO vo) {
+	public UserVO login(UserVO vo) {
 		// TODO Auto-generated method stub
-
+		UserVO vos = mybatis.selectOne("LoginDAO.login",vo);
+			System.out.println("DAO 파라미터 체크 : " + vos.getUser_id()); 
+			return vos;
 	}
 
 	// 0이 아니면 중복아이디 있음
@@ -32,7 +34,7 @@ public class LoginDAOImpl implements LoginDAO {
 	@Override
 	public String join(UserVO vo,String confirm_pw) {
 		System.out.println("[LoginDAOImpl - join] 실행 : ");
-		System.out.println("[LoginDAOImpl - 아이디체크] 실행 : " +vo.getUser_id());
+	
 		if(idChk(vo)==0) {
 			System.out.println("[LoginDAOImpl - 비밀번호체크] 실행 : " +vo.getUser_pw() +" && " + confirm_pw);
 
@@ -57,6 +59,20 @@ public class LoginDAOImpl implements LoginDAO {
 		
 
 	}
+	
+	@Override
+	public UserVO idFind(UserVO vo) {
+		System.out.println("[LoginDAOImpl - idFind] 실행 : " + vo.getUser_name());
+		UserVO result = mybatis.selectOne("LoginDAO.idFind",vo);
+		return result;
+	}
+	@Override
+	public UserVO pwFind(UserVO vo) {
+		System.out.println("[LoginDAOImpl - pwFind] 실행 : " + vo.getUser_name());
+		UserVO result = mybatis.selectOne("LoginDAO.pwFind",vo);
+		return result;
+	}
+
 
 	@Override
 	public void find(UserVO vo) {

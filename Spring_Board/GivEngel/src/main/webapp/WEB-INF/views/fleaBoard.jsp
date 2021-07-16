@@ -233,7 +233,6 @@
 <!-- Footer -->
 	<jsp:include page="module/footer.jsp" />
 
-	<jsp:include page="module/footer.jsp" />
 
 	<!-- Js Plugins -->
     <script src="${path}/resources/js/jquery-3.3.1.min.js"></script>

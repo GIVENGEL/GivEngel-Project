@@ -64,45 +64,52 @@
 						<div>
 							<section class="container">
 								<section class="login-form">
-								<hr style="border:solid 1px">
-										<label class="display-4">회원 가입</label>
-									<form action="joinAction.giv" method="post">
+									<hr style="border: solid 1px">
+									<label class="display-4">회원 가입</label>
+									<form action="joinAction.giv" id="joinfrm" method="post">
 										<table class="table table-boardered">
 											<tr>
 												<th>아이디</th>
-												<td><input type="email" class="form-control" name="user_id"
-													placeholder="아이디를 입력하세요."></td>
+												<td class="row"><input type="email" id="userId"
+													class="form-control col-6" name="user_id"
+													placeholder="아이디를 입력하세요.">
+													<div class="col-2"></div>
+													<input type="button" id="idCheck" class="btn btn-success col-4 float-right" value="아이디 중복체크"></td>
 											</tr>
 											<tr>
 												<th>패스워드</th>
-												<td><input type="password" class="form-control"
-													name="user_pw" placeholder="비밀번호를 입력해주세요"></td>
+												<td><input type="password" id="passwd"
+													class="form-control w-75" name="user_pw"
+													placeholder="비밀번호를 입력해주세요"></td>
 											</tr>
 
 											<tr>
 												<th>패스워드확인</th>
-												<td><input type="password" class="form-control"
-													name="confirm_pw"></td>
+												<td><input type="password" id="passwdCheck"
+													class="form-control w-75" name="confirm_pw"></td>
 											</tr>
 											<tr>
 												<th>이름</th>
 												<td><input type="text" class="form-control w-50"
 													name="user_name"></td>
 											</tr>
-											
+
 											<tr>
 												<th>주민번호</th>
-												<td><input type="password" class="form-control" placeholder="'-' 없이  입력해주세요." name="user_jumin"></td>
+												<td><input type="password" class="form-control"
+													placeholder="'-' 없이  입력해주세요." name="user_jumin"></td>
 											</tr>
 
 											<tr>
 												<th>전화번호</th>
-												<td><input type="tel" class="form-control" name="user_tel"></td>
+												<td><input type="tel" class="form-control"
+													name="user_tel"></td>
 											</tr>
-											
+
 											<tr>
 												<th>주소</th>
-												<td><input type="text" class="form-control"  name="user_addr"></td>
+												<td><input type="text" class="form-control"
+													name="user_addr"></td>
 											</tr>
 
 											<tr>
@@ -113,7 +120,7 @@
 
 
 											<tr>
-												<td colspan="2"><input type="submit"
+												<td colspan="2"><input id="signUp" type="button"
 													class="btn btn-block btn-success" value="회원가입"> <input
 													id="cancle" type="button" class="btn btn-block btn-success"
 													value="되돌아가기"></td>
@@ -155,5 +162,66 @@
 
 
 </body>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		alert("시작");
+		var idx = false;
+
+		$('#signUp').click(function() {
+			if ($.trim($('#userId').val()) == '') {
+				alert("아이디 입력.");
+				$('#userId').focus();
+				return;
+			} else if ($.trim($('#passwd').val()) == '') {
+				alert("패스워드 입력.");
+				$('#passwd').focus();
+				return;
+			}
+			//패스워드 확인
+			else if ($('#passwd').val() != $('#passwdCheck').val()) {
+				alert('패스워드가 다릅니다.');
+				$('#passwd').focus();
+				return;
+			}
+
+			else if (idx == false) {
+				alert("아이디 중복체크를 해주세요.");
+				return;
+			} else {
+				$('#joinfrm').submit();
+			}
+		});
+		
+		
+		$('#idCheck').click(function(){
+			$.ajax({
+				url: "idCheck.giv",
+				type: "POST",
+				data:{
+					"userId":$('#userId').val()
+				},
+				success: function(data){
+					
+					if(data == 0 && $.trim($('#userId').val()) != '' ){
+						idx=true;
+						$('#userId').attr("readonly",true);
+						alert('사용가능한 아이디입니다!');
+					}else{
+
+						var html="<tr><td colspan='3' style='color: red'>사용불가능한 아이디 입니다.</td></tr>";
+						alert('중복된 아이디입니다.');
+					}
+				},
+				error: function(){
+					alert("서버에러");
+				}
+			});
+			
+
+		});
+
+	});
+</script>
+
 
 </html>

@@ -15,9 +15,9 @@ public class LoginServiceImpl implements LoginService {
 	private LoginDAOImpl loginDAO;
 	
 	@Override
-	public void login(UserVO vo) {
+	public UserVO login(UserVO vo) {
 		
-		loginDAO.login(vo);
+		return loginDAO.login(vo);
 	}
 
 	@Override
@@ -30,6 +30,18 @@ public class LoginServiceImpl implements LoginService {
 	public void find(UserVO vo) {
 		
 		loginDAO.find(vo);
+	}
+	@Override
+	public int idChk(UserVO vo) {
+		return loginDAO.idChk(vo);
+	}
+	@Override
+	public UserVO idFind(UserVO vo) {
+		return loginDAO.idFind(vo);
+	}
+	@Override
+	public UserVO pwFind(UserVO vo) {
+		return loginDAO.pwFind(vo);
 	}
 
 }
