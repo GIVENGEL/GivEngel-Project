@@ -15,5 +15,7 @@ public interface LoginService {
 	
 	UserVO idFind(UserVO vo);
 	UserVO pwFind(UserVO vo);
+	UserVO findId(UserVO vo);
+	UserVO findPw(UserVO vo);
 	
 }

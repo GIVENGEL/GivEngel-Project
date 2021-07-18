@@ -72,6 +72,21 @@ public class LoginDAOImpl implements LoginDAO {
 		UserVO result = mybatis.selectOne("LoginDAO.pwFind",vo);
 		return result;
 	}
+	
+	@Override
+	public UserVO findId(UserVO vo) {
+		System.out.println("[LoginDAOImpl - findId] 실행 : " + vo.getUser_name());
+		UserVO result = mybatis.selectOne("LoginDAO.findId",vo);
+		return result;
+	}
+	
+	@Override
+	public UserVO findPw(UserVO vo) {
+		System.out.println("[LoginDAOImpl - findPw] 실행 : " + vo.getUser_name());
+		UserVO result = mybatis.selectOne("LoginDAO.findPw",vo);
+		return result;
+	}
+	
 
 
 	@Override

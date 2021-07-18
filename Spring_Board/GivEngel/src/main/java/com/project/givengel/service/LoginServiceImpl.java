@@ -43,5 +43,17 @@ public class LoginServiceImpl implements LoginService {
 	public UserVO pwFind(UserVO vo) {
 		return loginDAO.pwFind(vo);
 	}
+	
+	@Override
+	public UserVO findId(UserVO vo) {
+		
+		return loginDAO.findId(vo);
+	}
+	
+	@Override
+	public UserVO findPw(UserVO vo) {
+		
+		return loginDAO.findPw(vo);
+	}
 
 }

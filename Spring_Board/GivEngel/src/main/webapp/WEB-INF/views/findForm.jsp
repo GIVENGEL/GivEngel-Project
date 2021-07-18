@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-		    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -22,14 +22,22 @@
 
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="${path}/resources/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="${path}/resources/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="${path}/resources/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="${path}/resources/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="${path}/resources/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="${path}/resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="${path}/resources/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="${path}/resources/css/style.css" type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/nice-select.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/jquery-ui.min.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/owl.carousel.min.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/slicknav.min.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/style.css"
+	type="text/css">
 </head>
 
 <body>
@@ -40,9 +48,9 @@
 
 
 
-	 <!--  navbar &  side over wrap -->
-    <jsp:include page="module/navbar.jsp"/>
-  
+	<!--  navbar &  side over wrap -->
+	<jsp:include page="module/navbar.jsp" />
+
 
 	<!-- Hero Section Begin -->
 	<section class="hero">
@@ -55,57 +63,75 @@
 								<section class="login-form">
 									<form action="findAction.giv" method="post">
 										<table class="table table-boardered">
-										<hr style="border:solid 1px">
-										<label class="display-4">아이디 찾기</label>
-										<br/><br/>
+											<hr style="border: solid 1px">
+											<label class="display-4">아이디 찾기</label>
+											<br />
+											<br />
 											<tr>
 												<th>이름</th>
 												<td><input type="text" class="form-control"
-													name="userName" placeholder="찾으시려는 계정의 이름을 입력해주세요"></td>
+													id="user_name" name="userName"
+													placeholder="찾으시려는 계정의 이름을 입력해주세요"></td>
 											</tr>
 											<tr>
 												<th>전화번호</th>
-												<td><input type="tel" id="userTel" class="form-control" name="tel"></td>
+												<td><input id="user_tel" type="tel" id="userTel"
+													class="form-control" name="tel"></td>
 											</tr>
-										
+
 											<tr>
 												<td colspan="2"><input id="idFind" type="button"
-													class="btn btn-block btn-success" value="아이디 조회하기"> 
-
+													class="btn btn-block btn-success" value="아이디 조회하기">
 												</td>
+
+											</tr>
+											<tr>
+												<td><span id="ids"></span></td>
 											</tr>
 										</table>
 									</form>
-									<br/><br/><br/>
+									<br />
+									<br />
+									<br />
 									<form action="findAction.giv" method="post">
 										<table class="table table-boardered">
-										<hr style="border:solid 1px">
-										<label class="display-4">비밀번호 찾기</label>
-										<br/><br/>
-										<tr>
+											<hr style="border: solid 1px">
+											<label class="display-4">비밀번호 찾기</label>
+											<br />
+											<br />
+											<tr>
 												<th>아이디</th>
-												<td><input name="user_id" id="userId" type="email" class="form-control" ></td>
+												<td><input name="user_id" id="userId" type="email"
+													class="form-control"></td>
 											</tr>
 											<tr>
 												<th>이름</th>
 												<td><input type="text" class="form-control"
-													name="user_name" id="userName" placeholder="찾으시려는 계정의 이름을 입력하세요"></td>
+													name="user_name" id="userName"
+													placeholder="찾으시려는 계정의 이름을 입력하세요"></td>
 											</tr>
 											<tr>
 												<th>전화번호</th>
-												<td><input type="tel" id="userTel" class="form-control" name="user_tel"></td>
-											
+												<td><input type="tel" id="userTel" class="form-control"
+													name="user_tel"></td>
+
 											</tr>
 											<tr>
 												<th>주민번호</th>
-												<td><input type="text" id="userJumin" class="form-control" name="user_jumin"></td>
+												<td><input type="text" id="userJumin"
+													class="form-control" name="user_jumin"></td>
 											</tr>
-											
-										
+
+
 											<tr>
 												<td colspan="2"><input id="pwFind" type="button"
-													class="btn btn-block btn-success" value="비밀번호 조회하기"> 
+													class="btn btn-block btn-success" value="비밀번호 조회하기">
 
+												</td>
+											</tr>
+											<tr>
+											<td>
+												<span id="pws"></span>
 												</td>
 											</tr>
 										</table>
@@ -129,14 +155,14 @@
 	<!-- Footer Section End -->
 
 	<!-- Js Plugins -->
-    <script src="${path}/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="${path}/resources/js/bootstrap.min.js"></script>
-    <script src="${path}/resources/js/jquery.nice-select.min.js"></script>
-    <script src="${path}/resources/js/jquery-ui.min.js"></script>
-    <script src="${path}/resources/js/jquery.slicknav.js"></script>
-    <script src="${path}/resources/js/mixitup.min.js"></script>
-    <script src="${path}/resources/js/owl.carousel.min.js"></script>
-    <script src="${path}/resources/js/main.js"></script>
+	<script src="${path}/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="${path}/resources/js/bootstrap.min.js"></script>
+	<script src="${path}/resources/js/jquery.nice-select.min.js"></script>
+	<script src="${path}/resources/js/jquery-ui.min.js"></script>
+	<script src="${path}/resources/js/jquery.slicknav.js"></script>
+	<script src="${path}/resources/js/mixitup.min.js"></script>
+	<script src="${path}/resources/js/owl.carousel.min.js"></script>
+	<script src="${path}/resources/js/main.js"></script>
 
 	<!--  페이지 제어 제이쿼리  -->
 	<script src="${path}/resources/js_page/joinForm.js"></script>
@@ -148,26 +174,29 @@
 		alert("시작");
 		
 		$('#idFind').click(function(){
+			
+			var vo = {
+					user_name:$('#user_name').val(),
+					user_tel:$('#user_tel').val()
+					
+			}
 			$.ajax({
 				url: "idFind.giv",
 				type: "POST",
-				data:{
-					"userName":$('#userName').val(),
-					"userTel":$('#userTel').val()
-				},
+				data:vo,
 				success: function(data){
 					
-					if(data==null ){
+					if(data=="err" ){
 					
-						alert('일치하는 아이디가 없습니다.');
+						alert('일치하는 계정이 없습니다.');
 					}else{
 						
 						
-						alert('아이디는 [' +data+'] 입니다.');
+						$("#ids").text("아이디 : " + data);
 					}
 				},
 				error: function(){
-					alert("서버에러");
+					alert("일치하는 계정이 없습니다!");
 				}
 			});
 			
@@ -175,29 +204,28 @@
 		});
 		
 		$('#pwFind').click(function(){
+			var vo = {
+					user_name:$('#userName').val(),
+					user_tel:$('#userTel').val(),
+					user_jumin:$("#userJumin").val(),
+					user_id:$("#userId").val()
+			}
 			$.ajax({
 				url: "pwFind.giv",
 				type: "POST",
-				data:{
-					"userName":$('#userName').val(),
-					"userTel":$('#userTel').val(),
-					"userId":$('#userId').val(),
-					"userJumin":$('#userJumin').val()
-				},
+				data:vo,
 				success: function(data){
-					var obj = JSON.parse(xmlhttp.responseText);
-					var vo = obj.vo;
-					if(data==null ){
 					
-						alert('정보가 일치하지 않습니다.');
+					if(data=="err" ){
+						alert('일치하는 계정이 없습니다.');
 					}else{
 						
 						
-						alert('패스워드는 [' +vo.user_pw+ ']');
+						$("#pws").text("비밀번호 : " + data);
 					}
 				},
 				error: function(){
-					alert("서버에러");
+					alert("일치하는 계정이 없습니다!");
 				}
 			});
 			

@@ -38,7 +38,25 @@ VALUES(#{user_id},#{user_name},#{user_pw},#{user_tel},#{user_jumin},sysdate(),#{
 		<![CDATA[
 		SELECT COUNT(*) FROM user
 		WHERE user_id=#{user_id}
-		AND user_name = #{user_pw}
+		AND user_name = #{user_name}
+		AND user_tel = #{user_tel}
+		AND user_jumin = #{user_jumin}
+		]]>
+	</select>
+	
+	<select id="findId" resultType="userVO">
+		<![CDATA[
+		SELECT * FROM user
+		WHERE user_name=#{user_name}
+		AND user_tel = #{user_tel}
+		]]>
+	</select>
+	
+	<select id="findPw" resultType="userVO">
+		<![CDATA[
+		SELECT * FROM user
+		WHERE user_id=#{user_id}
+		AND user_name = #{user_name}
 		AND user_tel = #{user_tel}
 		AND user_jumin = #{user_jumin}
 		]]>

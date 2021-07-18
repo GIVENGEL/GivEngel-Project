@@ -16,4 +16,6 @@ public interface LoginDAO {
 	
 	public UserVO idFind(UserVO vo);
 	public UserVO pwFind(UserVO vo);
+	public UserVO findId(UserVO vo);
+	public UserVO findPw(UserVO vo);
 }

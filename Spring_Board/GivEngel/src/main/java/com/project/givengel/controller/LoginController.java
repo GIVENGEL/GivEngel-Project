@@ -82,36 +82,39 @@ public class LoginController {
 		return Integer.toString(result);
 	}
 	
-	@RequestMapping("/idFind.giv")
+	@RequestMapping(value="/idFind.giv",method=RequestMethod.POST)
 	@ResponseBody
-	public String idFind(HttpServletRequest request) {
+	public String idFind(UserVO vo) {
 		
-		String userId = request.getParameter("userName");
-		String userTel = request.getParameter("userTel");
+		System.out.println("ajax 통신 완료 : " + vo.getUser_name());
+		String result;
+		UserVO vos = loginService.findId(vo);
+		if(vos.getUser_id()==null) {
+			result = "err";
+		}
+		else {
+			result = vos.getUser_id();
+			System.out.println("찾은 아이디 : " + vos.getUser_id());
+		}
 
-		System.out.println("ajax 통신 완료 : " + userId );
-		UserVO vo = new UserVO();
-		vo.setUser_id(userId);
-		vo.setUser_tel(userTel);
-		UserVO result=loginService.idFind(vo);
-		return result.getUser_id();
+		return result;
 	}
 	
-	@RequestMapping("/pwFind.giv")
+	@RequestMapping(value="/pwFind.giv",method=RequestMethod.POST)
 	@ResponseBody
-	public UserVO pwFind(HttpServletRequest request) {
-		
-		String userId = request.getParameter("userId");
-		String userName = request.getParameter("userName");
-		String userTel = request.getParameter("userTel");
-		String userJumin = request.getParameter("userJumin");
-		System.out.println("ajax 통신 완료 : " + userId );
-		UserVO vo = new UserVO();
-		vo.setUser_id(userId);
-		vo.setUser_name(userName);
-		vo.setUser_tel(userTel);
-		vo.setUser_jumin(userJumin);
-		UserVO result=loginService.pwFind(vo);
+	public String pwFind(UserVO vo) {
+
+		System.out.println("ajax 통신 완료 : " + vo.getUser_name()+vo.getUser_id()+vo.getUser_tel()+vo.getUser_jumin());
+		String result;
+		UserVO vos = loginService.findPw(vo);
+		if(vos.getUser_pw()==null) {
+			result = "err";
+		}
+		else {
+			result = vos.getUser_pw();
+			System.out.println("찾은 패스워드 : " + vos.getUser_pw());
+		}
+		System.out.println(result);
 		return result;
 	}
 	
