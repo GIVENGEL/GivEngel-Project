@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.givengel.service.AdminService;
@@ -39,6 +40,14 @@ public class AdminController {
 		}
 		
 		
+	}
+	
+	@RequestMapping("/adminUserCount.giv")
+	@ResponseBody
+	public String adminUserCount() {
+		int result = adminService.userCount();
+		
+		return Integer.toString(result) ;
 	}
 	
 	@RequestMapping("/adminMode.giv")

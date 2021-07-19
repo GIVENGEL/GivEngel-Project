@@ -107,8 +107,8 @@
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-blue panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-comments color-orange"></em>
-							<div class="large">52</div>
-							<div class="text-muted">총 유저</div>
+							<div class="large" ><span id="userCount"></span></div>
+							<div class="text-muted" >총 유저</div>
 						</div>
 					</div>
 				</div>
@@ -124,7 +124,7 @@
 					<div class="panel panel-red panel-widget ">
 						<div class="row no-padding"><em class="fa fa-xl fa-search color-red"></em>
 							<div class="large">25.2k</div>
-							<div class="text-muted">오늘 구입 금액</div>
+							<div class="text-muted">총 사용된 마일리지</div>
 						</div>
 					</div>
 				</div>
@@ -463,6 +463,23 @@
 	scaleGridLineColor: "rgba(0,0,0,.05)",
 	scaleFontColor: "#c5c7cc"
 	});
+	
+	alert("개발 시작");
+
+	function updateUserCount(){
+		$.ajax({
+			url:"adminUserCount.giv",
+			type:"post",
+			success:function(data){
+				$("#userCount").text(data);
+			}
+		});
+		
+	}
+	
+	setInterval(updateUserCount,2000);
+	
+	
 };
 	</script>
 		</c:if>

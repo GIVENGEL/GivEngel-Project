@@ -15,4 +15,9 @@ public class AdminServiceImpl implements AdminService {
 	public AdminVO login(AdminVO vo) {
 		return adminDAO.login(vo);
 	}
+	
+	public int userCount() {
+		return adminDAO.userCount();
+	}
+
 }

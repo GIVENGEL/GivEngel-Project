@@ -4,4 +4,7 @@ import com.project.givengel.vo.AdminVO;
 
 public interface AdminService {
 		AdminVO login(AdminVO vo);
+		
+		public int userCount();
+
 }

@@ -9,6 +9,11 @@
 		 WHERE admin_id = #{admin_id}
 		   AND admin_pw = #{admin_pw}   
 	</select>
+	
+	<select id="userCount" resultType="int">
+		SELECT COUNT(*)
+		FROM user
+	</select> 
 
 
 </mapper>

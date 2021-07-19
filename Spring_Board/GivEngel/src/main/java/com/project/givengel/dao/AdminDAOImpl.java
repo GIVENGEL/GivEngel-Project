@@ -24,5 +24,11 @@ public class AdminDAOImpl implements AdminDAO {
 		return vos;
 	}
 	
+	@Override
+	public int userCount() {
+		return mybatis.selectOne("AdminDAO.userCount");
+	}
+
+	
 
 }
