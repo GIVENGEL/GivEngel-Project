@@ -7,6 +7,8 @@ good_like INT NOT NULL default 0,
 good_stock INT NOT NULL default -1,
 good_detail VARCHAR(4096) NOT NULL,
 good_img VARCHAR(500) NOT NULL,
+good_img_size int NOT NULL,
+good_date DATE NOT NULL,
 spon_no INT NOT NULL DEFAULT -1,
 primary key(good_no)
  );

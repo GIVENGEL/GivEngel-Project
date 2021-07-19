@@ -7,4 +7,7 @@
  spon_end DATE NOT NULL default '2999-12-13',
  spon_url VARCHAR(300),
  spon_comment VARCHAR(4096),
+ spon_img VARCHAR(300),
+ spon_img_size INT,
+ spon_campaign_img INT,
  primary key(spon_no, spon_name));

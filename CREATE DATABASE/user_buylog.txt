@@ -1,0 +1,8 @@
+CREATE TABLE user_buylog(
+user_buylog_no INT NOT NULL auto_increment,
+user_no INT NOT NULL,
+good_no INT NOT NULL,
+user_buylog_price INT NOT NULL,
+user_buylog_date DATE NOT NULL,
+primary key(user_buylog_no,user_no)
+);

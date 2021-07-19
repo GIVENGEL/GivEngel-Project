@@ -1,0 +1,8 @@
+CREATE TABLE user_cashlog(
+user_cashlog_no INT NOT NULL auto_increment,
+user_no INT NOT NULL,
+user_cashlog_log varchar(100) NOT NULL,
+user_cashlog_price INT NOT NULL,
+user_cashlog_date DATE NOT NULL,
+primary key(user_cashlog_no,user_no)
+);
