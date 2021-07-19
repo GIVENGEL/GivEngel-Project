@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LoginDAO">
+
+	<select id="join" resultType="userVO">
+		<![CDATA[
+		INSERT INTO user(user_id,user_name,user_pw,user_tel,user_jumin,user_date,user_addr,user_total,user_cash,user_bought)
+VALUES(#{user_id},#{user_name},#{user_pw},#{user_tel},#{user_jumin},sysdate(),#{user_addr},0,0,'');
+		
+		]]>
+	</select>
+	
+	<select id="idChk" resultType="int">
+		<![CDATA[
+		SELECT COUNT(*) FROM user
+		WHERE user_id=#{user_id}
+		]]>
+	</select>
+	
+	 <!-- 로그인 -->
+	<select id="login" resultType="userVO">
+		SELECT * 
+		  FROM user
+		 WHERE user_id = #{user_id}
+		   AND user_pw = #{user_pw}   
+	</select>
+	
+	<select id="idFind" resultType="userVO">
+		<![CDATA[
+		SELECT COUNT(*) FROM user
+		WHERE user_name=#{user_name}
+		AND user_tel = #{user_tel}
+		]]>
+	</select>
+	
+	<select id="pwFind" resultType="userVO">
+		<![CDATA[
+		SELECT COUNT(*) FROM user
+		WHERE user_id=#{user_id}
+		AND user_name = #{user_name}
+		AND user_tel = #{user_tel}
+		AND user_jumin = #{user_jumin}
+		]]>
+	</select>
+	
+	<select id="findId" resultType="userVO">
+		<![CDATA[
+		SELECT * FROM user
+		WHERE user_name=#{user_name}
+		AND user_tel = #{user_tel}
+		]]>
+	</select>
+	
+	<select id="findPw" resultType="userVO">
+		<![CDATA[
+		SELECT * FROM user
+		WHERE user_id=#{user_id}
+		AND user_name = #{user_name}
+		AND user_tel = #{user_tel}
+		AND user_jumin = #{user_jumin}
+		]]>
+	</select>
+
+</mapper>
