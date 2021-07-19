@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
 
+
 <head>
 
 <meta charset="UTF-8">
@@ -19,7 +20,6 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
 	rel="stylesheet">
-
 
 <!-- Css Styles -->
 <link rel="stylesheet" href="${path}/resources/css/bootstrap.min.css"
@@ -48,21 +48,24 @@
 
 
 
-	<!--  navbar &  side over wrap -->
-	<jsp:include page="module/navbar.jsp" />
+	 <!--  navbar &  side over wrap -->
+    <jsp:include page="module/navbar.jsp"/>
+
 
 
 	<!-- Hero Section Begin -->
 	<section class="hero">
-		<div class="container">
+	<div class="container">
 			<div class="row">
 				<div class="col-lg-6">
 					<div>
 						<div>
 							<section class="container">
+
 								<section class="login-form">
 									<form action="findAction.giv" method="post">
 										<table class="table table-boardered">
+										
 											<hr style="border: solid 1px">
 											<label class="display-4">아이디 찾기</label>
 											<br />
@@ -70,14 +73,17 @@
 											<tr>
 												<th>이름</th>
 												<td><input type="text" class="form-control"
+													
 													id="user_name" name="userName"
 													placeholder="찾으시려는 계정의 이름을 입력해주세요"></td>
 											</tr>
 											<tr>
 												<th>전화번호</th>
+											
 												<td><input id="user_tel" type="tel" id="userTel"
 													class="form-control" name="tel"></td>
 											</tr>
+										
 
 											<tr>
 												<td colspan="2"><input id="idFind" type="button"
@@ -90,28 +96,33 @@
 											</tr>
 										</table>
 									</form>
+									
 									<br />
 									<br />
 									<br />
 									<form action="findAction.giv" method="post">
 										<table class="table table-boardered">
+										
 											<hr style="border: solid 1px">
 											<label class="display-4">비밀번호 찾기</label>
 											<br />
 											<br />
 											<tr>
 												<th>아이디</th>
+						
 												<td><input name="user_id" id="userId" type="email"
 													class="form-control"></td>
 											</tr>
 											<tr>
 												<th>이름</th>
 												<td><input type="text" class="form-control"
+													
 													name="user_name" id="userName"
 													placeholder="찾으시려는 계정의 이름을 입력하세요"></td>
 											</tr>
 											<tr>
 												<th>전화번호</th>
+											
 												<td><input type="tel" id="userTel" class="form-control"
 													name="user_tel"></td>
 
@@ -121,10 +132,11 @@
 												<td><input type="text" id="userJumin"
 													class="form-control" name="user_jumin"></td>
 											</tr>
-
-
+											
+			
 											<tr>
 												<td colspan="2"><input id="pwFind" type="button"
+													 
 													class="btn btn-block btn-success" value="비밀번호 조회하기">
 
 												</td>
@@ -137,7 +149,7 @@
 										</table>
 									</form>
 								</section>
-							</section>
+								</section>
 						</div>
 					</div>
 				</div>
@@ -152,9 +164,11 @@
 
 	<!-- Footer Section Begin -->
 	<jsp:include page="module/footer.jsp" />
+
 	<!-- Footer Section End -->
 
 	<!-- Js Plugins -->
+   
 	<script src="${path}/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="${path}/resources/js/bootstrap.min.js"></script>
 	<script src="${path}/resources/js/jquery.nice-select.min.js"></script>
@@ -166,8 +180,6 @@
 
 	<!--  페이지 제어 제이쿼리  -->
 	<script src="${path}/resources/js_page/joinForm.js"></script>
-
-
 </body>
 <script type="text/javascript">
 	$(document).ready(function(e) {
@@ -186,8 +198,10 @@
 				data:vo,
 				success: function(data){
 					
+					
 					if(data=="err" ){
 					
+						
 						alert('일치하는 계정이 없습니다.');
 					}else{
 						
@@ -200,7 +214,6 @@
 				}
 			});
 			
-
 		});
 		
 		$('#pwFind').click(function(){
@@ -215,7 +228,6 @@
 				type: "POST",
 				data:vo,
 				success: function(data){
-					
 					if(data=="err" ){
 						alert('일치하는 계정이 없습니다.');
 					}else{

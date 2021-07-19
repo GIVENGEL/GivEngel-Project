@@ -96,10 +96,11 @@ public class LoginController {
 			result = vos.getUser_id();
 			System.out.println("찾은 아이디 : " + vos.getUser_id());
 		}
-
+		
 		return result;
 	}
 	
+
 	@RequestMapping(value="/pwFind.giv",method=RequestMethod.POST)
 	@ResponseBody
 	public String pwFind(UserVO vo) {
