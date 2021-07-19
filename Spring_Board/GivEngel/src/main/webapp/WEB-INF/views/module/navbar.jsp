@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,7 +29,7 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="index.giv">Home</a></li>
+                <li><a href="index.giv">Home</a></li>
                 <li><hr></li>
 					<li><a href="buyList.giv">Products</a>
 					<ul class="header__menu__dropdown">
@@ -98,7 +99,7 @@
 			<div class="col-lg-9">
 				<nav class="header__menu">
 				<ul>
-					<li class="active"><a href="index.giv">Home</a></li>
+					<li><a href="index.giv">Home</a></li>
 					
 					<li><a href="buyList.giv">Products</a>
 					<ul class="header__menu__dropdown">
@@ -156,7 +157,7 @@
                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
                 <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
             </ul>
-            <div class="header__cart__price">마이페이지 <span></span></div>
+            <div class="header__cart__price"><a href="myPage.giv">마이페이지</a>  </div>
         </div>
         <div class="humberger__menu__widget">
            
@@ -167,7 +168,7 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="index.giv">Home</a></li>
+                <li ><a href="index.giv">Home</a></li>
                 <li><hr></li>
 					<li><a href="buyList.giv">Products</a>
 					<ul class="header__menu__dropdown">
@@ -218,8 +219,9 @@
 						<!-- 로그인 섹션 --------------------------------------------- -->
 						<div class="header__top__right__auth">
 							
-                <div class="row"><span >환영합니다 ${user.user_name}님.<span> 
-                 <a href="logout.giv"><i class="fa fa-user"></i> Logout</a>
+                <div class="row">환영합니다. &nbsp&nbsp<a href="myPage.giv">${user.user_name}님.</a>  &nbsp&nbsp&nbsp&nbsp&nbsp<a href="logout.giv"><i class="fa fa-user"></i> Logout</a> 
+                
+                 
                  </div>
 						마일리지 :  ${user.user_cash}
 						</div>
@@ -240,7 +242,7 @@
 			<div class="col-lg-9">
 				<nav class="header__menu">
 				<ul>
-					<li class="active"><a href="index.giv">Home</a></li>
+					<li><a href="index.giv">Home</a></li>
 					
 					<li><a href="buyList.giv">Products</a>
 					<ul class="header__menu__dropdown">

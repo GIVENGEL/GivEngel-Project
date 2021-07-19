@@ -51,4 +51,8 @@ public class MainController {
 	public void buyList() {
 		
 	}
+	@RequestMapping("/myPage.giv")
+	public void myPage() {
+		
+	}
 }

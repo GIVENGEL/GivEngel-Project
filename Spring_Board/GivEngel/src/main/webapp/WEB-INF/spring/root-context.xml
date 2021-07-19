@@ -13,7 +13,7 @@
 	
 <!-- Root Context: defines shared resources visible to all other web components -->
 <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+	<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
 	<property name="url" value="jdbc:mysql://kic.cj7mov3fe2u4.ap-northeast-2.rds.amazonaws.com/GIVENGEL"></property>
 	<property name="username" value="admin"></property>
 	<property name="password" value="rladlscjf0!"></property>
