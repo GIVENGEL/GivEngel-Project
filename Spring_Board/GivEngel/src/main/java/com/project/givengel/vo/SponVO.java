@@ -9,6 +9,28 @@ public class SponVO {
 	private String spon_end;
 	private String spon_url;
 	private String spon_comment;
+	private String spon_img;
+	private int spon_img_size;
+	private String spon_campaign_img;
+	
+	public String getSpon_img() {
+		return spon_img;
+	}
+	public void setSpon_img(String spon_img) {
+		this.spon_img = spon_img;
+	}
+	public int getSpon_img_size() {
+		return spon_img_size;
+	}
+	public void setSpon_img_size(int spon_img_size) {
+		this.spon_img_size = spon_img_size;
+	}
+	public String getSpon_campaign_img() {
+		return spon_campaign_img;
+	}
+	public void setSpon_campaign_img(String spon_campaign_img) {
+		this.spon_campaign_img = spon_campaign_img;
+	}
 	public int getSpon_no() {
 		return spon_no;
 	}

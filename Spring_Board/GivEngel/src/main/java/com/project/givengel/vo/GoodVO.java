@@ -9,9 +9,23 @@ public class GoodVO {
 	private int good_stock;
 	private String good_detail;
 	private String good_img;
+	private int good_img_size;
+	private String good_date;
 	private int spon_no;
 	
 	
+	public int getGood_img_size() {
+		return good_img_size;
+	}
+	public void setGood_img_size(int good_img_size) {
+		this.good_img_size = good_img_size;
+	}
+	public String getGood_date() {
+		return good_date;
+	}
+	public void setGood_date(String good_date) {
+		this.good_date = good_date;
+	}
 	public int getGood_no() {
 		return good_no;
 	}
