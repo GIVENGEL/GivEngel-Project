@@ -55,4 +55,9 @@ public class MainController {
 	public void myPage() {
 		
 	}
+	
+	@RequestMapping("/adminLogin.giv")
+	public void adminLogin() {
+		
+	}
 }

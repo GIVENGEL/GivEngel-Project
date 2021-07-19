@@ -18,7 +18,9 @@ public class LoginDAOImpl implements LoginDAO {
 	public UserVO login(UserVO vo) {
 		// TODO Auto-generated method stub
 		UserVO vos = mybatis.selectOne("LoginDAO.login",vo);
+		if(vos!=null) {
 			System.out.println("DAO 파라미터 체크 : " + vos.getUser_id()); 
+		}
 			return vos;
 	}
 

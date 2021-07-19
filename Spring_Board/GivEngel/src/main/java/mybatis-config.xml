@@ -7,8 +7,10 @@
 	<!-- Alias 설정 -->
 	<typeAliases>
 		<typeAlias alias="userVO" type="com.project.givengel.vo.UserVO" />		
+		<typeAlias alias="adminVO" type="com.project.givengel.vo.AdminVO" />	
+		<typeAlias alias="logVO" type="com.project.givengel.vo.LogVO" />	
 	</typeAliases>
-
+	
 
 </configuration>
 
