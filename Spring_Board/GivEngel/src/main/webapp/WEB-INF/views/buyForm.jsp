@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-		    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%   String good_no = request.getParameter("good_no");  %>  
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -47,15 +49,16 @@
 						<div class="hero__categories__all">
 							<i class="fa fa-bars"></i> <span>All Categories</span>
 						</div>
-						<ul>
-							<li><a href="#">전체 상품</a></li>
-							<li><a href="#">TOP</a></li>
-							<li><a href="#">BOTTOM</a></li>
-							<li><a href="#">BAG</a></li>
-							<li><a href="#">ACC</a></li>
-							<li><a href="#">SHOES</a></li>
-							<li><a href="#">SALES</a></li>
-						</ul>
+						 <!-- ********************************** -->
+                        <!-- 김민주 -->
+                        <!-- 제이쿼리 사용하기 위한 id 부여 -->
+                        <ul id='categories'>
+                            <li><a href="#">전체 상품</a></li>
+                            <li><a href="#">TOP</a></li>
+                            <li><a href="#">BOTTOM</a></li>
+                            <li><a href="#">BAG</a></li>
+                            <li><a href="#">ACC</a></li>
+                        </ul>
 					</div>
 				</div>
 				<div class="col-lg-9">
@@ -428,6 +431,10 @@
 	<script src="${path}/resources/js/mixitup.min.js"></script>
 	<script src="${path}/resources/js/owl.carousel.min.js"></script>
 	<script src="${path}/resources/js/main.js"></script>
+	<!-- **************************************** -->
+	<!-- 김민주 -->
+	<!-- 제이쿼리 연동 -->
+	<script src="${path}/resources/js_page/buyForm.js"></script>
 
 
 </body>

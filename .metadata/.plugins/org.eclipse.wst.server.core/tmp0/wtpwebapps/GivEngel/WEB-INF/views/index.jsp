@@ -51,15 +51,12 @@
                             <i class="fa fa-bars"></i>
                             <span>All Categories</span>
                         </div>
-                        <ul>
-                              <li><a href="#">전체 상품</a></li>
-                            <li><a href="#">TOP</a></li>
+                        <ul id="categories">
+ 							<li><a href="#">TOP</a></li>
                             <li><a href="#">BOTTOM</a></li>
-                            <li><a href="#">BAG</a></li>
                             <li><a href="#">ACC</a></li>
-                            <li><a href="#">SHOES</a></li>
-                            <li><a href="#">SALES</a></li>    
-                            
+                            <li><a href="#">BAG</a></li>
+                            <li><a href="#">CAMPAIGN</a></li>                            
                         </ul>
                     </div>
                 </div>
@@ -562,6 +559,10 @@
     <script src="${path}/resources/js/mixitup.min.js"></script>
     <script src="${path}/resources/js/owl.carousel.min.js"></script>
     <script src="${path}/resources/js/main.js"></script>
+    <!-- **************************************** -->
+	<!-- 김민주 -->
+	<!-- 제이쿼리 연동 -->
+	<script src="${path}/resources/js_page/index.js"></script>
 
 
 

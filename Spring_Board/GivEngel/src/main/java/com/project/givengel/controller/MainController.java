@@ -40,14 +40,8 @@ public class MainController {
 		
 	}
 
-	@RequestMapping("/buyForm.giv")
-	public void buyForm() {
-		
-	}
-	@RequestMapping("/buyList.giv")
-	public void buyList() {
-		
-	}
+
+
 	@RequestMapping("/myPage.giv")
 	public void myPage() {
 		
