@@ -73,7 +73,7 @@
 					</a></li>
 				</ul>
 			</li>
-			<li><a href="logout.giv"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li><a href="adminlogoutAction.giv"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 		</ul>
 	</div>
 	<!--/.sidebar-->
@@ -99,7 +99,7 @@
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-teal panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-shopping-cart color-blue"></em>
-							<div class="large">120</div>
+							<div class="large"><span id="orderCount"></span></div>
 							<div class="text-muted">총 주문</div>
 						</div>
 					</div>
@@ -115,7 +115,7 @@
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-orange panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
-							<div class="large">24</div>
+							<div class="large"><span id="saleCount"></span></div>
 							<div class="text-muted">총 구입금액</div>
 						</div>
 					</div>
@@ -233,31 +233,10 @@
 						</ul>
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
-						<ul>
-							<li class="left clearfix"><span class="chat-img pull-left">
-								<img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
-								</span>
-								<div class="chat-body clearfix">
-									<div class="header"><strong class="primary-font">John Doe</strong> <small class="text-muted">32 mins ago</small></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante turpis, rutrum ut ullamcorper sed, dapibus ac nunc.</p>
-								</div>
-							</li>
-							<li class="right clearfix"><span class="chat-img pull-right">
-								<img src="http://placehold.it/60/dde0e6/5f6468" alt="User Avatar" class="img-circle" />
-								</span>
-								<div class="chat-body clearfix">
-									<div class="header"><strong class="pull-left primary-font">Jane Doe</strong> <small class="text-muted">6 mins ago</small></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante turpis, rutrum ut ullamcorper sed, dapibus ac nunc.</p>
-								</div>
-							</li>
-							<li class="left clearfix"><span class="chat-img pull-left">
-								<img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
-								</span>
-								<div class="chat-body clearfix">
-									<div class="header"><strong class="primary-font">John Doe</strong> <small class="text-muted">32 mins ago</small></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante turpis, rutrum ut ullamcorper sed, dapibus ac nunc.</p>
-								</div>
-							</li>
+						<ul id="devLog">
+						
+							
+							
 						</ul>
 					</div>
 					<div class="panel-footer">
@@ -471,14 +450,60 @@
 			url:"adminUserCount.giv",
 			type:"post",
 			success:function(data){
-				$("#userCount").text(data);
+				$("#userCount").text(data+"명");
 			}
 		});
 		
 	}
+	function updateSaleCount(){
+		$.ajax({
+			url:"countSale.giv",
+			type:"post",
+			success:function(data){
+				$("#saleCount").text(data +"원");
+			}
+		});
+		
+	}
+	function updatOrderCount(){
+		$.ajax({
+			url:"countOrder.giv",
+			type:"post",
+			success:function(data){
+				$("#orderCount").text(data +"번");
+			}
+		});
+		
+	}
+	/* <li class="left clearfix"><span class="chat-img pull-left">
+	<img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
+	</span>
+	<div class="chat-body clearfix">
+		<div class="header"><strong class="primary-font">John Doe</strong> <small class="text-muted">32 mins ago</small></div>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante turpis, rutrum ut ullamcorper sed, dapibus ac nunc.</p>
+	</div>
+</li> */
+	function updateDevLog(){
+	$.ajax({
+		url:"selectDevLog.giv",
+		type:"post",
+		success:function(data){
+			$('#devLog').empty();
+			var list = data.devLog;
+			for(var i=0;i<data.devLog.length;i++){
+				$('#devLog').append('<li class="left clearfix"><span class="chat-img pull-left"><img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" /></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+data.id[i]+'</strong> <small class="text-muted">'+data.devLog[i].log_date+'</small></div><p>'+ data.devLog[i].log_detail  +'</p></div></li>')
+			}
+		}
+	});
+	
+}
+	
+	
 	
 	setInterval(updateUserCount,2000);
-	
+	setInterval(updateSaleCount,2000);
+	setInterval(updatOrderCount,2000);
+	setInterval(updateDevLog,5000);
 	
 };
 	</script>

@@ -1,5 +1,10 @@
 package com.project.givengel.vo;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class GoodVO {
 	private int good_no;
 	private String good_name;
@@ -9,12 +14,41 @@ public class GoodVO {
 	private int good_stock;
 	private String good_detail;
 	private String good_img;
-	private int good_img_size;
+	private long good_img_size;
 	private String good_date;
 	private int spon_no;
 	
+	MultipartFile file;
 	
-	public int getGood_img_size() {
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+		
+		// 업로드 파일 접근
+		if(! file.isEmpty()){
+			this.good_img = file.getOriginalFilename();
+			this.good_img_size = file.getSize();
+			
+			//***********************************************
+			// 해당 경로로 변경
+			File f = new File("src\\main\\webapp\\resources\\img\\good\\"+good_img);
+			
+			try {
+				file.transferTo(f);
+				
+			} catch (IllegalStateException e) {				
+				e.printStackTrace();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	public long getGood_img_size() {
 		return good_img_size;
 	}
 	public void setGood_img_size(int good_img_size) {

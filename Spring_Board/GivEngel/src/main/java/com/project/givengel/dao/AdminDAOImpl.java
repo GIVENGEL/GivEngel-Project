@@ -1,10 +1,14 @@
 package com.project.givengel.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.givengel.vo.AdminVO;
+import com.project.givengel.vo.GoodVO;
+import com.project.givengel.vo.SponVO;
 import com.project.givengel.vo.UserVO;
 
 @Repository("adminDAO")
@@ -27,6 +31,18 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int userCount() {
 		return mybatis.selectOne("AdminDAO.userCount");
+	}
+
+	@Override
+	public List<GoodVO> selectGood() {
+
+		return mybatis.selectList("AdminDAO.selectGood");
+	}
+
+	@Override
+	public List<SponVO> selectSpon() {
+		
+		return mybatis.selectList("AdminDAO.selectSpon");
 	}
 
 	

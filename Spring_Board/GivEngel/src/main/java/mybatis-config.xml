@@ -9,6 +9,8 @@
 		<typeAlias alias="userVO" type="com.project.givengel.vo.UserVO" />		
 		<typeAlias alias="adminVO" type="com.project.givengel.vo.AdminVO" />	
 		<typeAlias alias="logVO" type="com.project.givengel.vo.LogVO" />	
+		<typeAlias alias="goodVO" type="com.project.givengel.vo.GoodVO" />	
+		<typeAlias alias="sponVO" type="com.project.givengel.vo.SponVO" />	
 	</typeAliases>
 	
 

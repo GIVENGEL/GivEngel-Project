@@ -92,7 +92,7 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">상품 등록</h1>
+				<h1>상품 등록</h1>
 			</div>
 		</div>
 		<!--/.row-->
@@ -103,151 +103,93 @@
 
 				<h2>최근 등록된 상품</h2>
 			</div>
+			<div id="goodDiv">
 			
-			<div class="col-md-3">
-				<div class="panel panel-success">
-					<div class="panel-heading">[상품명]</div>
-					<div class="panel-body">
-						<p>[상품 디테일]</p>
-					</div>
-				</div>
 			</div>
-			<div class="col-md-3">
-				<div class="panel panel-success">
-					<div class="panel-heading">[상품명]</div>
-					<div class="panel-body">
-						<p>[상품 디테일]</p>
+			<!-- /.row -->
+
+
+			<div class="panel panel-default">
+				
+				<div class="panel-body">
+					<div class="col-md-6">
+						<form role="form" action="/adminInsertGood.giv" method="post" enctype="multipart/form-data">
+							<div class="form-group">
+								<label>상품명</label> <input  name="good_name" class="form-control" placeholder="상품명">
+							
+							</div>
+							<div class="form-group">
+								<label>상품가격</label> <input name="good_price" type="number" class="form-control"
+									placeholder="상품 가격">
+							</div>
+							<div class="form-group">
+								<label>상품재고</label> <input name="good_stock" type="number" class="form-control"
+									placeholder="상품 재고">
+							</div>
+							<div class="form-group">
+								<label>등록 관리자</label> <input type="text"
+									value="${sessionScope.admin.admin_id }" class="form-control"
+									disabled>
+							</div>
+
+							<div class="form-group">
+								<label>파일 이미지</label> <input name="good_img" type="file">
+								<p class="help-block">상품을 대표하는 이미지를 넣어주세요.</p>
+							</div>
+							<div class="form-group">
+								<label>상품 설명</label>
+								<textarea name="good_detail" class="form-control" rows="3"></textarea>
+							</div>
+							<label>상품 태그 입력</label>
+							<div class="form-group has-success">
+								<input class="form-control" placeholder="#태그특징">
+							</div>
 					</div>
-				</div>
-			</div><div class="col-md-3">
-				<div class="panel panel-success">
-					<div class="panel-heading">[상품명]</div>
-					<div class="panel-body">
-						<p>[상품 디테일]</p>
+					<div class="col-md-6">
+						<div class="form-group"></div>
+						<div class="form-group">
+							<label>상품 카테고리</label>
+							<div class="radio">
+								<label> <input type="radio" name="good_tag"
+									id="optionsRadios1" value="#ACC" checked>ACC
+								</label>
+							</div>
+							<div class="radio">
+								<label> <input type="radio" name="good_tag"
+									id="optionsRadios2" value="#TOP">TOP
+								</label>
+							</div>
+							<div class="radio">
+								<label> <input type="radio" name="good_tag"
+									id="optionsRadios3" value="#BOTTOM">BOTTOM
+								</label>
+							</div>
+							<div class="radio">
+								<label> <input type="radio" name="good_tag"
+									id="optionsRadios3" value="#BAG">BAG
+								</label>
+							</div>
+							<div class="radio">
+								<label> <input type="radio" name="good_tag"
+									id="optionsRadios3" value="#SHOES">SHOES
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>후원단체 등록</label> <select name="spon_no" class="form-control" id="selectSpon">
+								<option value=-1>none</option>
+								
+							</select>
+						</div>
+						
+						<button type="submit" class="btn btn-primary">상품 등록하기</button>
+						<button type="reset" class="btn btn-default">양식 초기화</button>
 					</div>
-				</div>
-			</div><div class="col-md-3">
-				<div class="panel panel-success">
-					<div class="panel-heading">[상품명]</div>
-					<div class="panel-body">
-						<p>[상품 디테일]</p>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>
-		<!-- /.row -->
-
-
-		<div class="panel panel-default">
-			<div class="panel-heading">Forms</div>
-			<div class="panel-body">
-				<div class="col-md-6">
-					<form role="form">
-						<div class="form-group">
-							<label>Text Input</label> <input class="form-control"
-								placeholder="Placeholder">
-						</div>
-						<div class="form-group">
-							<label>Password</label> <input type="password"
-								class="form-control">
-						</div>
-						<div class="form-group checkbox">
-							<label> <input type="checkbox">Remember me
-							</label>
-						</div>
-						<div class="form-group">
-							<label>File input</label> <input type="file">
-							<p class="help-block">Example block-level help text here.</p>
-						</div>
-						<div class="form-group">
-							<label>Text area</label>
-							<textarea class="form-control" rows="3"></textarea>
-						</div>
-						<label>Validation</label>
-						<div class="form-group has-success">
-							<input class="form-control" placeholder="Success">
-						</div>
-						<div class="form-group has-warning">
-							<input class="form-control" placeholder="Warning">
-						</div>
-						<div class="form-group has-error">
-							<input class="form-control" placeholder="Error">
-						</div>
-				</div>
-				<div class="col-md-6">
-					<div class="form-group">
-						<label>Checkboxes</label>
-						<div class="checkbox">
-							<label> <input type="checkbox" value="">Checkbox
-								1
-							</label>
-						</div>
-						<div class="checkbox">
-							<label> <input type="checkbox" value="">Checkbox
-								2
-							</label>
-						</div>
-						<div class="checkbox">
-							<label> <input type="checkbox" value="">Checkbox
-								3
-							</label>
-						</div>
-						<div class="checkbox">
-							<label> <input type="checkbox" value="">Checkbox
-								4
-							</label>
-						</div>
-					</div>
-					<div class="form-group">
-						<label>Radio Buttons</label>
-						<div class="radio">
-							<label> <input type="radio" name="optionsRadios"
-								id="optionsRadios1" value="option1" checked>Radio Button
-								1
-							</label>
-						</div>
-						<div class="radio">
-							<label> <input type="radio" name="optionsRadios"
-								id="optionsRadios2" value="option2">Radio Button 2
-							</label>
-						</div>
-						<div class="radio">
-							<label> <input type="radio" name="optionsRadios"
-								id="optionsRadios3" value="option3">Radio Button 3
-							</label>
-						</div>
-						<div class="radio">
-							<label> <input type="radio" name="optionsRadios"
-								id="optionsRadios3" value="option3">Radio Button 4
-							</label>
-						</div>
-					</div>
-					<div class="form-group">
-						<label>Selects</label> <select class="form-control">
-							<option>Option 1</option>
-							<option>Option 2</option>
-							<option>Option 3</option>
-							<option>Option 4</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label>Multiple Selects</label> <select multiple
-							class="form-control">
-							<option>Option 1</option>
-							<option>Option 2</option>
-							<option>Option 3</option>
-							<option>Option 4</option>
-						</select>
-					</div>
-					<button type="submit" class="btn btn-primary">Submit
-						Button</button>
-					<button type="reset" class="btn btn-default">Reset Button</button>
-				</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!-- /.panel-->
+		<!-- /.panel-->
 	</div>
 	<!-- /.col-->
 	<div class="col-sm-12">
@@ -268,6 +210,56 @@
 	<script src="${path}/resources/js/admin/easypiechart-data.js"></script>
 	<script src="${path}/resources/js/admin/bootstrap-datepicker.js"></script>
 	<script src="${path}/resources/js/admin/custom.js"></script>
+	<script>
+		window.onload = function() {
 
+			/* <div class="col-md-3">
+			<div class="panel panel-success">
+				<div class="panel-heading">[상품명]</div>
+				<div class="panel-body">
+					<p>[상품 디테일]</p>
+				</div>
+			</div>
+			</div> */
+			$.ajax({
+				url : "adminSelectSpon.giv",
+				type : "post",
+				success : function(data) {
+					var list = data.list;
+					$("#selectSpon").append("<option>none</option>")
+
+					$("#selectSpon").empty();
+					for(var i=0;i<list.length;i++){
+						$("#selectSpon").append("<option value="+data.list[i].spon_no+">"+data.list[i].spon_name+"</option>")
+						
+				
+					}
+					
+				}
+			});
+			
+
+			alert("개발 시작");
+
+			function updateGood() {
+				$.ajax({
+					url : "adminSelectGood.giv",
+					type : "post",
+					success : function(data) {
+						var list = data.list;
+
+						$("#goodDiv").empty();
+						for(var i=0;i<4;i++){
+							$("#goodDiv").append('<div class="col-md-3"><div class="panel panel-success"><div class="panel-heading">'+data.list[i].good_name+'</div><div class="panel-body"><p>'+data.list[i].good_detail+'</p></div></div></div>')
+						}
+						
+					}
+				});
+
+			}
+
+			setInterval(updateGood, 2000);
+		}
+	</script>
 </body>
 </html>

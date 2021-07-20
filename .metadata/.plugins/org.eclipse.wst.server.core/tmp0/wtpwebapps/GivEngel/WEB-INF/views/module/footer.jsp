@@ -51,12 +51,7 @@
                             <input type="text" placeholder="Enter your Message">
                             <button type="submit" class="site-btn">메시지 보내기</button>
                         </form>
-                        <div class="footer__widget__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div>
+                        <a href="adminLogin.giv" class="btn btn-primary">개발자 모드</a>
                     </div>
                 </div>
             </div>
