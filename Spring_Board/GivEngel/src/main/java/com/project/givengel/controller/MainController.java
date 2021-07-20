@@ -39,10 +39,7 @@ public class MainController {
 	public void loginForm() {
 		
 	}
-	@RequestMapping("/sponsorList.giv")
-	public void sponsorList() {
-		
-	}
+
 	@RequestMapping("/buyForm.giv")
 	public void buyForm() {
 		
