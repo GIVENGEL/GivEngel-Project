@@ -32,13 +32,13 @@
                 <li><a href="index.giv">Home</a></li>
                 <li><hr></li>
 					<li><a href="buyList.giv">Products</a>
-					<ul class="header__menu__dropdown">
-							<li><a href="./shop-details.html">ALL</a></li>
-							<li><a href="./shoping-cart.html">TOP</a></li>
-							<li><a href="./checkout.html">BOTTOM</a></li>
-							<li><a href="./blog-details.html">BAG</a></li>
-							<li><a href="./blog-details.html">ACC</a></li>
-							<li><a href="./blog-details.html">SHOES</a></li>
+					<ul class="header__menu__dropdown" id='categories'>
+							<li><a href="#">전체 상품</a></li>
+                            <li><a href="#">TOP</a></li>
+                            <li><a href="#">BOTTOM</a></li>
+                            <li><a href="#">BAG</a></li>
+                            <li><a href="#">ACC</a></li>
+                            <li><a href="#">CAMPAIGN</a></li>
 							<li><hr></li>
 						</ul></li>
 					<li><a href="campaign.giv">Campaign</a></li>
@@ -102,12 +102,14 @@
 					<li><a href="index.giv">Home</a></li>
 					
 					<li><a href="buyList.giv">Products</a>
-					<ul class="header__menu__dropdown">
-							<li><a href="./shoping-cart.html">TOP</a></li>
-							<li><a href="./checkout.html">BOTTOM</a></li>
-							<li><a href="./blog-details.html">BAG</a></li>
-							<li><a href="./blog-details.html">ACC</a></li>
-							<li><a href="./blog-details.html">SHOES</a></li>
+					<ul class="header__menu__dropdown" id='categories'>
+							<li><a href="#">전체 상품</a></li>
+                            <li><a href="#">TOP</a></li>
+                            <li><a href="#">BOTTOM</a></li>
+                            <li><a href="#">BAG</a></li>
+                            <li><a href="#">ACC</a></li>
+                            <li><a href="#">CAMPAIGN</a></li>
+							<li><hr></li>
 						</ul></li>
 					<li><a href="campaign.giv">Campaign</a></li>
 					<li><a href="sponsorList.giv">Sponsor</a></li>
@@ -171,13 +173,13 @@
                 <li ><a href="index.giv">Home</a></li>
                 <li><hr></li>
 					<li><a href="buyList.giv">Products</a>
-					<ul class="header__menu__dropdown">
-							<li><a href="./shop-details.html">ALL</a></li>
-							<li><a href="./shoping-cart.html">TOP</a></li>
-							<li><a href="./checkout.html">BOTTOM</a></li>
-							<li><a href="./blog-details.html">BAG</a></li>
-							<li><a href="./blog-details.html">ACC</a></li>
-							<li><a href="./blog-details.html">SHOES</a></li>
+					<ul class="header__menu__dropdown" id='categories'>
+							<li><a href="#">전체 상품</a></li>
+							  <li><a href="#">TOP</a></li>
+                                <li><a href="#">BOTTOM</a></li>
+                                <li><a href="#">ACC</a></li>
+                                <li><a href="#">BAG</a></li>
+                                <li><a href="#">CAMPAIGN</a></li>
 							<li><hr></li>
 						</ul></li>
 					<li><a href="campaign.giv">Campaign</a></li>
@@ -245,12 +247,12 @@
 					<li><a href="index.giv">Home</a></li>
 					
 					<li><a href="buyList.giv">Products</a>
-					<ul class="header__menu__dropdown">
-							<li><a href="./shoping-cart.html">TOP</a></li>
-							<li><a href="./checkout.html">BOTTOM</a></li>
-							<li><a href="./blog-details.html">BAG</a></li>
-							<li><a href="./blog-details.html">ACC</a></li>
-							<li><a href="./blog-details.html">SHOES</a></li>
+					<ul class="header__menu__dropdown" id='categories'>
+							 <li><a href="#">TOP</a></li>
+                                <li><a href="#">BOTTOM</a></li>
+                                <li><a href="#">ACC</a></li>
+                                <li><a href="#">BAG</a></li>
+                                <li><a href="#">CAMPAIGN</a></li>
 						</ul></li>
 					<li><a href="campaign.giv">Campaign</a></li>
 					<li><a href="sponsorList.giv">Sponsor</a></li>

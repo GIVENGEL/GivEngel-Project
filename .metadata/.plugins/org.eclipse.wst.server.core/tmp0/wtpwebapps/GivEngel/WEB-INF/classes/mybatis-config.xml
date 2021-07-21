@@ -28,7 +28,8 @@
 			type="com.project.givengel.vo.AdminVO" />
 		<typeAlias alias="logVO"
 			type="com.project.givengel.vo.LogVO" />
-
+		<typeAlias alias="LikeToVO"
+			type="com.project.givengel.vo.LikeToVO" />
 		<typeAlias alias="spon_comVO"
 			type="com.project.givengel.vo.Spon_comVO" />
 	</typeAliases>

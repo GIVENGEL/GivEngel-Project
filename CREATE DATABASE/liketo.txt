@@ -1,0 +1,5 @@
+    liketo
+    like_no(좋아요 번호) 	int 	pk 		auto_increment
+    user_no(유저번호)	int         not null		
+    good_no(상품번호)	int         not null
+    like_cnt(좋아요개수)	int 	not null		default 0

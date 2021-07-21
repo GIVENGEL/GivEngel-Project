@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GoodDAO">
+<!-- ********************** -->
+<!-- 김민주 -->
+<!-- 카테고리에 따른 전체 상품리스트 가져오는 쿼리문-->
+	<select id='getGoodList' resultType="hashmap" parameterType="hashmap">
+		SELECT 
+		g.good_no, g.good_name, g.good_price, g.good_tag, g.good_like, g.good_detail, g.good_img,      
+		l.like_check,    
+		c.user_no,c.cart_count     		
+		FROM good AS g          
+		LEFT JOIN liketo AS l     
+		ON g.good_no = l.good_no    
+		LEFT JOIN cart AS c     
+		ON l.good_no = c.good_no         
+		<where>
+			<if test="categories != null">
+				<!-- where content LIKE '%내가 쓴 검색어%' -->
+				good_tag LIKE '%${categories}%'
+			</if>
+			<if test="color != null">
+				good_tag LIKE '%${color}%'
+			</if>
+		</where>
+		<choose>
+			<when test="sorting != null">
+				ORDER BY good_price ${sorting}
+			</when>
+			<otherwise>		
+				ORDER BY good_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 최신상품 가져오는 쿼리문1 date 순 -->
+	<select id='getlatestGood1' resultType="hashmap">
+		SELECT 
+		g.good_no,g.good_name,g.good_price,g.good_tag,g.good_like,g.good_detail,g.good_img,
+		l.like_check,
+		c.user_no, c.cart_count
+		FROM good AS g 
+		LEFT JOIN liketo AS l
+		ON g.good_no = l.good_no
+		LEFT JOIN cart AS c
+		ON l.good_no = c.good_no
+		ORDER BY good_date LIMIT 0,3
+	</select>
+	<!-- 최신상품 가져오는 쿼리문2 date 순 -->
+	<select id='getlatestGood2' resultType="hashmap">
+		SELECT 
+		g.good_no,g.good_name,g.good_price,g.good_tag,g.good_like,g.good_detail,g.good_img,
+		l.like_check,
+		c.user_no, c.cart_count
+		FROM good AS g 
+		LEFT JOIN liketo AS l
+		ON g.good_no = l.good_no
+		LEFT JOIN cart AS c
+		ON l.good_no = c.good_no
+		ORDER BY good_date LIMIT 3,3
+	</select>
+	<!-- 최신상품 가져오는 쿼리문3 date 순 -->
+	<select id='getlatestGood3' resultType="hashmap">
+		SELECT 
+		g.good_no,g.good_name,g.good_price,g.good_tag,g.good_like,g.good_detail,g.good_img,
+		l.like_check,
+		c.user_no, c.cart_count
+		FROM good AS g 
+		LEFT JOIN liketo AS l
+		ON g.good_no = l.good_no
+		LEFT JOIN cart AS c
+		ON l.good_no = c.good_no
+		ORDER BY good_date LIMIT 6,3
+	</select>
+	
+	
+	<!-- 인기상품  고정! -->
+	<select id='getPopularGoodList' resultType="hashmap" parameterType="hashmap">
+		SELECT 
+		g.good_no, g.good_name, g.good_price, g.good_tag, g.good_like, g.good_detail, g.good_img,      
+		l.like_check,    
+		c.user_no,c.cart_count     		
+		FROM good AS g          
+		LEFT JOIN liketo AS l     
+		ON g.good_no = l.good_no    
+		LEFT JOIN cart AS c     
+		ON l.good_no = c.good_no         
+		<where>
+			<if test="categories != null">
+				<!-- where content LIKE '%내가 쓴 검색어%' -->
+				good_tag LIKE '%${categories}%'
+			</if>
+			<if test="color != null">
+				good_tag LIKE '%${color}%'
+			</if>
+		</where>
+		ORDER BY good_like LIMIT 0,9
+	</select>
+	
+	<!-- 좋아요 테이블 가져옴 -->
+	<select id="getGoodLike" resultType="LikeToVO">
+		SELECT * FROM liketo
+	</select>
+	
+
+
+</mapper>
