@@ -192,7 +192,7 @@
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						하반기 구글폼 설문조사 결과
+						하반기 구글폼 설문조사 결과 [최근 기부 경험이 있는가?]
 						<ul class="pull-right panel-settings panel-button-tab-right">
 							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
 								<em class="fa fa-cogs"></em>
@@ -227,7 +227,7 @@
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						하반기 구글폼 조사결과2
+						하반기 구글폼 설문조사 결과 [후원금 이용 만족도가 높은가?]
 						<ul class="pull-right panel-settings panel-button-tab-right">
 							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
 								<em class="fa fa-cogs"></em>

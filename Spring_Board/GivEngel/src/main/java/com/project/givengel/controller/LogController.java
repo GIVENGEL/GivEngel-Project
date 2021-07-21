@@ -25,44 +25,71 @@ public class LogController {
 	@Autowired
 	private LogService logService;
 
+	
+	/*****************************************************
+	 * 함수명 			: 	countSale
+	 * 
+	 * 함수 기능 		:	1. 로그 기록을 통해 총 판매액을 문자열로 반환
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	logService
+	 * 마지막 수정		:	2021-07-21
+	 *****************************************************/
 	@RequestMapping("/countSale.giv")
 	@ResponseBody
 	public String countSale() {
-
 		List<LogVO> list = logService.selectLog();
 		int result = 0;
 		for(int i=0;i<list.size();i++ ) {
 			if(list.get(i).getLog_detail().contains("SALE"))
 			{
-				
 				String[] temp = list.get(i).getLog_detail().split("#");
 				result += Integer.parseInt(temp[3]);
-				
 			}
 		}
 		return Integer.toString(result);
 	}
 	
+	
+	
+	
+	/*****************************************************
+	 * 함수명 			: 	countOrder
+	 * 
+	 * 함수 기능 		:	1. 로그 기록을 통해 총 판매수 문자열로 반환
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	logService
+	 * 마지막 수정		:	2021-07-21
+	 *****************************************************/
 	@RequestMapping("/countOrder.giv")
 	@ResponseBody
 	public String countOrder() {
-
 		List<LogVO> list = logService.selectLog();
 		int result = 0;
 		for(int i=0;i<list.size();i++ ) {
 			if(list.get(i).getLog_detail().contains("SALE"))
 			{
-				
 				result++;
 			}
 		}
 		return Integer.toString(result);
 	}
 
+	
+	
+	/*****************************************************
+	 * 함수명 			: 	selectDevLog
+	 * 
+	 * 함수 기능 		:	1. 개발자와 관련된 로그 리스트를 맵에 담아 반환
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	logService
+	 * 마지막 수정		:	2021-07-21
+	 *****************************************************/
 	@RequestMapping(value="/selectDevLog.giv",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> selectDevLog() {
-
 		List<LogVO> list = logService.selectLog();
 		List<LogVO> temp = new ArrayList<LogVO>();
 		List<String> ids = new ArrayList<String>();
@@ -73,7 +100,6 @@ public class LogController {
 				
 				ids.add(id[1]);
 				temp.add(list.get(i));
-				
 			}
 		}
 		 Map<String,Object> map = new HashMap<String,Object>();

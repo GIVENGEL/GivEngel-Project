@@ -18,6 +18,7 @@
 	<select id="selectGood" resultType="goodVO">
 		SELECT * 
 		  FROM good  
+		  ORDER BY good_no desc
 	</select>
 	
 	<select id="selectSpon" resultType="sponVO">

@@ -31,7 +31,7 @@ public class GoodVO {
 	public void setFile(MultipartFile file,String root) {
 		
 		this.file = file;
-		
+		System.out.println(System.getProperty("user.dir"));
 		// 업로드 파일 접근
 		if(! file.isEmpty()){
 			this.good_img = file.getOriginalFilename();
@@ -40,11 +40,15 @@ public class GoodVO {
 			//***********************************************
 			// 해당 경로로 변경
 			
-			File f = new File(root+good_img);
+			File f2 = new File("C:\\Users\\kosmo_\\Documents\\GitHub\\GivEngel-Project\\Spring_Board\\GivEngel\\src\\main\\webapp\\resources\\img\\good",good_img); 
+			/* File f = new File(root+good_img); */
+			
 			System.out.println(root+good_img);
 			System.out.println(good_img_size);
 			try {
-				file.transferTo(f);
+				 file.transferTo(f2); 
+				/* file.transferTo(f); */
+				
 				System.out.println("위치전환 성공");
 				
 			} catch (IllegalStateException e) {				

@@ -50,56 +50,45 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 
 	var pieData = [
 			{
-				value: 300,
+				value: 44,
 				color:"#30a5ff",
 				highlight: "#62b9fb",
-				label: "Blue"
+				label: "기부경험 있다"
 			},
 			{
 				value: 50,
 				color: "#ffb53e",
-				highlight: "#fac878",
-				label: "Orange"
-			},
-			{
-				value: 100,
-				color: "#1ebfae",
-				highlight: "#3cdfce",
-				label: "Teal"
-			},
-			{
-				value: 120,
-				color: "#f9243f",
 				highlight: "#f6495f",
-				label: "Red"
+				label: "기부경험 없다"
 			}
+			
 
 		];
 			
 	var doughnutData = [
 				{
-					value: 300,
+					value: 6,
 					color:"#30a5ff",
 					highlight: "#62b9fb",
-					label: "Blue"
+					label: "매우 그렇다"
 				},
 				{
-					value: 50,
+					value: 33,
 					color: "#ffb53e",
 					highlight: "#fac878",
-					label: "Orange"
+					label: "그렇다"
 				},
 				{
-					value: 100,
+					value: 40,
 					color: "#1ebfae",
 					highlight: "#3cdfce",
-					label: "Teal"
+					label: "보통이다"
 				},
 				{
-					value: 120,
+					value: 20,
 					color: "#f9243f",
 					highlight: "#f6495f",
-					label: "Red"
+					label: "아닌것 같다"
 				}
 
 			];

@@ -114,7 +114,7 @@
 				<div class="panel-body">
 				<form  action="adminInsertGood.giv" method="post" enctype="multipart/form-data">
 					<div class="col-md-6">
-						
+						<input  name="url" class="form-control" value="${path }"  type="hidden">
 							<div class="form-group">
 								<label>상품명</label> <input  name="good_name" class="form-control" placeholder="상품명">
 							
@@ -128,7 +128,7 @@
 									placeholder="상품 재고">
 							</div>
 							<div class="form-group">
-								<label>등록 관리자</label> <input type="text"
+								<label>등록 관리자</label> <input type="text" name="admin"
 									value="${sessionScope.admin.admin_id }" class="form-control"
 									disabled>
 							</div>

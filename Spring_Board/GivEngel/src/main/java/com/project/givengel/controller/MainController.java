@@ -40,8 +40,6 @@ public class MainController {
 		
 	}
 
-
-
 	@RequestMapping("/myPage.giv")
 	public void myPage() {
 		

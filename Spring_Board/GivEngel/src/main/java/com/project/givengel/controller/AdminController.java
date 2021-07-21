@@ -37,11 +37,19 @@ public class AdminController {
 	private LogService logService;
 	
 	
-	// 어드민 로그인 액션 /////////////////////////
+	/*****************************************************
+	 * 함수명 			: 	adminLoginAction
+	 * 
+	 * 함수 기능 		:	1. 개발자 로그인 성공 시 세션 속성 저장
+	 * 					2. 개발자 로그인 실패/성공에 따른 화면 전환
+	 * 					3. 개발자 로그인 시 DB에 로그인 기록 저장
+	 * 
+	 * 사용된 함수 		:	insertAdminLoginLog
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-21
+	 *****************************************************/
 	@RequestMapping(value="/adminLoginAction.giv",method = RequestMethod.POST)
 	public String adminLoginAction(AdminVO vo,HttpServletRequest req, RedirectAttributes rttr) {
-		
-		
 		HttpSession session = req.getSession();
 		AdminVO login = adminService.login(vo);
 		System.out.println("[AdminLoginAction] 파라미터 체크 : " + vo.getAdmin_id());
@@ -57,64 +65,95 @@ public class AdminController {
 			insertAdminLoginLog(vo);
 			return "redirect:adminMode.giv";
 		}
-		
-		
 	}
-	// end /////////////////////////////////
 	
 	
-	// [Log] 어드민 로그인 로드 추가함수
+	/*****************************************************
+	 * 함수명 			: 	insertAdminLoginLog
+	 * 
+	 * 함수 기능 		:	1. 개발자 로그인 시 DB에 로그인 기록 저장
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	logService
+	 * 마지막 수정		:	2021-07-21
+	 *****************************************************/
 	@RequestMapping("/insertAdminLoginLog.giv")
 	@ResponseBody
 	public void insertAdminLoginLog(AdminVO adminvo) {
-		
 		LogVO logvo = new LogVO();
 		logvo.setLog_detail("[ADMIN_LOGIN]#"+adminvo.getAdmin_id());
 		logService.insertLog(logvo);
-		
 	}
-	// end ////////////////////////////////
+
 	
 	
 	
-	// 어드민 로그아웃 액션	///////////////////////
+	/*****************************************************
+	 * 함수명 			: 	adminLogOutAction
+	 * 
+	 * 함수 기능 		:	1. 개발자 로그아웃 시 세션  초기화
+	 * 					2. 개발자 로그아웃 시 DB에 로그아웃 기록 저장
+	 * 
+	 * 사용된 함수 		:	insertAdminLogoutLog
+	 * 사용된 서비스 	:	-
+	 * 마지막 수정		:	2021-07-21
+	 *****************************************************/
 	@RequestMapping(value = "/adminlogoutAction.giv", method = RequestMethod.GET)
 	public String adminlogoutAction(HttpSession session) throws Exception{
 		AdminVO vo = new AdminVO();
 		vo = (AdminVO)session.getAttribute("admin");
 		insertAdminLogoutLog(vo);
 		session.invalidate();
-		
 		return "/index";
 	}
-	///////////////////////////////////////////
 	
-	// [Log] 어드민 로그아웃 로드 추가 함수
+	
+	/*****************************************************
+	 * 함수명 			: 	insertAdminLogoutLog
+	 * 
+	 * 함수 기능 		:	1. 개발자 로그아웃 시 DB에 로그아웃 기록 저장
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	logService
+	 * 마지막 수정		:	2021-07-21
+	 *****************************************************/
 	@RequestMapping("/insertAdminLogoutLog.giv")
 	@ResponseBody
 	public void insertAdminLogoutLog(AdminVO adminvo) {
-		
 		LogVO logvo = new LogVO();
 		logvo.setLog_detail("[ADMIN_LOGOUT]#"+adminvo.getAdmin_id());
 		logService.insertLog(logvo);
 		
 	}
-	////////////////////////////////////////////
 	
 	
-	
-	// 유저 사용자 수 출력 함수 //////////////////////
+	/*****************************************************
+	 * 함수명 			: 	adminUserCount
+	 * 
+	 * 함수 기능 		:	1. 가입된 유저의 수를 문자형으로 반환
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-21
+	 *****************************************************/
 	@RequestMapping("/adminUserCount.giv")
 	@ResponseBody
 	public String adminUserCount() {
 		int result = adminService.userCount();
-		
 		return Integer.toString(result) ;
 	}
-	///////////////////////////////////////////
 	
 	
-	// 상품 전체 리스트 출력 함수 //////////////////////////
+	
+	/*****************************************************
+	 * 함수명 			: 	adminSelectGood
+	 * 
+	 * 함수 기능 		:	1. 상품 리스트 중 4개를 맵으로 반환
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-21
+	 *****************************************************/
 	@RequestMapping("/adminSelectGood.giv")
 	@ResponseBody
 	public Map<String,Object> adminSelectGood() {
@@ -127,7 +166,17 @@ public class AdminController {
 		map.put("list", temp);
 		return map;
 	}
-	////////////////////////////////////////////////
+
+
+	/*****************************************************
+	 * 함수명 			: 	adminSelectSpon
+	 * 
+	 * 함수 기능 		:	1. 후원단체 리스트 전체를 맵에 담아 반환
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-21
+	 *****************************************************/
 	@RequestMapping("/adminSelectSpon.giv")
 	@ResponseBody
 	public Map<String,Object> adminSelectSpon() {
@@ -141,39 +190,58 @@ public class AdminController {
 		return map;
 	}
 	
+	
+	/*****************************************************
+	 * 함수명 			: 	adminInsertGood
+	 * 
+	 * 함수 기능 		:	1. 상품의 정보를 받아 DB에 저장
+	 * 					2. 상품의 이미지 파일을 로컬/서버에 저장
+	 * 
+	 * 사용된 함수 		:	insertAdminGoodLog
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-21
+	 *****************************************************/
 	@RequestMapping(value="/adminInsertGood.giv",method = RequestMethod.POST)
-	public String adminInsertGood(GoodVO vo,String good_tags,MultipartHttpServletRequest request) throws IllegalStateException, IOException {
-		System.out.println("[adminInsertGood] 파라미터 보기 : " + vo.getGood_name() );
-		System.out.println("[adminInsertGood] 파라미터 보기 : " + vo.getGood_stock() );
-		
-		
+	public String adminInsertGood(GoodVO vo,String admin,String good_tags,String url,MultipartHttpServletRequest request) throws IllegalStateException, IOException {	
+		// 서버 경로 
 		HttpSession session = request.getSession();
 		String root_path = session.getServletContext().getRealPath("/");
 		String attach_path = "resources\\img\\good\\";
-		
 		String path =root_path+attach_path;
-		System.out.println(path);
 		MultipartFile files = request.getFile("file");
 		if(vo.getFile()==null) {
 			System.out.println("파일이 비어있습니다.");
-
-			System.out.println("에러 없음");
 			vo.setFile(files,path);
-			
 		}else {
 			vo.setFile(vo.getFile(),path);
-		}
-		
-		System.out.println("[adminInsertGood] 파라미터 보기 img: " + vo.getGood_img());
-		System.out.println("[adminInsertGood] 파라미터 보기 : " + vo.getGood_detail() );
-		System.out.println("[adminInsertGood] 파라미터 보기 : " + vo.getSpon_no() );
-		System.out.println("[adminInsertGood] 파라미터 보기 : " + good_tags );
+		}	
 		vo.setGood_tag(vo.getGood_tag()+good_tags);
-		System.out.println("[adminInsertGood] 파라미터 보기 : " + vo.getGood_tag() );
-
 		adminService.insertGood(vo);
-		
+		insertAdminGoodLog(vo,admin);
 		return "redirect:adminMode.giv";
+	}
+	
+	
+	
+	/*****************************************************
+	 * 함수명 			: 	insertAdminGoodLog
+	 * 
+	 * 함수 기능 		:	1. 개발자 상품 등록 시 DB에 상품 등록 기록 저장
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	logService
+	 * 마지막 수정		:	2021-07-21
+	 *****************************************************/
+	@RequestMapping("/insertAdminGoodLog.giv")
+	@ResponseBody
+	public void insertAdminGoodLog(GoodVO goodvo,String admin) {
+		LogVO logvo = new LogVO();
+		if(admin==null) {
+			admin="ERR";
+		}
+		logvo.setLog_detail("[ADMIN_INSERT_GOOD]#"+admin+"#"+goodvo.getGood_name());
+		logService.insertLog(logvo);
+		
 	}
 	
 	
