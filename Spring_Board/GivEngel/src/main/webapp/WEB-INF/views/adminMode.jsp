@@ -53,10 +53,10 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li class="active"><a href="adminMode.giv"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-			<li><a href="adminWidgets.giv"><em class="fa fa-calendar">&nbsp;</em> Widgets</a></li>
-			<li ><a href="adminCharts.giv"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
-			<li><a href="adminElements.giv"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>
+			<li class="active"><a href="adminMode.giv"><em class="fa fa-dashboard">&nbsp;</em> 누적통계</a></li>
+			<li><a href="adminWidgets.giv"><em class="fa fa-calendar">&nbsp;</em> 개발자보드</a></li>
+			<li ><a href="adminCharts.giv"><em class="fa fa-bar-chart">&nbsp;</em> 분석/통계</a></li>
+			<li><a href="adminElements.giv"><em class="fa fa-toggle-off">&nbsp;</em> 상품 추가</a></li>
 			<li><a href="adminPanels.giv"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 				<em class="fa fa-navicon">&nbsp;</em> Multilevel <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
@@ -73,10 +73,11 @@
 					</a></li>
 				</ul>
 			</li>
-			<li><a href="adminlogoutAction.giv"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li><a href="adminlogoutAction.giv"><em class="fa fa-power-off">&nbsp;</em> 로그아웃</a></li>
 		</ul>
 	</div>
 	<!--/.sidebar-->
+	<!-- ------------------------------------------------------------------------------------------------ -->
 		
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
@@ -442,8 +443,7 @@
 	scaleGridLineColor: "rgba(0,0,0,.05)",
 	scaleFontColor: "#c5c7cc"
 	});
-	
-	alert("개발 시작");
+
 
 	function updateUserCount(){
 		$.ajax({
@@ -491,6 +491,7 @@
 			$('#devLog').empty();
 			var list = data.devLog;
 			for(var i=0;i<data.devLog.length;i++){
+				
 				$('#devLog').append('<li class="left clearfix"><span class="chat-img pull-left"><img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" /></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+data.id[i]+'</strong> <small class="text-muted">'+data.devLog[i].log_date+'</small></div><p>'+ data.devLog[i].log_detail  +'</p></div></li>')
 			}
 		}

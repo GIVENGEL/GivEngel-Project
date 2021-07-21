@@ -21,14 +21,27 @@
 	<![endif]-->
 </head>
 <body>
+	<c:if test="${admin != null}">
+	
 	<jsp:include page="module/adminSidebar.jsp" />
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<div class="profile-sidebar">
 			<div class="profile-userpic">
-				<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
+			<c:if test="${admin.admin_level ==1 }">
+				<img src="${path}/resources/img/admin/lv1.png" class="img-responsive" alt="">
+			</c:if>
+			<c:if test="${admin.admin_level ==2 }">
+				<img src="${path}/resources/img/admin/lv2.png" class="img-responsive" alt="">
+			</c:if>
+			<c:if test="${admin.admin_level ==3 }">
+				<img src="${path}/resources/img/admin/lv3.png" class="img-responsive" alt="">
+			</c:if>
+			<c:if test="${admin.admin_level ==4 }">
+				<img src="${path}/resources/img/admin/lv4.png" class="img-responsive" alt="">
+			</c:if>
 			</div>
 			<div class="profile-usertitle">
-				<div class="profile-usertitle-name">Adminname</div>
+				<div class="profile-usertitle-name"> ${admin.admin_id}</div>
 				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
 			</div>
 			<div class="clear"></div>
@@ -40,10 +53,10 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li ><a href="adminMode.giv"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-			<li><a href="adminWidgets.giv"><em class="fa fa-calendar">&nbsp;</em> Widgets</a></li>
-			<li class="active"><a href="adminCharts.giv"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
-			<li><a href="adminElements.giv"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>
+			<li><a href="adminMode.giv"><em class="fa fa-dashboard">&nbsp;</em> 누적통계</a></li>
+			<li><a href="adminWidgets.giv"><em class="fa fa-calendar">&nbsp;</em> 개발자보드</a></li>
+			<li class="active"><a href="adminCharts.giv"><em class="fa fa-bar-chart">&nbsp;</em> 분석/통계</a></li>
+			<li><a href="adminElements.giv"><em class="fa fa-toggle-off">&nbsp;</em> 상품 추가</a></li>
 			<li><a href="adminPanels.giv"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 				<em class="fa fa-navicon">&nbsp;</em> Multilevel <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
@@ -60,10 +73,11 @@
 					</a></li>
 				</ul>
 			</li>
-			<li><a href="index.giv"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li><a href="adminlogoutAction.giv"><em class="fa fa-power-off">&nbsp;</em> 로그아웃</a></li>
 		</ul>
 	</div>
 	<!--/.sidebar-->
+	<!-- ---------------------------------------------------------------------------------------- -->
 		
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
@@ -387,5 +401,6 @@
 	});
 };
 	</script>	
+	</c:if>
 </body>
 </html>

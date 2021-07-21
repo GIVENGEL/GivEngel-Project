@@ -22,4 +22,6 @@
 <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
 <fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartHttpServletRequest"/>
 <fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartFile"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="com.project.givengel.service.AdminService"/>
 </qualifiedTypeNameHistroy>

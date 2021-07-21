@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.givengel.service.AdminService;
 import com.project.givengel.service.LogService;
 import com.project.givengel.service.LoginService;
 import com.project.givengel.vo.AdminVO;
@@ -24,6 +25,9 @@ public class LogController {
 	
 	@Autowired
 	private LogService logService;
+	
+	@Autowired
+	private AdminService adminService;
 
 	
 	/*****************************************************
