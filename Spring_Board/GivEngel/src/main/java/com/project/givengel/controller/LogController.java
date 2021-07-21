@@ -34,10 +34,10 @@ public class LogController {
 		for(int i=0;i<list.size();i++ ) {
 			if(list.get(i).getLog_detail().contains("SALE"))
 			{
-				System.out.println("[LogController] SALE 발견 : " + list.get(i).getLog_detail() );
+				
 				String[] temp = list.get(i).getLog_detail().split("#");
 				result += Integer.parseInt(temp[3]);
-				System.out.println("[LogController] price :" + temp[3]);
+				
 			}
 		}
 		return Integer.toString(result);
@@ -52,7 +52,7 @@ public class LogController {
 		for(int i=0;i<list.size();i++ ) {
 			if(list.get(i).getLog_detail().contains("SALE"))
 			{
-				System.out.println("[LogController] SALE 발견 : " + list.get(i).getLog_detail() );
+				
 				result++;
 			}
 		}

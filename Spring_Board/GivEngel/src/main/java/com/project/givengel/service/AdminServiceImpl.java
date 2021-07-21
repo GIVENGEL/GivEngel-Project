@@ -34,4 +34,10 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.selectSpon();
 	}
 
+	@Override
+	public void insertGood(GoodVO vo) {
+		adminDAO.insertGood(vo);
+		
+	}
+
 }

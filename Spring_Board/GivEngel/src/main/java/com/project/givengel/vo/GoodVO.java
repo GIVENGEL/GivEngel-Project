@@ -2,6 +2,11 @@ package com.project.givengel.vo;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,7 +28,8 @@ public class GoodVO {
 	public MultipartFile getFile() {
 		return file;
 	}
-	public void setFile(MultipartFile file) {
+	public void setFile(MultipartFile file,String root) {
+		
 		this.file = file;
 		
 		// 업로드 파일 접근
@@ -33,16 +39,21 @@ public class GoodVO {
 			
 			//***********************************************
 			// 해당 경로로 변경
-			File f = new File("src\\main\\webapp\\resources\\img\\good\\"+good_img);
 			
+			File f = new File(root+good_img);
+			System.out.println(root+good_img);
+			System.out.println(good_img_size);
 			try {
 				file.transferTo(f);
+				System.out.println("위치전환 성공");
 				
 			} catch (IllegalStateException e) {				
 				e.printStackTrace();
+				System.out.println("에러1");
 			} catch (IOException e) {
 				
 				e.printStackTrace();
+				System.out.println("에러2");
 			}
 		}
 	}

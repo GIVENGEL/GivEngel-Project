@@ -14,5 +14,7 @@ public interface AdminService {
 		public List<GoodVO> selectGood();
 		
 		public List<SponVO> selectSpon();
+		
+		public void insertGood(GoodVO vo);
 
 }

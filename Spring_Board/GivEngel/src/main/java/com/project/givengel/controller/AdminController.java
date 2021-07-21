@@ -1,5 +1,7 @@
 package com.project.givengel.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.givengel.service.AdminService;
@@ -33,7 +37,7 @@ public class AdminController {
 	private LogService logService;
 	
 	
-	// 로그인 세션 관리 /////////////////////////
+	// 어드민 로그인 액션 /////////////////////////
 	@RequestMapping(value="/adminLoginAction.giv",method = RequestMethod.POST)
 	public String adminLoginAction(AdminVO vo,HttpServletRequest req, RedirectAttributes rttr) {
 		
@@ -51,11 +55,15 @@ public class AdminController {
 
 			session.setAttribute("admin", login);
 			insertAdminLoginLog(vo);
-			return "/adminMode";
+			return "redirect:adminMode.giv";
 		}
 		
 		
 	}
+	// end /////////////////////////////////
+	
+	
+	// [Log] 어드민 로그인 로드 추가함수
 	@RequestMapping("/insertAdminLoginLog.giv")
 	@ResponseBody
 	public void insertAdminLoginLog(AdminVO adminvo) {
@@ -68,6 +76,8 @@ public class AdminController {
 	// end ////////////////////////////////
 	
 	
+	
+	// 어드민 로그아웃 액션	///////////////////////
 	@RequestMapping(value = "/adminlogoutAction.giv", method = RequestMethod.GET)
 	public String adminlogoutAction(HttpSession session) throws Exception{
 		AdminVO vo = new AdminVO();
@@ -77,7 +87,9 @@ public class AdminController {
 		
 		return "/index";
 	}
+	///////////////////////////////////////////
 	
+	// [Log] 어드민 로그아웃 로드 추가 함수
 	@RequestMapping("/insertAdminLogoutLog.giv")
 	@ResponseBody
 	public void insertAdminLogoutLog(AdminVO adminvo) {
@@ -87,7 +99,11 @@ public class AdminController {
 		logService.insertLog(logvo);
 		
 	}
+	////////////////////////////////////////////
 	
+	
+	
+	// 유저 사용자 수 출력 함수 //////////////////////
 	@RequestMapping("/adminUserCount.giv")
 	@ResponseBody
 	public String adminUserCount() {
@@ -95,7 +111,10 @@ public class AdminController {
 		
 		return Integer.toString(result) ;
 	}
+	///////////////////////////////////////////
 	
+	
+	// 상품 전체 리스트 출력 함수 //////////////////////////
 	@RequestMapping("/adminSelectGood.giv")
 	@ResponseBody
 	public Map<String,Object> adminSelectGood() {
@@ -108,7 +127,7 @@ public class AdminController {
 		map.put("list", temp);
 		return map;
 	}
-	
+	////////////////////////////////////////////////
 	@RequestMapping("/adminSelectSpon.giv")
 	@ResponseBody
 	public Map<String,Object> adminSelectSpon() {
@@ -122,10 +141,39 @@ public class AdminController {
 		return map;
 	}
 	
-	@RequestMapping("/adminInsertGood.giv")
-	public String adminInsertGood(GoodVO vo) {
+	@RequestMapping(value="/adminInsertGood.giv",method = RequestMethod.POST)
+	public String adminInsertGood(GoodVO vo,String good_tags,MultipartHttpServletRequest request) throws IllegalStateException, IOException {
 		System.out.println("[adminInsertGood] 파라미터 보기 : " + vo.getGood_name() );
-		return "/adminMode";
+		System.out.println("[adminInsertGood] 파라미터 보기 : " + vo.getGood_stock() );
+		
+		
+		HttpSession session = request.getSession();
+		String root_path = session.getServletContext().getRealPath("/");
+		String attach_path = "resources\\img\\good\\";
+		
+		String path =root_path+attach_path;
+		System.out.println(path);
+		MultipartFile files = request.getFile("file");
+		if(vo.getFile()==null) {
+			System.out.println("파일이 비어있습니다.");
+
+			System.out.println("에러 없음");
+			vo.setFile(files,path);
+			
+		}else {
+			vo.setFile(vo.getFile(),path);
+		}
+		
+		System.out.println("[adminInsertGood] 파라미터 보기 img: " + vo.getGood_img());
+		System.out.println("[adminInsertGood] 파라미터 보기 : " + vo.getGood_detail() );
+		System.out.println("[adminInsertGood] 파라미터 보기 : " + vo.getSpon_no() );
+		System.out.println("[adminInsertGood] 파라미터 보기 : " + good_tags );
+		vo.setGood_tag(vo.getGood_tag()+good_tags);
+		System.out.println("[adminInsertGood] 파라미터 보기 : " + vo.getGood_tag() );
+
+		adminService.insertGood(vo);
+		
+		return "redirect:adminMode.giv";
 	}
 	
 	

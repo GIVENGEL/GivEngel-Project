@@ -45,6 +45,12 @@ public class AdminDAOImpl implements AdminDAO {
 		return mybatis.selectList("AdminDAO.selectSpon");
 	}
 
+	@Override
+	public void insertGood(GoodVO vo) {
+		mybatis.insert("AdminDAO.insertGood", vo);
+		
+	}
+
 	
 
 }

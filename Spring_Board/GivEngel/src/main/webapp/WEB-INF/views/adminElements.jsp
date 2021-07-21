@@ -112,8 +112,9 @@
 			<div class="panel panel-default">
 				
 				<div class="panel-body">
+				<form  action="adminInsertGood.giv" method="post" enctype="multipart/form-data">
 					<div class="col-md-6">
-						<form role="form" action="/adminInsertGood.giv" method="post" enctype="multipart/form-data">
+						
 							<div class="form-group">
 								<label>상품명</label> <input  name="good_name" class="form-control" placeholder="상품명">
 							
@@ -133,7 +134,7 @@
 							</div>
 
 							<div class="form-group">
-								<label>파일 이미지</label> <input name="good_img" type="file">
+								<label>파일 이미지</label> <input name="file" type="file">
 								<p class="help-block">상품을 대표하는 이미지를 넣어주세요.</p>
 							</div>
 							<div class="form-group">
@@ -142,7 +143,7 @@
 							</div>
 							<label>상품 태그 입력</label>
 							<div class="form-group has-success">
-								<input class="form-control" placeholder="#태그특징">
+								<input type="text" name="good_tags" class="form-control" placeholder="#태그특징">
 							</div>
 					</div>
 					<div class="col-md-6">
@@ -151,27 +152,27 @@
 							<label>상품 카테고리</label>
 							<div class="radio">
 								<label> <input type="radio" name="good_tag"
-									id="optionsRadios1" value="#ACC" checked>ACC
+									id="optionsRadios1" value="ACC" checked>ACC
 								</label>
 							</div>
 							<div class="radio">
 								<label> <input type="radio" name="good_tag"
-									id="optionsRadios2" value="#TOP">TOP
+									id="optionsRadios2" value="TOP">TOP
 								</label>
 							</div>
 							<div class="radio">
 								<label> <input type="radio" name="good_tag"
-									id="optionsRadios3" value="#BOTTOM">BOTTOM
+									id="optionsRadios3" value="BOTTOM">BOTTOM
 								</label>
 							</div>
 							<div class="radio">
 								<label> <input type="radio" name="good_tag"
-									id="optionsRadios3" value="#BAG">BAG
+									id="optionsRadios3" value="BAG">BAG
 								</label>
 							</div>
 							<div class="radio">
 								<label> <input type="radio" name="good_tag"
-									id="optionsRadios3" value="#SHOES">SHOES
+									id="optionsRadios3" value="SHOES">SHOES
 								</label>
 							</div>
 						</div>

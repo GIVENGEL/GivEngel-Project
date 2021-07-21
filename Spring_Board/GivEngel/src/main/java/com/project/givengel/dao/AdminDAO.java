@@ -16,4 +16,6 @@ public interface AdminDAO {
 	
 	public List<SponVO> selectSpon();
 	
+	public void insertGood(GoodVO vo);
+	
 }
