@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdminDAO">
+
+<select id="login" resultType="adminVO">
+		SELECT * 
+		  FROM admin
+		 WHERE admin_id = #{admin_id}
+		   AND admin_pw = #{admin_pw}   
+	</select>
+	
+	<select id="userCount" resultType="int">
+		SELECT COUNT(*)
+		FROM user
+	</select> 
+	
+	<select id="selectGood" resultType="goodVO">
+		SELECT * 
+		  FROM good  
+	</select>
+	
+	<select id="selectSpon" resultType="sponVO">
+		SELECT * 
+		  FROM spon  
+	</select>
+	
+	<insert id="insertGood" parameterType="goodVO">
+		
+		INSERT INTO good(good_name,good_price,good_tag,good_like,good_stock,good_detail,good_img,good_img_size,good_date,spon_no)
+VALUES(#{good_name}, #{good_price}, #{good_tag},0,#{good_stock},#{good_detail},#{good_img},#{good_img_size},sysdate(),#{spon_no})
+		
+		
+	</insert>
+
+
+</mapper>

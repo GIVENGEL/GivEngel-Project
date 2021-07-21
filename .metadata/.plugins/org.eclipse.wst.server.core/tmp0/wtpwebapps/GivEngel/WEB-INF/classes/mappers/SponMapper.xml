@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SponDAO">
+
+	<select id="getSponList" resultType="sponVO">
+		<![CDATA[
+		SELECT * FROM spon ORDER BY spon_no ASC
+		]]>
+	</select>
+
+	<select id="getSpon" parameterType="sponVO" resultType="sponVO">
+	<![CDATA[
+		SELECT * FROM spon
+		WHERE spon_no = #{spon_no}
+		]]>
+	</select>
+
+
+	<!-- 댓글 입력 -->
+	<insert id="addSponCom" parameterType="spon_comVO">
+	<![CDATA[
+		INSERT INTO spon_com(spon_no, spon_com_writer, spon_com_date, spon_com_content)
+		VALUES(#{spon_no}, #{spon_com_writer}, sysdate(), #{spon_com_content})
+		]]>
+	</insert>
+
+	<!-- 댓글 목록 -->
+	<select id="listSponCom" resultType="spon_comVO">
+		SELECT spon_com_no,
+		spon_com_writer, spon_com_content, spon_com_date FROM spon_com
+		NATURAL
+		JOIN user WHERE spon_com.spon_com_writer = user.user_id
+	</select>
+
+	<!-- 댓글 삭제 -->
+	<delete id="deleteSponCom" parameterType="spon_comVO">
+		DELETE FROM spon_com
+		WHERE spon_com_no = #{spon_com_no}
+	</delete>
+
+	<!-- 마일리지 사용내역 -->
+	<insert id="addCashLog" parameterType="user_cashlogVO">
+		INSERT INTO
+		user_cashlog(user_no, user_cashlog_log, user_cashlog_price,
+		user_cashlog_date)
+		VALUES (#{user_no}, #{user_cashlog_log},
+		#{user_cashlog_price}, sysdate())
+	</insert>
+
+	<!-- 마일리지 사용한만큼 차감 -->
+	<update id="minusCash">
+		UPDATE user NATURAL JOIN user_cashlog
+		SET user_cash = (user_cash=#{user_cash} - user_cashlog_price=#{user_cashlog_price})
+		WHERE user.user_no = user_cashlog.user_no;
+	</update>
+
+
+</mapper>
