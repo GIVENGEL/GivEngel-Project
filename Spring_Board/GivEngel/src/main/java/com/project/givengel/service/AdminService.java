@@ -20,6 +20,8 @@ public interface AdminService {
 		
 		public void insertGood(GoodVO vo);
 		
+		public void insertSpon(SponVO vo);
+		
 		public AdminVO selectAdmin(String admin_id);
 
 }

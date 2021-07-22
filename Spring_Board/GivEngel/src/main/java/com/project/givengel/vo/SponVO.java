@@ -1,5 +1,10 @@
 package com.project.givengel.vo;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class SponVO {
 	private int spon_no;
 	private String spon_name;
@@ -13,18 +18,61 @@ public class SponVO {
 	private int spon_img_size;
 	private String spon_campaign_img;
 	
+	
+MultipartFile file;
+	
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file,String root) {
+		
+		this.file = file;
+
+		// 업로드 파일 접근
+		if(! file.isEmpty()){
+			this.spon_img = file.getOriginalFilename();
+			this.spon_img_size = (int)file.getSize();
+			
+			//***********************************************
+			// 해당 경로로 변경
+			
+			File f2 = new File("C:\\Users\\ACER\\Documents\\GitHub\\GivEngel-Project\\Spring_Board\\GivEngel\\src\\main\\webapp\\resources\\img\\spon",spon_img); 
+			/* File f = new File(root+good_img); */
+			
+			System.out.println(root+spon_img);
+			System.out.println(spon_img_size);
+			try {
+				 file.transferTo(f2); 
+				/* file.transferTo(f); */
+				
+				System.out.println("위치전환 성공");
+				
+			} catch (IllegalStateException e) {				
+				e.printStackTrace();
+				System.out.println("에러1");
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+				System.out.println("에러2");
+			}
+		}
+	}
+	
+	
+	public long getSpon_img_size() {
+		return spon_img_size;
+	}
+	public void setSpon_img_size(int spon_img_size) {
+		this.spon_img_size = spon_img_size;
+	}
+	
 	public String getSpon_img() {
 		return spon_img;
 	}
 	public void setSpon_img(String spon_img) {
 		this.spon_img = spon_img;
 	}
-	public int getSpon_img_size() {
-		return spon_img_size;
-	}
-	public void setSpon_img_size(int spon_img_size) {
-		this.spon_img_size = spon_img_size;
-	}
+	
 	public String getSpon_campaign_img() {
 		return spon_campaign_img;
 	}

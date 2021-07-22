@@ -67,6 +67,12 @@ public class AdminDAOImpl implements AdminDAO {
 		
 	}
 
+	@Override
+	public void insertSpon(SponVO vo) {
+		mybatis.insert("AdminDAO.insertSpon", vo);
+		
+	}
+
 	
 
 }

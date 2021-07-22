@@ -54,4 +54,9 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.selectAdmin(admin_id);
 	}
 
+	@Override
+	public void insertSpon(SponVO vo) {
+		adminDAO.insertSpon(vo);
+	}
+
 }

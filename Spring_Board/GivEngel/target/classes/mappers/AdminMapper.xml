@@ -48,6 +48,12 @@ VALUES(#{good_name}, #{good_price}, #{good_tag},0,#{good_stock},#{good_detail},#
 		
 	</insert>
 	
+	<insert id="insertSpon" parameterType="SponVO">
+		INSERT INTO spon(spon_name, spon_total, spon_iscampaign, spon_start, spon_end, spon_url, spon_comment, spon_img, spon_img_size,spon_campaign_img)
+		VALUES(#{spon_name}, 0, #{spon_iscampaign}, sysdate(), #{spon_end}, #{spon_url},#{spon_comment}, #{spon_img}, #{spon_img_size}, #{spon_campaign_img})
+	
+	</insert>
+	
 	
 
 

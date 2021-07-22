@@ -19,6 +19,8 @@ public interface AdminDAO {
 	public List<SponVO> selectSpon();
 
 	public void insertGood(GoodVO vo);
+	
+	public void insertSpon(SponVO vo);
 
 	public AdminVO selectAdmin(String admin_id);
 

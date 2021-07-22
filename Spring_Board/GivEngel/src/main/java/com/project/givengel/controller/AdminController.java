@@ -95,7 +95,7 @@ public class AdminController {
 	 * 					2. 개발자 로그아웃 시 DB에 로그아웃 기록 저장
 	 * 
 	 * 사용된 함수 		:	insertAdminLogoutLog
-	 * 사용된 서비스 	:	-
+	 * 사용된 서비스	 	:	-
 	 * 마지막 수정		:	2021-07-21
 	 *****************************************************/
 	@RequestMapping(value = "/adminlogoutAction.giv", method = RequestMethod.GET)
@@ -227,8 +227,6 @@ public class AdminController {
 		return "redirect:adminMode.giv";
 	}
 	
-	
-	
 	/*****************************************************
 	 * 함수명 			: 	insertAdminGoodLog
 	 * 
@@ -249,6 +247,64 @@ public class AdminController {
 		logService.insertLog(logvo);
 		
 	}
+	
+	
+	@RequestMapping(value="/adminInsertSpon.giv",method = RequestMethod.POST)
+	public String adminInsertSpon(SponVO vo,String admins,MultipartHttpServletRequest request) throws IllegalStateException, IOException {	
+		// 서버 경로 
+		HttpSession session = request.getSession();
+		String root_path = session.getServletContext().getRealPath("/");
+		String attach_path = "resources\\img\\spon\\";
+		String path =root_path+attach_path;
+		
+		
+		MultipartFile files = request.getFile("file");
+		if(vo.getFile()==null) {
+			System.out.println("파일이 비어있습니다.");
+			vo.setFile(files,path);
+		}else {
+			vo.setFile(vo.getFile(),path);
+		}	
+		if(vo.getSpon_end()==null) {
+			vo.setSpon_iscampaign(false);
+			vo.setSpon_end("2999-12-31");
+		}else {
+			vo.setSpon_iscampaign(true);
+		}
+		if(vo.getSpon_url()==null) {
+			vo.setSpon_url("www.Givengel.giv");
+		}
+		adminService.insertSpon(vo);
+		insertAdminSponLog(vo,admins);
+		return "redirect:adminMode.giv";
+	}
+	
+	/*****************************************************
+	 * 함수명 			: 	insertAdminSponLog
+	 * 
+	 * 함수 기능 		:	1. 개발자 후원 단체 등록 시 DB에 상품 등록 기록 저장
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 		:	logService
+	 * 마지막 수정		:	2021-07-22
+	 *****************************************************/
+	@RequestMapping("/insertAdminSponLog.giv")
+	@ResponseBody
+	public void insertAdminSponLog(SponVO sponvo,String admin) {
+		LogVO logvo = new LogVO();
+		if(admin==null) {
+			admin="ERR";
+		}
+		logvo.setLog_detail("[ADMIN_INSERT_SPON]#"+admin+"#"+sponvo.getSpon_name());
+		logService.insertLog(logvo);
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping("/insertToDoLog.giv")
 	@ResponseBody
@@ -330,6 +386,10 @@ public class AdminController {
 	}
 	@RequestMapping("/adminWidgets.giv")
 	public void adminWidgets() {
+		
+	}
+	@RequestMapping("/adminFlea.giv")
+	public void adminFlea() {
 		
 	}
 	
