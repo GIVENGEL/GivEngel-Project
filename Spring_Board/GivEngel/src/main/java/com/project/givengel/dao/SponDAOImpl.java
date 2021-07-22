@@ -1,6 +1,8 @@
 package com.project.givengel.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,15 +41,22 @@ public class SponDAOImpl implements SponDAO {
 	}
 	
 	// 댓글 목록
-	public List<Spon_comVO> listSponCom(Spon_comVO vo) {
+	public List<Spon_comVO> listSponCom() {
 		System.out.println("===> Mybatis listSponCom() 호출");
-		return mybatis.selectList("SponDAO.listSponCom", vo);
+		return mybatis.selectList("SponDAO.listSponCom");
+		
 	}
 	
 	// 댓글 삭제
 	public void deleteSponCom(Spon_comVO vo) {
 		System.out.println("===> Mybatis deleteSponCom() 호출");
 		mybatis.delete("SponDAO.deleteSponCom", vo);
+	}
+	
+	// 댓글 수정
+	public void modifySponCom(Spon_comVO vo) {
+		System.out.println("===> Mybatis modifySponCom() 호출");
+		mybatis.update("SponDAO.modifySponCom", vo);
 	}
 	
 	// 마일리지 사용내역
@@ -61,6 +70,20 @@ public class SponDAOImpl implements SponDAO {
 		System.out.println("===> Mybatis minusCash() 호출");
 		mybatis.update("SponDAO.minusCash", vo);
 	}
+	
+	// 사용한 마일리지만큼 후원단체 누적
+	public void addSponTotal(SponVO vo) {
+		System.out.println("===> Mybatis addSponTotal() 호출");
+		mybatis.update("SponDAO.addSponTotal", vo);
+	}
+	
+	// 후원단체 누적금액 바로보여주기
+	public void showSponTotal(SponVO vo) {
+		System.out.println("===> Mybatis showSponTotal() 호출");
+		mybatis.selectOne("SponDAO.showSponTotal", vo);
+	}
+	
+
 
 	
 	

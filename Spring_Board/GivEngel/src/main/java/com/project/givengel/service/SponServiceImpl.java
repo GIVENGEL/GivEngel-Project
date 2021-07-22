@@ -37,14 +37,20 @@ public class SponServiceImpl implements SponService {
 		sponDAO.addSponCom(vo);		
 	}
 	
-	//마일리지 가져오기
-	public List<Spon_comVO> listSponCom(Spon_comVO vo) {
-		return sponDAO.listSponCom(vo);
+	// 댓글 목록
+	@Override
+	public List<Spon_comVO> listSponCom() {
+		return sponDAO.listSponCom();
 		}
 	
 	// 댓글 삭제
 	public void deleteSponCom(Spon_comVO vo) {
 		sponDAO.deleteSponCom(vo);
+	}
+	
+	// 댓글 수정
+	public void modifySponCom(Spon_comVO vo) {
+		sponDAO.modifySponCom(vo);
 	}
 	
 	// 마일리지 사용내역
@@ -56,6 +62,18 @@ public class SponServiceImpl implements SponService {
 	public void minusCash(UserVO vo) {
 		sponDAO.minusCash(vo);
 	}
+	
+	// 사용한 마일리지만큼 후원단체에 누적
+	public void addSponTotal(SponVO vo) {
+		sponDAO.addSponTotal(vo);
+	}
+	
+	
+	// 후원단체 누적금액
+	public void showSponTotal(SponVO vo) {
+		sponDAO.showSponTotal(vo);
+	}
+	
 	
 
 }
