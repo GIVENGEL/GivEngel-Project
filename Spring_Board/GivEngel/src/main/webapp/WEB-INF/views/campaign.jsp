@@ -110,23 +110,27 @@
                 </div>
             </div>
             <div class="row">
-            
             	<!--  각 캠패인 출력 단위 표시 ****************-->
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="${path}/resources/img/blog/blog-1.jpg" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> 각 캠페인 만료일 출력</li>
-                                <li><i class="fa fa-comment-o"></i> 댓글 수 출력</li>
-                            </ul>
-                            <h5><a href="#">캠페인 이름 출력</a></h5>
-                            <p>캠페인 설명 출력(할 수 있으면 20글자만 출력하고 ... 붙이기) </p>
-                        </div>
-                    </div>
-                </div>
+                <c:forEach items="${spon_list }" var="campaign">
+               <div class="col-lg-4 col-md-4 col-sm-6">
+                  <div class="blog__item">
+                     <div class="blog__item__pic">
+                        <a href="campaignView.giv?spon_no=${campaign.spon_no}"><img src="${path}/resources/img/sponsor/${campaign.spon_img }" alt="${campaign.spon_name }"></a>
+                     </div> 
+                     <div class="blog__item__text">
+                        <ul>
+                           <li>
+                           <li><i class="fa fa-calendar-o"></i>${campaign.spon_start }</li>
+                           <li><i class="fa fa-comment-o"></i> 댓글 수 출력</li>
+                        </ul>
+                        <h5>
+                           <a href="campaignView.giv?spon_no=${campaign.spon_no }">${campaign.spon_name }</a>
+                        </h5>
+                        <p>${campaign.spon_comment }</p>
+                     </div>
+                  </div>
+               </div>
+            </c:forEach>  
                 <!-- ****************************** -->
                 <!--  각 캠패인 출력 단위 표시 ****************-->
                 <div class="col-lg-4 col-md-4 col-sm-6">
@@ -145,75 +149,6 @@
                     </div>
                 </div>
                  <!-- ****************************** -->
-                <!--  각 캠패인 출력 단위 표시 ****************-->
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="${path}/resources/img/blog/blog-3.jpg" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                <li><i class="fa fa-comment-o"></i> 5</li>
-                            </ul>
-                            <h5><a href="#">지구 한 바퀴를 돌고 와도 변치않는 우정</a></h5>
-                            <p>영국에 사는 두 소녀의 드라마같은 우정이야기 </p>
-                        </div>
-                    </div>
-                </div>
-                 <!-- ****************************** -->
-                <!--  각 캠패인 출력 단위 표시 ****************-->
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="${path}/resources/img/blog/blog-1.jpg" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> ~2021.09.31</li>
-                                <li><i class="fa fa-comment-o"></i> 10</li>
-                            </ul>
-                            <h5><a href="#">도쿄올림픽, 패럴림픽 개최 중단..?</a></h5>
-                            <p>올림픽의 마지막을 장식하는 패럴림픽, 그런데 다음 올릭픽에서는 개최가 안될지 모른다고..? </p>
-                        </div>
-                    </div>
-                </div>
-                 <!-- ****************************** -->
-                <!--  각 캠패인 출력 단위 표시 ****************-->
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="${path}/resources/img/blog/blog-2.jpg" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                <li><i class="fa fa-comment-o"></i> 5</li>
-                            </ul>
-                            <h5><a href="#">고양이, 그리고 불편한 진실</a></h5>
-                            <p>인간만이 신체적 결함에 부조리함을 느낀다고 생각하시나요? 고양이 로소의 이야기를 들어보세요. </p>
-                        </div>
-                    </div>
-                </div>
-                 <!-- ****************************** -->
-                <!--  각 캠패인 출력 단위 표시 ****************-->
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="${path}/resources/img/blog/blog-3.jpg" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                <li><i class="fa fa-comment-o"></i> 5</li>
-                            </ul>
-                            <h5><a href="#">지구 한 바퀴를 돌고 와도 변치않는 우정</a></h5>
-                            <p>영국에 사는 두 소녀의 드라마같은 우정이야기 </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
     <!-- Blog Section End -->
     

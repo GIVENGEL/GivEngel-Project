@@ -1,6 +1,7 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -32,11 +33,25 @@
 </head>
 
 <body>
+
+
+//세션 할당해서 붙여넣기
+
+<%
+
+int user_no = (Integer)session.getAttribute("user_no");
+int user_cash = (Integer)session.getAttribute("user_cash");
+String user_id = (String)session.getAttribute("user_id");
+
+%>
+
+ 
+
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
-
+	<input type="hidden" id="cam_user_id">
 
 	<!--  navbar &  side over wrap -->
 	<jsp:include page="module/navbar.jsp" />
@@ -46,20 +61,20 @@
 
 	<!-- Blog Details Hero Begin -->
 	<section class="blog-details-hero set-bg"
-		data-setbg="img/blog/details/details-hero.jpg">
+		data-setbg="${path}/resources/img/campaign/campaign-logo.jpg">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="blog__details__hero__text">
-						<h2>Select 로 받아온 후원 단체 이름 넣기</h2>
+						<h2>${Campaign.spon_name }<h2>
 						<ul>
 							<li>후원 만료일</li>
 							<li><h3 class="text-white">총 누적 금액</h3></li>
 							<li>댓글 수</li>
 						</ul>
 						<ul>
-							<li>~21.07.31</li>
-							<li><h3 class="text-white">1,001,514 원</h3></li>
+							<li>${Campaign.spon_end }</li>
+							<li><h3 class="text-white">${Campaign.spon_total}원</h3></li>
 							<li>43 개</li>
 						</ul>
 					</div>
@@ -71,33 +86,33 @@
 
 
 	<!-- Blog Details Section Begin -->
-	<section class="blog-details spad">
+	<section class="blog-details spad"> 
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-md-5 order-md-1 order-2">
 					<div class="blog__sidebar">
 						<h2>
-							[단체명] 후원 하기
+							[${Campaign.spon_name}] 후원 하기
 							</h3>
 							<hr />
-							<p>대충 해당 후원단체에 대한 설명 데이터베이스에서 가져오기</p>
+							<p>${Campaign.spon_comment}</p>
 							<br>
 							<br>
 							<br>
-
+ 
 
 							<div class="row">
 								<div class="col-lg-3"></div>
 								<div class="col-lg-6">
 									<hr>
-									<input type="number" class="form-control mb-4" name="id"
-										placeholder="후원 금액을 입력하세요!">
+									<input id="pleasegive" type="number" class="form-control mb-4" name="id" placeholder="후원 금액을 입력하세요!"> 
+								 
 								</div>
 
 								<div class="col-lg-3">
 									<hr>
 									<button type="button" name="donation"
-										class="btn btn-block btn-success">
+										class="btn btn-block btn-success" id="donation_btn">
 										<spaa>후원하기!</spaa>
 									</button>
 								</div>
@@ -436,78 +451,12 @@
 												</div>
 											</div>
 
-											<!-- 댓글 하나 -->
-											<div class="card p-3 mb-5">
-												<div
-													class="d-flex justify-content-between align-items-center">
-													<div class="user d-flex flex-row align-items-center">
-														<img src="https://i.imgur.com/hczKIze.jpg" width="30"
-															class="user-img rounded-circle mr-2"> <span><small
-															class="font-weight-bold text-primary">[유저 아이디]</small> <small
-															class="font-weight-bold">[유저가 남긴 메시지]</small></span>
-													</div>
-													<small>[작성일]</small>
-												</div>
-												<div
-													class="action d-flex justify-content-between mt-2 align-items-center">
-													<div class="reply px-4">
-														<small>삭제하기</small> <span class="dots"></span> <small>수정하기</small>
-														<span class="dots"></span>
-													</div>
-													<div class="icons align-items-center">
-														<i class="fa fa-star text-warning"></i> <i
-															class="fa fa-check-circle-o check-icon"></i>
-													</div>
-												</div>
+											<!-- 댓글 하나 --> 
+											<div id="reviewtotal">
+											
 											</div>
-											<!-- 댓글 하나 -->
-											<div class="card p-3 mb-5">
-												<div
-													class="d-flex justify-content-between align-items-center">
-													<div class="user d-flex flex-row align-items-center">
-														<img src="https://i.imgur.com/hczKIze.jpg" width="30"
-															class="user-img rounded-circle mr-2"> <span><small
-															class="font-weight-bold text-primary">[유저 아이디]</small> <small
-															class="font-weight-bold">[유저가 남긴 메시지]</small></span>
-													</div>
-													<small>[작성일]</small>
-												</div>
-												<div
-													class="action d-flex justify-content-between mt-2 align-items-center">
-													<div class="reply px-4">
-														<small>삭제하기</small> <span class="dots"></span> <small>수정하기</small>
-														<span class="dots"></span>
-													</div>
-													<div class="icons align-items-center">
-														<i class="fa fa-star text-warning"></i> <i
-															class="fa fa-check-circle-o check-icon"></i>
-													</div>
-												</div>
-											</div>
-											<!-- 댓글 하나 -->
-											<div class="card p-3 mb-5">
-												<div
-													class="d-flex justify-content-between align-items-center">
-													<div class="user d-flex flex-row align-items-center">
-														<img src="https://i.imgur.com/hczKIze.jpg" width="30"
-															class="user-img rounded-circle mr-2"> <span><small
-															class="font-weight-bold text-primary">[유저 아이디]</small> <small
-															class="font-weight-bold">[유저가 남긴 메시지]</small></span>
-													</div>
-													<small>[작성일]</small>
-												</div>
-												<div
-													class="action d-flex justify-content-between mt-2 align-items-center">
-													<div class="reply px-4">
-														<small>삭제하기</small> <span class="dots"></span> <small>수정하기</small>
-														<span class="dots"></span>
-													</div>
-													<div class="icons align-items-center">
-														<i class="fa fa-star text-warning"></i> <i
-															class="fa fa-check-circle-o check-icon"></i>
-													</div>
-												</div>
-											</div>
+											
+										
 										</div>
 									</div>
 								</div>
@@ -520,33 +469,31 @@
 									</div>
 									<div class="card-body">
 										<ul class="list-group list-group-flush">
+																									
 											<li class="list-group-item">
 												<div class="form-inline mb-2">
 													<label for="replyId"><i
 														class="fa fa-user-circle-o fa-2x"></i></label> <input type="text"
-														class="form-control ml-2" placeholder="Enter yourId"
-														id="replyId"> <label for="replyPassword"
-														class="ml-4"><i class="fa fa-unlock-alt fa-2x"></i></label>
-													<input type="password" class="form-control ml-2"
-														placeholder="Enter password" id="replyPassword">
+														class="form-control ml-2" placeholder="${user_id}" 
+														id="replyId" value="${user_id}" readonly> <label for="replyPassword"
+														class="ml-4"><i class="fa fa-unlock-alt fa-2x"></i></label>			
 												</div> <textarea class="form-control"
-													id="exampleFormControlTextarea1" rows="3"></textarea>
+													id="Reviewcontent" rows="3"></textarea>
 												<button type="button"
-													class="btn btn-success mt-3 float-right"
-													onClick="javascript:addReply();">답글 달기</button>
-											</li>
+													class="bntReview"
+													>답글 달기</button>
+											</li>																			
 										</ul>
 									</div>
-								</div>
+								</div> 
 								<!-- 댓글 입력창 end -->
-							</div>
+							</div> 
 						</div>
 					</div>
 				</div>
-		</div>
-	</section>
+		   </div>
+		</section>
 	<!-- Blog Details Section End -->
-
 
 
 
@@ -567,6 +514,319 @@
 	<script src="${path}/resources/js/mixitup.min.js"></script>
 	<script src="${path}/resources/js/owl.carousel.min.js"></script>
 	<script src="${path}/resources/js/main.js"></script>
+	<script src="${path}/resources/js_page/Campaign.js"></script>
+	
+	<%-- <div class="card p-3 mb-5">									
+		<div class="d-flex justify-content-between align-items-center">									
+			<div class="user d-flex flex-row align-items-center">
+				 <img src="https://i.imgur.com/hczKIze.jpg" width="30"
+					class="user-img rounded-circle mr-2"> <span><small
+					class="font-weight-bold text-primary">[${reviewList[0].spon_com_writer}]</small> <small
+					class="font-weight-bold">[${reviewList[0].spon_com_content}]</small></span>
+			</div> 
+				<small>${reviewList[0].spon_com_date}</small>
+				<label><input type='hidden'>${reviewList[0].spon_com_no }</label>
+		</div>
+		<div class="action d-flex justify-content-between mt-2 align-items-center">
+			<div class="reply px-4">
+				<small>삭제하기</small> <span class="dots"></span> <small>수정하기</small>
+					<span class="dots"></span>
+			</div>
+			<div class="icons align-items-center">
+				<i class="fa fa-star text-warning"></i> <i
+					class="fa fa-check-circle-o check-icon"></i>
+			</div>
+		</div>
+	</div>											
+	 --%> 
+	
+	 
+	 
+
+	<script type="text/javascript">
+	
+	 
+	    
+	
+	/* $(function(){
+		 
+		 function directView() {
+				 
+				$.ajax({  
+					type:'post',
+					url:'reviewList.giv',
+					
+					success:function(data){
+						alert("성공?");
+						$("#reviewtotal").empty();
+						
+						for(var i=0; i<data.list.length; i++)
+						{$("#reviewtotal").append('<div class="card p-3 mb-5"><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-center"><img src="https://i.imgur.com/hczKIze.jpg" width="30"class="user-img rounded-circle mr-2"> <span><small class="font-weight-bold text-primary">[${list.list[i].spon_com_writer}]</small><small class="font-weight-bold">['+${data.list[i].spon_com_content}+']</small></span></div><small>'+${data.list[i].spon_com_date}+'</small><label><input type="hidden">'+${data.list[i].spon_com_no }+'</label></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div class="reply  px-4"><small>삭제하기</small> <span class="dots"></span> <small>수정하기</small><span class="dots"></span></div><div class="icons align-items-center"><i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i></div></div></div></div>)'} 
+					} 
+					      
+					  
+				})  
+				  
+			} 
+		 
+		 
+		$('.bntReview').on('click', function(){
+			$.ajax({ 
+				 type:'post',
+				 url:'reviewInsert.giv', 
+				 data:{ spon_com_writer:$('#replyId').val(),
+		 			   spon_com_content:$('#Reviewcontent').val(),
+		 		       spon_no:${Campaign.spon_no}  
+				 },              
+				 contentType : 'application/x-www-form-urlencoded;charset=UTF-8',  
+				 success : function(data) {
+							 directView();
+					    
+					 }
+		 				  
+						 
+				  
+			}) //에이작스 */
+		   
+			
+		  
+		 	 
+		//}) //온 
+	//}) //후입력
+$(function(){
+	
+//버튼 추가삭제	
+
+
+/*****************************************************
+    * 함수 기능       :   1. 로그인 안됐을시에 후원불가(미구현)
+    * 				2. 값 입력 안할시 false
+    				3. 캐시로그 / 후원 / 차감
+    * 										 할일 = 로그인 확인하기
+    									   	      100마일리지 이상 후원하게하기
+    * 사용된 함수       :   insertAdminLogoutLog		   유저 마일리지 후원할 금액 이상 들고있어야함
+    * 사용된 서비스       :   -
+    * 마지막 수정      :   2021-07-21
+    *****************************************************/
+$('#donation_btn').on('click',function(){
+	if(true) {
+		alert("로그인을 먼저 해주세요")
+	}  
+	else if($('#pleasegive').val()=="") {
+		alert("금액을 입력해주세요")
+		$('#pleasegive').focus()
+		return false;
+	} else if($('#pleasegive').val()<="100"){
+		alert("100마일리지 이상 후원해주세요.")
+	} 
+	
+	
+	    $.ajax({
+	    	type:'post',
+	    	url:'camSponCash.giv',
+	    	data: { 
+	    		spon_no:${Campaign.spon_no},
+	    		spon_total:$('#pleasegive').val()		
+	    	}, success:function() {
+	    		alert("누적되었습니다"); 
+	    	}
+	    	 
+	    	
+	    	 
+	    })
+	    
+		$.ajax({
+			type:'post',
+			url:'camUserCash.giv',
+			data: {
+				user_no:'<%=user_no%>',   
+				user_cash:$('#pleasegive').val()
+				    
+			}, success:function() {
+				alert("호갱이 되셨습니다.")
+			} 
+			 
+		})
+		 
+		
+		 $.ajax({
+			type:'post',  
+			url:'campaignLog.giv',
+			data:{ 
+				user_no:'<%=user_no%>',
+				user_cashlog_log:${Campaign.spon_name},   
+				user_cashlog_price:$('#pleasegive').val()   
+			},
+			success: function() {
+				alert("후원되었습니다. 감사합니다") 
+			}
+			  
+		})
+})	
+		
+	
+/*****************************************************
+ 	*함수 이름 : directView
+    * 함수 기능       :  댓글창 즉시 업데이트 ( 에이작스 실행 후 새로고침 안해도 댓글창 리셋)
+    * 
+    * 사용된 함수       :   						할일 x
+    * 사용된 서비스       :   -
+    * 마지막 수정      :   2021-07-23
+    *****************************************************/	
+function directView() {
+ 
+	$.ajax({  
+		type:'post',
+		url:'reviewList.giv',
+		data:{spon_no:${Campaign.spon_no} },
+		success:function(data){
+			$("#reviewtotal").empty();
+			
+			for(var i=0; i<data.listReview.length; i++)
+			{$("#reviewtotal").append('<div class="card p-3 mb-5"><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-center"><img src="https://i.imgur.com/hczKIze.jpg" width="30"class="user-img rounded-circle mr-2"> <span><small class="font-weight-bold text-primary">'+data.listReview[i].spon_com_writer+']</small><small class="font-weight-bold">['+data.listReview[i].spon_com_content+']</small></span></div><label><input type="button" class="modify_btn" value="수정"></label><label ><input class="deleteValue" type="button"><small class="believe">'+data.listReview[i].spon_com_no+'</small></label></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div class="reply px-4 w-100"><span class="dots"></span><div class="modify_div"><input type="text" style="display:none" class="w-100"></div><span class="dots"></span></div><div class="modify_div"><input class="modify_button" type="button" value="확인" style="display:none"><input type="hidden" value="'+data.listReview[i].spon_com_no+'"></div></div></div></div>')} 
+		}, 
+		error:function(request, status, error){
+
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+ 
+         } 
+		 
+		   
+	}) 		
+
+}
+
+/* function deleteReview() {
+	$.ajax({
+		type:'post',
+		url:'deleteReview.giv',
+		data : spon_com_no:$('#spon_com_no').val(),
+		contentType : 'application/x-www-form-urlencoded;charset=UTF-8',
+		success : function(){
+			alert("댓글을 삭제하였습니다.")
+		}
+		
+	})
+	
+	
+	
+	
+} */
+  
+directView();
+ 
+/*****************************************************
+ * 함수 기능       :   댓글입력
+ * 마지막 수정      :   2021-07-23                          제약조건= 빈칸, 로그인 거르기
+ *****************************************************/
+$('.bntReview').on('click', function(){
+	$.ajax({ 
+		 type:'post',
+		 url:'reviewInsert.giv', 
+		 data:{ spon_com_writer:$('#replyId').val(),
+ 			   spon_com_content:$('#Reviewcontent').val() },     
+		 contentType : 'application/x-www-form-urlencoded;charset=UTF-8',  
+		 success : function(data) { 
+					 directView(); 	    
+			 }  
+	}) 
+});
+
+/*****************************************************
+ * 함수 기능       :  댓글삭제
+ *  (삭제조건 추가해야함)
+ * 사용된 함수       :   
+ * 사용된 서비스       :   -
+ * 마지막 수정      :   2021-07-23					제약 : 삭제조건 추가.
+ *****************************************************/
+ 
+$(document).on('click','.deleteValue', function(){
+	{}
+	$.ajax({
+		type:'post',
+		url:'deleteReview.giv',
+		data:{spon_com_no:$(this).next().text()}, 
+		success : function(result) {   
+			directView();   
+		}
+		
+		
+	}) 
+		
+});
+
+//수정하기 버튼 보이기
+ 
+
+/*****************************************************
+    * 함수 기능       :  수정하기 버튼 눌렀을 때 텍스트창, 선택적으로 this 찾아가기
+
+    * 마지막 수정      :   2021-07-23
+    *****************************************************/
+$(document).on('click', '.modify_btn', function(){
+	$(".modify_button").css('display', 'block')
+	$(this).parent().parent().next().find(".reply px-4 w-100").find(".modify_div").find(".w-100").css('display','block')
+	
+	
+	 
+})
+
+/*****************************************************
+    * 함수 기능       :   댓글수정     			//제약조건 걸기
+    * 
+    * 사용된 함수       :   insertAdminLogoutLog
+    * 사용된 서비스       :   -
+    * 마지막 수정      :   2021-07-23
+    *****************************************************/
+
+$(document).on('click','.modify_button',function(){
+	if($(this).parent().prev().find(".modify_div").find(".w-100").val() == ""){
+		alert("내용을 입력해주세요")
+		$(this).parent().prev().find(".modify_div").find(".w-100").focus()
+		return false;
+	} else if($(this).next().val() == ""){
+		alert("로그인 후 입력해주세요.")
+		return false;
+	} else {
+	
+	
+	alert("일단 확인")
+	$.ajax({ 
+		type:'post',
+		url:'updateReview.giv',
+		data:{ spon_com_no:$(this).next().val(),
+			spon_com_content:$(this).parent().prev().find(".modify_div").find(".w-100").val()
+		},
+		success : function() {
+			directView();
+			spon_com_content:$(this).parent().prev().find(".modify_div").find(".w-100").val("_")
+			alert("수정이 완료되었습니다.")
+		} 
+		
+	})  
+	
+	} //else문
+	
+})
+
+ 
+
+
+
+
+
+//확인 눌렀을때 에이작스
+
+
+
+
+
+
+
+	
+}) 
+
+	</script>
 
 
 

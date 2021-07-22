@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CampaignDAO"> 
+  
+<insert id="reviewInsert" parameterType="spon_comVO">
+	INSERT INTO spon_com (spon_no, spon_com_writer,spon_com_date,spon_com_content)
+	 VALUES(#{spon_no},#{spon_com_writer},sysdate(),#{spon_com_content})
+</insert> 
+  
+<select id="sponView" resultType="sponVO" parameterType="sponVO">
+	SELECT * FROM spon where spon_no = #{spon_no}
+</select>
+
+<select id="cashPlus" parameterType="sponVO">
+	INSERT INTO spon (spon_total) VALUES(#{spon_total}) where spon_no = #{spon_no}
+</select> 
+
+<delete id="reviewDelete" parameterType="spon_comVO">
+	DELETE FROM spon WHERE #{spon_com_no} = spon_com_no
+</delete>
+<select id="reviewList" resultType="spon_comVO">
+	SELECT * FROM spon_com where spon_no = #{spon_no}
+</select>
+
+<delete id="deleteReview" parameterType="spon_comVO">
+DELETE FROM spon_com where spon_com_no = #{spon_com_no}
+</delete>
+
+<update id="updateReview" parameterType="spon_comVO">
+UPDATE spon_com SET spon_com_content=#{spon_com_content} where spon_com_no=#{spon_com_no}
+</update>
+
+<insert id="campaignLog" parameterType="user_cashlogVO">
+INSERT INTO user_cashlog (user_no, user_cashlog_log, user_cashlog_price, user_cashlog_date) 
+VALUES(#{user_no},#{user_cashlog_log},#{user_cashlog_price},sysdate())
+</insert>
+
+<update id="camUserCash" parameterType="userVO">
+UPDATE user a SET user_cash=((SELECT user_cash from (SELECT user_cash as c from user WHERE user_no = #{user_no}) d)-(#{user_cash})) WHERE user_no = #{user_no}
+</update>
+
+<update id="camSponCash" parameterType="sponVO">
+UPDATE spon a SET spon_total=((SELECT spon_total from (SELECT spon_total as c from spon WHERE spon_no = #{spon_no}) d)+(#{spon_total})) WHERE spon_no = #{spon_no}
+</update>
+
+<select id="campaignList" resultType="sponVO">
+SELECT * FROM spon where spon_iscampaign = '1'
+</select>
+</mapper>
