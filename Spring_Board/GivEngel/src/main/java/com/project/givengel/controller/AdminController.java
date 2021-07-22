@@ -100,11 +100,17 @@ public class AdminController {
 	 *****************************************************/
 	@RequestMapping(value = "/adminlogoutAction.giv", method = RequestMethod.GET)
 	public String adminlogoutAction(HttpSession session) throws Exception{
-		AdminVO vo = new AdminVO();
-		vo = (AdminVO)session.getAttribute("admin");
-		insertAdminLogoutLog(vo);
-		session.invalidate();
-		return "/index";
+		if(session.getAttribute("admin")!=null) {
+			AdminVO vo = new AdminVO();
+			vo = (AdminVO)session.getAttribute("admin");
+			insertAdminLogoutLog(vo);
+			session.invalidate();
+			return "/index";
+		}
+		else {
+			return "/index";
+		}
+		
 	}
 	
 	
@@ -174,7 +180,7 @@ public class AdminController {
 	 * 함수 기능 		:	1. 후원단체 리스트 전체를 맵에 담아 반환
 	 * 
 	 * 사용된 함수 		:	-
-	 * 사용된 서비스 	:	adminService
+	 * 사용된 서비스	 	:	adminService
 	 * 마지막 수정		:	2021-07-21
 	 *****************************************************/
 	@RequestMapping("/adminSelectSpon.giv")
@@ -198,7 +204,7 @@ public class AdminController {
 	 * 					2. 상품의 이미지 파일을 로컬/서버에 저장
 	 * 
 	 * 사용된 함수 		:	insertAdminGoodLog
-	 * 사용된 서비스 	:	adminService
+	 * 사용된 서비스 		:	adminService
 	 * 마지막 수정		:	2021-07-21
 	 *****************************************************/
 	@RequestMapping(value="/adminInsertGood.giv",method = RequestMethod.POST)
@@ -229,7 +235,7 @@ public class AdminController {
 	 * 함수 기능 		:	1. 개발자 상품 등록 시 DB에 상품 등록 기록 저장
 	 * 
 	 * 사용된 함수 		:	-
-	 * 사용된 서비스 	:	logService
+	 * 사용된 서비스 		:	logService
 	 * 마지막 수정		:	2021-07-21
 	 *****************************************************/
 	@RequestMapping("/insertAdminGoodLog.giv")
@@ -242,6 +248,58 @@ public class AdminController {
 		logvo.setLog_detail("[ADMIN_INSERT_GOOD]#"+admin+"#"+goodvo.getGood_name());
 		logService.insertLog(logvo);
 		
+	}
+	
+	@RequestMapping("/insertToDoLog.giv")
+	@ResponseBody
+	public void insertToDoLog(String todo_detail,HttpServletRequest request) {
+		LogVO logvo = new LogVO();
+		HttpSession session = request.getSession();
+		AdminVO adminvo = (AdminVO) session.getAttribute("admin");
+		String admin = adminvo.getAdmin_id();
+		if(admin==null) {
+			admin="ERR";
+		}
+		logvo.setLog_detail("[TODO]#"+admin+"#"+todo_detail);
+		logService.insertLog(logvo);
+		
+	}
+	
+	@RequestMapping("/deleteToDoLog.giv")
+	@ResponseBody
+	public void deleteToDoLog(LogVO logvo,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		System.out.println("[deleteToDoLog] vo 체크 : " + logvo.getLog_no());
+		AdminVO adminvo = (AdminVO) session.getAttribute("admin");
+		// 접속 정보가 없을 경우 
+		if(adminvo != null) {
+			System.out.println("[deleteToDoLog] deleteLog 실행 ");
+			logService.deleteLog(logvo);
+		}else {
+			 
+		}	
+	}
+	
+	
+	
+	
+	
+	/*****************************************************
+	 * 함수명 			: 	selectAdmin
+	 * 
+	 * 함수 기능 		:	1. admin_id로 VO를 찾아주는 함수
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 		:	adminService
+	 * 마지막 수정		:	2021-07-22
+	 *****************************************************/
+	@RequestMapping("/selectAdmin.giv")
+	@ResponseBody
+	public AdminVO selectAdmin(String admin_id) {
+		AdminVO adminvo = new AdminVO();
+		
+		adminvo = adminService.selectAdmin(admin_id);
+		return adminvo;
 	}
 	
 	
@@ -258,6 +316,14 @@ public class AdminController {
 	public void adminElements() {
 		
 	}
+	@RequestMapping("/adminElements2.giv")
+	public void adminElements2() {
+		
+	}
+	@RequestMapping("/adminAccount.giv")
+	public void adminAccount() {
+		
+	}
 	@RequestMapping("/adminPanels.giv")
 	public void adminPanels() {
 		
@@ -266,5 +332,8 @@ public class AdminController {
 	public void adminWidgets() {
 		
 	}
+	
+	
+	
 	
 }

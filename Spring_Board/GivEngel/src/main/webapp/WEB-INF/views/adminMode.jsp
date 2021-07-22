@@ -7,7 +7,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Lumino - Dashboard</title>
+	<title>GivEngel [개발자 모드]</title>
 	<link href="${path}/resources/css/admin/bootstrap.min.css" rel="stylesheet">
 	<link href="${path}/resources/css/admin/font-awesome.min.css" rel="stylesheet">
 	<link href="${path}/resources/css/admin/datepicker3.css" rel="stylesheet">
@@ -55,8 +55,18 @@
 		<ul class="nav menu">
 			<li class="active"><a href="adminMode.giv"><em class="fa fa-dashboard">&nbsp;</em> 누적통계</a></li>
 			<li><a href="adminWidgets.giv"><em class="fa fa-calendar">&nbsp;</em> 개발자보드</a></li>
+			<c:if test="${admin.admin_level > 0 }">
 			<li ><a href="adminCharts.giv"><em class="fa fa-bar-chart">&nbsp;</em> 분석/통계</a></li>
+			</c:if>
+			<c:if test="${admin.admin_level > 1 }">
 			<li><a href="adminElements.giv"><em class="fa fa-toggle-off">&nbsp;</em> 상품 추가</a></li>
+			</c:if>
+			<c:if test="${admin.admin_level > 2 }">
+			<li><a href="adminElements2.giv"><em class="fa fa-toggle-off">&nbsp;</em> 후원 단체 등록</a></li>
+			</c:if>
+			<c:if test="${admin.admin_level > 3 }">
+			<li><a href="adminAccount.giv"><em class="fa fa-toggle-off">&nbsp;</em> 개발자 계정 관리</a></li>
+			</c:if>
 			<li><a href="adminPanels.giv"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 				<em class="fa fa-navicon">&nbsp;</em> Multilevel <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
@@ -124,7 +134,7 @@
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 					<div class="panel panel-red panel-widget ">
 						<div class="row no-padding"><em class="fa fa-xl fa-search color-red"></em>
-							<div class="large">25.2k</div>
+							<div class="large"><span id="cashCount"></span></div>
 							<div class="text-muted">총 사용된 마일리지</div>
 						</div>
 					</div>
@@ -436,6 +446,8 @@
 	<script src="${path}/resources/js/admin/custom.js"></script>
 	<script>
 		window.onload = function () {
+			updateDevLog()
+			
 	var chart1 = document.getElementById("line-chart").getContext("2d");
 	window.myLine = new Chart(chart1).Line(lineChartData, {
 	responsive: true,
@@ -465,6 +477,17 @@
 		});
 		
 	}
+	
+	function updateCashCount(){
+		$.ajax({
+			url:"countCash.giv",
+			type:"post",
+			success:function(data){
+				$("#cashCount").text(data +"원");
+			}
+		});
+		
+	}
 	function updatOrderCount(){
 		$.ajax({
 			url:"countOrder.giv",
@@ -490,10 +513,40 @@
 		success:function(data){
 			$('#devLog').empty();
 			var list = data.devLog;
-			for(var i=0;i<data.devLog.length;i++){
-				
-				$('#devLog').append('<li class="left clearfix"><span class="chat-img pull-left"><img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" /></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+data.id[i]+'</strong> <small class="text-muted">'+data.devLog[i].log_date+'</small></div><p>'+ data.devLog[i].log_detail  +'</p></div></li>')
-			}
+			var src=""
+			
+			if(data.devLog.length<10){
+				for(var i=0;i<data.devLog.length;i++){
+					if(data.level[i]==1){
+						 src = "/GivEngel/resources/img/admin/lv1.png";
+					}else if(data.level[i]==2){
+						 src = "/GivEngel/resources/img/admin/lv2.png";
+					}else if(data.level[i]==3){
+						 src = "/GivEngel/resources/img/admin/lv3.png";
+					}else if(data.level[i]==4){
+						src = "/GivEngel/resources/img/admin/lv4.png";
+					}else{
+					 src = "http://placehold.it/60/30a5ff/fff";
+					}
+					$('#devLog').append('<li class="left clearfix"><span class="chat-img pull-left"><div class="profile-userpic"><img src='+src+' alt="User Avatar" class="img-circle img-responsive" /></div></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+data.id[i]+'</strong> <small class="text-muted">'+data.devLog[i].log_date+'</small></div><p>'+ data.devLog[i].log_detail  +'</p></div></li>')
+				}
+			}else{
+				for(var i=0;i<10;i++){
+					if(data.level[i]==1){
+						 src = "/GivEngel/resources/img/admin/lv1.png";
+					}else if(data.level[i]==2){
+						 src = "/GivEngel/resources/img/admin/lv2.png";
+					}else if(data.level[i]==3){
+						 src = "/GivEngel/resources/img/admin/lv3.png";
+					}else if(data.level[i]==4){
+						src = "/GivEngel/resources/img/admin/lv4.png";
+					}else{
+					 src = "http://placehold.it/60/30a5ff/fff";
+					}
+					$('#devLog').append('<li class="left clearfix"><span class="chat-img pull-left"><div class="profile-userpic"><img src='+src+' alt="User Avatar" class="img-circle img-responsive" /></div></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+data.id[i]+'</strong> <small class="text-muted">'+data.devLog[i].log_date+'</small></div><p>'+ data.devLog[i].log_detail  +'</p></div></li>')
+				}
+				}
+			
 		}
 	});
 	
@@ -503,6 +556,7 @@
 	
 	setInterval(updateUserCount,2000);
 	setInterval(updateSaleCount,2000);
+	setInterval(updateCashCount,2000);
 	setInterval(updatOrderCount,2000);
 	setInterval(updateDevLog,5000);
 	

@@ -25,6 +25,13 @@ public class LogDAOImpl implements LogDAO{
 		
 		mybatis.insert("LogDAO.insertLog", vo);
 	}
+
+	@Override
+	public int deleteLog(LogVO vo) {
+		System.out.println("[deleteLog] vo체크" + vo.getLog_no());
+		return mybatis.delete("LogDAO.deleteLog",vo);
+		
+	}
 	
 	
 	

@@ -44,6 +44,7 @@ public class LoginController {
 		if(login == null) {
 			session.setAttribute("user", null);
 			rttr.addFlashAttribute("msg", false);
+			return "/loginForm";
 		}else {
 			System.out.println("LoginAction 세션 생성 : " + login.getUser_id());
 			session.setAttribute("user", login);

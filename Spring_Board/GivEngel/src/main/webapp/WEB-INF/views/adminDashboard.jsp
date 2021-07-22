@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>GivEngel [개발자 모드]</title>
 </head>
 <body>
 <div class="row">

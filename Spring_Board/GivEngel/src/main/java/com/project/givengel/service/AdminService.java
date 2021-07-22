@@ -11,10 +11,15 @@ public interface AdminService {
 		
 		public int userCount();
 		
+		public int priceCount();
+		public int cashCount();
+		
 		public List<GoodVO> selectGood();
 		
 		public List<SponVO> selectSpon();
 		
 		public void insertGood(GoodVO vo);
+		
+		public AdminVO selectAdmin(String admin_id);
 
 }

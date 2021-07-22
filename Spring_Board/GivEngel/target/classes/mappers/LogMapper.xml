@@ -16,5 +16,13 @@
 		
 		]]>
 	</select>
+	
+	<delete id="deleteLog" parameterType="logVO">
+		DELETE FROM log
+		WHERE log_no = #{log_no}
+	
+	</delete>
+	
+	
 
 </mapper>

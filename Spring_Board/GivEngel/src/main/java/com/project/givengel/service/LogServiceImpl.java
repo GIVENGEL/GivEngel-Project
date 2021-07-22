@@ -27,4 +27,9 @@ public class LogServiceImpl implements LogService {
 		logDAO.insertLog(vo);
 	}
 
+	@Override
+	public int deleteLog(LogVO vo) {
+		return logDAO.deleteLog(vo);
+	}
+
 }

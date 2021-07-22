@@ -7,7 +7,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Lumino - Widgets</title>
+	<title>GivEngel [개발자 모드]</title>
 	<link href="${path}/resources/css/admin/bootstrap.min.css" rel="stylesheet">
 	<link href="${path}/resources/css/admin/font-awesome.min.css" rel="stylesheet">
 	<link href="${path}/resources/css/admin/datepicker3.css" rel="stylesheet">
@@ -41,7 +41,7 @@
 			</c:if>
 			</div>
 			<div class="profile-usertitle">
-				<div class="profile-usertitle-name"> ${admin.admin_id}</div>
+			<div class="profile-usertitle-name"> ${admin.admin_id}</div>
 				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
 			</div>
 			<div class="clear"></div>
@@ -237,7 +237,8 @@
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						할 일
+						<span id="admin_id">${admin.admin_id}</span>님의 할 일
+						
 						<ul class="pull-right panel-settings panel-button-tab-right">
 							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
 								<em class="fa fa-cogs"></em>
@@ -263,55 +264,16 @@
 						</ul>
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
-						<ul class="todo-list">
-							<li class="todo-list-item">
-								<div class="checkbox">
-									<input type="checkbox" id="checkbox-1" />
-									<label for="checkbox-1">Make coffee</label>
-								</div>
-								<div class="pull-right action-buttons"><a href="#" class="trash"><em class="fa fa-trash"></em></a></div>
-							</li>
-							<li class="todo-list-item">
-								<div class="checkbox">
-									<input type="checkbox" id="checkbox-2" />
-									<label for="checkbox-2">Check emails</label>
-								</div>
-								<div class="pull-right action-buttons"><a href="#" class="trash"><em class="fa fa-trash"></em></a></div>
-							</li>
-							<li class="todo-list-item">
-								<div class="checkbox">
-									<input type="checkbox" id="checkbox-3" />
-									<label for="checkbox-3">Reply to Jane</label>
-								</div>
-								<div class="pull-right action-buttons"><a href="#" class="trash"><em class="fa fa-trash"></em></a></div>
-							</li>
-							<li class="todo-list-item">
-								<div class="checkbox">
-									<input type="checkbox" id="checkbox-4" />
-									<label for="checkbox-4">Make more coffee</label>
-								</div>
-								<div class="pull-right action-buttons"><a href="#" class="trash"><em class="fa fa-trash"></em></a></div>
-							</li>
-							<li class="todo-list-item">
-								<div class="checkbox">
-									<input type="checkbox" id="checkbox-5" />
-									<label for="checkbox-5">Work on the new design</label>
-								</div>
-								<div class="pull-right action-buttons"><a href="#" class="trash"><em class="fa fa-trash"></em></a></div>
-							</li>
-							<li class="todo-list-item">
-								<div class="checkbox">
-									<input type="checkbox" id="checkbox-6" />
-									<label for="checkbox-6">Get feedback on design</label>
-								</div>
-								<div class="pull-right action-buttons"><a href="#" class="trash"><em class="fa fa-trash"></em></a></div>
-							</li>
+						<ul id="todo_list" class="todo-list">
+							
+							
 						</ul>
 					</div>
 					<div class="panel-footer">
 						<div class="input-group">
-							<input id="btn-input" type="text" class="form-control input-md" placeholder="Add new task" /><span class="input-group-btn">
-								<button class="btn btn-primary btn-md" id="btn-todo">Add</button>
+							<input name="todo_detail" id="todo_detail" type="text" class="form-control input-md" placeholder="Add new task" /><span class="input-group-btn">
+								<input type="button" class="btn btn-primary btn-md" id="todosubmit" value="등록">
+								
 						</span></div>
 					</div>
 				</div>
@@ -515,29 +477,20 @@
 						</ul>
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
-						<form class="form-horizontal" action="" method="post">
+						<form class="form-horizontal" action="#" method="post">
 							<fieldset>
 								<!-- Name input-->
 								<div class="form-group">
 									<label class="col-md-3 control-label" for="name">제목</label>
 									<div class="col-md-9">
-										<input id="name" name="name" type="text" placeholder="제목" class="form-control">
+										<input id="todo_title" name="title" type="text" placeholder="제목" class="form-control">
 									</div>
-								</div>
-							
-								<!-- Email input-->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="email">비밀번호</label>
-									<div class="col-md-9">
-										<input id="email" name="email" type="password" placeholder="비밀번호" class="form-control">
-									</div>
-								</div>
-								
+								</div>								
 								<!-- Message body -->
 								<div class="form-group">
 									<label class="col-md-3 control-label" for="message">메시지</label>
 									<div class="col-md-9">
-										<textarea class="form-control" id="message" name="message" placeholder="메시지를 입력해주세요..." rows="5"></textarea>
+										<textarea class="form-control" id="content" name="todo_content" placeholder="메시지를 입력해주세요..." rows="5"></textarea>
 									</div>
 								</div>
 								
@@ -567,6 +520,77 @@
 	<script src="${path}/resources/js/admin/easypiechart-data.js"></script>
 	<script src="${path}/resources/js/admin/bootstrap-datepicker.js"></script>
 	<script src="${path}/resources/js/admin/custom.js"></script>
+	<script>
+		window.onload = function () {
+			 updateToDoLog();
+			 
+			 
+			$(document).on("click","#todosubmit",function(){
+				if($("#todo_detail").val()!=""){
+					$.ajax({
+						url:"insertToDoLog.giv",
+						type:"post",
+						data:{"todo_detail": $("#todo_detail").val()},
+						success:function(data){
+							$("#todo_detail").val("");
+							updateToDoLog();
+						}
+					});
+				}else{
+					alert("할 일을 입력하세요")
+				}
+				
+				
+			})
+			
+			$(document).on("click",".todo_list",function(){
+				var log_no = $(this).next().val();
+
+				$.ajax({
+					url:"deleteToDoLog.giv",
+					type:"post",
+					data:{"log_no":log_no},
+					success:function(data){
+						$(this).remove();
+						updateToDoLog();
+					}
+				});
+				
+			})
+			
+			
+			/* <li class="todo-list-item">
+			
+				<div class="checkbox">
+					<input type="checkbox" class="checkboxs" />
+						<label for="checkbox-1">data.todolog[i].log_detail</label>
+						
+				</div>
+				<div class="pull-right action-buttons"><a href="#" class="trash"><em class="fa fa-trash"></em></a></div>
+			</li>
+			<input type="hidden"  value='+data.todolog[i].log_no+'>*/
+			function updateToDoLog(){
+				$.ajax({
+					url:"selectToDoLog.giv",
+					type:"post",
+					data:{"admin_id":$("#admin_id").text()},
+					success:function(data){
+						$("#todo_list").empty();
+						for(var i=0;i<data.todolog.length;i++){
+							$("#todo_list").append('<li class="todo-list-item todo_list"><div class="checkbox"><input type="checkbox" class="checkboxs" /><label for="checkbox-1">'+data.todolog[i].log_detail+'</label></div><div class="pull-right action-buttons"><a href="#" class="trash"><em class="fa fa-trash"></em></a></div></li><input type="hidden"  value='+data.todolog[i].log_no+'>');
+						}						
+					}
+				});
+				
+			}
+			
+			 setInterval(updateToDoLog,5000); 
+
+
+
+};
+	</script>
+	
 	</c:if>
 </body>
 </html>

@@ -15,6 +15,14 @@
 		FROM user
 	</select> 
 	
+	<select id="priceCount" resultType="int">
+		select sum(user_buylog_price) as sum from user_buylog;
+	</select> 
+	
+	<select id="cashCount" resultType="int">
+		select sum(user_cashlog_price) as sum from user_cashlog;
+	</select> 
+	
 	<select id="selectGood" resultType="goodVO">
 		SELECT * 
 		  FROM good  
@@ -26,6 +34,12 @@
 		  FROM spon  
 	</select>
 	
+	<select id="selectAdmin" resultType="adminVO">
+		SELECT * 
+		  FROM admin
+		  WHERE admin_id = #{admin_id}  
+	</select>
+	
 	<insert id="insertGood" parameterType="goodVO">
 		
 		INSERT INTO good(good_name,good_price,good_tag,good_like,good_stock,good_detail,good_img,good_img_size,good_date,spon_no)
@@ -33,6 +47,8 @@ VALUES(#{good_name}, #{good_price}, #{good_tag},0,#{good_stock},#{good_detail},#
 		
 		
 	</insert>
+	
+	
 
 
 </mapper>

@@ -32,6 +32,16 @@ public class AdminDAOImpl implements AdminDAO {
 	public int userCount() {
 		return mybatis.selectOne("AdminDAO.userCount");
 	}
+	
+	@Override
+	public int priceCount() {
+		return mybatis.selectOne("AdminDAO.priceCount");
+	}
+	
+	@Override
+	public int cashCount() {
+		return mybatis.selectOne("AdminDAO.cashCount");
+	}
 
 	@Override
 	public List<GoodVO> selectGood() {
@@ -48,6 +58,12 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public void insertGood(GoodVO vo) {
 		mybatis.insert("AdminDAO.insertGood", vo);
+		
+	}
+
+	@Override
+	public AdminVO selectAdmin(String admin_id) {
+		return mybatis.selectOne("AdminDAO.selectAdmin", admin_id);
 		
 	}
 

@@ -23,6 +23,15 @@ public class AdminServiceImpl implements AdminService {
 	public int userCount() {
 		return adminDAO.userCount();
 	}
+	
+	public int priceCount() {
+		return adminDAO.priceCount();
+	}
+	
+	@Override
+	public int cashCount() {
+		return adminDAO.cashCount();
+	}
 
 	@Override
 	public List<GoodVO> selectGood() {
@@ -38,6 +47,11 @@ public class AdminServiceImpl implements AdminService {
 	public void insertGood(GoodVO vo) {
 		adminDAO.insertGood(vo);
 		
+	}
+
+	@Override
+	public AdminVO selectAdmin(String admin_id) {
+		return adminDAO.selectAdmin(admin_id);
 	}
 
 }
