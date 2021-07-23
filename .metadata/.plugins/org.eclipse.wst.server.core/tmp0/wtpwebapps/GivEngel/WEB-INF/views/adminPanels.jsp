@@ -7,7 +7,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Lumino - Panels</title>
+	<title>GivEngel [개발자 모드]</title>
 	<link href="${path}/resources/css/admin/bootstrap.min.css" rel="stylesheet">
 	<link href="${path}/resources/css/admin/font-awesome.min.css" rel="stylesheet">
 	<link href="${path}/resources/css/admin/datepicker3.css" rel="stylesheet">
@@ -22,7 +22,6 @@
 </head>
 <body>
 <c:if test="${admin != null}">
-	
 	<jsp:include page="module/adminSidebar.jsp" />
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<div class="profile-sidebar">
@@ -53,11 +52,52 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li><a href="adminMode.giv"><em class="fa fa-dashboard">&nbsp;</em> 누적통계</a></li>
+			<li class="active"><a href="adminMode.giv"><em class="fa fa-dashboard">&nbsp;</em> 누적통계</a></li>
 			<li><a href="adminWidgets.giv"><em class="fa fa-calendar">&nbsp;</em> 개발자보드</a></li>
+			<c:if test="${admin.admin_level > 0 }">
 			<li ><a href="adminCharts.giv"><em class="fa fa-bar-chart">&nbsp;</em> 분석/통계</a></li>
-			<li><a href="adminElements.giv"><em class="fa fa-toggle-off">&nbsp;</em> 상품 추가</a></li>
-			<li class="active"><a href="adminPanels.giv"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
+			</c:if>
+			<c:if test="${admin.admin_level > 1 }">
+			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
+				<em class="fa fa-navicon">&nbsp;</em> 상품 관리 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+				</a>
+				<ul class="children collapse" id="sub-item-1">
+					<li><a class="" href="adminElements.giv">
+						<span class="fa fa-arrow-right">&nbsp;</span> 상품 추가
+					</a></li>
+					<li><a class="" href="adminElements.giv">
+						<span class="fa fa-arrow-right">&nbsp;</span> 상품 삭제
+					</a></li>
+					<li><a class="" href="adminElements.giv">
+						<span class="fa fa-arrow-right">&nbsp;</span> 상품 수정
+					</a></li>
+				</ul>
+			</li>
+			</c:if>
+			<c:if test="${admin.admin_level > 2 }">
+			<li class="parent "><a data-toggle="collapse" href="#sub-item-2">
+				<em class="fa fa-navicon">&nbsp;</em> 후원 단체 관리 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+				</a>
+				<ul class="children collapse" id="sub-item-2">
+					<li><a class="" href="adminElements2.giv">
+						<span class="fa fa-arrow-right">&nbsp;</span> 후원 단체 등록
+					</a></li>
+					<li><a class="" href="adminElements2.giv">
+						<span class="fa fa-arrow-right">&nbsp;</span> 후원 단체 삭제
+					</a></li>
+					<li><a class="" href="adminElements2.giv">
+						<span class="fa fa-arrow-right">&nbsp;</span> 후원 단체 수정
+					</a></li>
+				</ul>
+			</li>
+			</c:if>
+			<c:if test="${admin.admin_level > 2 }">
+			<li><a href="adminFlea.giv"><em class="fa fa-toggle-off">&nbsp;</em> 중고 상품 관리</a></li>
+			</c:if>
+			<c:if test="${admin.admin_level > 3 }">
+			<li><a href="adminAccount.giv"><em class="fa fa-toggle-off">&nbsp;</em> 개발자 계정 관리</a></li>
+			</c:if>
+			<li><a href="adminPanels.giv"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 				<em class="fa fa-navicon">&nbsp;</em> Multilevel <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>

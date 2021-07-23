@@ -7,7 +7,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Lumino - Login</title>
+	<title>GivEngel [개발자 모드]</title>
 	<link href="${path}/resources/css/admin/bootstrap.min.css" rel="stylesheet">
 	<link href="${path}/resources/css/admin/datepicker3.css" rel="stylesheet">
 	<link href="${path}/resources/css/admin/styles.css" rel="stylesheet">

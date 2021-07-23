@@ -124,14 +124,17 @@
 				<c:forEach items="${sponList }" var="spon">
 					<div class="col-lg-4 col-md-4 col-sm-6">
 						<div class="blog__item">
-							<div class="blog__item__pic">
-								<img src="${path}${spon.spon_img }" alt="">
+							<div class="blog__item__pic" style="border:2px solid #f9f9f9">
+								<c:choose>
+								<c:when test= "${spon.spon_img == '' }"><a href="sponsorView.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/null.jpg" alt=""></a></c:when>
+								<c:otherwise><a href="sponsorView.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/${spon.spon_img }" alt="${spon.spon_name }"></a></c:otherwise>
+								</c:choose>
 							</div>
 							<div class="blog__item__text">
 								<ul>
 									<li>
 									<li><i class="fa fa-calendar-o"></i>${spon.spon_start }</li>
-									<li><i class="fa fa-comment-o"></i> 댓글 수 출력</li>
+									<li id="countSponCom"><i class="fa fa-comment-o"></i></li>
 								</ul>
 								<h5>
 									<a href="sponsorView.giv?spon_no=${spon.spon_no }">${spon.spon_name }</a>
@@ -220,6 +223,7 @@
 	<script src="${path}/resources/js/mixitup.min.js"></script>
 	<script src="${path}/resources/js/owl.carousel.min.js"></script>
 	<script src="${path}/resources/js/main.js"></script>
+	<script src="${path}/resources/js_page/sponsor.js"></script>
 
 
 
