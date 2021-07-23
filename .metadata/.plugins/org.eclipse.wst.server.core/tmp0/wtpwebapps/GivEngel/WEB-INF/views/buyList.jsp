@@ -243,7 +243,7 @@
                                 <div class="col-lg-4">
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg"
-                                            data-setbg="${path}/resources/img/good/${popularList.good_img}" onclick="location.href='buyForm.giv?good_no=${popularList.good_no}'">
+                                            data-setbg="${path}/resources/img/good/${popularList.good_img}" onclick="location.href='buyForm.giv?good_no=${popularList.good_no}'" style="cursor:pointer">
                                             <!-- 할인율 DIV 주석 -->
 									<!--<div class="product__discount__percent">-20%</div> -->
                                             <ul class="product__item__pic__hover">
@@ -270,7 +270,7 @@
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">
-                                            <span>Dried Fruit</span>
+                                            <span>재고 / ${popularList.good_stock}</span>
                                             <h5><a href="buyGood.do?good_no=${popularList.good_no }">${popularList.good_name} </a></h5>
                                             <div class="product__item__price">${popularList.good_price} </div>
                                         </div>
@@ -315,7 +315,7 @@
                     <c:forEach items="${goodList }" var="goodVO">
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="${path}/resources/img/good/${goodVO.good_img}" onclick="location.href='buyForm.giv?good_no=${goodVO.good_no}'">
+                                <div class="product__item__pic set-bg" data-setbg="${path}/resources/img/good/${goodVO.good_img}" onclick="location.href='buyForm.giv?good_no=${goodVO.good_no}'" style="cursor:pointer">
                                     <ul class="product__item__pic__hover">
                                      <!-- 좋아요 기능구현 -->
                                      <!-- 세션정보의 유무에 따른 하트모양 처리 -->
@@ -330,7 +330,7 @@
                                             	</c:otherwise>
                                             </c:choose>
                                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                <li><a href='javascript:void(0);' onclick="addCart();"><i class="fa fa-shopping-cart"></i></a></li>
                                          </c:when>
 											
                                          <c:when test="${sessionScope.user == null}">

@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%   String good_no = request.getParameter("good_no");  %>  
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -14,6 +13,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>살아숨쉬는 기부의 즐거움, GivEngel</title>
+
+
 
 <!-- Google Font -->
 <link
@@ -29,6 +30,7 @@
 <link rel="stylesheet" href="${path}/resources/css/owl.carousel.min.css" type="text/css">
 <link rel="stylesheet" href="${path}/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="${path}/resources/css/style.css" type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/quantity.css" type="text/css">
 </head>
 
 <body>
@@ -98,8 +100,9 @@
 					<div class="breadcrumb__text">
 						<h2>상품 구매 절차</h2>
 						<div class="breadcrumb__option">
-							<a href="./index.html">Home</a> <a href="./index.html">[상품
-								카테고리]</a> <span>[상품명]</span>
+							<a href="./index.html">Home</a> 
+							<a href="buyList.giv?categories=${categories}">${categories}</a> 
+							<span>${goodVO.good_name}</span>
 						</div>
 					</div>
 				</div>
@@ -116,23 +119,23 @@
 					<div class="product__details__pic">
 						<div class="product__details__pic__item">
 							<img class="product__details__pic__item--large"
-								src="${path}/resources/img/product/details/product-details-1.jpg" alt="">
+								src="${path}/resources/img/good/${goodVO.good_img}" alt="">
 						</div>
 						<div class="product__details__pic__slider owl-carousel">
-							<img data-imgbigurl="${path}/resources/img/product/details/product-details-2.jpg"
-								src="${path}/resources/img/product/details/thumb-1.jpg" alt=""> <img
-								data-imgbigurl="${path}/resources/img/product/details/product-details-3.jpg"
-								src="${path}/resources/img/product/details/thumb-2.jpg" alt=""> <img
-								data-imgbigurl="${path}/resources/img/product/details/product-details-5.jpg"
-								src="${path}/resources/img/product/details/thumb-3.jpg" alt=""> <img
-								data-imgbigurl="${path}/resources/img/product/details/product-details-4.jpg"
+							<img data-imgbigurl="${path}/resources/img/good/details/product-details-2.jpg"
+								src="${path}/resources/img/product/details/thumb-1.jpg" alt=""> 
+								<img data-imgbigurl="${path}/resources/img/product/details/product-details-3.jpg"
+								src="${path}/resources/img/product/details/thumb-2.jpg" alt=""> 
+								<img data-imgbigurl="${path}/resources/img/product/details/product-details-5.jpg"
+								src="${path}/resources/img/product/details/thumb-3.jpg" alt="">
+								<img data-imgbigurl="${path}/resources/img/product/details/product-details-4.jpg"
 								src="${path}/resources/img/product/details/thumb-4.jpg" alt="">
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6">
 					<div class="product__details__text">
-						<h3>[상품명]</h3>
+						<h3 id=good_name>${goodVO.good_name}</h3>
 						<div class="product__details__rating">
 							<!--  별 찍는 방법 -->
 							<!-- <i class="fa fa-star"></i>
@@ -140,25 +143,35 @@
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star-half-o"></i> -->
-							<span>[댓글수]</span>
+							<span>댓글 / ${totalGoodCom}</span>
 						</div>
-						<div class="product__details__price">[가격]</div>
+						<div class="product__details__price" id='defalutPrice'>${goodVO.good_price}</div>
+						<input type="hidden" value='${goodVO.good_no}' id='good_no_cart' />
+						<input type="hidden" value='${user.user_no}' id='user_no_cart' />
 						<p>제품 설명</p>
-						<div class="product__details__quantity">
+						<div class="good__details__quantity">
 							<div class="quantity">
-								<div class="pro-qty">
-									<input type="text" value="1">
+								<div class="good-qty">
+									<span id='minus'>-</span>
+									<input id ='buyCntNow' type="text" value="1">
+									<span id='plus'>+</span>
 								</div>
 							</div>
 						</div>
-						<a href="#" class="primary-btn">구매하기</a> <a href="#"
+						<c:if test="${user != null}">
+						<a href="#" class="primary-btn" id='buyGoodBtn'>구매하기</a> <a href="#" id='addCart'
 							class="primary-btn">장바구니에 담기</a> <a href="#" class="heart-icon"><span
 							class="icon_heart"></span></a>
+						</c:if>
+						<c:if test="${user == null}">
+						<a href="#" class="primary-btn" id='buyGoodBtn-notLogin'>구매하기</a> <a href="#" id='addCart-notLogin'
+							class="primary-btn">장바구니에 담기</a> <a href="#" class="heart-icon"><span
+							class="icon_heart"></span></a>
+						</c:if>
 						<ul>
-							<li><b>상품 카테고리</b> <span>[카테고리]</span></li>
-							<li><b>남은 재고</b> <span>[현재개수]<samp> /[총 개수]</samp></span><br></li>
-							
-							<li></li>
+							<li><b>상품 카테고리</b> <span>${categories}</span></li>
+							<li><b>남은 재고</b> <span id='goodStock'> ${goodVO.good_stock}</span><br></li>							
+							<li><b>총 금액</b><span id='totalPrice'>${goodVO.good_price}</span></li>
 
 							<li><b>공유하기</b>
 								<div class="share">
@@ -180,15 +193,14 @@
 								href="#tabs-2" role="tab" aria-selected="false">GivEngel 이용
 									수칙</a></li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"
-								href="#tabs-3" role="tab" aria-selected="false">리뷰 <span>(댓글
-										수)</span></a></li>
+								href="#tabs-3" role="tab" aria-selected="false">리뷰 <span>(${totalGoodCom})</span></a></li>
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane active text-center" id="tabs-1"
 								role="tabpanel">
 								<div class="product__details__tab__desc">
 									<h6>상품 설명</h6>
-									<p>[상품 설명]</p>
+									<p>${goodVO.good_detail}</p>
 								</div>
 							</div>
 							<div class="tab-pane text-center" id="tabs-2" role="tabpanel">
@@ -204,8 +216,8 @@
 									<div class="row d-flex justify-content-center">
 										<div class="col-md-12">
 											<div
-												class="headings d-flex justify-content-between align-items-center mb-3">
-												<h5>댓글 (댓글수)</h5>
+												class="headings d-flex justify-content-between align-items-center mb-3" id='listGoodCom'>
+												<h5>댓글  (${totalGoodCom}) </h5>
 												<div class="buttons">
 													<span
 														class="badge bg-white d-flex flex-row align-items-center">
@@ -216,83 +228,59 @@
 											</div>
 
 											<!-- 댓글 하나 -->
+											<c:forEach items="${comVO }" var='voList'>
 											<div class="card p-3 mb-5">
+											<input type="hidden" value='${voList.good_com_no }' id='com_no' >
+											<input type="hidden" value='${user.user_pw }' id='comUser_pw' >
+											
 												<div
 													class="d-flex justify-content-between align-items-center">
 													<div class="user d-flex flex-row align-items-center">
 														<img src="https://i.imgur.com/hczKIze.jpg" width="30"
 															class="user-img rounded-circle mr-2"> <span><small
-															class="font-weight-bold text-primary">[유저 아이디]</small> <small
-															class="font-weight-bold">[유저가 남긴 메시지]</small></span>
+															class="font-weight-bold text-primary" >${voList.good_com_writer }</small> 
+															<c:choose>
+															<c:when test="${user.user_id == voList.good_com_writer}">
+															<textarea
+															class="font-weight-bold" id='com_content'>${voList.good_com_content }</textarea>
+															</c:when>
+															<c:otherwise>
+															<small
+															class="font-weight-bold">${voList.good_com_content }</small>
+															</c:otherwise>
+															</c:choose>
+															</span>
 													</div>
-													<small>[작성일]</small>
+													<small>${voList.good_com_date }</small>
 												</div>
-												<div
-													class="action d-flex justify-content-between mt-2 align-items-center">
+												<c:if test="${user.user_id == voList.good_com_writer}">
+												<div class="action d-flex justify-content-between mt-2 align-items-center">
 													<div class="reply px-4">
-														<small>삭제하기</small> <span class="dots"></span> <small>수정하기</small>
+														<button type="button" id="comDelete">
+														<small>삭제하기</small> <span class="dots"></span> 
+														</button>
+														<button type="button" id="comModify">
+														<small>수정하기</small>
 														<span class="dots"></span>
+														</button>
 													</div>
+													
 													<div class="icons align-items-center">
 														<i class="fa fa-star text-warning"></i> <i
 															class="fa fa-check-circle-o check-icon"></i>
 													</div>
 												</div>
+												</c:if>
 											</div>
-											<!-- 댓글 하나 -->
-											<div class="card p-3 mb-5">
-												<div
-													class="d-flex justify-content-between align-items-center">
-													<div class="user d-flex flex-row align-items-center">
-														<img src="https://i.imgur.com/hczKIze.jpg" width="30"
-															class="user-img rounded-circle mr-2"> <span><small
-															class="font-weight-bold text-primary">[유저 아이디]</small> <small
-															class="font-weight-bold">[유저가 남긴 메시지]</small></span>
-													</div>
-													<small>[작성일]</small>
-												</div>
-												<div
-													class="action d-flex justify-content-between mt-2 align-items-center">
-													<div class="reply px-4">
-														<small>삭제하기</small> <span class="dots"></span> <small>수정하기</small>
-														<span class="dots"></span>
-													</div>
-													<div class="icons align-items-center">
-														<i class="fa fa-star text-warning"></i> <i
-															class="fa fa-check-circle-o check-icon"></i>
-													</div>
-												</div>
-											</div>
-											<!-- 댓글 하나 -->
-											<div class="card p-3 mb-5">
-												<div
-													class="d-flex justify-content-between align-items-center">
-													<div class="user d-flex flex-row align-items-center">
-														<img src="https://i.imgur.com/hczKIze.jpg" width="30"
-															class="user-img rounded-circle mr-2"> <span><small
-															class="font-weight-bold text-primary">[유저 아이디]</small> <small
-															class="font-weight-bold">[유저가 남긴 메시지]</small></span>
-													</div>
-													<small>[작성일]</small>
-												</div>
-												<div
-													class="action d-flex justify-content-between mt-2 align-items-center">
-													<div class="reply px-4">
-														<small>삭제하기</small> <span class="dots"></span> <small>수정하기</small>
-														<span class="dots"></span>
-													</div>
-													<div class="icons align-items-center">
-														<i class="fa fa-star text-warning"></i> <i
-															class="fa fa-check-circle-o check-icon"></i>
-													</div>
-												</div>
-											</div>
+											</c:forEach>
+											
 										</div>
 									</div>
 								</div>
 								<!-- 댓글 출력창 end -->
 
 								<!-- 댓글 입력창 -->
+								<c:if test="${user != null}">
 								<div class="card mb-2 col-lg-12">
 									<div class="card-header bg-light">
 										<i class="fa fa-comment fa"></i> REPLY
@@ -301,22 +289,22 @@
 										<ul class="list-group list-group-flush">
 											<li class="list-group-item">
 												<div class="form-inline mb-2">
-													<label for="replyId"><i
-														class="fa fa-user-circle-o fa-2x"></i></label> <input type="text"
-														class="form-control ml-2" placeholder="Enter yourId"
-														id="replyId"> <label for="replyPassword"
-														class="ml-4"><i class="fa fa-unlock-alt fa-2x"></i></label>
+													<label for="replyId"><i class="fa fa-user-circle-o fa-2x"></i></label> 
+													<input type="text" class="form-control ml-2" placeholder="${user.user_id}"	id="good_com_writer" name='good_com_writer' value='${user.user_id}'> 
+													<label for="replyPassword" class="ml-4"><i class="fa fa-unlock-alt fa-2x"></i></label>
 													<input type="password" class="form-control ml-2"
-														placeholder="Enter password" id="replyPassword">
-												</div> <textarea class="form-control"
-													id="exampleFormControlTextarea1" rows="3"></textarea>
-												<button type="button"
-													class="btn btn-success mt-3 float-right"
-													onClick="javascript:addReply();">답글 달기</button>
+														   placeholder="Enter password" id="user_pw" name='user_pw'>														   
+													<input type="hidden" value='${user.user_no}' id='user_no' />
+													<input type="hidden" value='${goodVO.good_no}' id='good_no' />
+												</div> 
+												<textarea class="form-control"
+													id="good_com_content" rows="3" name='good_com_content'></textarea>
+												<button type="button" class="btn btn-success mt-3 float-right" id='goodComBtn'>답글 달기</button>
 											</li>
 										</ul>
 									</div>
 								</div>
+								</c:if>
 								<!-- 댓글 입력창 end -->
 							</div>
 						</div>
@@ -341,10 +329,12 @@
 				</div>
 			</div>
 			<div class="row">
+			<!-- start foreach -->
+			<c:forEach items="${ latestGood1}" var='latestGood1'>
 				<div class="col-lg-3 col-md-4 col-sm-6">
 					<div class="product__item">
 						<div class="product__item__pic set-bg"
-							data-setbg="${path}/resources/img/product/product-1.jpg">
+							data-setbg="${path}/resources/img/good/${latestGood1.good_img}" style="cursor:pointer" onclick='location.href="buyForm.giv?good_no=${latestGood1.good_no}"'>
 							<ul class="product__item__pic__hover">
 								<li><a href="#"><i class="fa fa-heart"></i></a></li>
 								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -353,66 +343,68 @@
 						</div>
 						<div class="product__item__text">
 							<h6>
-								<a href="#">Crab Pool Security</a>
+								<a href="#">${latestGood1.good_name}</a>
 							</h6>
-							<h5>$30.00</h5>
+							<h5>${latestGood1.good_price}</h5>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="${path}/resources/img/product/product-2.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="${path}/resources/img/product/product-3.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="${path}/resources/img/product/product-7.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
+<!-- 				<div class="col-lg-3 col-md-4 col-sm-6"> -->
+<!-- 					<div class="product__item"> -->
+<!-- 						<div class="product__item__pic set-bg" -->
+<%-- 							data-setbg="${path}/resources/img/product/product-2.jpg"> --%>
+<!-- 							<ul class="product__item__pic__hover"> -->
+<!-- 								<li><a href="#"><i class="fa fa-heart"></i></a></li> -->
+<!-- 								<li><a href="#"><i class="fa fa-retweet"></i></a></li> -->
+<!-- 								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li> -->
+<!-- 							</ul> -->
+<!-- 						</div> -->
+<!-- 						<div class="product__item__text"> -->
+<!-- 							<h6> -->
+<!-- 								<a href="#">Crab Pool Security</a> -->
+<!-- 							</h6> -->
+<!-- 							<h5>$30.00</h5> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-lg-3 col-md-4 col-sm-6"> -->
+<!-- 					<div class="product__item"> -->
+<!-- 						<div class="product__item__pic set-bg" -->
+<%-- 							data-setbg="${path}/resources/img/product/product-3.jpg"> --%>
+<!-- 							<ul class="product__item__pic__hover"> -->
+<!-- 								<li><a href="#"><i class="fa fa-heart"></i></a></li> -->
+<!-- 								<li><a href="#"><i class="fa fa-retweet"></i></a></li> -->
+<!-- 								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li> -->
+<!-- 							</ul> -->
+<!-- 						</div> -->
+<!-- 						<div class="product__item__text"> -->
+<!-- 							<h6> -->
+<!-- 								<a href="#">Crab Pool Security</a> -->
+<!-- 							</h6> -->
+<!-- 							<h5>$30.00</h5> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-lg-3 col-md-4 col-sm-6"> -->
+<!-- 					<div class="product__item"> -->
+<!-- 						<div class="product__item__pic set-bg" -->
+<%-- 							data-setbg="${path}/resources/img/product/product-7.jpg"> --%>
+<!-- 							<ul class="product__item__pic__hover"> -->
+<!-- 								<li><a href="#"><i class="fa fa-heart"></i></a></li> -->
+<!-- 								<li><a href="#"><i class="fa fa-retweet"></i></a></li> -->
+<!-- 								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li> -->
+<!-- 							</ul> -->
+<!-- 						</div> -->
+<!-- 						<div class="product__item__text"> -->
+<!-- 							<h6> -->
+<!-- 								<a href="#">Crab Pool Security</a> -->
+<!-- 							</h6> -->
+<!-- 							<h5>$30.00</h5> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+			</c:forEach>
+			<!--end foreach  -->
 			</div>
 		</div>
 	</section>

@@ -7,7 +7,7 @@
 <!-- 카테고리에 따른 전체 상품리스트 가져오는 쿼리문-->
 	<select id='getGoodList' resultType="hashmap" parameterType="hashmap">
 		SELECT 
-		g.good_no, g.good_name, g.good_price, g.good_tag, g.good_like, g.good_detail, g.good_img,      
+		g.good_no, g.good_name, g.good_price, g.good_tag, g.good_like, g.good_detail, g.good_img,g.good_stock,      
 		l.like_check,    
 		c.user_no,c.cart_count     		
 		FROM good AS g          
@@ -18,10 +18,13 @@
 		<where>
 			<if test="categories != null">
 				<!-- where content LIKE '%내가 쓴 검색어%' -->
-				good_tag LIKE '%${categories}%'
+				g.good_tag LIKE '%${categories}%'
 			</if>
 			<if test="color != null">
-				good_tag LIKE '%${color}%'
+				g.good_tag LIKE '%${color}%'
+			</if>
+			<if test='keyword != null'>
+				g.good_tag LIKE '%${keyword}%' OR g.good_name LIKE '%${keyword}%'
 			</if>
 		</where>
 		<choose>
@@ -45,8 +48,9 @@
 		ON g.good_no = l.good_no
 		LEFT JOIN cart AS c
 		ON l.good_no = c.good_no
-		ORDER BY good_date LIMIT 0,3
+		ORDER BY good_date LIMIT 0,4
 	</select>
+	
 	<!-- 최신상품 가져오는 쿼리문2 date 순 -->
 	<select id='getlatestGood2' resultType="hashmap">
 		SELECT 
@@ -58,8 +62,9 @@
 		ON g.good_no = l.good_no
 		LEFT JOIN cart AS c
 		ON l.good_no = c.good_no
-		ORDER BY good_date LIMIT 3,3
+		ORDER BY good_date LIMIT 4,4
 	</select>
+	
 	<!-- 최신상품 가져오는 쿼리문3 date 순 -->
 	<select id='getlatestGood3' resultType="hashmap">
 		SELECT 
@@ -71,7 +76,7 @@
 		ON g.good_no = l.good_no
 		LEFT JOIN cart AS c
 		ON l.good_no = c.good_no
-		ORDER BY good_date LIMIT 6,3
+		ORDER BY good_date LIMIT 8,4
 	</select>
 	
 	
@@ -97,11 +102,82 @@
 		</where>
 		ORDER BY good_like LIMIT 0,9
 	</select>
-	
-	<!-- 좋아요 테이블 가져옴 -->
-	<select id="getGoodLike" resultType="LikeToVO">
-		SELECT * FROM liketo
+
+
+	<!-- 상품디테일 -->
+	<select id="getGoodView" parameterType="goodVO" resultType="goodVO">
+		SELECT * FROM good WHERE good_no = ${good_no}
 	</select>
+	
+	<!-- 댓글 리스트 -->
+	<select id="listGoodCom" parameterType="good_comVO" resultType="good_comVO">
+		SELECT * FROM good_com WHERE good_no = ${good_no}
+	</select>
+	
+	<!-- 총 댓글 수 -->
+	<select id="totalGoodCom" parameterType="good_comVO" resultType="int">
+		SELECT COUNT(*) FROM good_com WHERE good_no = ${good_no}
+	</select>
+	
+	
+	<!-- 댓글 입력 유효성 -->
+	<select id="checkGoodComPW" parameterType="userVO" resultType="userVO">
+		SELECT * 
+		FROM user
+		WHERE user_no=${user_no} AND user_pw=${user_pw}
+	</select>
+	
+	
+	<!-- 댓글 입력 -->
+	<insert id="addGoodCom" parameterType="good_comVO">
+		INSERT INTO 
+		good_com(good_no,good_com_writer,good_com_date,good_com_content)
+		VALUES(#{good_no},#{good_com_writer},sysdate(),#{good_com_content})
+	</insert>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteGoodCom" parameterType="good_comVO">
+		DELETE FROM good_com
+		WHERE good_com_no = ${good_com_no}
+	</delete>
+	
+	<!-- 댓글 수정 -->
+	<update id="modifyGoodCom" parameterType="good_comVO">
+		UPDATE good_com 
+		SET good_com_content = ${good_com_content} 
+		where good_com_no = ${good_com_no};
+	</update>
+	
+	<!-- 유저 구매 로그 저장 -->
+	<insert id="addUserBuyLog" parameterType="user_buylogVO">
+		INSERT INTO
+		user_buylog(user_no, good_no, user_buylog_price, user_buylog_date)
+		VALUES(#{user_no},#{good_no},#{user_buylog_price},sysdate())
+	</insert>
+	
+	<!-- 유저 마일리지 적립 -->
+	<update id="addUserM" parameterType="hashmap">
+		UPDATE user SET 
+		user_cash = user_cash+(${buy_totalPrice}*0.1),       
+		user_bought = CONCAT(user_bought,'${good_no}#') where user_no = ${user_no};
+	</update>
+	
+	<!-- 유저 마일리지 로그 업데이트 -->
+	<insert id="addUserMLog" parameterType="user_cashlogVO">
+		INSERT INTO user_cashlog(user_no,user_cashlog_log,user_cashlog_price,user_cashlog_date)
+		VALUES(${user_no},#{user_cashlog_log},${user_cashlog_price},sysdate())
+	</insert>
+	
+	<!-- 상품 재고 업데이트 -->
+	<update id="countGoodStock" parameterType="goodVO">
+		UPDATE good SET good_stock = good_stock - ${good_stock} WHERE good_no = ${good_no}
+	</update>
+	
+	<!-- 장바구니 추가 -->
+	<insert id="addCart" parameterType="cartVO">
+		INSERT INTO cart(user_no,good_no,cart_count)
+		VALUES(${user_no},${good_no},${cart_count})
+	</insert>
 	
 
 

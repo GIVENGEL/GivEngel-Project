@@ -11,6 +11,19 @@ $(function(){
 		}
 	})
 	
+	
+		$(function(){
+		$('#keywordBtn').click(function(){
+			var keyword = $('#keyword').val()
+			alert(keyword)
+			location.href('buyList.giv?keyword='+keyword);
+		})
+		
+	})
+	
+	
+	
+	
 	$('#selectColor > div label').click(function(){
 		var color = $(this).attr('for')
 		location.href = 'buyList.giv?color='+color;
@@ -30,6 +43,8 @@ $(function(){
 		
 			
 		})
+		
+		$('#imgCursor').css("cursor","pointer");
 		
 
 	

@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -53,12 +52,13 @@
 					<div class="blog__details__hero__text">
 						<h2>구입이 완료되었습니다!</h2>
 						<ul >
-							<li>[구입한 물품명]</li>
-							<li >[물품 가격]</li>
+							<li>[구입한 물품명] : ${goodVO.good_name} </li>
+							<li>[수 량] : ${total_price / goodVO.good_price}</li>
+							<li >[물품 가격] : ${total_price}</li>
 							
 						</ul>
 						<input type="button" name="go"
-											class="btn btn-block btn-success mt-3 w-50 mx-auto d-block" value="홈으로 이동하기"></input>
+											class="btn btn-block btn-success mt-3 w-50 mx-auto d-block" value="홈으로 이동하기" onclick="location.href='index.giv'"></input>
 
 					</div>
 				</div>
