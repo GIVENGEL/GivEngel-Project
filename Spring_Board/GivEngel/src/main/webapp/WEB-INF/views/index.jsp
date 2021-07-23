@@ -37,6 +37,7 @@
         <div class="loader"></div>
     </div>
     
+   
 
     <!--  navbar &  side over wrap -->
     <jsp:include page="module/navbar.jsp"/>

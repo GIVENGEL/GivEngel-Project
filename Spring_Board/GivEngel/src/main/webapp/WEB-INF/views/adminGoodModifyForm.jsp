@@ -144,40 +144,35 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-				<h1>상품 등록</h1>
+				<h1>상품 수정하기</h1>
 			</div>
 		</div>
 		<!--/.row-->
 
 
 		<div class="row">
-			<div class="col-lg-12">
-
-				<h2>최근 등록된 상품</h2>
-			</div>
-			<div id="goodDiv">
 			
-			</div>
 			<!-- /.row -->
 
 
 			<div class="panel panel-default">
 				
 				<div class="panel-body">
-				<form id="insertfrm" action="adminInsertGood.giv" method="post" enctype="multipart/form-data">
+				<form id="updatefrm" action="adminGoodModifyAction.giv" method="post">
 					<div class="col-md-6">
 						<input  name="url" class="form-control" value="${path }"  type="hidden">
+						<input  name="good_no" class="form-control" value="${good.good_no }"  type="hidden">
 							<div class="form-group">
-								<label>상품명</label> <input id="good_name" name="good_name" class="form-control" placeholder="상품명">
+								<label>상품명</label> <input id="good_name" name="good_name" class="form-control" placeholder="상품명" value="${good.good_name }">
 							
 							</div>
 							<div class="form-group">
 								<label>상품가격</label> <input id="good_price" name="good_price" type="number" class="form-control"
-									placeholder="상품 가격">
+									placeholder="상품 가격" value="${good.good_price}">
 							</div>
 							<div class="form-group">
 								<label>상품재고</label> <input id="good_stock" name="good_stock" type="number" class="form-control"
-									placeholder="상품 재고">
+									placeholder="상품 재고" value="${good.good_stock }">
 							</div>
 							<div class="form-group">
 								<label>등록 관리자</label> <input id="admin" type="text" name="admin"
@@ -185,17 +180,14 @@
 									disabled>
 							</div>
 
-							<div class="form-group">
-								<label>파일 이미지</label> <input id="file" name="file" type="file">
-								<p class="help-block">상품을 대표하는 이미지를 넣어주세요.</p>
-							</div>
+							
 							<div class="form-group">
 								<label>상품 설명</label>
-								<textarea name="good_detail" id="good_detail" class="form-control" rows="3"></textarea>
+								<textarea name="good_detail" id="good_detail" class="form-control" rows="3">${good.good_detail }</textarea>
 							</div>
 							<label>상품 태그 입력</label>
 							<div class="form-group has-success">
-								<input type="text" name="good_tags" id="good_tags" class="form-control" placeholder="#태그특징">
+								<input type="text" name="good_tags" id="good_tags" class="form-control" placeholder="#태그특징" value="${good.good_tag }">
 							</div>
 					</div>
 					<div class="col-md-6">
@@ -229,13 +221,13 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label>후원단체 등록</label> <select name="spon_no" class="form-control" id="selectSpon">
+							<label>후원단체 수정</label> <select name="spon_no" class="form-control" id="selectSpon">
 								<option value=-1>none</option>
 								
 							</select>
 						</div>
 						
-						<button id="submitbtn" type="button" class="btn btn-primary">상품 등록하기</button>
+						<button id="submitbtn" type="button" class="btn btn-primary">상품 수정하기</button>
 						<button type="reset" class="btn btn-default">양식 초기화</button>
 					</div>
 					</form>
@@ -265,23 +257,13 @@
 	<script src="${path}/resources/js/admin/custom.js"></script>
 	<script>
 		window.onload = function() {
-
-			/* <div class="col-md-3">
-			<div class="panel panel-success">
-				<div class="panel-heading">[상품명]</div>
-				<div class="panel-body">
-					<p>[상품 디테일]</p>
-				</div>
-			</div>
-			</div> */
+			
 			$.ajax({
 				url : "adminSelectSpon.giv",
 				type : "post",
 				success : function(data) {
 					var list = data.list;
-					$("#selectSpon").append("<option>none</option>")
 
-					$("#selectSpon").empty();
 					for(var i=0;i<list.length;i++){
 						$("#selectSpon").append("<option value="+data.list[i].spon_no+">"+data.list[i].spon_name+"</option>")
 						
@@ -290,34 +272,14 @@
 					
 				}
 			});
-			
 
-			function updateGood() {
-				$.ajax({
-					url : "adminSelectGood.giv",
-					type : "post",
-					success : function(data) {
-						var list = data.list;
 
-						$("#goodDiv").empty();
-						for(var i=0;i<4;i++){
-							$("#goodDiv").append('<div class="col-md-3"><div class="panel panel-success"><div class="panel-heading">'+data.list[i].good_name+'</div><div class="panel-body"><p>'+data.list[i].good_detail+'</p></div></div></div>')
-						}
-						
-					}
-				});
-
-			}
-
-			setInterval(updateGood, 2000);
-			
 			
 			function checkform(){
 				var good_name = $("#good_name").val();
 				var good_price = /[0-9]/;
 				var good_stock = /[0-9]/;
 				var admin = $("#admin");
-				var file = $("#file").val();
 				var good_detail = $("#good_detail").val();
 				var good_tags = $("#good_tags").val();
 				
@@ -352,7 +314,7 @@
 			$("#submitbtn").on("click",function(){
 				if(checkform()){
 					alert("성공");
-					$("#insertfrm").submit();
+					$("#updatefrm").submit();
 				}
 			})
 			

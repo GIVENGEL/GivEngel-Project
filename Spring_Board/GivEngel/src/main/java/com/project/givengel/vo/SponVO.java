@@ -36,7 +36,7 @@ MultipartFile file;
 			//***********************************************
 			// 해당 경로로 변경
 			
-			File f2 = new File("C:\\Users\\ACER\\Documents\\GitHub\\GivEngel-Project\\Spring_Board\\GivEngel\\src\\main\\webapp\\resources\\img\\spon",spon_img); 
+			File f2 = new File("C:\\Users\\kosmo_\\Documents\\GitHub\\GivEngel-Project\\Spring_Board\\GivEngel\\src\\main\\webapp\\resources\\img\\sponsor",spon_img); 
 			/* File f = new File(root+good_img); */
 			
 			System.out.println(root+spon_img);

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +21,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.givengel.service.AdminService;
+import com.project.givengel.service.CampaignService;
+import com.project.givengel.service.GoodListService;
 import com.project.givengel.service.LogService;
+import com.project.givengel.service.SponService;
 import com.project.givengel.vo.AdminVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.LogVO;
@@ -35,6 +39,15 @@ public class AdminController {
 	
 	@Autowired
 	private LogService logService;
+	
+	@Autowired
+	private SponService sponService;
+	
+	@Autowired
+	private CampaignService campaignService;
+	
+	@Autowired
+	private GoodListService goodListService;
 	
 	
 	/*****************************************************
@@ -392,6 +405,118 @@ public class AdminController {
 	public void adminFlea() {
 		
 	}
+	@RequestMapping("/adminGoodDelete.giv")
+	public void adminGoodDelete() {
+		
+	}
+	@RequestMapping("/adminGoodModify.giv")
+	public void adminGoodModify(GoodVO vo, Model m) {
+		m.addAttribute("goodList",adminService.selectGood());
+		
+	}
+	@RequestMapping("/adminGoodModifyForm.giv")
+	public Map<String, GoodVO> adminGoodModifyForm(GoodVO vo) {
+		System.out.println("[adminGoodModifyForm] : " + vo.getGood_no());
+		GoodVO vos = goodListService.getGoodView(vo);
+		String[] tags =vos.getGood_tag().split("#");
+		String result_tag="";
+		for(int i=1;i<tags.length;i++) {
+			result_tag += "#"+tags[i];
+		}
+		vos.setGood_tag(result_tag);
+		Map<String, GoodVO> map = new HashMap<String, GoodVO>();
+		map.put("good", vos);
+		return map;
+	}
+	
+	@RequestMapping(value="/adminGoodModifyAction.giv",method = RequestMethod.POST)
+	public String adminGoodModifyAction(GoodVO vo,String admin,String good_tags,String url) throws IllegalStateException, IOException {	
+		// 서버 경로 
+
+		vo.setGood_tag(vo.getGood_tag()+good_tags);
+		adminService.updateGood(vo);
+		
+		return "redirect:adminMode.giv";
+	}
+	
+	@RequestMapping("/searchGood.giv")
+	@ResponseBody
+	public Map<String,Object> searchGood(String part,String searchData) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("part", part);
+		map.put("searchData", searchData);
+		
+		List<GoodVO> list = new ArrayList<GoodVO>();
+		list = adminService.searchGood(map);
+		
+		Map<String, Object> maps = new HashMap<String, Object>();
+		maps.put("list",list);
+		return maps;
+	}
+
+	
+	
+	
+	
+	
+	@RequestMapping("/adminSponDelete.giv")
+	public void adminSponDelete(SponVO vo,Model m) {
+		m.addAttribute("sponList", sponService.getSponList(vo));
+		List<SponVO> spon_list = new ArrayList<SponVO>();
+		spon_list = campaignService.campaignList();
+		m.addAttribute("spon_list", spon_list);
+		
+	}
+	@RequestMapping("/adminSponDeleteForm.giv")
+	public Map<String, SponVO> adminSponDeleteForm(SponVO vo) {
+		SponVO spon = new SponVO();
+		spon = sponService.getSpon(vo);
+		Map<String, SponVO> map = new HashMap<String, SponVO>();
+		map.put("spon", spon);
+		return map;
+	}
+	
+	@RequestMapping("/adminSponDeleteAction.giv")
+	public String adminSponDeleteAction(SponVO vo) {
+		adminService.deleteSpon(vo);
+		return "redirect:adminMode.giv";
+		
+	}
+	
+	
+	
+	@RequestMapping("/adminSponModify.giv")
+	public void adminSponModify(SponVO vo, Model m) {
+		m.addAttribute("sponList", sponService.getSponList(vo));
+		List<SponVO> spon_list = new ArrayList<SponVO>();
+		spon_list = campaignService.campaignList();
+		m.addAttribute("spon_list", spon_list);
+	}
+	
+	@RequestMapping("/adminSponModifyForm.giv")
+	public Map<String, SponVO> adminSponModifyForm(SponVO vo) {
+		SponVO spon = new SponVO();
+		spon = sponService.getSpon(vo);
+		Map<String, SponVO> map = new HashMap<String, SponVO>();
+		map.put("spon", spon);
+		return map;
+	}
+	
+	@RequestMapping("/adminSponModifyAction.giv")
+	public String adminSponModifyAction(SponVO vo) {
+		
+		if(vo.getSpon_end()==null) {
+			vo.setSpon_iscampaign(false);
+			vo.setSpon_end("2999-12-31");
+		}else {
+			vo.setSpon_iscampaign(true);
+		}
+		adminService.updateSpon(vo);
+		return "redirect:adminMode.giv";
+	}
+	
+	
+
 	
 	
 	

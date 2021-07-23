@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>입장 확인</title>
+
 </head>
 <body>
 <h1>입장 확인</h1>

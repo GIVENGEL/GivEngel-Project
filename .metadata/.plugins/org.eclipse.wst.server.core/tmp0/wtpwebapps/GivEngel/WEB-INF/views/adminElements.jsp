@@ -5,25 +5,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GivEngel [개발자 모드]</title>
-<link href="${path}/resources/css/admin/bootstrap.min.css"
-	rel="stylesheet">
-<link href="${path}/resources/css/admin/font-awesome.min.css"
-	rel="stylesheet">
-<link href="${path}/resources/css/admin/datepicker3.css"
-	rel="stylesheet">
-<link href="${path}/resources/css/admin/styles.css" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>GivEngel [개발자 모드]</title>
+	<!-- Css Styles -->
 
-<!--Custom Font-->
-<link
-	href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i"
-	rel="stylesheet">
-<!--[if lt IE 9]>
-	<script src="js/html5shiv.js"></script>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
+<link rel="stylesheet" href="${path}/resources/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/nice-select.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/jquery-ui.min.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/owl.carousel.min.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/slicknav.min.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/style.css"
+	type="text/css">
+	<link href="${path}/resources/css/admin/bootstrap.min.css" rel="stylesheet">
+	<link href="${path}/resources/css/admin/font-awesome.min.css" rel="stylesheet">
+	<link href="${path}/resources/css/admin/datepicker3.css" rel="stylesheet">
+	<link href="${path}/resources/css/admin/styles.css" rel="stylesheet">
+	
+	<!--Custom Font-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 </head>
 <body>
 <c:if test="${admin != null}">
@@ -71,10 +78,10 @@
 					<li><a class="" href="adminElements.giv">
 						<span class="fa fa-arrow-right">&nbsp;</span> 상품 추가
 					</a></li>
-					<li><a class="" href="adminElements.giv">
+					<li><a class="" href="adminGoodDelete.giv">
 						<span class="fa fa-arrow-right">&nbsp;</span> 상품 삭제
 					</a></li>
-					<li><a class="" href="adminElements.giv">
+					<li><a class="" href="adminGoodModify.giv">
 						<span class="fa fa-arrow-right">&nbsp;</span> 상품 수정
 					</a></li>
 				</ul>
@@ -88,10 +95,10 @@
 					<li><a class="" href="adminElements2.giv">
 						<span class="fa fa-arrow-right">&nbsp;</span> 후원 단체 등록
 					</a></li>
-					<li><a class="" href="adminElements2.giv">
+					<li><a class="" href="adminSponDelete.giv">
 						<span class="fa fa-arrow-right">&nbsp;</span> 후원 단체 삭제
 					</a></li>
-					<li><a class="" href="adminElements2.giv">
+					<li><a class="" href="adminSponModify.giv">
 						<span class="fa fa-arrow-right">&nbsp;</span> 후원 단체 수정
 					</a></li>
 				</ul>

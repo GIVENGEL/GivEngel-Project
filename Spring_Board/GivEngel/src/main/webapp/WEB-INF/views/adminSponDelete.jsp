@@ -126,11 +126,14 @@
 					</a></li>
 				</ul>
 			</li>
-			<li><a href="adminlogoutAction.giv"><em class="fa fa-power-off">&nbsp;</em> 로그아웃</a></li>
+			<li><a href="adminlogoutForm.giv"><em class="fa fa-power-off">&nbsp;</em> 로그아웃</a></li>
 		</ul>
 	</div>
 		<!--/.sidebar-->
 		<!-- ---------------------------------------------------------------------------------------- -->
+
+
+
 
 		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 			<div class="row">
@@ -144,7 +147,7 @@
 
 			<div class="row">
 				<div class="col-lg-12">
-					<h1>후원 단체 등록</h1>
+					<h1>후원 단체 삭제</h1>
 				</div>
 			</div>
 			<!--/.row-->
@@ -167,97 +170,100 @@
 									</ul>
 									<div class="tab-content">
 										<div class="tab-pane fade in active" id="tab1">
-											<h4>후원 단체</h4>
-											<form id="insertfrm1" action="adminInsertSpon.giv" method="post"
-							enctype="multipart/form-data">
-							<div class="col-md-6">
-								<input name="url" class="form-control" value="${path }"
-									type="hidden">
-								<div class="form-group">
-									<label>후원 단체명</label> <input id="spon_name"
-										name="spon_name" class="form-control"
-										placeholder="후원 단체명">
-
-								</div>
-								<div class="form-group">
-									<label>후원 단체 링크</label> <input id="spon_url"
-										name="spon_url" class="form-control"
-										placeholder="후원 단체 링크">
-								</div>
-
-								<div class="form-group">
-									<label>등록 관리자</label> <input id="admin" type="text"
-										name="admins" value="${sessionScope.admin.admin_id }"
-										class="form-control" disabled>
-								</div>
-
-								<div class="form-group">
-									<label>파일 이미지</label> <input id="file" name="file" type="file">
-									<p class="help-block">단체를 대표하는 이미지를 넣어주세요.</p>
-								</div>
-								<div class="form-group">
-									<label>후원 단체 설명</label>
-									<textarea name="spon_comment" id="spon_comment"
-										class="form-control" rows="3"></textarea>
-								</div>
-								
-								<button id="submitbtn1" type="button" class="btn btn-primary">후원 단체 
-									등록하기</button>
-								<button type="reset" class="btn btn-default">양식 초기화</button>
-							</div>
-							<div class="col-md-6">
-							
-							</div>
-						</form>
 											
+											<!-- Blog Section Begin -->
+	<section class="from-blog spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-title from-blog__title">
+						<h2 class="display-3">Sponsor</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			
+			<!-- 편이슬 -->
+			<!-- 스폰서 리스트 불러오기 -->
+				<!--  각 캠패인 출력 단위 표시 ****************-->
+				<c:forEach items="${sponList }" var="spon">
+					<div class="col-lg-4 col-md-4 col-sm-6">
+						<div class="blog__item">
+							<div class="blog__item__pic" style="border:2px solid #f9f9f9">
+								<c:choose>
+								<c:when test= "${spon.spon_img == '' }"><a href="adminSponDeleteForm.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/null.jpg" alt=""></a></c:when>
+								<c:otherwise><a href="adminSponDeleteForm.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/${spon.spon_img }" alt="${spon.spon_name }"></a></c:otherwise>
+								</c:choose>
+							</div>
+							<div class="blog__item__text">
+								<ul>
+									<li>
+									<li><i class="fa fa-calendar-o"></i>${spon.spon_start }</li>
+									<li id="countSponCom"><i class="fa fa-comment-o"></i></li>
+								</ul>
+								<h5>
+									<a href="adminSponDeleteForm.giv?spon_no=${spon.spon_no }">${spon.spon_name }</a>
+								</h5>
+								<p>${spon.spon_comment }</p>
+							</div>
+						</div>
+					</div>
+				</c:forEach> 
+			</div>
+	</section>
+	<!-- Blog Section End -->
 										</div>
 										<div class="tab-pane fade" id="tab2">
-											<h4>캠페인 작성 양식</h4>
-											<form id="insertfrm2" action="adminInsertSpon.giv" method="post"
-							enctype="multipart/form-data">
-							<div class="col-md-6">
-								<input name="url" class="form-control" value="${path }"
-									type="hidden">
-								<div class="form-group">
-									<label>캠페인 단체명</label> <input id="spon_name"
-										name="spon_name" class="form-control"
-										placeholder="캠페인 단체명">
-
-								</div>
-								<div class="form-group">
-									<label>후원 단체 링크</label> <input id="spon_url"
-										name="spon_url" class="form-control"
-										placeholder="후원 단체 링크">
-								</div>
-
-								<div class="form-group">
-									<label>등록 관리자</label> <input id="admin" type="text"
-										name="admins" value="${sessionScope.admin.admin_id }"
-										class="form-control" disabled>
-								</div>
-
-								<div class="form-group">
-									<label>파일 이미지</label> <input id="file" name="file" type="file">
-									<p class="help-block">단체를 대표하는 이미지를 넣어주세요.</p>
-								</div>
-								<div class="form-group">
-									<label>캠페인 단체 설명</label>
-									<textarea name="spon_comment" id="spon_comment"
-										class="form-control" rows="3"></textarea>
-								</div>
-								
-								<button id="submitbtn2" type="button" class="btn btn-primary">캠페인 단체 
-									등록하기</button>
-								<button type="reset" class="btn btn-default">양식 초기화</button>
-							</div>
-							<div class="col-md-6">
-							<h4>[캠페인 종료 날짜] <span id="endDate"></span></h4>
-							<div class="panel-body">
-						<div id="calendar"></div>
-						<input type="hidden" id="spon_end" name="spon_end" value="">
-					</div>
-							</div>
-						</form>
+										<section class="from-blog spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title from-blog__title">
+                        <h2 class="display-3">Campaign</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            	<!--  각 캠패인 출력 단위 표시 ****************-->
+                <c:forEach items="${spon_list }" var="campaign">
+               <div class="col-lg-4 col-md-4 col-sm-6">
+                  <div class="blog__item">
+                     <div class="blog__item__pic">
+                        <a href="adminSponDeleteForm.giv?spon_no=${campaign.spon_no}"><img src="${path}/resources/img/sponsor/${campaign.spon_img }" alt="${campaign.spon_name }"></a>
+                     </div> 
+                     <div class="blog__item__text">
+                        <ul>
+                           <li>
+                           <li><i class="fa fa-calendar-o"></i>${campaign.spon_start }</li>
+                           <li><i class="fa fa-comment-o"></i> 댓글 수 출력</li>
+                        </ul>
+                        <h5>
+                           <a href="adminSponDeleteForm.giv?spon_no=${campaign.spon_no }">${campaign.spon_name }</a>
+                        </h5>
+                        <p>${campaign.spon_comment }</p>
+                     </div>
+                  </div>
+               </div>
+            </c:forEach>  
+                <!-- ****************************** -->
+                <!--  각 캠패인 출력 단위 표시 ****************-->
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic">
+                            <img src="${path}/resources/img/blog/blog-2.jpg" alt="">
+                        </div>
+                        <div class="blog__item__text">
+                            <ul>
+                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                <li><i class="fa fa-comment-o"></i> 5</li>
+                            </ul>
+                            <h5><a href="#">고양이, 그리고 불편한 진실</a></h5>
+                            <p>인간만이 신체적 결함에 부조리함을 느낀다고 생각하시나요? 고양이 로소의 이야기를 들어보세요. </p>
+                        </div>
+                    </div>
+                </div>
+                 <!-- ****************************** -->
+    </section>
 										</div>
 
 									</div>

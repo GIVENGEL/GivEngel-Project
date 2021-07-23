@@ -60,6 +60,10 @@ public class GoodVO {
 				System.out.println("에러2");
 			}
 		}
+		else {
+			this.good_img = "null";
+			this.good_img_size = 999;
+		}
 	}
 	
 	
