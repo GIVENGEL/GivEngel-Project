@@ -32,6 +32,8 @@
 			type="com.project.givengel.vo.LikeToVO" />
 		<typeAlias alias="spon_comVO"
 			type="com.project.givengel.vo.Spon_comVO" />
+			<typeAlias alias="adminChartTimeVO"
+			type="com.project.givengel.vo.AdminChartTimeVO" />
 	</typeAliases>
 
 

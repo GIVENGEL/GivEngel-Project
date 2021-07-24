@@ -188,7 +188,7 @@
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						사이트 접속 트래픽
+						시간 별 유저 판매 정보
 						<ul class="pull-right panel-settings panel-button-tab-right">
 							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
 								<em class="fa fa-cogs"></em>
@@ -490,14 +490,16 @@
 	<script>
 		window.onload = function () {
 			updateDevLog()
-			
-	var chart1 = document.getElementById("line-chart").getContext("2d");
-	window.myLine = new Chart(chart1).Line(lineChartData, {
-	responsive: true,
-	scaleLineColor: "rgba(0,0,0,.2)",
-	scaleGridLineColor: "rgba(0,0,0,.05)",
-	scaleFontColor: "#c5c7cc"
-	});
+			 setTimeout(function() {
+				 var chart1 = document.getElementById("line-chart").getContext("2d");
+					window.myLine = new Chart(chart1).Line(lineChartData, {
+					responsive: true,
+					scaleLineColor: "rgba(0,0,0,.2)",
+					scaleGridLineColor: "rgba(0,0,0,.05)",
+					scaleFontColor: "#c5c7cc"
+					});
+        },1);
+	
 
 
 	function updateUserCount(){
@@ -533,7 +535,7 @@
 	}
 	function updatOrderCount(){
 		$.ajax({
-			url:"countOrder.giv",
+			url:"adminOrderCount.giv",
 			type:"post",
 			success:function(data){
 				$("#orderCount").text(data +"번");

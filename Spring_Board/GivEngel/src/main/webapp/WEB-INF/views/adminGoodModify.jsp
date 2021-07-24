@@ -193,12 +193,10 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-3 p-0" style="padding:0px">
-                                    <input type="text" placeholder="검색하기" style="margin-left:30px" class="form-control" id="searchData" name="searchData">
+                                    <input type="text" placeholder="검색 내용" style="margin-left:30px" class="form-control" id="searchData" name="searchData">
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1 p-0" style="padding:0px">
-                                    <input id="submitbtn" type="button" class="btn btn-base" style="margin-left:30px">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                                    </input>
+                                    <input id="submitbtn" type="button" class="btn btn-base" style="margin-left:30px" value="검색하기">
                                 </div>
                             </div>
                         </div>

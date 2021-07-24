@@ -25,6 +25,7 @@ import com.project.givengel.service.CampaignService;
 import com.project.givengel.service.GoodListService;
 import com.project.givengel.service.LogService;
 import com.project.givengel.service.SponService;
+import com.project.givengel.vo.AdminChartTimeVO;
 import com.project.givengel.vo.AdminVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.LogVO;
@@ -161,6 +162,25 @@ public class AdminController {
 		int result = adminService.userCount();
 		return Integer.toString(result) ;
 	}
+	
+
+	/*****************************************************
+	 * 함수명 			: 	adminUserCount
+	 * 
+	 * 함수 기능 		:	1. 구입 내역의 수를 문자형으로 반환
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-21
+	 *****************************************************/
+	@RequestMapping("/adminOrderCount.giv")
+	@ResponseBody
+	public String adminOrderCount() {
+		int result = adminService.orderCount();
+		return Integer.toString(result) ;
+	}
+	
+	
 	
 	
 	
@@ -388,11 +408,12 @@ public class AdminController {
 	@RequestMapping("/adminElements2.giv")
 	public void adminElements2() {
 		
-	}
-	@RequestMapping("/adminAccount.giv")
-	public void adminAccount() {
+		
 		
 	}
+	
+	
+	
 	@RequestMapping("/adminPanels.giv")
 	public void adminPanels() {
 		
@@ -403,16 +424,109 @@ public class AdminController {
 	}
 	@RequestMapping("/adminFlea.giv")
 	public void adminFlea() {
+	
+	}
+	
+	
+	
+	
+	
+	
+	@RequestMapping("/adminAccount.giv")
+	public void adminAccount(Model m) {
+		m.addAttribute("adminList",adminService.selectAdmins());
+	}
+	
+	
+	@RequestMapping("/adminAccountModifyForm.giv")
+	public Map<String, AdminVO> adminAccountModifyForm(AdminVO vo) {
+		AdminVO admins = new AdminVO();
+		admins = adminService.selectAdmin(vo.getAdmin_id());
+		Map<String, AdminVO> map = new HashMap<String, AdminVO>();
+		map.put("admins", admins);
+		return map;
+	}
+	@RequestMapping("/adminAccountModifyAction.giv")
+	public String adminAccountModifyAction(AdminVO vo) {
+	
+		adminService.updateAdmins(vo);
+		return "redirect:adminAccount.giv";
 		
 	}
+	
+	@RequestMapping("/adminAccountDeleteForm.giv")
+	public Map<String, AdminVO> adminAccountDeleteForm(AdminVO vo) {
+		AdminVO admins = new AdminVO();
+		admins = adminService.selectAdmin(vo.getAdmin_id());
+		Map<String, AdminVO> map = new HashMap<String, AdminVO>();
+		map.put("admins", admins);
+		return map;
+	}
+	@RequestMapping("/adminAccountDeleteAction.giv")
+	public String adminAccountDeleteAction(AdminVO vo) {
+		adminService.deleteAdmins(vo);
+		return "redirect:adminAccount.giv";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping("/searchAdmin.giv")
+	@ResponseBody
+	public Map<String,Object> searchAdmin(String level,String searchData) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("level", level);
+		map.put("searchData", searchData);
+		
+		List<AdminVO> list = new ArrayList<AdminVO>();
+		list = adminService.searchAdmin(map);
+		
+		Map<String, Object> maps = new HashMap<String, Object>();
+		maps.put("list",list);
+		return maps;
+	}
+	
+	@RequestMapping("/checkAdminId.giv")
+	@ResponseBody
+	public String checkAdminId(AdminVO vo) {
+		int result = adminService.checkAdminId(vo);
+		System.out.println("아이디 체크 tq : " + result);
+		return Integer.toString(result);
+		
+	}
+	
+	
+
 	@RequestMapping("/adminGoodDelete.giv")
-	public void adminGoodDelete() {
+	public void adminGoodDelete(GoodVO vo, Model m) {
+		m.addAttribute("goodList",adminService.selectGood());
+	}
+	
+	@RequestMapping("/adminGoodDeleteForm.giv")
+	public Map<String, GoodVO> adminGoodDeleteForm(GoodVO vo) {
+		GoodVO good = new GoodVO();
+		good = goodListService.getGoodView(vo);
+		Map<String, GoodVO> map = new HashMap<String, GoodVO>();
+		map.put("good", good);
+		return map;
+	}
+	@RequestMapping("/adminGoodDeleteAction.giv")
+	public String adminGoodDeleteAction(GoodVO vo) {
+		adminService.deleteGood(vo);
+		return "redirect:adminGoodDelete.giv";
 		
 	}
+	
+	
+	
+	
 	@RequestMapping("/adminGoodModify.giv")
 	public void adminGoodModify(GoodVO vo, Model m) {
 		m.addAttribute("goodList",adminService.selectGood());
-		
 	}
 	@RequestMapping("/adminGoodModifyForm.giv")
 	public Map<String, GoodVO> adminGoodModifyForm(GoodVO vo) {
@@ -428,15 +542,14 @@ public class AdminController {
 		map.put("good", vos);
 		return map;
 	}
-	
 	@RequestMapping(value="/adminGoodModifyAction.giv",method = RequestMethod.POST)
 	public String adminGoodModifyAction(GoodVO vo,String admin,String good_tags,String url) throws IllegalStateException, IOException {	
-		// 서버 경로 
+		
 
 		vo.setGood_tag(vo.getGood_tag()+good_tags);
 		adminService.updateGood(vo);
 		
-		return "redirect:adminMode.giv";
+		return "redirect:adminGoodModify.giv";
 	}
 	
 	@RequestMapping("/searchGood.giv")
@@ -452,6 +565,18 @@ public class AdminController {
 		Map<String, Object> maps = new HashMap<String, Object>();
 		maps.put("list",list);
 		return maps;
+	}
+	
+	@RequestMapping("/chartPricePerTime.giv")
+	@ResponseBody
+	public  Map<String,Object> chartPricePerTime() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<AdminChartTimeVO> list = new ArrayList<AdminChartTimeVO>();
+		list = adminService.chartPricePerTime();
+		
+		map.put("chartList", list);
+		return map;
+		
 	}
 
 	
@@ -479,7 +604,7 @@ public class AdminController {
 	@RequestMapping("/adminSponDeleteAction.giv")
 	public String adminSponDeleteAction(SponVO vo) {
 		adminService.deleteSpon(vo);
-		return "redirect:adminMode.giv";
+		return "redirect:adminSponDelete.giv";
 		
 	}
 	
@@ -512,7 +637,7 @@ public class AdminController {
 			vo.setSpon_iscampaign(true);
 		}
 		adminService.updateSpon(vo);
-		return "redirect:adminMode.giv";
+		return "redirect:adminSponModify.giv";
 	}
 	
 	

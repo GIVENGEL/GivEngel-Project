@@ -84,28 +84,6 @@ public class LogController {
 	
 	
 	
-	/*****************************************************
-	 * 함수명 			: 	countOrder
-	 * 
-	 * 함수 기능 		:	1. 로그 기록을 통해 총 판매수 문자열로 반환
-	 * 
-	 * 사용된 함수 		:	-
-	 * 사용된 서비스 	:	logService
-	 * 마지막 수정		:	2021-07-21
-	 *****************************************************/
-	@RequestMapping("/countOrder.giv")
-	@ResponseBody
-	public String countOrder() {
-		List<LogVO> list = logService.selectLog();
-		int result = 0;
-		for(int i=0;i<list.size();i++ ) {
-			if(list.get(i).getLog_detail().contains("SALE"))
-			{
-				result++;
-			}
-		}
-		return Integer.toString(result);
-	}
 
 	
 	

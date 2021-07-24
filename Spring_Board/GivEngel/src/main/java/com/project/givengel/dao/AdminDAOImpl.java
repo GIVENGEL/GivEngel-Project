@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.project.givengel.vo.AdminChartTimeVO;
 import com.project.givengel.vo.AdminVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.SponVO;
@@ -28,6 +29,11 @@ public class AdminDAOImpl implements AdminDAO {
 			System.out.println("[AdminDAOImple] login함수 실행 : " + vos.getAdmin_id());
 		}
 		return vos;
+	}
+	
+	@Override
+	public List<AdminVO> selectAdmins() {
+		return mybatis.selectList("AdminDAO.selectAdmins");
 	}
 	
 	@Override
@@ -67,11 +73,13 @@ public class AdminDAOImpl implements AdminDAO {
 	public void updateGood(GoodVO vo) {
 		mybatis.update("AdminDAO.updateGood",vo);
 	}
+	@Override
+	public void deleteGood(GoodVO vo) {
+		mybatis.delete("AdminDAO.deleteGood",vo);
+	}
 	
 	@Override
-	public List<GoodVO> searchGood(Map<String,String> map){
-		
-		
+	public List<GoodVO> searchGood(Map<String,String> map){	
 		return mybatis.selectList("AdminDAO.searchGood", map);
 	}
 
@@ -98,6 +106,46 @@ public class AdminDAOImpl implements AdminDAO {
 	public void deleteSpon(SponVO vo) {
 		mybatis.delete("AdminDAO.deleteSpon",vo);
 	}
+
+	@Override
+	public int orderCount() {
+		int result = mybatis.selectOne("AdminDAO.selectUserBuyLog");
+		return result;
+	}
+
+	@Override
+	public List<AdminChartTimeVO> chartPricePerTime() {
+		
+		return mybatis.selectList("AdminDAO.chartPricePerTime");
+	}
+
+	@Override
+	public List<AdminVO> searchAdmin(Map<String,String> map) {
+		return mybatis.selectList("AdminDAO.searchAdmin", map);
+	}
+
+	@Override
+	public int checkAdminId(AdminVO vo) {
+		return mybatis.selectOne("AdminDAO.checkAdminId",vo);
+	}
+
+	@Override
+	public void updateAdmins(AdminVO vo) {
+		mybatis.update("AdminDAO.updateAdmins",vo);
+		
+	}
+
+	@Override
+	public void deleteAdmins(AdminVO vo) {
+		mybatis.delete("AdminDAO.deleteAdmins",vo);
+		
+	}
+
+	
+
+	
+
+	
 
 	
 

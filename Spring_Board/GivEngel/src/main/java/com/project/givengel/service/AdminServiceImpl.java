@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.givengel.dao.AdminDAO;
+import com.project.givengel.vo.AdminChartTimeVO;
 import com.project.givengel.vo.AdminVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.SponVO;
@@ -56,6 +57,11 @@ public class AdminServiceImpl implements AdminService {
 		adminDAO.updateGood(vo);
 	}
 	@Override
+	public void deleteGood(GoodVO vo) {
+		adminDAO.deleteGood(vo);
+	}
+
+	@Override
 	public List<GoodVO> searchGood(Map<String, String> map) {
 		return adminDAO.searchGood(map);
 	}
@@ -80,6 +86,47 @@ public class AdminServiceImpl implements AdminService {
 		adminDAO.deleteSpon(vo);
 	}
 
+	@Override
+	public int orderCount() {
+		return adminDAO.orderCount();
+	}
+
+	@Override
+	public List<AdminChartTimeVO> chartPricePerTime() {
+		// TODO Auto-generated method stub
+		return adminDAO.chartPricePerTime();
+	}
+
+	@Override
+	public List<AdminVO> selectAdmins() {
+		return adminDAO.selectAdmins();
+	}
+
+	@Override
+	public List<AdminVO> searchAdmin(Map<String,String> map) {
+		return adminDAO.searchAdmin(map);
+	}
+
+	@Override
+	public int checkAdminId(AdminVO vo) {
+		return adminDAO.checkAdminId(vo);
+	}
+
+	@Override
+	public void updateAdmins(AdminVO vo) {
+		adminDAO.updateAdmins(vo);
+		
+	}
+
+	@Override
+	public void deleteAdmins(AdminVO vo) {
+		adminDAO.deleteAdmins(vo);
+		
+	}
+	
+
+
+	
 	
 
 	

@@ -28,4 +28,5 @@
 <fullyQualifiedTypeName name="com.project.givengel.service.GoodListService"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="com.project.givengel.vo.AdminChartTimeVO"/>
 </qualifiedTypeNameHistroy>

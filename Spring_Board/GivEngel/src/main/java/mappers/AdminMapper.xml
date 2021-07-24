@@ -3,84 +3,183 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AdminDAO">
 
-<select id="login" resultType="adminVO">
-		SELECT * 
-		  FROM admin
-		 WHERE admin_id = #{admin_id}
-		   AND admin_pw = #{admin_pw}   
+	<select id="login" resultType="adminVO">
+		SELECT *
+		FROM admin
+		WHERE admin_id =
+		#{admin_id}
+		AND admin_pw = #{admin_pw}
+	</select>
+	<select id="checkAdminId" parameterType="adminVO"
+		resultType="int">
+		select count(*) from admin
+		where admin_id = #{admin_id};
+	</select>
+
+
+
+
+	<select id="selectAdmin" resultType="adminVO">
+		SELECT *
+		FROM admin
+		WHERE
+		admin_id = #{admin_id}
+	</select>
+	<select id="selectAdmins" resultType="adminVO">
+		SELECT *
+		FROM admin
+	</select>
+	<update id="updateAdmins" parameterType="AdminVO">
+		UPDATE admin
+		SET admin_id
+		= #{admin_id}, admin_pw = #{admin_pw}, admin_level=#{admin_level},
+		admin_available=#{admin_available}
+		WHERE admin_no = #{admin_no}
+	</update>
+	<delete id="deleteAdmins" parameterType="AdminVO">
+		DELETE FROM admin
+		WHERE
+		admin_no = #{admin_no}
+	</delete>
+	
+	<select id="searchAdmin" parameterType="String"
+		resultType="AdminVO">
+		SELECT * FROM admin
+		WHERE admin_id LIKE '%${searchData}%'
 	</select>
 	
+
+
+
+
+
 	<select id="userCount" resultType="int">
 		SELECT COUNT(*)
 		FROM user
-	</select> 
-	
+	</select>
 	<select id="priceCount" resultType="int">
-		select sum(user_buylog_price) as sum from user_buylog;
-	</select> 
-	
+		select sum(user_buylog_price)
+		as sum from user_buylog;
+	</select>
 	<select id="cashCount" resultType="int">
-		select sum(user_cashlog_price) as sum from user_cashlog;
-	</select> 
-	
+		select sum(user_cashlog_price)
+		as sum from user_cashlog;
+	</select>
+	<select id="selectUserBuyLog" resultType="int">
+		SELECT count(*) FROM
+		user_buylog
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<select id="selectGood" resultType="goodVO">
-		SELECT * 
-		  FROM good  
-		  ORDER BY good_no desc
+		SELECT *
+		FROM good
+		ORDER BY
+		good_no desc
 	</select>
-	
-	<select id="selectSpon" resultType="sponVO">
-		SELECT * 
-		  FROM spon  
-	</select>
-	
-	<select id="selectAdmin" resultType="adminVO">
-		SELECT * 
-		  FROM admin
-		  WHERE admin_id = #{admin_id}  
-	</select>
-	
 	<insert id="insertGood" parameterType="goodVO">
-		
-		INSERT INTO good(good_name,good_price,good_tag,good_like,good_stock,good_detail,good_img,good_img_size,good_date,spon_no)
-VALUES(#{good_name}, #{good_price}, #{good_tag},0,#{good_stock},#{good_detail},#{good_img},#{good_img_size},sysdate(),#{spon_no})
-		
-		
+		INSERT INTO
+		good(good_name,good_price,good_tag,good_like,good_stock,good_detail,good_img,good_img_size,good_date,spon_no)
+		VALUES(#{good_name}, #{good_price},
+		#{good_tag},0,#{good_stock},#{good_detail},#{good_img},#{good_img_size},sysdate(),#{spon_no})
 	</insert>
-	
 	<update id="updateGood" parameterType="GoodVO">
 		UPDATE good
-		SET good_name = #{good_name}, good_price=#{good_price}, good_tag=#{good_tag}, good_stock=#{good_stock}, good_detail=#{good_detail},spon_no=#{spon_no}
-		WHERE good_no = #{good_no}
+		SET good_name =
+		#{good_name}, good_price=#{good_price}, good_tag=#{good_tag},
+		good_stock=#{good_stock},
+		good_detail=#{good_detail},spon_no=#{spon_no}
+		WHERE good_no =
+		#{good_no}
 	</update>
-	
-	
-	
-	<insert id="insertSpon" parameterType="SponVO">
-		INSERT INTO spon(spon_name, spon_total, spon_iscampaign, spon_start, spon_end, spon_url, spon_comment, spon_img, spon_img_size,spon_campaign_img)
-		VALUES(#{spon_name}, 0, #{spon_iscampaign}, sysdate(), #{spon_end}, #{spon_url},#{spon_comment}, #{spon_img}, #{spon_img_size}, #{spon_campaign_img})
-	
-	</insert>
-	
-	<update id="updateSpon" parameterType="SponVO">
-		UPDATE spon
-		SET spon_name = #{spon_name}, spon_iscampaign= #{spon_iscampaign}, spon_end=#{spon_end}, spon_url=#{spon_url}, spon_comment=#{spon_comment}
-		WHERE spon_no = #{spon_no}
-	</update>
-	
-	<delete id="deleteSpon" parameterType="SponVO">
-		DELETE FROM spon
-		WHERE spon_no = #{spon_no}
-	
+	<delete id="deleteGood" parameterType="GoodVO">
+		DELETE FROM good
+		WHERE
+		good_no = #{good_no}
 	</delete>
 	
-	<select id="searchGood" parameterType="String" resultType="GoodVO">
+	<select id="searchGood" parameterType="String"
+		resultType="GoodVO">
 		SELECT * FROM good
-		WHERE ${part} LIKE '%${searchData}%' 
+		WHERE ${part} LIKE '%${searchData}%'
 	</select>
+
+
+
+
+
+
+
+	<select id="selectSpon" resultType="sponVO">
+		SELECT *
+		FROM spon
+	</select>
+	<insert id="insertSpon" parameterType="SponVO">
+		INSERT INTO
+		spon(spon_name, spon_total, spon_iscampaign, spon_start, spon_end,
+		spon_url, spon_comment, spon_img, spon_img_size,spon_campaign_img)
+		VALUES(#{spon_name}, 0, #{spon_iscampaign}, sysdate(), #{spon_end},
+		#{spon_url},#{spon_comment}, #{spon_img}, #{spon_img_size},
+		#{spon_campaign_img})
+
+	</insert>
+	<update id="updateSpon" parameterType="SponVO">
+		UPDATE spon
+		SET spon_name =
+		#{spon_name}, spon_iscampaign= #{spon_iscampaign},
+		spon_end=#{spon_end}, spon_url=#{spon_url},
+		spon_comment=#{spon_comment}
+		WHERE spon_no = #{spon_no}
+	</update>
+	<delete id="deleteSpon" parameterType="SponVO">
+		DELETE FROM spon
+		WHERE
+		spon_no = #{spon_no}
+	</delete>
 	
-	
-	
+
+
+
+
+
+
+
+
+
+
+	<select id="chartPricePerTime" resultType="adminChartTimeVO">
+		SELECT * FROM
+		(SELECT
+		@N := @N+1 as n
+		FROM user_buylog,(SELECT @N :=-1 from DUAL) NN
+		LIMIT 24)
+		AS T
+		LEFT JOIN
+		(SELECT HOUR(user_buylog_date) AS hh,
+		COUNT(user_buylog_date) AS
+		userCnt,SUM(user_buylog_price) AS priceSum
+		FROM user_buylog
+		WHERE user_buylog_date between '2021-01-01 00:00:00'
+		AND
+		date_format(now(),'%Y-%m-%d 23:59:59')
+		group by hh) AS dayT
+		ON T.n =
+		dayT.hh
+	</select>
+
 
 
 </mapper>
