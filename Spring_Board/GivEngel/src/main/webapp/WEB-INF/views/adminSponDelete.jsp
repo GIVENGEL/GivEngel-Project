@@ -192,7 +192,7 @@
 							<div class="blog__item__pic" style="border:2px solid #f9f9f9">
 								<c:choose>
 								<c:when test= "${spon.spon_img == '' }"><a href="adminSponDeleteForm.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/null.jpg" alt=""></a></c:when>
-								<c:otherwise><a href="adminSponDeleteForm.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/${spon.spon_img }" alt="${spon.spon_name }"></a></c:otherwise>
+								<c:otherwise><a href="adminSponDeleteForm.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/${spon.spon_img }" onerror="this.src='${path}/resources/img/null.jpg'" alt="${spon.spon_name }"></a></c:otherwise>
 								</c:choose>
 							</div>
 							<div class="blog__item__text">
@@ -229,7 +229,7 @@
                <div class="col-lg-4 col-md-4 col-sm-6">
                   <div class="blog__item">
                      <div class="blog__item__pic">
-                        <a href="adminSponDeleteForm.giv?spon_no=${campaign.spon_no}"><img src="${path}/resources/img/sponsor/${campaign.spon_img }" alt="${campaign.spon_name }"></a>
+                        <a href="adminSponDeleteForm.giv?spon_no=${campaign.spon_no}"><img src="${path}/resources/img/sponsor/${campaign.spon_img }" onerror="this.src='${path}/resources/img/null.jpg'" alt="${campaign.spon_name }"></a>
                      </div> 
                      <div class="blog__item__text">
                         <ul>

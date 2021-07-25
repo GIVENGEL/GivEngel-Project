@@ -214,7 +214,7 @@
 					 <c:forEach items="${goodList }" var="goodVO">
 					 	<div class="col-sm-3 col-md-2">
 							<div class="thumbnail">
-								<img src="${path}/resources/img/good/${goodVO.good_img}" alt="${goodVO.good_name}">
+								<img src="${path}/resources/img/good/${goodVO.good_img}" onerror="this.src='${path}/resources/img/null.jpg'" alt="${goodVO.good_name}">
 								<div class="caption">
 									<h3>${goodVO.good_name}</h3>
 									<p>${goodVO.good_price} 원</p>
@@ -284,7 +284,8 @@
 							
 							$("#searchResult").empty();
 							for(var i=0;i<list.length;i++){
-								$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img src="${path}/resources/img/good/'+data.list[i].good_img+'" alt="'+data.list[i].good_name+'"><div class="caption"><h3>'+data.list[i].good_name+'</h3><p>'+data.list[i].good_price +' 원</p><p><a href="adminGoodModifyForm.giv?good_no='+data.list[i].good_no+'" class="btn btn-primary" role="button">수정하기</a></p></div></div></div>')
+								$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img class="good_img" src="${path}/resources/img/good/'+data.list[i].good_img+'"  alt="'+data.list[i].good_name+'" ><div class="caption"><h3>'+data.list[i].good_name+'</h3><p>'+data.list[i].good_price +' 원</p><p><a href="adminGoodModifyForm.giv?good_no='+data.list[i].good_no+'" class="btn btn-primary" role="button">수정하기</a></p></div></div></div>')
+								
 							}
 							
 						}

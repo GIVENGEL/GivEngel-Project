@@ -23,7 +23,6 @@ public class AdminDAOImpl implements AdminDAO {
 	
 	@Override
 	public AdminVO login(AdminVO vo) {
-		System.out.println("[AdminDAOImple] 파라미터 입력 : " + vo.getAdmin_id());
 		AdminVO vos = mybatis.selectOne("AdminDAO.login",vo);
 		if(vos!=null) {
 			System.out.println("[AdminDAOImple] login함수 실행 : " + vos.getAdmin_id());
@@ -138,6 +137,12 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public void deleteAdmins(AdminVO vo) {
 		mybatis.delete("AdminDAO.deleteAdmins",vo);
+		
+	}
+
+	@Override
+	public void insertAdmins(AdminVO vo) {
+		mybatis.insert("AdminDAO.insertAdmins",vo);
 		
 	}
 

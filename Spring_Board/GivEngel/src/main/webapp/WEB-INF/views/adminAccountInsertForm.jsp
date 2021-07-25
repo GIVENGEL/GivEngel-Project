@@ -129,112 +129,166 @@
 			<li><a href="adminlogoutAction.giv"><em class="fa fa-power-off">&nbsp;</em> 로그아웃</a></li>
 		</ul>
 	</div>
-		<!--/.sidebar-->
-		<!-- ---------------------------------------------------------------------------------------- -->
+	<!--/.sidebar-->
+	<!-- ---------------------------------------------------------------------------------------- -->
 
-		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-			<div class="row">
-				<ol class="breadcrumb">
-					<li><a href="#"> <em class="fa fa-home"></em>
-					</a></li>
-					<li class="active">Forms</li>
-				</ol>
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#"> <em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Forms</li>
+			</ol>
+		</div>
+		<!--/.row-->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h1>개발자 등록</h1>
 			</div>
-			<!--/.row-->
+		</div>
+		<!--/.row-->
 
-			<div class="row">
-				<div class="col-lg-12">
-					<h1>상품 정보 삭제</h1>
+
+		<div class="row">
+			<div class="col-lg-12">
+
+				<h2>등록 양식</h2>
+			</div>
+			<div id="goodDiv">
+			
+			</div>
+			<!-- /.row -->
+
+
+			<div class="panel panel-default">
+				
+				<div class="panel-body">
+				<form id="insertfrm" action="adminAccountInsertAction.giv" method="post" >
+					<div class="col-md-6">
+						<input  name="url" class="form-control" value="${path }"  type="hidden">
+							<div class="form-group">
+								<label>개발자 아이디</label> <input id="admin_id" name="admin_id" class="form-control" placeholder="아이디">
+							<hr/>
+							<label>개발자 비밀번호</label>
+							<div class="form-group has-success">
+								<input type="password" name="admin_pw" id="admin_pw" class="form-control" placeholder="비밀번호">
+							</div>
+							<div class="form-group has-success">
+								<input type="password" name="pwCheck" id="pwCheck" class="form-control" placeholder="비밀번호 확인">
+							</div>
+							<hr/>
+							<div class="form-group">
+							<label>개발자 권한 등급</label>
+							<div class="radio">
+								<label> <input type="radio" name="admin_level"
+									id="optionsRadios1" value="1" checked>level-1
+								</label>
+							</div>
+							<div class="radio">
+								<label> <input type="radio" name="admin_level"
+									id="optionsRadios2" value="2">level-2
+								</label>
+							</div>
+							<div class="radio">
+								<label> <input type="radio" name="admin_level"
+									id="optionsRadios3" value="3">level-3
+								</label>
+							</div>
+						
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group"></div>
+						</div>
+						
+						<button id="submitbtn" type="button" class="btn btn-primary">계정 등록하기</button>
+						<button type="reset" class="btn btn-default">양식 초기화</button>
+					</div>
+					</form>
 				</div>
 			</div>
-			<!--/.row-->
-			<c:if test="${admins.admin_level !=4 }">
-			<form id="deletefrm1" action="adminAccountDeleteAction.giv" method="post">
-											
-							<div class="col-md-6">
-								<input name="admin_no" id="admin_no" class="form-control" value="${admins.admin_no}" type="hidden">
-								<div class="form-group">
-									<h3>[${admins.admin_id }] 해당 계정을 탈퇴시키겠습니까?</h3>
-									<label> 삭제하시려면 다음 번호를 입력해주세요 - [ ${admins.admin_no } ]</label>
-									 <input id="admin_check" name="admin_check" class="form-control" type="number">
-									 
-									 <hr/>
-									 <label> "삭제"를 입력해주세요.</label>
-									 <input id="admin_check2" name="admin_check2" class="form-control" type="text">
+		</div>
+		<!-- /.panel-->
+	</div>
+	<!-- /.col-->
+	<div class="col-sm-12">
+		<p class="back-link">
+			Lumino Theme by <a href="https://www.medialoot.com">Medialoot</a>
+		</p>
+	</div>
+	</div>
+	<!-- /.row -->
+	</div>
+	<!--/.main-->
 
-						<button id="submitbtn1" type="button" class="btn btn-primary mt-3">
-									삭제하기</button>
-								
-								
-								</div>
-								
-							</div>
-							
-						</form>
-			</c:if>
-			<c:if test="${admins.admin_level ==4 }">
-						<h2>마스터 계정은 삭제할 수 없습니다.</h2>
-						<a href="adminAccount.giv"><button type="button" class="btn btn-primary">되돌아가기</button></a>
-			</c:if>
-
-
-			<div class="row">
-
-
+	<script src="${path}/resources/js/admin/jquery-1.11.1.min.js"></script>
+	<script src="${path}/resources/js/admin/bootstrap.min.js"></script>
+	<script src="${path}/resources/js/admin/chart.min.js"></script>
+	<script src="${path}/resources/js/admin/chart-data.js"></script>
+	<script src="${path}/resources/js/admin/easypiechart.js"></script>
+	<script src="${path}/resources/js/admin/easypiechart-data.js"></script>
+	<script src="${path}/resources/js/admin/bootstrap-datepicker.js"></script>
+	<script src="${path}/resources/js/admin/custom.js"></script>
+	<script>
+		window.onload = function() {
+			
+	
+			
+			function checkform(){
+var admin_id = $("#admin_id").val();
 				
-			</div>
-			<!-- /.panel-->
-		</div>
-		<!-- /.col-->
-		<div class="col-sm-12">
-			<p class="back-link">
-				Lumino Theme by <a href="https://www.medialoot.com">Medialoot</a>
-			</p>
-		</div>
-		</div>
-		<!-- /.row -->
-		</div>
-		<!--/.main-->
-
-		<script src="${path}/resources/js/admin/jquery-1.11.1.min.js"></script>
-		<script src="${path}/resources/js/admin/bootstrap.min.js"></script>
-		<script src="${path}/resources/js/admin/chart.min.js"></script>
-		<script src="${path}/resources/js/admin/chart-data.js"></script>
-		<script src="${path}/resources/js/admin/easypiechart.js"></script>
-		<script src="${path}/resources/js/admin/easypiechart-data.js"></script>
-		<script src="${path}/resources/js/admin/bootstrap-datepicker.js"></script>
-		<script src="${path}/resources/js/admin/custom.js"></script>
-		<script>
-			window.onload = function() {
-
-
-				function checkform() {
-					var admin_check = $("#admin_check").val();
-					var admin_check2 = $("#admin_check2").val();
-					var check1 = false;
-					if (admin_check != $("#admin_no").val() ) {
-						alert("번호가 틀렸습니다.");
-						return false;
-					}
-					if (admin_check2 != "삭제") {
-						alert("삭제를 입력해주세요.");
-						return false;
-					}
-					return true;
+				var admin = $("#admin");
+				
+				var admin_pw = $("#admin_pw").val();
+				var pwCheck = $("#pwCheck").val();
+				
+				if(admin_id==""){
+					alert("아이디를 입력해주세요");
+					return false;
+				}
+				
+				if(admin_pw==""){
+					alert("비밀번호를 적어주세요");
+					return false;
+				}
+				if(admin_pw != pwCheck){
+					alert("비밀번호를 다시 확인해주세요");
+					return false;
 				}
 
-				$("#submitbtn1").on("click", function() {
-					if (checkform()) {
-						alert("정상적으로 삭제되었습니다!");
-						$("#deletefrm1").submit();
-					}
-				})
-				
-				
-				
-
+				return true;	
 			}
-		</script>
+			
+			$("#submitbtn").on("click",function(){
+				var admin_id = $("#admin_id").val();
+				
+				var admin = $("#admin");
+				
+				var admin_pw = $("#admin_pw").val();
+				var pwCheck = $("#pwCheck").val();
+				if(checkform()){
+					$.ajax({
+						url : "checkAdminId.giv",
+						type : "post",
+						data : {"admin_id" : admin_id },
+						success : function(data) {
+							if(data!="0"){
+								alert("이미 존재하는 아이디입니다. 다른 아이디를 이용해주세요");
+							}
+							else{
+								alert("등록이 완료되었습니다");
+								$("#insertfrm").submit();
+							}
+						}
+					});
+					
+				}
+			})
+			
+			
+		}
+	</script>
 	</c:if>
 </body>
 </html>

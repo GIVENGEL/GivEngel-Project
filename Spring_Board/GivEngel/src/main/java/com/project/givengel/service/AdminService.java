@@ -13,6 +13,7 @@ public interface AdminService {
 		AdminVO login(AdminVO vo);
 		
 		public List<AdminVO> selectAdmins();
+		public void insertAdmins(AdminVO vo);
 		public void updateAdmins(AdminVO vo);
 		public void deleteAdmins(AdminVO vo);
 		public List<AdminVO> searchAdmin(Map<String,String> map);

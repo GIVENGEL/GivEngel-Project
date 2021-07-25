@@ -123,6 +123,11 @@ public class AdminServiceImpl implements AdminService {
 		adminDAO.deleteAdmins(vo);
 		
 	}
+
+	@Override
+	public void insertAdmins(AdminVO vo) {
+		adminDAO.insertAdmins(vo);
+	}
 	
 
 

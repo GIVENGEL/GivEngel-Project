@@ -174,7 +174,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 
-					<h2>개발자 계정</h2>
+					<h2>개발자 계정<a href="adminAccountInsertForm.giv"><button type="button" class="btn btn-success">등록하기</button></a></h2>
 				</div>
 
 				<!-- /.row -->
@@ -190,8 +190,10 @@
                                     <input type="text" placeholder="검색 내용" style="margin-left:30px" class="form-control" id="searchData" name="searchData">
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1 p-0" style="padding:0px">
-                                    <input id="submitbtn" type="button" class="btn btn-base" style="margin-left:30px" value="검색하기">
+                                    <input id="submitbtn" type="button" class="btn btn-primary btn-lg" style="margin-left:30px" value="검색하기">
+
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -213,8 +215,8 @@
 									<h3>${adminVO.admin_id}</h3>
 									<p>권한 : ${adminVO.admin_available}</p>
 									<p>
-										<a href="adminAccountModifyForm.giv?admin_id=${adminVO.admin_id}" class="btn btn-primary" role="button">수정하기</a>
-										<a href="adminAccountDeleteForm.giv?admin_id=${adminVO.admin_id}" class="btn btn-primary" role="button" style="margin:5px">삭제하기</a>
+										<a href="adminAccountModifyForm.giv?admin_id=${adminVO.admin_id}" class="btn btn-warning" role="button">수정하기</a>
+										<a href="adminAccountDeleteForm.giv?admin_id=${adminVO.admin_id}" class="btn btn-danger" role="button" style="margin:5px">삭제하기</a>
 									</p>
 								</div>
 							</div>
@@ -280,7 +282,7 @@
 							$("#searchResult").empty();
 							for(var i=0;i<list.length;i++){
 								var path = paths+'/resources/img/admin/lv'+data.list[i].admin_level+'.png';
-								$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img src='+path+' "alt="'+data.list[i].admin_id+'"><div class="caption"><h3>'+data.list[i].admin_id+'</h3><p> 권한 :'+data.list[i].admin_available +'</p><p><a href="adminAdminModifyForm.giv?admin_id='+data.list[i].admin_id+'" class="btn btn-primary" role="button">수정하기</a><a href="adminAdminDeleteForm.giv?admin_id='+data.list[i].admin_id+'" class="btn btn-primary" role="button" style="margin:5px">삭제하기</a></p></div></div></div>')
+								$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img src='+path+' "alt="'+data.list[i].admin_id+'"><div class="caption"><h3>'+data.list[i].admin_id+'</h3><p> 권한 :'+data.list[i].admin_available +'</p><p><a href="adminAdminModifyForm.giv?admin_id='+data.list[i].admin_id+'" class="btn btn-warning" role="button">수정하기</a><a href="adminAdminDeleteForm.giv?admin_id='+data.list[i].admin_id+'" class="btn btn-danger" role="button" style="margin:5px">삭제하기</a></p></div></div></div>')
 							}
 							
 						}

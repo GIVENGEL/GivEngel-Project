@@ -20,6 +20,7 @@ public interface AdminDAO {
 	
 	public AdminVO selectAdmin(String admin_id);
 	public List<AdminVO> selectAdmins();
+	public void insertAdmins(AdminVO vo);
 	public void updateAdmins(AdminVO vo);
 	public void deleteAdmins(AdminVO vo);
 	public List<AdminVO> searchAdmin(Map<String,String> map);

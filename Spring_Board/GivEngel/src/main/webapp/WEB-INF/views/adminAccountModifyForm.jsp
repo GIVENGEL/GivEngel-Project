@@ -275,7 +275,7 @@
 									alert("아이디 중복");
 								}
 								else{
-									alert("중복 아이디 없음");
+									alert("수정이 완료되었습니다!");
 									  $("#updatefrm").submit();  
 								}
 							}
@@ -287,7 +287,7 @@
 							data : {"admin_id" : admin_id },
 							success : function(data) {
 								
-									alert("중복 아이디 없음");
+									alert("수정이 완료되었습니다!");
 									  $("#updatefrm").submit();  
 								
 							}

@@ -29,6 +29,11 @@
 		SELECT *
 		FROM admin
 	</select>
+	<insert id="insertAdmins" parameterType="adminVO">
+		INSERT INTO
+		admin(admin_id,admin_pw,admin_lastdate,admin_level,admin_available)
+		VALUES(#{admin_id}, #{admin_pw},sysdate(), #{admin_level},1)
+	</insert>
 	<update id="updateAdmins" parameterType="AdminVO">
 		UPDATE admin
 		SET admin_id

@@ -49,3 +49,6 @@
 7월 24, 2021 12:24:32.37 [7720:10320:0724/122432.377:ERROR:page_load_metrics_update_dispatcher.cc(170)] Invalid first_paint 0.881 s for first_image_paint 0.879 s
 7월 24, 2021 16:15:15.42 [11960:3572:0724/161515.427:ERROR:device_event_log_impl.cc(214)] [16:15:15.420] Bluetooth: bluetooth_adapter_winrt.cc:1072 Getting Default Adapter failed.
 7월 24, 2021 18:13:50.15 [1472:10652:0724/181350.158:ERROR:device_event_log_impl.cc(214)] [18:13:50.151] Bluetooth: bluetooth_adapter_winrt.cc:1072 Getting Default Adapter failed.
+
+7월 25, 2021 12:28:23.09 NEW SESSION
+7월 25, 2021 12:28:23.09 [7664:5644:0725/122823.092:ERROR:device_event_log_impl.cc(214)] [12:28:23.091] Bluetooth: bluetooth_adapter_winrt.cc:1072 Getting Default Adapter failed.
