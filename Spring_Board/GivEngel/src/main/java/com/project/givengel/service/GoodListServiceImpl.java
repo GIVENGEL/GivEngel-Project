@@ -9,6 +9,7 @@ import com.project.givengel.dao.GoodDAOImpl;
 import com.project.givengel.vo.CartVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.Good_comVO;
+import com.project.givengel.vo.LikeToVO;
 import com.project.givengel.vo.UserVO;
 import com.project.givengel.vo.User_buylogVO;
 import com.project.givengel.vo.User_cashlogVO;
@@ -53,11 +54,20 @@ public class GoodListServiceImpl implements GoodListService {
 	}
 	
 	
+	
 //	상품 상세정보
 	@Override
 	public GoodVO getGoodView(GoodVO vo) {
 		return goodDAO.getGoodView(vo);
 	}
+	
+//	판매량 순 추천상품
+	@Override
+	public List<GoodVO> rankingGood() {
+		return goodDAO.rankingGood();
+	}
+
+	
 
 //	상품 댓글리스트
 	@Override
@@ -69,8 +79,8 @@ public class GoodListServiceImpl implements GoodListService {
 
 //	상품댓글 유효성
 	@Override
-	public UserVO checkGoodComPW(UserVO uvo) {
-		return goodDAO.checkGoodComPW(uvo);
+	public UserVO loginCheckCom(UserVO uvo) {
+		return goodDAO.loginCheckCom(uvo);
 	}
 
 	
@@ -124,6 +134,8 @@ public class GoodListServiceImpl implements GoodListService {
 	public void addCart(CartVO vo) {
 		goodDAO.addCart(vo);
 	}
+
+	
 
 	
 	

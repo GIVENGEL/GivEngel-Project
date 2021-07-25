@@ -1,5 +1,8 @@
 package com.project.givengel.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +28,11 @@ public class GoodListController {
 	
 //	전체 상품 리스트 가져오는 메소드(카테고리별 분류)
 	@RequestMapping("/buyList.giv")
-	public void getGoodList(Model m, String categories, String color, String sorting, String keyword) {
-		System.out.println("+"+keyword);
+	public void getGoodList(Model m, String categories, String color, String sorting, String keyword, HttpServletRequest request) {
+	
+		HttpSession ses = request.getSession();
+		UserVO userVo = (UserVO)ses.getAttribute("admin");
+		
 		// 최신상품(date 순 정렬) 가져오고 Model에 저장
 		m.addAttribute("latestGood1", goodListService.getlatestGood1());
 		m.addAttribute("latestGood2", goodListService.getlatestGood2());
@@ -36,14 +42,10 @@ public class GoodListController {
 		// 인기상품(인기순 고정)
 		m.addAttribute("getPopularGoodList", goodListService.getPopularGoodList(categories,color));
 		
-		
 	}
 	
-//	
-//	@RequestMapping("/buyForm.giv")
-//	public void getGoodView() {
-//		
-//	}
+	
+	
 	
 //	상품 상세정보 + 댓글 가져오기
 	@RequestMapping("/buyForm.giv")
@@ -66,36 +68,77 @@ public class GoodListController {
 		m.addAttribute("totalGoodCom", totalGoodCom);
 		m.addAttribute("latestGood1", goodListService.getlatestGood1());
 		
+//		추천상품 리스트
+		m.addAttribute("rankingGood", goodListService.rankingGood());
+		
 		return m;
 	}
 	
 	
-	//상품 댓글 유효성검사
-	@RequestMapping(value="/checkGoodComPW.giv", produces="application/text;charset=UTF-8")
+	
+	
+	
+	
+	// 로그인 여부 확인
+	@RequestMapping(value="/loginCheckCom.giv", produces="application/text;charset=UTF-8")
 	@ResponseBody
-	public void checkGoodComPW(UserVO uvo) {
-		goodListService.checkGoodComPW(uvo);		
+	public String loginCheckCom(HttpServletRequest request, String user_pw) {
+		HttpSession session = request.getSession();
+		UserVO uvo = (UserVO)session.getAttribute("user");
+		System.out.println(uvo.getUser_no());
+		int result = -1;
+		UserVO resultvo = goodListService.loginCheckCom(uvo);
+		
+		if(resultvo.getUser_pw().equals(user_pw)) {
+			result = 1;
+		}
+		
+		System.out.println(result);
+		return Integer.toString(result);
+		
 	}
 	
 	//상품 댓글 입력
 	@RequestMapping(value="/saveGoodCom.giv", produces="application/text;charset=UTF-8")
 	@ResponseBody
-    public void addGoodCom(Good_comVO gvo) {
-		goodListService.addGoodCom(gvo);
+    public String addGoodCom(Good_comVO gvo,String loginresult) {
+		String result = "-1";
+		if(loginresult.equals("1")) {
+			goodListService.addGoodCom(gvo);
+			result =	"1";
+		}
+		return result;
 	}
 
 	//상품 댓글 삭제
 	@RequestMapping(value="/deleteGoodCom.giv", produces="application/text;charset=UTF-8")
 	@ResponseBody
-	public void deleteGoodCom(Good_comVO gvo) {
-		goodListService.deleteGoodCom(gvo);
+	public String deleteGoodCom(Good_comVO gvo, HttpServletRequest requset) {
+		HttpSession session = requset.getSession();
+		UserVO vo = (UserVO)session.getAttribute("user");
+		String result = "-1";
+		if(vo != null) {
+			gvo.setGood_com_writer(vo.getUser_id());
+			goodListService.deleteGoodCom(gvo);
+			result = "1";
+		}
+		return result;
 	}
-
+	
+	
 	//상품 댓글 수정
 	@RequestMapping(value="/modifyGoodCom.giv", produces="application/text;charset=UTF-8")
 	@ResponseBody
-	public void modifyGoodCom(Good_comVO gvo) {
-		goodListService.modifyGoodCom(gvo);
+	public String modifyGoodCom(Good_comVO gvo, HttpServletRequest requset) {
+		HttpSession session = requset.getSession();
+		UserVO vo = (UserVO)session.getAttribute("user");
+		String result = "-1";
+		if(vo != null) {
+			gvo.setGood_com_writer(vo.getUser_id());
+			goodListService.modifyGoodCom(gvo);
+			result = "1";
+		}
+		return result;
 	}
 	
 	
@@ -104,23 +147,54 @@ public class GoodListController {
 	// 유저 구매로그 입력
 	@RequestMapping(value="/addUserBuyLog.giv", produces="application/text;charset=UTF-8")
 	@ResponseBody
-	public void addUserBuyLog(User_buylogVO vo) {
-		goodListService.addUserBuyLog(vo);
+	public String addUserBuyLog(User_buylogVO vo,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserVO uvo = (UserVO)session.getAttribute("user");
+		String result = "-1";
+		if(uvo!=null) {
+			vo.setUser_no(uvo.getUser_no());
+			goodListService.addUserBuyLog(vo);
+			result = "1";
+		}
+		return result;
 	}
 	
 	// 유저 마일리지 적립
 	@RequestMapping(value="/addUserM.giv", produces="application/text;charset=UTF-8")
 	@ResponseBody
-	public void addUserM(String user_no,String buy_totalPrice,String good_no) {
-		goodListService.addUserM(user_no,buy_totalPrice,good_no);
+	public String addUserM(HttpServletRequest request,String buy_totalPrice,String good_no) {
+		HttpSession session = request.getSession();
+		UserVO uvo = (UserVO)session.getAttribute("user");
+		String result = "-1";
+		if(uvo!=null) {
+			String user_no = Integer.toString(uvo.getUser_no());
+		    goodListService.addUserM(user_no,buy_totalPrice,good_no);
+			result = "1";
+		}
+		if(result=="1") {
+		int cash =  (uvo.getUser_cash() + (Integer.parseInt(buy_totalPrice) / 10));
+		uvo.setUser_cash(cash);
+		session.setAttribute("user", uvo);
+		}
+		
+		return result;
 	}
 
 	// 유저 마일리지 로그 업데이트
 	@RequestMapping(value="/addUserMLog.giv", produces="application/text;charset=UTF-8")
 	@ResponseBody
-	public void addUserMLog(User_cashlogVO vo) {
-		System.out.println(vo.getUser_cashlog_log());
-		goodListService.addUserMLog(vo);
+	public String addUserMLog(User_cashlogVO vo ,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserVO uvo = (UserVO)session.getAttribute("user");
+		String result = "-1";
+		System.out.println(uvo.getUser_no());
+		if(uvo!=null) {
+			int user_no = uvo.getUser_no();
+			vo.setUser_no(user_no);
+			goodListService.addUserMLog(vo);
+			result = "1";
+		}
+		return result;
 	}
 	
 	
@@ -128,8 +202,17 @@ public class GoodListController {
 	//상품 재고 업데이트
 	@RequestMapping(value="/countGoodStock.giv", produces="application/text;charset=UTF-8")
 	@ResponseBody
-	public void countGoodStock(GoodVO vo) {
+	public String countGoodStock(GoodVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserVO uvo = (UserVO)session.getAttribute("user");
+		
+		String result = "-1"; 
+		if(uvo != null) {
 		goodListService.countGoodStock(vo);
+			result = "1";
+		}
+		
+		return result;
 	}
 	
 	
@@ -150,13 +233,20 @@ public class GoodListController {
 	// 장바구니 추가
 	@RequestMapping(value="/addCart.giv", produces="application/text;charset=UTF-8")
 	@ResponseBody
-	public void addCart(CartVO vo) {
-		goodListService.addCart(vo);
+	public String addCart(CartVO vo,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserVO uvo = (UserVO)session.getAttribute("user");
+		String result = "-1";
+		if(uvo!=null) {
+			vo.setUser_no(uvo.getUser_no());
+			goodListService.addCart(vo);
+			result="1";
+		}
+		return result;
 	}
 	
 
-	
-	
+
 
 
 	

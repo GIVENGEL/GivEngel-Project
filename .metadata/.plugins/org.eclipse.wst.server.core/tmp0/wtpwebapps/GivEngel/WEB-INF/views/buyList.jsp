@@ -247,26 +247,8 @@
                                             <!-- 할인율 DIV 주석 -->
 									<!--<div class="product__discount__percent">-20%</div> -->
                                             <ul class="product__item__pic__hover">
-                                             <c:choose>
-                                        		 <c:when test="${sessionScope.user != null}">
-                                            		<c:choose>
-                                            			<c:when test="${empty goodVO.like_check or goodVO.like_check eq 0 }">
-                                                			<li><a idx="${goodVO.good_no }" href="likeCheck.giv"><i class="fa fa-heart-o"></i></a></li>
-                                            			</c:when>
-                                            			<c:otherwise>
-                                            				<li><a idx="${goodVO.good_no }" href="likeCheck.giv"><i class="fa fa-heart"></i></a></li>
-                                            			</c:otherwise>
-                                            		</c:choose>
-                                                			<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                			<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                         			</c:when>
-											
-                                        	 	  <c:when test="${sessionScope.user == null}">
-                                                		<li><a idx="${goodVO.good_no }" href="likeCheck.giv"><i class="fa fa-heart-o"></i></a></li>
-                                                		<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                		<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                         		  </c:when>
-                                       		  </c:choose>
+                                            	<li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">
@@ -317,28 +299,8 @@
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="${path}/resources/img/good/${goodVO.good_img}" onclick="location.href='buyForm.giv?good_no=${goodVO.good_no}'" style="cursor:pointer">
                                     <ul class="product__item__pic__hover">
-                                     <!-- 좋아요 기능구현 -->
-                                     <!-- 세션정보의 유무에 따른 하트모양 처리 -->
-                                       <c:choose>
-                                         <c:when test="${sessionScope.user != null}">
-                                            <c:choose>
-                                            	<c:when test="${empty goodVO.like_check or goodVO.like_check eq 0 }">
-                                                	<li><a idx="${goodVO.good_no }" href="likeCheck.giv"><i class="fa fa-heart-o"></i></a></li>
-                                            	</c:when>
-                                            	<c:otherwise>
-                                            		<li><a idx="${goodVO.good_no }" href="likeCheck.giv"><i class="fa fa-heart"></i></a></li>
-                                            	</c:otherwise>
-                                            </c:choose>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href='javascript:void(0);' onclick="addCart();"><i class="fa fa-shopping-cart"></i></a></li>
-                                         </c:when>
-											
-                                         <c:when test="${sessionScope.user == null}">
-                                                <li><a idx="${goodVO.good_no }" href="likeCheck.giv"><i class="fa fa-heart-o"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                         </c:when>
-                                       </c:choose>
+                                   		<li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">

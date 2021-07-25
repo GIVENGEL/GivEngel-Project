@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
@@ -31,6 +32,7 @@
 <link rel="stylesheet" href="${path}/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="${path}/resources/css/style.css" type="text/css">
 <link rel="stylesheet" href="${path}/resources/css/quantity.css" type="text/css">
+
 </head>
 
 <body>
@@ -121,15 +123,11 @@
 							<img class="product__details__pic__item--large"
 								src="${path}/resources/img/good/${goodVO.good_img}" alt="">
 						</div>
+						<div style='text-align: center;'>인기상품 추천</div>
 						<div class="product__details__pic__slider owl-carousel">
-							<img data-imgbigurl="${path}/resources/img/good/details/product-details-2.jpg"
-								src="${path}/resources/img/product/details/thumb-1.jpg" alt=""> 
-								<img data-imgbigurl="${path}/resources/img/product/details/product-details-3.jpg"
-								src="${path}/resources/img/product/details/thumb-2.jpg" alt=""> 
-								<img data-imgbigurl="${path}/resources/img/product/details/product-details-5.jpg"
-								src="${path}/resources/img/product/details/thumb-3.jpg" alt="">
-								<img data-imgbigurl="${path}/resources/img/product/details/product-details-4.jpg"
-								src="${path}/resources/img/product/details/thumb-4.jpg" alt="">
+							<c:forEach items="${rankingGood }" var='rankingGood'>
+							<a href='buyForm.giv?good_no=${rankingGood.good_no }'><img src="${path}/resources/img/good/${rankingGood.good_img}" alt=""></a>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -145,10 +143,9 @@
                             <i class="fa fa-star-half-o"></i> -->
 							<span>댓글 / ${totalGoodCom}</span>
 						</div>
-						<div class="product__details__price" id='defalutPrice'>${goodVO.good_price}</div>
+						<div class="product__details__price" id='defalutPrice'><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${goodVO.good_price}" /></div>
 						<input type="hidden" value='${goodVO.good_no}' id='good_no_cart' />
-						<input type="hidden" value='${user.user_no}' id='user_no_cart' />
-						<p>제품 설명</p>
+						<p>${goodVO.good_detail}</p>
 						<div class="good__details__quantity">
 							<div class="quantity">
 								<div class="good-qty">
@@ -158,20 +155,15 @@
 								</div>
 							</div>
 						</div>
-						<c:if test="${user != null}">
-						<a href="#" class="primary-btn" id='buyGoodBtn'>구매하기</a> <a href="#" id='addCart'
-							class="primary-btn">장바구니에 담기</a> <a href="#" class="heart-icon"><span
+						<a href="#" class="primary-btn" id='buyGoodBtn'>구매하기</a> 
+						<a href="javascript:void(0);" onclick='addcart();' id='addCart'
+							class="primary-btn">장바구니에 담기</a> 
+						<a href="#" class="heart-icon"><span
 							class="icon_heart"></span></a>
-						</c:if>
-						<c:if test="${user == null}">
-						<a href="#" class="primary-btn" id='buyGoodBtn-notLogin'>구매하기</a> <a href="#" id='addCart-notLogin'
-							class="primary-btn">장바구니에 담기</a> <a href="#" class="heart-icon"><span
-							class="icon_heart"></span></a>
-						</c:if>
 						<ul>
 							<li><b>상품 카테고리</b> <span>${categories}</span></li>
 							<li><b>남은 재고</b> <span id='goodStock'> ${goodVO.good_stock}</span><br></li>							
-							<li><b>총 금액</b><span id='totalPrice'>${goodVO.good_price}</span></li>
+							<li><b>총 금액</b><span id='totalPrice'>${goodVO.good_price} 원</span></li>
 
 							<li><b>공유하기</b>
 								<div class="share">
@@ -230,44 +222,54 @@
 											<!-- 댓글 하나 -->
 											<c:forEach items="${comVO }" var='voList'>
 											<div class="card p-3 mb-5">
-											<input type="hidden" value='${voList.good_com_no }' id='com_no' >
-											<input type="hidden" value='${user.user_pw }' id='comUser_pw' >
-											
-												<div
-													class="d-flex justify-content-between align-items-center">
-													<div class="user d-flex flex-row align-items-center">
+												<div class=" justify-content-between align-items-center w-75">
+													<div class="d-flex flex-row align-items-center">
 														<img src="https://i.imgur.com/hczKIze.jpg" width="30"
-															class="user-img rounded-circle mr-2"> <span><small
-															class="font-weight-bold text-primary" >${voList.good_com_writer }</small> 
+															class="user-img rounded-circle mr-2">
+															
+															
+															<div class="container">
+        														<div class="row">
+          													 <small
+															class="font-weight-bold text-primary" >${voList.good_com_writer } </small><small> . ${voList.good_com_date }</small><br> 
 															<c:choose>
 															<c:when test="${user.user_id == voList.good_com_writer}">
 															<textarea
-															class="font-weight-bold" id='com_content'>${voList.good_com_content }</textarea>
+															class="font-weight-bold com_content w-100" >${voList.good_com_content }</textarea>
 															</c:when>
 															<c:otherwise>
+															
 															<small
-															class="font-weight-bold">${voList.good_com_content }</small>
+															class="font-weight-bold w-100">${voList.good_com_content }</small>
 															</c:otherwise>
 															</c:choose>
-															</span>
+															
+       															 </div>
+   															 </div>
+															
+															 
+															
+															
+															
+															<input class='com_no' type="hidden" value='${voList.good_com_no }'>
 													</div>
-													<small>${voList.good_com_date }</small>
+													
 												</div>
 												<c:if test="${user.user_id == voList.good_com_writer}">
 												<div class="action d-flex justify-content-between mt-2 align-items-center">
-													<div class="reply px-4">
-														<button type="button" id="comDelete">
-														<small>삭제하기</small> <span class="dots"></span> 
-														</button>
-														<button type="button" id="comModify">
+													<div class="row w-100">
+													<div class="col-8" style="height:1px">
+													</div>
+													<div class="col-4">
+													<button type="button"  class='btn btn-light btn-lg  comModify float-right' >
 														<small>수정하기</small>
 														<span class="dots"></span>
 														</button>
+														<button type="button" class='btn btn-dark btn-lg comDelete float-right'  style="margin-right:10px">
+														<small>삭제하기</small> <span class="dots"></span> 
+														</button>
 													</div>
-													
-													<div class="icons align-items-center">
-														<i class="fa fa-star text-warning"></i> <i
-															class="fa fa-check-circle-o check-icon"></i>
+														
 													</div>
 												</div>
 												</c:if>
@@ -290,12 +292,10 @@
 											<li class="list-group-item">
 												<div class="form-inline mb-2">
 													<label for="replyId"><i class="fa fa-user-circle-o fa-2x"></i></label> 
-													<input type="text" class="form-control ml-2" placeholder="${user.user_id}"	id="good_com_writer" name='good_com_writer' value='${user.user_id}'> 
+													<input type="text" class="form-control ml-2" id='good_com_writer' value='${user.user_id}' readOnly> 
 													<label for="replyPassword" class="ml-4"><i class="fa fa-unlock-alt fa-2x"></i></label>
 													<input type="password" class="form-control ml-2"
 														   placeholder="Enter password" id="user_pw" name='user_pw'>														   
-													<input type="hidden" value='${user.user_no}' id='user_no' />
-													<input type="hidden" value='${goodVO.good_no}' id='good_no' />
 												</div> 
 												<textarea class="form-control"
 													id="good_com_content" rows="3" name='good_com_content'></textarea>
@@ -336,9 +336,8 @@
 						<div class="product__item__pic set-bg"
 							data-setbg="${path}/resources/img/good/${latestGood1.good_img}" style="cursor:pointer" onclick='location.href="buyForm.giv?good_no=${latestGood1.good_no}"'>
 							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
+								<li><a href="#"><i class="fa fa-heart-o"></i></a></li>
 								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
 							</ul>
 						</div>
 						<div class="product__item__text">

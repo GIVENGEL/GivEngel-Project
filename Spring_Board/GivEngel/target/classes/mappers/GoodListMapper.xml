@@ -7,29 +7,23 @@
 <!-- 카테고리에 따른 전체 상품리스트 가져오는 쿼리문-->
 	<select id='getGoodList' resultType="hashmap" parameterType="hashmap">
 		SELECT 
-		g.good_no, g.good_name, g.good_price, g.good_tag, g.good_like, g.good_detail, g.good_img,g.good_stock,      
-		l.like_check,    
-		c.user_no,c.cart_count     		
-		FROM good AS g          
-		LEFT JOIN liketo AS l     
-		ON g.good_no = l.good_no    
-		LEFT JOIN cart AS c     
-		ON l.good_no = c.good_no         
+		*
+		FROM good         
 		<where>
 			<if test="categories != null">
 				<!-- where content LIKE '%내가 쓴 검색어%' -->
-				g.good_tag LIKE '%${categories}%'
+				good_tag LIKE '%${categories}%'
 			</if>
 			<if test="color != null">
-				g.good_tag LIKE '%${color}%'
+				good_tag LIKE '%${color}%'
 			</if>
 			<if test='keyword != null'>
-				g.good_tag LIKE '%${keyword}%' OR g.good_name LIKE '%${keyword}%'
-			</if>
+				good_tag LIKE '%${keyword}%' OR g.good_name LIKE '%${keyword}%'
+			</if>				
 		</where>
 		<choose>
 			<when test="sorting != null">
-				ORDER BY good_price ${sorting}
+				ORDER BY ${sorting}
 			</when>
 			<otherwise>		
 				ORDER BY good_date DESC
@@ -40,42 +34,24 @@
 	<!-- 최신상품 가져오는 쿼리문1 date 순 -->
 	<select id='getlatestGood1' resultType="hashmap">
 		SELECT 
-		g.good_no,g.good_name,g.good_price,g.good_tag,g.good_like,g.good_detail,g.good_img,
-		l.like_check,
-		c.user_no, c.cart_count
-		FROM good AS g 
-		LEFT JOIN liketo AS l
-		ON g.good_no = l.good_no
-		LEFT JOIN cart AS c
-		ON l.good_no = c.good_no
+		*
+		FROM good 
 		ORDER BY good_date LIMIT 0,4
 	</select>
 	
 	<!-- 최신상품 가져오는 쿼리문2 date 순 -->
 	<select id='getlatestGood2' resultType="hashmap">
 		SELECT 
-		g.good_no,g.good_name,g.good_price,g.good_tag,g.good_like,g.good_detail,g.good_img,
-		l.like_check,
-		c.user_no, c.cart_count
-		FROM good AS g 
-		LEFT JOIN liketo AS l
-		ON g.good_no = l.good_no
-		LEFT JOIN cart AS c
-		ON l.good_no = c.good_no
+		*
+		FROM good 
 		ORDER BY good_date LIMIT 4,4
 	</select>
 	
 	<!-- 최신상품 가져오는 쿼리문3 date 순 -->
 	<select id='getlatestGood3' resultType="hashmap">
 		SELECT 
-		g.good_no,g.good_name,g.good_price,g.good_tag,g.good_like,g.good_detail,g.good_img,
-		l.like_check,
-		c.user_no, c.cart_count
-		FROM good AS g 
-		LEFT JOIN liketo AS l
-		ON g.good_no = l.good_no
-		LEFT JOIN cart AS c
-		ON l.good_no = c.good_no
+		*
+		FROM good 
 		ORDER BY good_date LIMIT 8,4
 	</select>
 	
@@ -83,14 +59,8 @@
 	<!-- 인기상품  고정! -->
 	<select id='getPopularGoodList' resultType="hashmap" parameterType="hashmap">
 		SELECT 
-		g.good_no, g.good_name, g.good_price, g.good_tag, g.good_like, g.good_detail, g.good_img,      
-		l.like_check,    
-		c.user_no,c.cart_count     		
-		FROM good AS g          
-		LEFT JOIN liketo AS l     
-		ON g.good_no = l.good_no    
-		LEFT JOIN cart AS c     
-		ON l.good_no = c.good_no         
+		*
+		FROM good   
 		<where>
 			<if test="categories != null">
 				<!-- where content LIKE '%내가 쓴 검색어%' -->
@@ -102,6 +72,19 @@
 		</where>
 		ORDER BY good_like LIMIT 0,9
 	</select>
+	
+	<!-- 판매량 순 추천상품 고정! -->
+	<select id="rankingGood" resultType="goodVO">
+	SELECT good_no, good_img  FROM
+	(SELECT count(user_buylog.good_no) countbuy, good.good_no, good.good_img 
+	FROM user_buylog 
+	INNER JOIN good 
+	ON user_buylog.good_no = good.good_no  
+	GROUP BY user_buylog.good_no 
+	ORDER BY countbuy DESC) AS GOOD;
+	</select>
+	
+	
 
 
 	<!-- 상품디테일 -->
@@ -121,10 +104,10 @@
 	
 	
 	<!-- 댓글 입력 유효성 -->
-	<select id="checkGoodComPW" parameterType="userVO" resultType="userVO">
-		SELECT * 
+	<select id="loginCheckCom" parameterType="userVO" resultType="userVO">
+		SELECT user_pw 
 		FROM user
-		WHERE user_no=${user_no} AND user_pw=${user_pw}
+		WHERE user_no=${user_no}
 	</select>
 	
 	
@@ -138,14 +121,14 @@
 	<!-- 댓글 삭제 -->
 	<delete id="deleteGoodCom" parameterType="good_comVO">
 		DELETE FROM good_com
-		WHERE good_com_no = ${good_com_no}
+		WHERE good_com_no = ${good_com_no} AND good_com_writer = #{good_com_writer}
 	</delete>
 	
 	<!-- 댓글 수정 -->
 	<update id="modifyGoodCom" parameterType="good_comVO">
 		UPDATE good_com 
-		SET good_com_content = ${good_com_content} 
-		where good_com_no = ${good_com_no};
+		SET good_com_content = #{good_com_content} 
+		where good_com_no = ${good_com_no} AND good_com_writer = #{good_com_writer};
 	</update>
 	
 	<!-- 유저 구매 로그 저장 -->
@@ -156,16 +139,16 @@
 	</insert>
 	
 	<!-- 유저 마일리지 적립 -->
-	<update id="addUserM" parameterType="hashmap">
+	<update id="addUserM" parameterType="hashmap" >
 		UPDATE user SET 
-		user_cash = user_cash+(${buy_totalPrice}*0.1),       
+		user_cash = user_cash+(${buy_totalPrice*0.1}),       
 		user_bought = CONCAT(user_bought,'${good_no}#') where user_no = ${user_no};
 	</update>
 	
 	<!-- 유저 마일리지 로그 업데이트 -->
 	<insert id="addUserMLog" parameterType="user_cashlogVO">
 		INSERT INTO user_cashlog(user_no,user_cashlog_log,user_cashlog_price,user_cashlog_date)
-		VALUES(${user_no},#{user_cashlog_log},${user_cashlog_price},sysdate())
+		VALUES(${user_no},#{user_cashlog_log},${user_cashlog_price * 0.1},sysdate())
 	</insert>
 	
 	<!-- 상품 재고 업데이트 -->

@@ -33,6 +33,7 @@ public class GoodDAOImpl implements GoodDAO {
 		map.put("sorting", sorting);
 		map.put("keyword", keyword);
 		
+		
 		return mybatis.selectList("GoodDAO.getGoodList",map);
 	}
 	
@@ -62,6 +63,9 @@ public class GoodDAOImpl implements GoodDAO {
 		return mybatis.selectList("GoodDAO.getlatestGood3");
 	}
 
+
+	
+
 //	상품 댓글 리스트
 	@Override
 	public List<Good_comVO> listGoodCom(Good_comVO comVO) {
@@ -75,12 +79,19 @@ public class GoodDAOImpl implements GoodDAO {
 	public GoodVO getGoodView(GoodVO vo) {
 		return mybatis.selectOne("GoodDAO.getGoodView", vo);
 	}
+	
+//	판매량순 추천상품
+	@Override
+	public List<GoodVO> rankingGood() {
+		return mybatis.selectList("GoodDAO.rankingGood");
+	}
+
 
 	
 //	상품 댓글 유효성
-	public UserVO checkGoodComPW(UserVO uvo) {
-		System.out.println("====>mybatis checkGoodComPW() 호출");
-		return mybatis.selectOne("GoodDAO.checkGoodComPW", uvo);
+	public UserVO loginCheckCom(UserVO uvo) {
+		System.out.println("====>mybatis loginCheckCom() 호출");
+		return mybatis.selectOne("GoodDAO.loginCheckCom", uvo);
 	}
 	
 //	상품 댓글 입력
@@ -146,6 +157,8 @@ public class GoodDAOImpl implements GoodDAO {
 		mybatis.insert("GoodDAO.addCart", vo);
 	}
 
+
+	
 
 
 

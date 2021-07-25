@@ -5,6 +5,7 @@ import java.util.List;
 import com.project.givengel.vo.CartVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.Good_comVO;
+import com.project.givengel.vo.LikeToVO;
 import com.project.givengel.vo.UserVO;
 import com.project.givengel.vo.User_buylogVO;
 import com.project.givengel.vo.User_cashlogVO;
@@ -27,10 +28,14 @@ public interface GoodDAO {
 	//상품 디테일
 	public GoodVO getGoodView(GoodVO vo);
 	
+	//상품 판매량순(추천리스트)
+	public List<GoodVO> rankingGood();
+	
+	// 상품 댓글 리스트
 	public List<Good_comVO> listGoodCom(Good_comVO comVO);
 	
 	//상품 댓글 유효성검사
-	public UserVO checkGoodComPW(UserVO uvo);
+	public UserVO loginCheckCom(UserVO uvo);
 	
 	//상품 댓글 입력
 	public void addGoodCom(Good_comVO gvo);
