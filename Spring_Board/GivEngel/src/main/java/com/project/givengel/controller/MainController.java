@@ -27,7 +27,7 @@ public class MainController {
 	}
 	/*****************************************************
 	    * 함수명          :    campaignList
-	    * 함수 기능       :   1. 캠페인 리스트(스폰넘버만) 받아온 후 배열로 리스트불러옴
+	    * 함수 기능       :   1. 캠페인 리스트(스폰넘버만) 받아온 후 배열로 리스트불러옴  2.현재시간 불러와서 비교하고 안보이게
 	    * 사용된 함수 : -
 	    * 사용된 서비스       :   campaignList (Service, dao)
 	    * 마지막 수정      :   2021-07-23
@@ -38,6 +38,9 @@ public class MainController {
 		List<SponVO> spon_list = new ArrayList<SponVO>();
 		spon_list = campaignService.campaignList();
 		Map<String,Object> map = new HashMap<String,Object>();
+		
+		String nowSysdate = campaignService.nowSysdate(); 
+		map.put("nowSysdate", nowSysdate);
 		map.put("spon_list", spon_list); 
 		return map;		
 		 

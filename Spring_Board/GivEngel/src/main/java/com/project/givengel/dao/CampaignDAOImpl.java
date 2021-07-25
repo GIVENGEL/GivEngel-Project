@@ -16,6 +16,14 @@ public class CampaignDAOImpl implements CampaignDAO {
 	   
 	@Autowired
 	private SqlSessionTemplate mybatis;
+	
+	public String nowSysdate() {
+		return mybatis.selectOne("CampaignDAO.nowSysdate");
+	}
+	
+	public int countReview(Spon_comVO vo) {
+		return mybatis.selectOne("CampaignDAO.countReview", vo);
+	}
 	 
 	public List<SponVO> campaignList() {
 		return mybatis.selectList("CampaignDAO.campaignList");
@@ -26,6 +34,7 @@ public class CampaignDAOImpl implements CampaignDAO {
 	}
 	
 	public void camUserCash(UserVO vo) {
+		System.out.println("호출" + vo.getUser_cash());
 		mybatis.update("CampaignDAO.camUserCash", vo);
 	}
 	  

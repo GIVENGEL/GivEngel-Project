@@ -77,19 +77,147 @@
             </div>
         </nav>
         <!-- Page Content-->
-        <div class="container-fluid p-0">
+        <div class="container-fluid p-0"> 
             <!-- About-->
             <section class="resume-section" id="about">
                 <div class="resume-section-content">
-                    <h1 class="mb-0">
-                        Welcome, 
-                        <span class="text-primary">[유저이름]</span>
-                    </h1>
+                    <h2 class="mb-1">   
+                        	반갑습니다. 
+                        <span class="text-primary">${user.user_name}님<p style="font-size:30px">GIVENGEL입니다. 환영합니다</p></span>
+                        <input id="hiddenmypw" type="hidden" value="${user.user_pw}">
+                        <input id="hiddenmyno" type="hidden" value="${user.user_no}">
+                        <input ud="hiddenmynick" type="hidden" value="${user.user_name}">
+                        <input id="hiddenmytel" type="hidden" value="${user.user_tel}">
+                        <input id="hiddenmyaddr" type="hidden" value="${user.user_addr}">
+                    </h2>   
                     <div class="subheading mb-5">
-                        [유저 아이디 수정 폼] 
-                        <a href="mailto:name@email.com">name@email.com</a>
+                        <a class="myInfoModify" href="myPageModify.giv">회원 정보 수정하기</a>
+                        <br/><br/><br/>  
+                        <section class="hero">
+		<div class="container">
+			<div class="row"> 
+
+				<div class="col-lg-9">
+					<div>
+
+    
+						<div>
+							<section class="container">     
+								<section class="login-form">
+									<hr style="border: solid 1px">
+									<label class="display-4 text-dark">회원 정보 수정</label>
+										<table class="table table-boardered">
+										 										
+											<tr>
+												<th>명예등급</th>
+												<td>명예등급임</td>
+											</tr>
+											<tr>
+												<th>아이디</th>
+												<td class="row">&nbsp;&nbsp;&nbsp;&nbsp;${user.user_id }</td>
+											
+											</tr>  
+											<tr>
+												<th>비밀번호</th>
+												<td>********				
+												<input type="button" style="float:right" class="btn btn-success btn-sm" id="pwModifybtn"  value="비밀번호 변경">
+												</td>
+											</tr>
+											
+											<tr class="pwdShow" style="display:none">  
+											<th style="float:right">현재 비밀번호</th>
+											<td><input id="myNowPass" type="password"></td>
+											</tr>
+											<tr class="pwdShow" style="display:none">
+											<th style="float:right">신규 비밀번호</th>
+											<td><input id="myNewPass" type="password"></td>
+											</tr>
+											<tr class="pwdShow" style="display:none">
+											<th style="float:right">신규 비밀번호 재입력</th>
+											<td><input id="myNewPassOK" type="password"></td>
+											</tr> 
+											<tr class="pwdShow" style="display:none">
+											<td style="float:right"><input type="button" value="변경" class="btn btn-success" id="pwdButton"></td>
+											</tr>
+											
+											<tr>
+												<th>이름</th> 
+												<td>${user.user_name}
+												<input type="button" style="float:right" class="btn btn-success btn-sm" id="nameModifybtn" value="닉네임 변경">
+												</td>
+											
+											</tr>     
+											<tr class="nickShow" style="display:none">  
+											<th style="float:right">변경 할 닉네임&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+											<td style="align:right"><input id="myNewNick" type="text"></td>
+											</tr>  
+											<tr class="nickShow" style="display:none">  
+											<td><input type="button" style="float:right" class="pull-right" id="nickModifybtn" value="변경"></td>
+											</tr>   
+     
+											
+											<tr>
+												<th>전화번호</th>
+												<td>${user.user_tel }
+												<input type="button" style="float:right" class="btn btn-success btn-sm" id="telModifybtn" value="전화번호 변경">
+												</td>
+											</tr>
+											<tr class="telShow" style="display:none">
+											<th> 변경 할 번호</th>
+											<td><input type="tel" id="myNewTel"></td>
+											</tr>
+											<tr class="telShow" style="display:none">
+											<td style="float:right"><input type="button" id="telModifybutton" value="변경"></td>
+											</tr>
+											<tr>
+												<th>주소</th>
+												<td>${user.user_addr}
+												<input type="button" style="float:right" class="btn btn-success btn-sm" id="addrModifybtn" value="배송주소 변경">
+												</td>
+											</tr>  
+											<tr class="addrShow" style="display:none">
+											<th> 변경 할 주소</th>
+											<td><input type="text" id="myNewAddr"></td>
+											</tr>  
+											<tr class="addrShow" style="display:none">
+											<td style="float:left"><input type="button" id="addrModifybutton" value="주소지 찾기" ></td>
+											<td style="float:right"><input type="button" id="addrModifyConfirm" value="변경" ></td>
+											</tr> 
+											  
+											
+											<br/> r
+											<br/>
+										</table>
+										<input id="cancle" type="button" class="btn btn-block btn-success btn-lg"
+													value="되돌아가기" style="width:25%">  
+										<br/><br/><br/>
+										<table class="table table-boardered">
+										<h3 class="display-6">기타 유저 정보</h3>
+										<tr>  
+											<th>생년월일</th>
+											<td>생년월일임</td>
+										</tr>
+										<tr>
+											<th>성별</th>
+											<td>성별임</td>
+										</tr>
+										<tr>
+											<th>마일리지</th>
+											<td>마일리지총액임</td>
+										</tr>
+										</table>
+										
+								</section>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+                        <label>서비스문의:</label><a href="mailto:name@email.com">name@email.com</a>
                     </div>
-                    <p class="lead mb-5">I am experienced in leveraging agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.</p>
+                    <p class="lead mb-5">'${user.user_name}'이라는 천사를 드릴게요.&nbsp;&nbsp;&nbsp;&nbsp; from GIVENGEL</p> 
                     <div class="social-icons">
                         <a class="social-icon" href="#!"><i class="fab fa-linkedin-in"></i></a>
                         <a class="social-icon" href="#!"><i class="fab fa-github"></i></a>
@@ -197,17 +325,8 @@
             <hr class="m-0" />
             <!-- Education-->
             <section class="resume-section" id="education">
-                <div class="resume-section-content">
+                <div class="resume-section-content" id="myCashListBox">
                     <h2 class="mb-5">마일리지 사용내역[ajax 페이징 처리]</h2>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">[마일리지 내역 로그]</h3>
-                            <div class="subheading mb-3">[사용/얻은 마일리지]</div>
-                            <div>[관련 후원단체]</div>
-                            <p>[관련 캠페인]</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">[로그 날짜]</span></div>
-                    </div>
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">[마일리지 내역 로그]</h3>
@@ -319,11 +438,15 @@
 	<script src="${path}/resources/js/owl.carousel.min.js"></script>
 	<script src="${path}/resources/js/main.js"></script>
 	
+	
 	<!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="${path}/resources/js_page/myPage.js"></script>
-
+        
+	<!-- mypageK -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script src="${path}/resources/js_page/mypageK.js"></script> 
 
 
 

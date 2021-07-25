@@ -8,6 +8,9 @@ import com.project.givengel.vo.UserVO;
 import com.project.givengel.vo.User_cashlogVO;
  
 public interface CampaignDAO {
+	public String nowSysdate();
+	
+	public int countReview(Spon_comVO vo);
 	
 	public List<SponVO> campaignList(); 
 	 

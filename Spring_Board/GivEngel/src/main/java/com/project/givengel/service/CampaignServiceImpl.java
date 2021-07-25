@@ -16,6 +16,14 @@ public class CampaignServiceImpl implements CampaignService {
 	   
 	@Autowired
 	private CampaignDAOImpl CampaignDAO;
+	public String nowSysdate() {
+		return CampaignDAO.nowSysdate();
+	} 
+	
+	public int countReview(Spon_comVO vo) {
+		return CampaignDAO.countReview(vo);
+	}
+	
 	public List<SponVO> campaignList(){
 		return CampaignDAO.campaignList();
 	}  
@@ -25,6 +33,7 @@ public class CampaignServiceImpl implements CampaignService {
 	}
 	
 	public void camUserCash(UserVO vo) {
+		System.out.println("호출" + vo.getUser_cash());
 		CampaignDAO.camUserCash(vo);
 	}
 	 
