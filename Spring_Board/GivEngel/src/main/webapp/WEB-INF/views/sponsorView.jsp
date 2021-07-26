@@ -54,9 +54,10 @@
 
 
 	<!-- Blog Details Hero Begin -->
-	<input name="spon_no" type="hidden" value="${spon.spon_no }" />
+	<input type="hidden" value="${user.user_id }" id="userId">
+	<input type="hidden" value="${spon.spon_no }" id="spon_no" />
 	<section class="blog-details-hero set-bg"
-		data-setbg="${path}/resources/img/sponsor/details_${spon.spon_img }" width="1920px">
+		data-setbg="${path}/resources/img/sponsor/details_${spon.spon_img }.jpg" width="1920px">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -172,7 +173,7 @@
 				<!-- 후원단체 이미지 -->
 				<div class="col-lg-4 col-md-7 order-md-1 order-1">
 					<div class="blog__details__text" style="border:1px solid lightgrey">
-						<img src="${path}/resources/img/sponsor/${spon.spon_img }" alt="">
+						<img src="${path}/resources/img/sponsor/${spon.spon_img }.jpg" alt="">
 
 					</div>
 					<div class="blog__details__content">
@@ -221,8 +222,7 @@
 							href="#tabs-2" role="tab" aria-selected="false">GivEngel 이용
 								수칙</a></li>
 						<li class="nav-item"><a class="nav-link" data-toggle="tab"
-							href="#tabs-3" role="tab" aria-selected="false">리뷰 <span>(댓글
-									수)</span></a></li>
+							href="#tabs-3" role="tab" aria-selected="false"> 응원댓글 (<span id="countSponCom2"></span>)</a></li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active text-center" id="tabs-1"
@@ -257,6 +257,7 @@
 										
 										<!-- 댓글 목록 불러오기 ----------------------------------------- -->
 										<div id="listSponCom">
+
 									
 
 										<!-- 댓글 하나 -->
@@ -307,11 +308,7 @@
 														<input type="text"
 														class="form-control ml-2" placeholder="${user.user_id }"
 														id="spon_com_writer" name="spon_com_writer"
-														value="${user.user_id }"> <label
-														for="replyPassword" class="ml-4"><i
-														class="fa fa-unlock-alt fa-2x"></i></label> <input type="password"
-														class="form-control ml-2" placeholder="Enter password"
-														id="replyPassword">
+														value="${user.user_id }"> 
 												</div> <textarea class="form-control" id="spon_com_content" name="spon_com_content" rows="3"></textarea>
 												<button type="button"
 													class="btn btn-success mt-3 float-right" id="sponComBtn">답글

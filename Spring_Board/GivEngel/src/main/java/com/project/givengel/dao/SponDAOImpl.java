@@ -41,9 +41,9 @@ public class SponDAOImpl implements SponDAO {
 	}
 	
 	// 댓글 목록
-	public List<Spon_comVO> listSponCom() {
+	public List<Spon_comVO> listSponCom(Spon_comVO vo) {
 		System.out.println("===> Mybatis listSponCom() 호출");
-		return mybatis.selectList("SponDAO.listSponCom");
+		return mybatis.selectList("SponDAO.listSponCom", vo);
 		
 	}
 	
@@ -81,6 +81,13 @@ public class SponDAOImpl implements SponDAO {
 	public void showSponTotal(SponVO vo) {
 		System.out.println("===> Mybatis showSponTotal() 호출");
 		mybatis.selectOne("SponDAO.showSponTotal", vo);
+	}
+	
+	
+	// 총 댓글 수
+	public Spon_comVO countSponCom(Spon_comVO vo) {
+		System.out.println("===> Mybatis countSponCom() 호출");
+		return mybatis.selectOne("SponDAO.countSponCom", vo);
 	}
 	
 

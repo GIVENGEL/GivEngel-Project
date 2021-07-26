@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FleaDAO">
+
+	<select id="getFleaList" resultType="fleaVO">
+		<![CDATA[
+		SELECT * FROM flea ORDER BY flea_no ASC
+		]]>
+	</select>
+	<!-- 판매 확정 순 -->
+	<select id="okayFleaList" resultType="fleaVO">
+		<![CDATA[
+		SELECT * FROM flea ORDER BY flea_isokay=1 ASC
+		]]>
+	</select>
+	
+	<select id="getFlea" parameterType="fleaVO" resultType="fleaVO">
+	<![CDATA[
+		SELECT flea_no, flea_title, flea_price, flea_date, flea_writer, flea_isokay, flea_content, flea_img FROM flea
+		WHERE flea_no = #{flea_no}
+		]]>
+	</select>
+	
+	<insert id="insertFleaWrite" parameterType="fleaVO">
+		INSERT INTO flea(flea_title, flea_price, flea_writer, flea_content, flea_date,
+		<if test="flea_img != null">
+		flea_img
+		</if>
+		)
+		VALUES (#{flea_title}, #{flea_price}, #{flea_writer}, #{flea_content}, sysdate(),
+		<if test="flea_img != null">
+		#{flea_img}
+		</if>
+		)
+	</insert>
+	
+	<!-- 중고장터 게시물 삭제 -->
+	<delete id="deleteFlea" parameterType="fleaVO">
+		DELETE FROM flea
+		WHERE flea_no = #{flea_no}
+	</delete>
+	
+	<!-- 댓글입력 -->
+	<insert id="addFleaCom" parameterType="flea_comVO">
+	<![CDATA[
+		INSERT INTO flea_com(flea_no, flea_com_writer, flea_com_date, flea_com_content)
+		VALUES(#{flea_no}, #{flea_com_writer}, sysdate(), #{flea_com_content})
+	]]>
+	</insert>
+	
+	<!-- 댓글 목록 -->
+	<select id="listFleaCom" resultType="flea_comVO" parameterType="flea_comVO">
+		SELECT flea_com_no, flea_com_writer, flea_com_content, flea_com_date
+		FROM flea_com WHERE flea_no = #{flea_no}
+	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteFleaCom" parameterType="flea_comVO">
+		DELETE FROM flea_com
+		WHERE flea_com_no = #{flea_com_no}
+	</delete>
+
+
+
+</mapper>

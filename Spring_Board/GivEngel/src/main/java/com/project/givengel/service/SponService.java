@@ -19,7 +19,7 @@ public interface SponService {
 	public void addSponCom(Spon_comVO vo);
 	
 	// 댓글 목록 가져오기
-	public List<Spon_comVO> listSponCom();
+	public List<Spon_comVO> listSponCom(Spon_comVO vo);
 	
 	// 댓글 삭제
 	public void deleteSponCom(Spon_comVO vo);
@@ -38,6 +38,9 @@ public interface SponService {
 	
 	// 후원단체 누적금액 
 	public void showSponTotal(SponVO vo);
+	
+	// 총 댓글 수
+	public Spon_comVO countSponCom(Spon_comVO vo);
 	
 
 }

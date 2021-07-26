@@ -88,7 +88,7 @@
 
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg"
-		data-setbg="${path}/resources/img/breadcrumb.jpg">
+		data-setbg="${path}/resources/img/flea/details_flea.jpg" width="1920px">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
@@ -114,114 +114,40 @@
                 </div>
                 <div class="col-lg-8 col-md-7">
                     <div class="row">
+                        
+                        <c:forEach items="${fleaList }" var="flea">
+                        <input type="hidden" value="${flea.flea_no }" name="flea_no" id="flea_no">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="${path}/resources/img/blog/blog-2.jpg" alt="">
+                                <div class="blog__item__pic" style="border:2px solid #f9f9f9">
+                                    <c:choose>
+									<c:when test= "${flea.flea_isokay == '0' }"><a href="fleaView.giv?flea_no=${flea.flea_no }"><img src="${path}/resources/img/flea/soon.jpg" alt=""></a></c:when>
+									<c:otherwise><a href="fleaView.giv?flea_no=${flea.flea_no }"><img src="${path}/resources/img/flea/${flea.flea_img }" alt="${flea.flea_no }" ></a></c:otherwise>
+									</c:choose>
                                 </div>
                                 <div class="blog__item__text">
                                     <ul>
-                                        <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                        <li><i class="fa fa-comment-o"></i> 5</li>
+                                        <li><i class="fa fa-calendar-o"></i> ${flea.flea_date }</li>
+                                        <li><i class="fa fa-comment-o"></i><span id="countSponCom2"></span></li>
                                     </ul>
-                                    <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
-                                    <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                        quaerat </p>
-                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                                    <h5><a href="#">${flea.flea_title }</a></h5>
+                                    <p>${flea.flea_price }원 </p>
+                                    <a href="fleaView.giv?flea_no=${flea.flea_no }" class="blog__btn">자세히 보기 <span class="arrow_right"></span></a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="${path}/resources/img/blog/blog-3.jpg" alt="">
-                                </div>
-                                <div class="blog__item__text">
-                                    <ul>
-                                        <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                        <li><i class="fa fa-comment-o"></i> 5</li>
-                                    </ul>
-                                    <h5><a href="#">Visit the clean farm in the US</a></h5>
-                                    <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                        quaerat </p>
-                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="${path}/resources/img/blog/blog-1.jpg" alt="">
-                                </div>
-                                <div class="blog__item__text">
-                                    <ul>
-                                        <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                        <li><i class="fa fa-comment-o"></i> 5</li>
-                                    </ul>
-                                    <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                                    <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                        quaerat </p>
-                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="${path}/resources/img/blog/blog-4.jpg" alt="">
-                                </div>
-                                <div class="blog__item__text">
-                                    <ul>
-                                        <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                        <li><i class="fa fa-comment-o"></i> 5</li>
-                                    </ul>
-                                    <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                                    <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                        quaerat </p>
-                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="${path}/resources/img/blog/blog-4.jpg" alt="">
-                                </div>
-                                <div class="blog__item__text">
-                                    <ul>
-                                        <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                        <li><i class="fa fa-comment-o"></i> 5</li>
-                                    </ul>
-                                    <h5><a href="#">The Moment You Need To Remove Garlic From The Menu</a></h5>
-                                    <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                        quaerat </p>
-                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="${path}/resources/img/blog/blog-6.jpg" alt="">
-                                </div>
-                                <div class="blog__item__text">
-                                    <ul>
-                                        <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                        <li><i class="fa fa-comment-o"></i> 5</li>
-                                    </ul>
-                                    <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                                    <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                        quaerat </p>
-                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
-                                </div>
-                            </div>
-                        </div>
+                        </c:forEach>
+                        
+                      
                         <div class="col-lg-12">
                             <div class="product__pagination blog__pagination">
                                 <a href="#">1</a>
                                 <a href="#">2</a>
                                 <a href="#">3</a>
                                 <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                                <c:if test="${sessionScope.user != null}">
+                                <button type="button" class="btn btn-success float-right"><a href="fleaWrite.giv">신청하기</a></button>
+                                </c:if>
                             </div>
                         </div>
                     </div>
@@ -243,6 +169,7 @@
     <script src="${path}/resources/js/mixitup.min.js"></script>
     <script src="${path}/resources/js/owl.carousel.min.js"></script>
     <script src="${path}/resources/js/main.js"></script>
+    <script src="${path}/resources/js_page/flea.js"></script>
 
 
 </body>

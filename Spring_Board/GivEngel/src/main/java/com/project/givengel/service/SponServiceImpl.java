@@ -39,8 +39,8 @@ public class SponServiceImpl implements SponService {
 	
 	// 댓글 목록
 	@Override
-	public List<Spon_comVO> listSponCom() {
-		return sponDAO.listSponCom();
+	public List<Spon_comVO> listSponCom(Spon_comVO vo) {
+		return sponDAO.listSponCom(vo);
 		}
 	
 	// 댓글 삭제
@@ -72,6 +72,12 @@ public class SponServiceImpl implements SponService {
 	// 후원단체 누적금액
 	public void showSponTotal(SponVO vo) {
 		sponDAO.showSponTotal(vo);
+	}
+	
+	
+	// 총 댓글 수
+	public Spon_comVO countSponCom(Spon_comVO vo) {
+		return sponDAO.countSponCom(vo);
 	}
 	
 	

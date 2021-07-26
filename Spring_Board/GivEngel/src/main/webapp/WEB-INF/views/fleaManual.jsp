@@ -112,41 +112,25 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="section-title from-blog__title">
-						<h2 class="display-3">Sponsor</h2>
+						<h2 class="display-3">FleaMarket Manual</h2>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-			
-			<!-- 편이슬 -->
-			<!-- 스폰서 리스트 불러오기 -->
-				<!--  각 캠패인 출력 단위 표시 ****************-->
-				<c:forEach items="${sponList }" var="spon">
-				<input type="hidden" value="${spon.spon_no}" id="spon_no" name="spon_no" />
-					<div class="col-lg-4 col-md-4 col-sm-6">
-						<div class="blog__item">
-							<div class="blog__item__pic" style="border:2px solid #f9f9f9">
-								<c:choose>
-								<c:when test= "${spon.spon_img == '' }"><a href="sponsorView.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/null.jpg" alt=""></a></c:when>
-								<c:otherwise><a href="sponsorView.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/${spon.spon_img }.jpg" alt="${spon.spon_name }"></a></c:otherwise>
-								</c:choose>
-							</div>
-							<div class="blog__item__text">
-								<ul>
-									<li>
-									<li><i class="fa fa-calendar-o"></i>${spon.spon_start }</li>
-									<li><i class="fa fa-comment-o"></i><span id="countSponCom2"></span></li>
-								</ul>
-								<h5>
-									<a href="sponsorView.giv?spon_no=${spon.spon_no }">${spon.spon_name }</a>
-								</h5>
-								<p>${spon.spon_comment }</p>
-							</div>
-						</div>
+				<div class="col-lg-12">
+					<div style="margin-bottom:50px; text-align: center;">
+						<h2>중고마켓 안내서</h2>
+						<h4>기브엔젤 중고마켓은 오직 '마일리지'로만 운영됩니다</h4>
 					</div>
-				</c:forEach> 
-
-
+				</div>
+				
+				<div class="col-lg-12">
+				
+				<img src="${path}/resources/img/flea/manual.jpg">
+				
+				</div>
+				
+						
 
 
 			</div>
@@ -224,7 +208,6 @@
 	<script src="${path}/resources/js/mixitup.min.js"></script>
 	<script src="${path}/resources/js/owl.carousel.min.js"></script>
 	<script src="${path}/resources/js/main.js"></script>
-	<script src="${path}/resources/js_page/sponsor.js"></script>
 
 
 

@@ -53,10 +53,7 @@ public class MainController {
 	public void contact() {
 		
 	}
-	@RequestMapping("/fleaBoard.giv")
-	public void fleaBoard() {
-		
-	}
+
 	@RequestMapping("/loginForm.giv")
 	public void loginForm() {
 		

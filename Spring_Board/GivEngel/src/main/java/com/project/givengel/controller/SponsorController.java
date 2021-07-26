@@ -1,9 +1,13 @@
 package com.project.givengel.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +38,10 @@ public class SponsorController {
 	    * 마지막 수정      :   2021-07-22
 	*****************************************************/
 	@RequestMapping("/sponsorList.giv")
-	public void getSponList(SponVO vo, Model m) {
+	public void getSponList(SponVO vo, Model m, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserVO sessionUserVO = (UserVO)session.getAttribute("user");
+		
 		m.addAttribute("sponList", sponService.getSponList(vo));
 	}
 	
@@ -45,15 +52,17 @@ public class SponsorController {
 	    * 함수명          :    getSpon
 	    * 
 	    * 함수 기능       :   1. 후원단체 목록을 클릭하면 해당 후원단체의 뷰페이지로 이동
-	    * 				2. 해당 후원단체의 정보를 불러옴
+	    * 			   2. 해당 후원단체의 정보를 불러옴
 	    * 
 	    * 사용된 함수     :   getSpon
 	    * 사용된 서비스   :   -
 	    * 마지막 수정      :   2021-07-22
 	*****************************************************/
 	@RequestMapping("/sponsorView.giv")
-	public void getSpon(SponVO vo, Model m) {
-		m.addAttribute("spon", sponService.getSpon(vo));
+	public Model getSpon(SponVO vo, Spon_comVO comVO, Model m) {
+		m.addAttribute("spon", sponService.getSpon(vo));		
+		
+		return m;
 	}
 
 	
@@ -107,8 +116,13 @@ public class SponsorController {
 	*****************************************************/
 	@RequestMapping(value = "/modifySponCom.giv", produces = "application/text;charset=UTF-8")
 	@ResponseBody
-	public void modifySponCom(Spon_comVO vo) {
+	public void modifySponCom(Spon_comVO vo, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		UserVO sessionUserVO = (UserVO)session.getAttribute("user");
+		
 		sponService.modifySponCom(vo);
+		System.out.println("댓글 수정확인" + vo.getSpon_com_content() + "," + vo.getSpon_com_no());
 	}
 	
 	
@@ -121,20 +135,25 @@ public class SponsorController {
 	    * 
 	    * 사용된 함수     :   listSponCom
 	    * 사용된 서비스   :   -
-	    * 마지막 수정      :   2021-07-22
+	    * 마지막 수정      :   2021-07-23
 	*****************************************************/
 	@RequestMapping(value = "/listSponsorCom.giv", produces = "application/json")
 	@ResponseBody
-	public Map<String, Object> listSponCom() {
+	public Map<String, Object> listSponCom(Spon_comVO vo, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		UserVO sessionUserVO = (UserVO)session.getAttribute("user");
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Spon_comVO> list = new ArrayList<Spon_comVO>();
-		list = sponService.listSponCom();
+		list = sponService.listSponCom(vo);
 		map.put("listSponCom", list);
+		map.put("count", list.size());
+		
+		System.out.println("spon_no 확인" + vo.getSpon_no());
+		
 		return map;
 	}
-	
-	
 	
 	
 	/*****************************************************
@@ -204,6 +223,11 @@ public class SponsorController {
 		public void showSponTotal(SponVO vo) {
 			sponService.showSponTotal(vo);
 		}
+	 
+	 
+	 
+	
+	 
 	 
 	 
 	 
