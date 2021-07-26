@@ -45,6 +45,15 @@ UPDATE spon a SET spon_total=((SELECT spon_total from (SELECT spon_total as c fr
 </update>
 
 <select id="campaignList" resultType="sponVO">
-SELECT * FROM spon where spon_iscampaign = '1'
+SELECT * FROM spon WHERE spon_iscampaign = '1'
 </select>
+
+<select id="countReview" resultType="int" parameterType="spon_comVO">
+SELECT count(*) FROM spon_com WHERE spon_no=#{spon_no}
+</select>
+
+<select id="nowSysdate" resultType="String">
+SELECT sysdate()
+</select>
+
 </mapper>

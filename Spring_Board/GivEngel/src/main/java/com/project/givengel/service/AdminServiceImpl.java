@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.givengel.dao.AdminDAO;
+import com.project.givengel.vo.AdminChartBarVO;
 import com.project.givengel.vo.AdminChartTimeVO;
 import com.project.givengel.vo.AdminVO;
+import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.SponVO;
+import com.project.givengel.vo.UserVO;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
@@ -128,6 +131,59 @@ public class AdminServiceImpl implements AdminService {
 	public void insertAdmins(AdminVO vo) {
 		adminDAO.insertAdmins(vo);
 	}
+	
+
+	@Override
+	public List<UserVO> selectUsers() {
+		return adminDAO.selectUsers();
+	}
+
+	@Override
+	public List<UserVO> searchUser(Map<String, String> map) {
+		return adminDAO.searchUser(map);
+	}
+
+	@Override
+	public UserVO selectUser(UserVO vo) {
+		return adminDAO.selectUser(vo);
+	}
+
+	@Override
+	public void deleteUser(UserVO vo) {
+		adminDAO.deleteUser(vo);
+	}
+
+	@Override
+	public List<AdminChartBarVO> chartPriceAndCash() {
+		return adminDAO.chartPriceAndCash();
+	}
+
+	@Override
+	public List<FleaVO> selectFleaList() {
+		return adminDAO.selectFleaList();
+	}
+
+	@Override
+	public List<FleaVO> searchFlea(Map<String, Object> map) {
+		return adminDAO.searchFlea(map);
+	}
+
+	@Override
+	public FleaVO selectFlea(FleaVO vo) {
+		return adminDAO.selectFlea(vo);
+	}
+
+	@Override
+	public void updateFleaTest(Map<String, Object> map) {
+		adminDAO.updateFleaTest(map);
+		
+	}
+
+	@Override
+	public void deleteFlea(FleaVO vo) {
+		adminDAO.deleteFlea(vo);
+	}
+	
 	
 
 

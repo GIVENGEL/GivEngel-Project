@@ -4,10 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.project.givengel.vo.AdminChartBarVO;
 import com.project.givengel.vo.AdminChartTimeVO;
 import com.project.givengel.vo.AdminVO;
+import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.SponVO;
+import com.project.givengel.vo.UserVO;
 
 public interface AdminDAO {
 
@@ -31,7 +34,10 @@ public interface AdminDAO {
 	public int cashCount();
 	public int orderCount();
 
-	
+	public List<UserVO> selectUsers();
+	public List<UserVO> searchUser(Map<String,String> map);
+	public void deleteUser(UserVO vo);
+	public UserVO selectUser(UserVO vo);
 
 	
 
@@ -41,16 +47,29 @@ public interface AdminDAO {
 	public void deleteGood(GoodVO vo);
 	public List<GoodVO> searchGood(Map<String,String> map);
 	
+	
+	
+	
 	public List<SponVO> selectSpon();
 	public void insertSpon(SponVO vo);
 	public void updateSpon(SponVO vo);
 	public void deleteSpon(SponVO vo);
 	
+	
+	
+	
+	public List<FleaVO> selectFleaList();
+	public List<FleaVO> searchFlea(Map<String,Object> map);
+	public FleaVO selectFlea(FleaVO vo);
+	public void updateFleaTest(Map<String,Object> map);
+	public void deleteFlea(FleaVO vo);
+
+	
 
 	
 	
 	public List<AdminChartTimeVO> chartPricePerTime();
-	
+	public List<AdminChartBarVO> chartPriceAndCash();
 	
 
 	

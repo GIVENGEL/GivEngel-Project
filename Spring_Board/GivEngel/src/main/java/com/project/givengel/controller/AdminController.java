@@ -26,7 +26,9 @@ import com.project.givengel.service.GoodListService;
 import com.project.givengel.service.LogService;
 import com.project.givengel.service.SponService;
 import com.project.givengel.vo.AdminChartTimeVO;
+import com.project.givengel.vo.AdminChartBarVO;
 import com.project.givengel.vo.AdminVO;
+import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.LogVO;
 import com.project.givengel.vo.SponVO;
@@ -924,6 +926,212 @@ public class AdminController {
 	 ************************************************************************************************************/
 	
 	
+	/************************************************************************************************************
+	 * 개발자모드 - 개발자 유저 계정 관리 영역 start																		*
+	 ************************************************************************************************************/
+	
+	/************************
+	 * 유틸 영역  start			*
+	 ************************/
+	@RequestMapping("/adminUserAccount.giv")
+	public void adminUserAccount(Model m) {
+		m.addAttribute("userList", adminService.selectUsers());
+	}
+	
+	@RequestMapping("/searchUser.giv")
+	@ResponseBody
+	public Map<String,Object> searchUser(String searchData) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchData", searchData);
+		
+		List<UserVO> list = new ArrayList<UserVO>();
+		list = adminService.searchUser(map);
+		
+		Map<String, Object> maps = new HashMap<String, Object>();
+		maps.put("list",list);
+		return maps;
+	}
+	
+	
+	
+	/************************
+	 * 유틸 영역  end			*
+	 ************************/
+	
+	/************************
+	 * 수정 영역  start			*
+	 ************************/
+	@RequestMapping("/adminUserAccountModifyForm.giv")
+	public Map<String, UserVO> adminUserAccountModifyForm(UserVO vo) {
+		UserVO users = new UserVO();
+		users = adminService.selectUser(vo);
+		Map<String, UserVO> map = new HashMap<String, UserVO>();
+		map.put("users", users);
+		return map;
+	}
+	
+	/************************
+	 * 수정 영역  end			*
+	 ************************/
+	
+	
+	
+	/************************
+	 * 삭제 영역  start			*
+	 ************************/
+	@RequestMapping("/adminUserAccountDeleteForm.giv")
+	public Map<String, UserVO> adminUserAccountDeleteForm(UserVO vo) {
+		UserVO users = new UserVO();
+		users = adminService.selectUser(vo);
+		Map<String, UserVO> map = new HashMap<String, UserVO>();
+		map.put("users", users);
+		return map;
+	}
+	
+	@RequestMapping("/adminUserAccountDeleteAction.giv")
+	public String adminUserAccountDeleteAction(UserVO vo) {
+		adminService.deleteUser(vo);
+		return "redirect:adminUserAccount.giv";
+
+	}
+	
+	
+	
+	/************************
+	 * 삭제 영역  end			*
+	 ************************/
+	
+	/************************************************************************************************************
+	 * 개발자모드 - 개발자 유저 계정 관리 영역 end																			*
+	 ************************************************************************************************************/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/************************************************************************************************************
+	 * 개발자모드 - 개발자 중고 장터 관리 영역 start																		*
+	 ************************************************************************************************************/
+	/************************
+	 * 유틸 영역  start			*
+	 ************************/
+	
+	@RequestMapping("/adminFlea.giv")
+	public void adminFlea(Model m) {
+		m.addAttribute("fleaList", adminService.selectFleaList());
+	}
+	
+	@RequestMapping("/searchFlea.giv")
+	@ResponseBody
+	public Map<String,Object> searchFlea(String searchData,String test) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchData", searchData);
+		if(test != null) {
+			map.put("test",test);
+		}else {
+			map.put("test",null);
+		}
+		
+		List<FleaVO> list = new ArrayList<FleaVO>();
+		list = adminService.searchFlea(map);
+		
+		Map<String, Object> maps = new HashMap<String, Object>();
+		maps.put("list",list);
+		
+		return maps;
+	}
+	
+	
+	/************************
+	 * 유틸 영역  end			*
+	 ************************/
+	
+	
+	
+	
+	/************************
+	 * 테스트 영역  start		*
+	 ************************/
+	
+
+	@RequestMapping("/adminFleaTestForm.giv")
+	public Map<String, Object> adminFleaTestForm(FleaVO vo) {
+		FleaVO fleas = new FleaVO();
+		fleas = adminService.selectFlea(vo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("flea", fleas);
+		
+		
+		return map;
+	}
+	@RequestMapping("/adminFleaTestAction.giv")
+	@ResponseBody
+	public void adminFleaTestAction(String test,int flea_no) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println("test : " + test);
+		System.out.println("test2 :" + flea_no );
+		map.put("test", test);
+		map.put("flea_no",flea_no);
+		
+		adminService.updateFleaTest(map);
+	}
+	/************************
+	 * 테스트 영역  end			*
+	 ************************/
+	
+	/************************
+	 * 삭제 영역  end			*
+	 ************************/
+	
+	
+	@RequestMapping("/adminFleaDeleteForm.giv")
+	public Map<String, FleaVO> adminFleaDeleteForm(FleaVO vo) {
+		FleaVO fleas = new FleaVO();
+		fleas = adminService.selectFlea(vo);
+		Map<String, FleaVO> map = new HashMap<String, FleaVO>();
+		map.put("flea", fleas);
+		return map;
+	}
+	
+	@RequestMapping("/adminFleaDeleteAction.giv")
+	public String adminFleaDeleteAction(FleaVO vo) {
+		adminService.deleteFlea(vo);
+		return "redirect:adminFlea.giv";
+
+	}
+	
+	
+	/************************
+	 * 삭제 영역  end			*
+	 ************************/
+	
+	/************************************************************************************************************
+	 * 개발자모드 - 개발자 중고 장터 관리 영역 end																			*
+	 ************************************************************************************************************/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -967,6 +1175,17 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping("/chartPriceAndCash.giv")
+	@ResponseBody
+	public  Map<String,Object> chartPriceAndCash() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<AdminChartBarVO> list = new ArrayList<AdminChartBarVO>();
+		list = adminService.chartPriceAndCash();
+		
+		map.put("chartBarList", list);
+		return map;
+		
+	}
 	/************************
 	 * 차트 영역  end			*
 	 ************************/
@@ -1029,6 +1248,26 @@ public class AdminController {
 		}	
 	}
 	
+	
+	@RequestMapping("/insertNoticeLog.giv")
+	@ResponseBody
+	public void insertNoticeLog(String notice_detail,HttpServletRequest request) {
+		LogVO logvo = new LogVO();
+		HttpSession session = request.getSession();
+		AdminVO adminvo = (AdminVO) session.getAttribute("admin");
+		String admin = adminvo.getAdmin_id();
+		if(admin==null) {
+			admin="ERR";
+		}else {
+			if(notice_detail.contains("#")) {
+				String[] temp = notice_detail.split("#");
+				logvo.setLog_detail("[ADMIN_NOTICE]#"+admin+"#"+temp[0]+"#"+temp[1]);
+				logService.insertLog(logvo);
+			}
+			
+		}
+
+	}
 	/************************
 	 * 로그 보드 영역  end		*
 	 ************************/
@@ -1088,12 +1327,6 @@ public class AdminController {
 	 ************************************************************************************************************/
 	
 	
-	/************************************************************************************************************
-	 * 개발자모드 - 개발자 중고 장터 관리 영역 end																			*
-	 ************************************************************************************************************/
-	
-	
-	
 	@RequestMapping("/adminMode.giv")
 	public void adminMode() {
 		
@@ -1112,10 +1345,7 @@ public class AdminController {
 	public void adminWidgets() {
 		
 	}
-	@RequestMapping("/adminFlea.giv")
-	public void adminFlea() {
 	
-	}
 	
 
 	

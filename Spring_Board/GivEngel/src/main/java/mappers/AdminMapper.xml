@@ -155,8 +155,66 @@
 		spon_no = #{spon_no}
 	</delete>
 	
+	
+	
+	
+	
+	
+	<select id="selectFleaList" resultType="FleaVO">
+		SELECT *
+		FROM flea
+	</select>
+	<select id="selectFlea" parameterType="FleaVO" resultType="FleaVO">
+		SELECT *
+		FROM flea
+		WHERE flea_no = #{flea_no}
+	</select>
+	<update id="updateFleaTest" parameterType="map">
+		UPDATE flea
+		<if test="test == 'testing'">SET flea_isokay=null  </if>
+		<if test="test == 'test_yes'">SET flea_isokay=true  </if>
+		<if test="test == 'test_no'">SET flea_isokay=false  </if>
+		WHERE flea_no = #{flea_no}
+	</update>
+	<delete id="deleteFlea" parameterType="FleaVO">
+		DELETE FROM flea
+		WHERE
+		flea_no = #{flea_no}
+	</delete>
+	<select id="searchFlea" parameterType="map"
+		resultType="FleaVO">
+		SELECT * FROM flea
+		WHERE (flea_title LIKE '%${searchData}%'
+		OR flea_writer LIKE '%${searchData}%')
+		<if test="test == 'flea_test'"> AND isNull(flea_isokay)  </if>
+		<if test="test == 'flea_all'">   </if>
+		<if test="test == 'flea_yes'"> AND flea_isokay = 1 </if>
+		<if test="test == 'flea_no'"> AND flea_isokay = 0  </if>
+	</select>
+	
+	
+	
 
-
+<select id="searchUser" parameterType="String"
+		resultType="UserVO">
+		SELECT * FROM user
+		WHERE user_id LIKE '%${searchData}%'
+		OR
+		user_name LIKE '%${searchData}%'
+	</select>
+	<select id="selectUsers" resultType="UserVO">
+		SELECT * FROM user
+	</select>
+	<select id="selectUser" parameterType="UserVO"
+		resultType="UserVO">
+		SELECT * FROM user
+		WHERE user_no = #{user_no}
+	</select>
+	<delete id="deleteUser" parameterType="UserVO">
+		DELETE FROM user
+		WHERE
+		user_no = #{user_no}
+	</delete>
 
 
 
@@ -183,6 +241,23 @@
 		group by hh) AS dayT
 		ON T.n =
 		dayT.hh
+	</select>
+	<select id="chartPriceAndCash" resultType="adminChartBarVO">
+		select * from
+		(SELECT DAY(user_cashlog_date) AS dates,SUM(user_cashlog_price) buy_sum
+		FROM user_cashlog
+		WHERE user_cashlog_date between '2021-01-01 00:00:00' AND
+		date_format(now(),'%Y-%m-%d 23:59:59')
+		group by dates
+		LIMIT 0,7) AS cash
+		natural join
+		(SELECT DAY(user_buylog_date) AS dates,SUM(user_buylog_price) cash_sum
+		FROM user_buylog
+		WHERE user_buylog_date between '2021-01-01 00:00:00' AND
+		date_format(now(),'%Y-%m-%d 23:59:59')
+		group by dates
+		LIMIT 0,7) AS buy;
+
 	</select>
 
 

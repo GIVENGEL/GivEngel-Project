@@ -107,25 +107,13 @@
 			<c:if test="${admin.admin_level > 2 }">
 			<li><a href="adminFlea.giv"><em class="fa fa-toggle-off">&nbsp;</em> 중고 상품 관리</a></li>
 			</c:if>
+			<c:if test="${admin.admin_level > 2 }">
+			<li><a href="adminUserAccount.giv"><em class="fa fa-toggle-off">&nbsp;</em> 유저 계정 관리</a></li>
+			</c:if>
 			<c:if test="${admin.admin_level > 3 }">
 			<li><a href="adminAccount.giv"><em class="fa fa-toggle-off">&nbsp;</em> 개발자 계정 관리</a></li>
 			</c:if>
-			<li><a href="adminPanels.giv"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
-			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
-				<em class="fa fa-navicon">&nbsp;</em> Multilevel <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
-				</a>
-				<ul class="children collapse" id="sub-item-1">
-					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Sub Item 1
-					</a></li>
-					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Sub Item 2
-					</a></li>
-					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Sub Item 3
-					</a></li>
-				</ul>
-			</li>
+			
 			<li><a href="adminlogoutAction.giv"><em class="fa fa-power-off">&nbsp;</em> 로그아웃</a></li>
 		</ul>
 	</div>
@@ -152,7 +140,7 @@
 			<div class="col-md-6">
 				<div class="panel panel-default articles">
 					<div class="panel-heading">
-						마지막 공지
+						최근 공지
 						<ul class="pull-right panel-settings panel-button-tab-right">
 							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
 								<em class="fa fa-cogs"></em>
@@ -177,7 +165,7 @@
 							</li>
 						</ul>
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
-					<div class="panel-body articles-container">
+					<div class="panel-body articles-container" id="notice_list">
 						<div class="article border-bottom">
 							<div class="col-xs-12">
 								<div class="row">
@@ -194,39 +182,35 @@
 							<div class="clear"></div>
 						</div><!--End .article-->
 						
+						
+						
 						<div class="article border-bottom">
 							<div class="col-xs-12">
 								<div class="row">
 									<div class="col-xs-2 col-md-2 date">
-										<div class="large">28</div>
-										<div class="text-muted">Jun</div>
+										<div class="large">날짜 일 자르기</div>
+										<div class="text-muted">날짜 월 자르기</div>
 									</div>
 									<div class="col-xs-10 col-md-10">
-										<h4><a href="#">[LOG 중 ADMIN LOG 1]</a></h4>
-										<p>[최신순으로 오더해서 LIMIT 3]</p>
+										<h4><a href="#">제목</a></h4>
+										<p>내용</p>
 									</div>
 								</div>
 							</div>
 							<div class="clear"></div>
 						</div><!--End .article-->
-						
-						<div class="article">
-							<div class="col-xs-12">
-								<div class="row">
-									<div class="col-xs-2 col-md-2 date">
-										<div class="large">24</div>
-										<div class="text-muted">Jun</div>
-									</div>
-									<div class="col-xs-10 col-md-10">
-										<h4><a href="#">Lorem ipsum dolor sit amet</a></h4>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.</p>
-									</div>
-								</div>
-							</div>
-							<div class="clear"></div>
-						</div><!--End .article-->
+	
+				</div>
+					<c:if test="${admin.admin_level > 2 }">
+					<div class="panel-footer">
+						<div class="input-group">
+							<input name="notice_detail" id="notice_detail" type="text" class="form-control input-md" placeholder="제목#공지 내용" /><span class="input-group-btn">
+								<input type="button" class="btn btn-primary btn-md" id="noticesubmit" value="등록">
+								
+						</span></div>
 					</div>
-				</div><!--End .articles-->
+					</c:if>
+					</div>
 				
 				<div class="panel panel-default ">
 					<div class="panel-heading">
@@ -576,7 +560,7 @@
 	<script>
 		window.onload = function () {
 			 updateToDoLog();
-			 
+			 updateNoticeLog();
 			 
 			$(document).on("click","#todosubmit",function(){
 				if($("#todo_detail").val()!=""){
@@ -591,6 +575,31 @@
 					});
 				}else{
 					alert("할 일을 입력하세요")
+				}
+				
+				
+			})
+			
+			
+			
+				$(document).on("click","#noticesubmit",function(){
+				if($("#notice_detail").val()!=""){
+					if($("#notice_detail").val().indexOf("#")!=-1){
+						$.ajax({
+							url:"insertNoticeLog.giv",
+							type:"post",
+							data:{"notice_detail": $("#notice_detail").val()},
+							success:function(data){
+								$("#notice_detail").val("");
+								updateNoticeLog();
+							}
+						});
+					}else{
+						alert("제목과 내용을 #으로 분리시켜주세요")
+					}
+					
+				}else{
+					alert("공지를 입력하세요")
 				}
 				
 				
@@ -638,7 +647,52 @@
 			}
 			
 			 setInterval(updateToDoLog,5000); 
-
+ 
+			 
+			 
+			 
+			 
+			 /* <div class="article border-bottom">
+				<div class="col-xs-12">
+					<div class="row">
+						<div class="col-xs-2 col-md-2 date">
+							<div class="large">날짜 일 자르기</div>
+							<div class="text-muted">날짜 월 자르기</div>
+						</div>
+						<div class="col-xs-10 col-md-10">
+							<h4><a href="#">제목</a></h4>
+							<p>내용</p>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div> */
+			 function updateNoticeLog(){
+				var length=4;
+					$.ajax({
+						url:"selectNoticeLog.giv",
+						type:"post",
+						
+						success:function(data){
+							$("#notice_list").empty();
+							if(data.notice.length > length){
+							for(var i=0;i<4;i++){
+								var notice = data.notice[i].split("-");
+								$("#notice_list").append('<div class="article border-bottom"><div class="col-xs-12"><div class="row"><div class="col-xs-2 col-md-2 date"><div class="large">'+notice[3]+'</div><div class="text-muted">'+notice[2]+'</div></div><div class="col-xs-10 col-md-10"><h4><a href="#">'+notice[0]+'</a></h4><p>'+notice[1]+'</p></div></div></div><div class="clear"></div></div>');
+							}	
+							}else{
+								for(var i=0;i<data.notice.length;i++){
+									var notice = data.notice[i].split("-");
+									$("#notice_list").append('<div class="article border-bottom"><div class="col-xs-12"><div class="row"><div class="col-xs-2 col-md-2 date"><div class="large">'+notice[3]+'</div><div class="text-muted">'+notice[2]+'</div></div><div class="col-xs-10 col-md-10"><h4><a href="#">'+notice[0]+'</a></h4><p>'+notice[1]+'</p></div></div></div><div class="clear"></div></div>');
+								}	
+								
+							}
+						}
+					});
+					
+				}
+			
+			 setInterval(updateNoticeLog,5000); 
 
 
 };

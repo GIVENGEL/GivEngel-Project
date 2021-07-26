@@ -107,25 +107,13 @@
 			<c:if test="${admin.admin_level > 2 }">
 			<li><a href="adminFlea.giv"><em class="fa fa-toggle-off">&nbsp;</em> 중고 상품 관리</a></li>
 			</c:if>
+			<c:if test="${admin.admin_level > 2 }">
+			<li><a href="adminUserAccount.giv"><em class="fa fa-toggle-off">&nbsp;</em> 유저 계정 관리</a></li>
+			</c:if>
 			<c:if test="${admin.admin_level > 3 }">
 			<li><a href="adminAccount.giv"><em class="fa fa-toggle-off">&nbsp;</em> 개발자 계정 관리</a></li>
 			</c:if>
-			<li><a href="adminPanels.giv"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
-			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
-				<em class="fa fa-navicon">&nbsp;</em> Multilevel <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
-				</a>
-				<ul class="children collapse" id="sub-item-1">
-					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Sub Item 1
-					</a></li>
-					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Sub Item 2
-					</a></li>
-					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Sub Item 3
-					</a></li>
-				</ul>
-			</li>
+			
 			<li><a href="adminlogoutAction.giv"><em class="fa fa-power-off">&nbsp;</em> 로그아웃</a></li>
 		</ul>
 	</div>
@@ -155,19 +143,21 @@
 
 				<h2>최근 등록된 상품</h2>
 			</div>
-			<div id="goodDiv">
+			<div class="col-lg-12" id="goodDiv">
 			
 			</div>
+			
 			<!-- /.row -->
 
 
 			<div class="panel panel-default">
-				
 				<div class="panel-body">
+				
 				<form id="insertfrm" action="adminInsertGood.giv" method="post" enctype="multipart/form-data">
-					<div class="col-md-6">
+					<div class="col-md-6" style="margin-top:20px">
 						<input  name="url" class="form-control" value="${path }"  type="hidden">
 							<div class="form-group">
+							
 								<label>상품명</label> <input id="good_name" name="good_name" class="form-control" placeholder="상품명">
 							
 							</div>
@@ -198,7 +188,8 @@
 								<input type="text" name="good_tags" id="good_tags" class="form-control" placeholder="#태그특징">
 							</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" style="margin-top:20px">
+					<br/><hr/>
 						<div class="form-group"></div>
 						<div class="form-group">
 							<label>상품 카테고리</label>
@@ -250,10 +241,6 @@
 			Lumino Theme by <a href="https://www.medialoot.com">Medialoot</a>
 		</p>
 	</div>
-	</div>
-	<!-- /.row -->
-	</div>
-	<!--/.main-->
 
 	<script src="${path}/resources/js/admin/jquery-1.11.1.min.js"></script>
 	<script src="${path}/resources/js/admin/bootstrap.min.js"></script>
@@ -301,7 +288,7 @@
 
 						$("#goodDiv").empty();
 						for(var i=0;i<4;i++){
-							$("#goodDiv").append('<div class="col-md-3"><div class="panel panel-success"><div class="panel-heading">'+data.list[i].good_name+'</div><div class="panel-body"><p>'+data.list[i].good_detail+'</p></div></div></div>')
+							$("#goodDiv").append('<div class="col-md-3"><div class="panel panel-success"><div class="panel-heading name">'+data.list[i].good_name+'</div><div class="panel-body"><p>'+data.list[i].good_detail+'</p></div></div></div>')
 						}
 						
 					}

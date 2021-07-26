@@ -8,8 +8,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.project.givengel.vo.AdminChartBarVO;
 import com.project.givengel.vo.AdminChartTimeVO;
 import com.project.givengel.vo.AdminVO;
+import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.SponVO;
 import com.project.givengel.vo.UserVO;
@@ -147,7 +149,58 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	
+	@Override
+	public List<UserVO> selectUsers() {
+		return mybatis.selectList("AdminDAO.selectUsers");
+	}
 
+	@Override
+	public List<UserVO> searchUser(Map<String, String> map) {
+		return mybatis.selectList("AdminDAO.searchUser",map);
+	}
+
+	@Override
+	public UserVO selectUser(UserVO vo) {
+		return mybatis.selectOne("AdminDAO.selectUser", vo);
+	}
+
+	@Override
+	public void deleteUser(UserVO vo) {
+		mybatis.delete("AdminDAO.deleteUser", vo);
+		
+	}
+
+	@Override
+	public List<AdminChartBarVO> chartPriceAndCash() {
+		return mybatis.selectList("AdminDAO.chartPriceAndCash");
+	}
+
+	@Override
+	public List<FleaVO> selectFleaList() {
+		return mybatis.selectList("AdminDAO.selectFleaList");
+	}
+
+	@Override
+	public List<FleaVO> searchFlea(Map<String, Object> map) {
+		
+		return mybatis.selectList("AdminDAO.searchFlea", map);
+	}
+
+	@Override
+	public FleaVO selectFlea(FleaVO vo) {
+		return mybatis.selectOne("AdminDAO.selectFlea",vo);
+	}
+
+	@Override
+	public void updateFleaTest(Map<String, Object> map) {
+		mybatis.update("AdminDAO.updateFleaTest", map);
+		
+	}
+
+	@Override
+	public void deleteFlea(FleaVO vo) {
+		mybatis.delete("AdminDAO.deleteFlea", vo);
+	}
 	
 
 	

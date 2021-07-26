@@ -34,6 +34,8 @@
 			type="com.project.givengel.vo.Spon_comVO" />
 			<typeAlias alias="adminChartTimeVO"
 			type="com.project.givengel.vo.AdminChartTimeVO" />
+		<typeAlias alias="adminChartBarVO"
+			type="com.project.givengel.vo.AdminChartBarVO" />
 	</typeAliases>
 
 

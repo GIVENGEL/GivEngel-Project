@@ -29,4 +29,7 @@
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="com.project.givengel.vo.AdminChartTimeVO"/>
+<fullyQualifiedTypeName name="com.project.givengel.vo.UserVO"/>
+<fullyQualifiedTypeName name="com.project.givengel.vo.AdminChartBarVO"/>
+<fullyQualifiedTypeName name="com.project.givengel.vo.FleaVO"/>
 </qualifiedTypeNameHistroy>

@@ -38,118 +38,90 @@
 	rel="stylesheet">
 </head>
 <body>
-	<c:if test="${admin != null}">
-
-		<jsp:include page="module/adminSidebar.jsp" />
-		<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-			<div class="profile-sidebar">
-				<div class="profile-userpic">
-					<c:if test="${admin.admin_level ==1 }">
-						<img src="${path}/resources/img/admin/lv1.png"
-							class="img-responsive" alt="">
-					</c:if>
-					<c:if test="${admin.admin_level ==2 }">
-						<img src="${path}/resources/img/admin/lv2.png"
-							class="img-responsive" alt="">
-					</c:if>
-					<c:if test="${admin.admin_level ==3 }">
-						<img src="${path}/resources/img/admin/lv3.png"
-							class="img-responsive" alt="">
-					</c:if>
-					<c:if test="${admin.admin_level ==4 }">
-						<img src="${path}/resources/img/admin/lv4.png"
-							class="img-responsive" alt="">
-					</c:if>
-				</div>
-				<div class="profile-usertitle">
-					<div class="profile-usertitle-name">${admin.admin_id}</div>
-					<div class="profile-usertitle-status">
-						<span class="indicator label-success"></span>Online
-					</div>
-				</div>
-				<div class="clear"></div>
+<c:if test="${admin != null}">
+	
+	<jsp:include page="module/adminSidebar.jsp" />
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<div class="profile-sidebar">
+			<div class="profile-userpic">
+			<c:if test="${admin.admin_level ==1 }">
+				<img src="${path}/resources/img/admin/lv1.png" class="img-responsive" alt="">
+			</c:if>
+			<c:if test="${admin.admin_level ==2 }">
+				<img src="${path}/resources/img/admin/lv2.png" class="img-responsive" alt="">
+			</c:if>
+			<c:if test="${admin.admin_level ==3 }">
+				<img src="${path}/resources/img/admin/lv3.png" class="img-responsive" alt="">
+			</c:if>
+			<c:if test="${admin.admin_level ==4 }">
+				<img src="${path}/resources/img/admin/lv4.png" class="img-responsive" alt="">
+			</c:if>
 			</div>
-			<div class="divider"></div>
-			<form role="search">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
-				</div>
-			</form>
-			<ul class="nav menu">
-				<li class="active"><a href="adminMode.giv"><em
-						class="fa fa-dashboard">&nbsp;</em> 누적통계</a></li>
-				<li><a href="adminWidgets.giv"><em class="fa fa-calendar">&nbsp;</em>
-						개발자보드</a></li>
-				<c:if test="${admin.admin_level > 0 }">
-					<li><a href="adminCharts.giv"><em class="fa fa-bar-chart">&nbsp;</em>
-							분석/통계</a></li>
-				</c:if>
-				<c:if test="${admin.admin_level > 1 }">
-					<li class="parent "><a data-toggle="collapse"
-						href="#sub-item-1"> <em class="fa fa-navicon">&nbsp;</em> 상품
-							관리 <span data-toggle="collapse" href="#sub-item-1"
-							class="icon pull-right"><em class="fa fa-plus"></em></span>
-					</a>
-						<ul class="children collapse" id="sub-item-1">
-							<li><a class="" href="adminElements.giv"> <span
-									class="fa fa-arrow-right">&nbsp;</span> 상품 추가
-							</a></li>
-							<li><a class="" href="adminGoodDelete.giv"> <span
-									class="fa fa-arrow-right">&nbsp;</span> 상품 삭제
-							</a></li>
-							<li><a class="" href="adminGoodModify.giv"> <span
-									class="fa fa-arrow-right">&nbsp;</span> 상품 수정
-							</a></li>
-						</ul></li>
-				</c:if>
-				<c:if test="${admin.admin_level > 2 }">
-					<li class="parent "><a data-toggle="collapse"
-						href="#sub-item-2"> <em class="fa fa-navicon">&nbsp;</em> 후원
-							단체 관리 <span data-toggle="collapse" href="#sub-item-1"
-							class="icon pull-right"><em class="fa fa-plus"></em></span>
-					</a>
-						<ul class="children collapse" id="sub-item-2">
-							<li><a class="" href="adminElements2.giv"> <span
-									class="fa fa-arrow-right">&nbsp;</span> 후원 단체 등록
-							</a></li>
-							<li><a class="" href="adminSponDelete.giv"> <span
-									class="fa fa-arrow-right">&nbsp;</span> 후원 단체 삭제
-							</a></li>
-							<li><a class="" href="adminSponModify.giv"> <span
-									class="fa fa-arrow-right">&nbsp;</span> 후원 단체 수정
-							</a></li>
-						</ul></li>
-				</c:if>
-				<c:if test="${admin.admin_level > 2 }">
-					<li><a href="adminFlea.giv"><em class="fa fa-toggle-off">&nbsp;</em>
-							중고 상품 관리</a></li>
-				</c:if>
-				<c:if test="${admin.admin_level > 3 }">
-					<li><a href="adminAccount.giv"><em
-							class="fa fa-toggle-off">&nbsp;</em> 개발자 계정 관리</a></li>
-				</c:if>
-				<li><a href="adminPanels.giv"><em class="fa fa-clone">&nbsp;</em>
-						Alerts &amp; Panels</a></li>
-				<li class="parent "><a data-toggle="collapse"
-					href="#sub-item-1"> <em class="fa fa-navicon">&nbsp;</em>
-						Multilevel <span data-toggle="collapse" href="#sub-item-1"
-						class="icon pull-right"><em class="fa fa-plus"></em></span>
-				</a>
-					<ul class="children collapse" id="sub-item-1">
-						<li><a class="" href="#"> <span class="fa fa-arrow-right">&nbsp;</span>
-								Sub Item 1
-						</a></li>
-						<li><a class="" href="#"> <span class="fa fa-arrow-right">&nbsp;</span>
-								Sub Item 2
-						</a></li>
-						<li><a class="" href="#"> <span class="fa fa-arrow-right">&nbsp;</span>
-								Sub Item 3
-						</a></li>
-					</ul></li>
-				<li><a href="adminlogoutAction.giv"><em
-						class="fa fa-power-off">&nbsp;</em> 로그아웃</a></li>
-			</ul>
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name"> ${admin.admin_id}</div>
+				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
+			</div>
+			<div class="clear"></div>
 		</div>
+		<div class="divider"></div>
+		<form role="search">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Search">
+			</div>
+		</form>
+		<ul class="nav menu">
+			<li class="active"><a href="adminMode.giv"><em class="fa fa-dashboard">&nbsp;</em> 누적통계</a></li>
+			<li><a href="adminWidgets.giv"><em class="fa fa-calendar">&nbsp;</em> 개발자보드</a></li>
+			<c:if test="${admin.admin_level > 0 }">
+			<li ><a href="adminCharts.giv"><em class="fa fa-bar-chart">&nbsp;</em> 분석/통계</a></li>
+			</c:if>
+			<c:if test="${admin.admin_level > 1 }">
+			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
+				<em class="fa fa-navicon">&nbsp;</em> 상품 관리 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+				</a>
+				<ul class="children collapse" id="sub-item-1">
+					<li><a class="" href="adminElements.giv">
+						<span class="fa fa-arrow-right">&nbsp;</span> 상품 추가
+					</a></li>
+					<li><a class="" href="adminGoodDelete.giv">
+						<span class="fa fa-arrow-right">&nbsp;</span> 상품 삭제
+					</a></li>
+					<li><a class="" href="adminGoodModify.giv">
+						<span class="fa fa-arrow-right">&nbsp;</span> 상품 수정
+					</a></li>
+				</ul>
+			</li>
+			</c:if>
+			<c:if test="${admin.admin_level > 2 }">
+			<li class="parent "><a data-toggle="collapse" href="#sub-item-2">
+				<em class="fa fa-navicon">&nbsp;</em> 후원 단체 관리 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+				</a>
+				<ul class="children collapse" id="sub-item-2">
+					<li><a class="" href="adminElements2.giv">
+						<span class="fa fa-arrow-right">&nbsp;</span> 후원 단체 등록
+					</a></li>
+					<li><a class="" href="adminSponDelete.giv">
+						<span class="fa fa-arrow-right">&nbsp;</span> 후원 단체 삭제
+					</a></li>
+					<li><a class="" href="adminSponModify.giv">
+						<span class="fa fa-arrow-right">&nbsp;</span> 후원 단체 수정
+					</a></li>
+				</ul>
+			</li>
+			</c:if>
+			<c:if test="${admin.admin_level > 2 }">
+			<li><a href="adminFlea.giv"><em class="fa fa-toggle-off">&nbsp;</em> 중고 상품 관리</a></li>
+			</c:if>
+			<c:if test="${admin.admin_level > 2 }">
+			<li><a href="adminUserAccount.giv"><em class="fa fa-toggle-off">&nbsp;</em> 유저 계정 관리</a></li>
+			</c:if>
+			<c:if test="${admin.admin_level > 3 }">
+			<li><a href="adminAccount.giv"><em class="fa fa-toggle-off">&nbsp;</em> 개발자 계정 관리</a></li>
+			</c:if>
+			
+			<li><a href="adminlogoutAction.giv"><em class="fa fa-power-off">&nbsp;</em> 로그아웃</a></li>
+		</ul>
+	</div>
 		<!--/.sidebar-->
 		<!-- ---------------------------------------------------------------------------------------- -->
 
@@ -216,7 +188,7 @@
 							<div class="thumbnail">
 								<img src="${path}/resources/img/good/${goodVO.good_img}" alt="${goodVO.good_name}">
 								<div class="caption">
-									<h3>${goodVO.good_name}</h3>
+									<h4>${goodVO.good_name}</h4>
 									<p>${goodVO.good_price} 원</p>
 									<p>
 										<a href="adminGoodDeleteForm.giv?good_no=${goodVO.good_no}" class="btn btn-primary" role="button">삭제하기</a>
@@ -284,7 +256,7 @@
 							
 							$("#searchResult").empty();
 							for(var i=0;i<list.length;i++){
-								$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img src="${path}/resources/img/good/'+data.list[i].good_img+'" alt="'+data.list[i].good_name+'"><div class="caption"><h3>'+data.list[i].good_name+'</h3><p>'+data.list[i].good_price +' 원</p><p><a href="adminGoodDeleteForm.giv?good_no='+data.list[i].good_no+'" class="btn btn-primary" role="button">수정하기</a></p></div></div></div>')
+								$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img src="${path}/resources/img/good/'+data.list[i].good_img+'" alt="'+data.list[i].good_name+'"><div class="caption"><h4>'+data.list[i].good_name+'</h4><p>'+data.list[i].good_price +' 원</p><p><a href="adminGoodDeleteForm.giv?good_no='+data.list[i].good_no+'" class="btn btn-primary" role="button">수정하기</a></p></div></div></div>')
 							}
 							
 						}

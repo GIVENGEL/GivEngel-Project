@@ -4,10 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.project.givengel.vo.AdminChartBarVO;
 import com.project.givengel.vo.AdminChartTimeVO;
 import com.project.givengel.vo.AdminVO;
+import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.SponVO;
+import com.project.givengel.vo.UserVO;
 
 public interface AdminService {
 		AdminVO login(AdminVO vo);
@@ -24,6 +27,10 @@ public interface AdminService {
 		public int cashCount();
 		public int orderCount();
 
+		public List<UserVO> selectUsers();
+		public List<UserVO> searchUser(Map<String,String> map);
+		public UserVO selectUser(UserVO vo);
+		public void deleteUser(UserVO vo);
 		
 		public List<GoodVO> selectGood();
 		
@@ -41,8 +48,19 @@ public interface AdminService {
 		
 		public AdminVO selectAdmin(String admin_id);
 		
-		public List<AdminChartTimeVO> chartPricePerTime();
+		
+		
+		public List<FleaVO> selectFleaList();
+		public List<FleaVO> searchFlea(Map<String,Object> map);
+		public FleaVO selectFlea(FleaVO vo);
+		public void updateFleaTest(Map<String,Object> map);
+		public void deleteFlea(FleaVO vo);
 
+
+		
+		public List<AdminChartTimeVO> chartPricePerTime();
+		public List<AdminChartBarVO> chartPriceAndCash();
+		
 		public int checkAdminId(AdminVO vo);
 
 
