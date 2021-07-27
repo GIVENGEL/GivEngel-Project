@@ -1,5 +1,10 @@
 package com.project.givengel.vo;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class FleaVO {
 	private int flea_no;
 	private String flea_title;
@@ -9,6 +14,37 @@ public class FleaVO {
 	private boolean flea_isokay;
 	private String flea_content;
 	private String flea_img;
+	
+	
+	//-----------------------------------------------------------
+	
+		MultipartFile file;	// write.jsp에 파일첨부시 name="file"과 동일한 변수명
+		
+		public MultipartFile getFile() {
+			return file;
+		}
+		public void setFile(MultipartFile file) {
+			this.file = file;
+			
+			// 업로드 파일 접근
+			if(! file.isEmpty()){
+				this.flea_img = file.getOriginalFilename();
+				
+				//***********************************************
+				// 해당 경로로 변경
+				File f = new File("C:\\zzz\\GivEngel\\Spring_Board\\GivEngel\\src\\main\\webapp\\resources\\img\\flea\\"+ flea_img);
+				
+				try {
+					file.transferTo(f);
+					
+				} catch (IllegalStateException e) {				
+					e.printStackTrace();
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
+			}
+		}
 	
 	
 	public int getFlea_no() {
