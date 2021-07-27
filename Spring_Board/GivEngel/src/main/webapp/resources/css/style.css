@@ -1184,8 +1184,17 @@ ol {
 	background: transparent;
 }
 
-.sidebar__item__color.sidebar__item__color--gray label:after {
+.sidebar__item__color.sidebar__item__color--gold label:after {
+	background: #FFD640;
+}
+.sidebar__item__color.sidebar__item__color--check label:after {
 	background: #E9A625;
+}
+.sidebar__item__color.sidebar__item__color--silver label:after {
+	background: #6B636A; 
+}
+.sidebar__item__color.sidebar__item__color--brown label:after {
+	background: #633A2C;
 }
 
 .sidebar__item__color.sidebar__item__color--red label:after {

@@ -2,6 +2,7 @@ package com.project.givengel.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.project.givengel.vo.CartVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.Good_comVO;
-import com.project.givengel.vo.LikeToVO;
+import com.project.givengel.vo.PagingVO;
 import com.project.givengel.vo.UserVO;
 import com.project.givengel.vo.User_buylogVO;
 import com.project.givengel.vo.User_cashlogVO;
@@ -26,15 +27,22 @@ public class GoodDAOImpl implements GoodDAO {
 	
 //	전체상품(카테고리 별로) 가져옴 // 추후 파라매터 추가 예정(good_price 순 정렬)
 	@Override
-	public List<GoodVO> getGoodList(String categories,String color, String sorting, String keyword) {
+	public List<GoodVO> getGoodList(String categories,String color, String sorting, String part,String keyword,PagingVO pagingVO) {
 		HashMap map = new HashMap();
 		map.put("categories", categories);
 		map.put("color", color);
 		map.put("sorting", sorting);
+		map.put("part", part);
 		map.put("keyword", keyword);
+		map.put("pagingVO",pagingVO);
 		
 		
 		return mybatis.selectList("GoodDAO.getGoodList",map);
+	}
+	
+	@Override
+	public int getGoodListCnt() {
+		return mybatis.selectOne("GoodDAO.getGoodListCnt");
 	}
 	
 //	인기상품(like 순 정렬) 가져옴
@@ -52,15 +60,11 @@ public class GoodDAOImpl implements GoodDAO {
 	public List<GoodVO> getlatestGood1() {
 		return mybatis.selectList("GoodDAO.getlatestGood1");
 	}
-//  최신상품(date 순 정렬) 가져옴
+	
+//	추천상품(댓글순)
 	@Override
-	public List<GoodVO> getlatestGood2() {
-		return mybatis.selectList("GoodDAO.getlatestGood2");
-	}
-//  최신상품(date 순 정렬) 가져옴
-	@Override
-	public List<GoodVO> getlatestGood3() {
-		return mybatis.selectList("GoodDAO.getlatestGood3");
+	public List<Map<String, Object>> goodComRanking() {
+		return mybatis.selectList("GoodDAO.goodComRanking");
 	}
 
 
@@ -156,6 +160,10 @@ public class GoodDAOImpl implements GoodDAO {
 		System.out.println("====>mybatis addCart() 호출");		
 		mybatis.insert("GoodDAO.addCart", vo);
 	}
+
+
+
+
 
 
 	

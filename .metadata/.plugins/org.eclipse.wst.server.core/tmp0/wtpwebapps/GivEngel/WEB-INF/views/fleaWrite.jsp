@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -13,10 +15,9 @@
 
 <!-- Google Font -->
 <link
-	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
-	rel="stylesheet">
+	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
-<!-- Css Styles -->
+<!-- Css Styles -->	
 <link rel="stylesheet" href="${path}/resources/css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="${path}/resources/css/font-awesome.min.css" type="text/css">
 <link rel="stylesheet" href="${path}/resources/css/elegant-icons.css" type="text/css">
@@ -109,13 +110,13 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<h6>
-						<span class="icon_tag_alt"></span> 앗! 중고 장터는 처음이신가요? <a href="#">[여기를 눌러주세요!]</a> 안내해드릴게요!
+						<span class="icon_tag_alt"></span> 앗! 중고 장터는 처음이신가요? <a href="/fleaManual.giv">[여기를 눌러주세요!]</a> 안내해드릴게요!
 					</h6>
 				</div>
 			</div>
 			<div class="checkout__form">
 				<h4>상품 등록</h4>
-				<form action="#">
+				<form action="fleaWriteAction.giv" method="post" enctype="multipart/form-data">
 					<div class="row">
 						<div class="col-lg-6 col-md-6">
 							<div class="row">
@@ -124,7 +125,7 @@
 										<p>
 											상품명<span>*</span>
 										</p>
-										<input type="text">
+										<input type="text" name="flea_title" id="flea_title">
 									</div>
 								</div>
 
@@ -133,13 +134,13 @@
 								<p>
 									상품가격<span>*</span>
 								</p>
-								<input type="number">
+								<input type="number" name="flea_price" id="flea_price">
 							</div>
 							<div class="checkout__input">
 								<p>
 									상품 설명<span>*</span>
 								</p>
-								<textarea class="w-100" rows="5" cols=""></textarea>
+								<textarea class="w-100" rows="5" cols="" name="flea_content" id="flea_content"></textarea>
 							</div>
 
 
@@ -157,10 +158,12 @@
 						</div>
 						<p>[GivEngel 이용 정책 설명]</p>
 						<div class="checkout__input">
+						<input type="hidden" value="${user.user_pw }" name="user_pw" id="user_pw">
+						<input type="hidden" value="${user.user_id }" name="flea_writer" id="flea_writer">
 							<p>
 								판매 확인 비밀번호 입력<span>*</span>
 							</p>
-							<input type="password">
+							<input type="password" id="password">
 						</div>
 						
 					</div>
@@ -175,20 +178,17 @@
 								<li>GivEngel 중고장터에 위배되는 상품은 금지! </li>
 								<li>부적절한 판매 행위는 제재당할 수 있습니다. </li>
 							</ul>
-							<div class="checkout__order__subtotal">
-								[이미지 등록칸] <br><br><br>
+							<div class="checkout__order__subtotal" id="inputImageView">
+								<img id="inputImage" style="width:500px;" onerror="imgAreaError()" /> <br><br><br>
 							</div>
-						
-							
-							
-							
-							<button type="button" class="site-btn">이미지 등록하기</button>
+
+							<input type="file" class="site-btn" id="file" name="file" onclick="setThumbnail(event);">
 						</div>
 					</div>
 			</div>
+			<button type="submit" class="site-btn w-50 " id="submitBtn">상품 등록하기</button>
 			</form>
 		</div>
-		<button type="submit" class="site-btn w-50 ">상품 등록하기</button>
 		</div>
 	</section>
 	<!-- Checkout Section End -->
@@ -296,6 +296,7 @@
 	<script src="${path}/resources/js/mixitup.min.js"></script>
 	<script src="${path}/resources/js/owl.carousel.min.js"></script>
 	<script src="${path}/resources/js/main.js"></script>
+	<script src="${path}/resources/js_page/flea.js"></script>
 
 
 </body>

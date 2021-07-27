@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -39,13 +41,12 @@
 	<jsp:include page="module/sideCategory.jsp" />
 
 	<!-- Breadcrumb Section Begin -->
-	<section class="breadcrumb-section set-bg"
-		data-setbg="img/breadcrumb.jpg">
+	<section class="breadcrumb-section set-bg" data-setbg="${path}/resources/img/flea/details_flea.jpg" width="1920px">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<div class="breadcrumb__text">
-						<h2>[상품 명]</h2>
+						<h2>SUMMER SEASON COMING SOON</h2>
 						<div class="breadcrumb__option">
 							<a href="./index.html">Home</a> <span>중고 장터 게시판</span>
 						</div>
@@ -57,6 +58,8 @@
 	<!-- Breadcrumb Section End -->
 
 	<!-- Blog Details Section Begin -->
+	<input type="hidden" value="${flea.flea_no }" name="flea_no" id="flea_no" >
+	<input type="hidden" value="${user.user_id }" name="user_id" id="user_id">
 	<section class="blog-details spad">
 		<div class="container">
 			<div class="row">
@@ -67,9 +70,16 @@
 				<div class="col-lg-8 col-md-7 order-md-1 order-1">
 					<div class="blog__details__text">
 						<img src="img/blog/details/details-pic.jpg" alt="">
-						<p>[상품 설명]</p>
-						<h3>[상품 가격]</h3>
+						<div class="blog__details__text" >
+						<p>[${flea.flea_content}]</p>
+						<h3>[${flea.flea_title}]</h3>
+						<a href="#" class="primary-btn float-right" id="buyFleaBtn">구매하기</a>
+						</div>
 						<hr>
+							<c:choose>
+							<c:when test= "${flea.flea_isokay == '0' }"><a href="fleaView.giv?flea_no=${flea.flea_no }"><img src="${path}/resources/img/flea/soon.jpg" alt=""></a></c:when>
+							<c:otherwise><a href="fleaView.giv?flea_no=${flea.flea_no }"><img src="${path}/resources/img/flea/${flea.flea_img }" alt="${flea.flea_no }"></a></c:otherwise>
+							</c:choose>
 						<p>[GivEngel 중고 장터 이용수칙]</p>
 					</div>
 					<div class="blog__details__content">
@@ -80,7 +90,7 @@
 										<img src="img/blog/details/details-author.jpg" alt="">
 									</div>
 									<div class="blog__details__author__text">
-										<h6>[중고상품 판매자]</h6>
+										<h6>${flea.flea_writer }</h6>
 										<span>[명예등급]</span>
 									</div>
 								</div>
@@ -99,6 +109,10 @@
 											class="fa fa-linkedin"></i></a> <a href="#"><i
 											class="fa fa-envelope"></i></a>
 									</div>
+									<c:if test="${user.user_id == flea.flea_writer}">
+									<button type="button" class="btn btn-outline-secondary float-right" id="deleteFleaBtn">삭제하기</button>
+									</c:if>
+								
 								</div>
 							</div>
 						</div>
@@ -115,8 +129,7 @@
 								href="#tabs-2" role="tab" aria-selected="false">GivEngel 이용
 									수칙</a></li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"
-								href="#tabs-3" role="tab" aria-selected="false">리뷰 <span>(댓글
-										수)</span></a></li>
+								href="#tabs-3" role="tab" aria-selected="false">리뷰 (<span id="countSponCom2"></span>)</a></li>
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane active text-center" id="tabs-1"
@@ -134,100 +147,21 @@
 								</div>
 							</div>
 							<div class="tab-pane " id="tabs-3" role="tabpanel">
-								<!-- 댓글 출력창 -->
-								<div class="container mt-5 mb-5">
-									<div class="row d-flex justify-content-center">
-										<div class="col-md-12">
-											<div
-												class="headings d-flex justify-content-between align-items-center mb-3">
-												<h5>댓글 (댓글수)</h5>
-												<div class="buttons">
-													<span
-														class="badge bg-white d-flex flex-row align-items-center">
-														<span class="text-primary">Comments "ON"</span>
+								
+								
+								<!-- 댓글 목록 불러오기 ----------------------------------------- -->
+										<div id="listFleaCom">
+										<input type="hidden" value="${user.user_id }" id="user_id">
+									
 
-													</span>
-												</div>
-											</div>
+					
+										</div> 
+								<!-- 댓글 목록불러오기 end ------------------------------------ -->
 
-											<!-- 댓글 하나 -->
-											<div class="card p-3 mb-5">
-												<div
-													class="d-flex justify-content-between align-items-center">
-													<div class="user d-flex flex-row align-items-center">
-														<img src="https://i.imgur.com/hczKIze.jpg" width="30"
-															class="user-img rounded-circle mr-2"> <span><small
-															class="font-weight-bold text-primary">[유저 아이디]</small> <small
-															class="font-weight-bold">[유저가 남긴 메시지]</small></span>
-													</div>
-													<small>[작성일]</small>
-												</div>
-												<div
-													class="action d-flex justify-content-between mt-2 align-items-center">
-													<div class="reply px-4">
-														<small>삭제하기</small> <span class="dots"></span> <small>수정하기</small>
-														<span class="dots"></span>
-													</div>
-													<div class="icons align-items-center">
-														<i class="fa fa-star text-warning"></i> <i
-															class="fa fa-check-circle-o check-icon"></i>
-													</div>
-												</div>
-											</div>
-											<!-- 댓글 하나 -->
-											<div class="card p-3 mb-5">
-												<div
-													class="d-flex justify-content-between align-items-center">
-													<div class="user d-flex flex-row align-items-center">
-														<img src="https://i.imgur.com/hczKIze.jpg" width="30"
-															class="user-img rounded-circle mr-2"> <span><small
-															class="font-weight-bold text-primary">[유저 아이디]</small> <small
-															class="font-weight-bold">[유저가 남긴 메시지]</small></span>
-													</div>
-													<small>[작성일]</small>
-												</div>
-												<div
-													class="action d-flex justify-content-between mt-2 align-items-center">
-													<div class="reply px-4">
-														<small>삭제하기</small> <span class="dots"></span> <small>수정하기</small>
-														<span class="dots"></span>
-													</div>
-													<div class="icons align-items-center">
-														<i class="fa fa-star text-warning"></i> <i
-															class="fa fa-check-circle-o check-icon"></i>
-													</div>
-												</div>
-											</div>
-											<!-- 댓글 하나 -->
-											<div class="card p-3 mb-5">
-												<div
-													class="d-flex justify-content-between align-items-center">
-													<div class="user d-flex flex-row align-items-center">
-														<img src="https://i.imgur.com/hczKIze.jpg" width="30"
-															class="user-img rounded-circle mr-2"> <span><small
-															class="font-weight-bold text-primary">[유저 아이디]</small> <small
-															class="font-weight-bold">[유저가 남긴 메시지]</small></span>
-													</div>
-													<small>[작성일]</small>
-												</div>
-												<div
-													class="action d-flex justify-content-between mt-2 align-items-center">
-													<div class="reply px-4">
-														<small>삭제하기</small> <span class="dots"></span> <small>수정하기</small>
-														<span class="dots"></span>
-													</div>
-													<div class="icons align-items-center">
-														<i class="fa fa-star text-warning"></i> <i
-															class="fa fa-check-circle-o check-icon"></i>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- 댓글 출력창 end -->
+
 
 								<!-- 댓글 입력창 -->
+								<c:if test="${user != null }">
 								<div class="card mb-2 col-lg-12">
 									<div class="card-header bg-light">
 										<i class="fa fa-comment fa"></i> REPLY
@@ -237,21 +171,18 @@
 											<li class="list-group-item">
 												<div class="form-inline mb-2">
 													<label for="replyId"><i
-														class="fa fa-user-circle-o fa-2x"></i></label> <input type="text"
-														class="form-control ml-2" placeholder="Enter yourId"
-														id="replyId"> <label for="replyPassword"
-														class="ml-4"><i class="fa fa-unlock-alt fa-2x"></i></label>
-													<input type="password" class="form-control ml-2"
-														placeholder="Enter password" id="replyPassword">
-												</div> <textarea class="form-control"
-													id="exampleFormControlTextarea1" rows="3"></textarea>
+														class="fa fa-user-circle-o fa-2x"></i></label>
+														<input type="text" class="form-control ml-2" placeholder="${user.user_id }" value="${user.user_id }"
+														id="flea_com_writer" name="flea_com_writer">
+														</div> <textarea class="form-control"
+													id="flea_com_content" name="flea_com_content" rows="3"></textarea>
 												<button type="button"
-													class="btn btn-success mt-3 float-right"
-													onClick="javascript:addReply();">답글 달기</button>
+													class="btn btn-success mt-3 float-right" id="sponComBtn">답글 달기</button>
 											</li>
 										</ul>
 									</div>
 								</div>
+								</c:if>
 								<!-- 댓글 입력창 end -->
 							</div>
 						</div>
@@ -343,6 +274,7 @@
 	<script src="${path}/resources/js/mixitup.min.js"></script>
 	<script src="${path}/resources/js/owl.carousel.min.js"></script>
 	<script src="${path}/resources/js/main.js"></script>
+	<script src="${path}/resources/js_page/flea.js"></script>
 
 
 

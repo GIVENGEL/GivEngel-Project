@@ -30,12 +30,12 @@
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
+                            <form action="buyList.giv?keyword=${keyword}">
                                 <div class="hero__search__categories">
                                     All Categories
                                     <span class="arrow_carrot-down"></span>
                                 </div>
-                                <input type="text" placeholder="어떤 상품을 원하세요?">
+                                <input type="text" placeholder="어떤 상품을 원하세요?" name = 'keyword'>
                                 <button type="submit" class="site-btn">검색</button>
                             </form>
                         </div>

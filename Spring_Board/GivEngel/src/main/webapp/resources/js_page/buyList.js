@@ -12,15 +12,6 @@ $(function(){
 	})
 	
 	
-		$(function(){
-		$('#keywordBtn').click(function(){
-			var keyword = $('#keyword').val()
-			alert(keyword)
-			location.href('buyList.giv?keyword='+keyword);
-		})
-		
-	})
-	
 	
 	
 	
@@ -30,19 +21,24 @@ $(function(){
 	})
 	
 	
+	// 상품 정렬순서 클릭 시 
 	$('#sorting').change(function(){
 		var sorting = $('#sorting option:selected').val();
 		
 		if(sorting == 1){
-			sorting = 'DESC';
+			sorting = 'good_date DESC';
+		}else if(sorting == 2){
+			sorting = 'good_price DESC';
+		}else if(sorting == 3){
+			sorting = 'good_price';
 		}else{
-			sorting = '';
-		}		
-			
-		location.href = 'buyList.giv?sorting='+sorting;	
+			sorting = 'good_date DESC'
+		}
 		
-			
-		})
+		
+		location.href = 'buyList.giv?sorting='+sorting;	
+	
+	})
 		
 		$('#imgCursor').css("cursor","pointer");
 		

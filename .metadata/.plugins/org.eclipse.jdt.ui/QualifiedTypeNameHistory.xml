@@ -26,10 +26,15 @@
 <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="com.project.givengel.service.CampaignService"/>
 <fullyQualifiedTypeName name="com.project.givengel.service.GoodListService"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="com.project.givengel.vo.AdminChartTimeVO"/>
 <fullyQualifiedTypeName name="com.project.givengel.vo.UserVO"/>
 <fullyQualifiedTypeName name="com.project.givengel.vo.AdminChartBarVO"/>
 <fullyQualifiedTypeName name="com.project.givengel.vo.FleaVO"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ModelAttribute"/>
+<fullyQualifiedTypeName name="java.util.logging.Logger"/>
+<fullyQualifiedTypeName name="com.project.givengel.vo.PageMaker"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+<fullyQualifiedTypeName name="com.project.givengel.vo.PagingVO"/>
 </qualifiedTypeNameHistroy>

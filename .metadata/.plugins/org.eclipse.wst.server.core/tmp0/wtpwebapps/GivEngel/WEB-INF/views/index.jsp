@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -29,6 +30,8 @@
     <link rel="stylesheet" href="${path}/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="${path}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${path}/resources/css/style.css" type="text/css">
+
+    
 </head>
 
 <body>
@@ -52,7 +55,7 @@
                             <i class="fa fa-bars"></i>
                             <span>All Categories</span>
                         </div>
-                        <ul id="categories">
+                        <ul class="categoryGoodList">
  							<li><a href="#">TOP</a></li>
                             <li><a href="#">BOTTOM</a></li>
                             <li><a href="#">ACC</a></li>
@@ -88,7 +91,7 @@
                             <span style="color: red;">GivEngel .</span>
                             <h2 style="color: white">당신의 후원, <br />그들의 미소입니다.</h2>
                             <p style="color: red;">GivEngel는 당신들을 응원합니다.</p>
-                            <a href="#"  class="primary-btn">돈쭐내주기</a>
+                            <a href="sponsorList.giv"  class="primary-btn">돈쭐내주기</a>
                         </div>
                     </div>
                 </div>
@@ -103,28 +106,28 @@
             <div class="row">
                 <div class="categories__slider owl-carousel">
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${path}/resources/img/categories/cat-1.jpg">
-                            <h5><a href="#">양키 캔들</a></h5>
+                        <div class="categories__item set-bg" data-setbg="${path}/resources/img/categories/TOP-1.jpg">
+                            <h5><a href="buyList.giv?categories=TOP">TOP</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${path}/resources/img/categories/cat-2.jpg">
-                            <h5><a href="#">도자기 공예</a></h5>
+                        <div class="categories__item set-bg" data-setbg="${path}/resources/img/categories/BOTTOM-1.jpg">
+                            <h5><a href="buyList.giv?categories=BOTTOM">BOTTOM</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${path}/resources/img/categories/cat-3.jpg">
-                            <h5><a href="#">원예</a></h5>
+                        <div class="categories__item set-bg" data-setbg="${path}/resources/img/categories/BAG-1.jpg">
+                            <h5><a href="buyList.giv?categories=BAG">BAG</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${path}/resources/img/categories/cat-4.jpg">
-                            <h5><a href="#">수제 비누</a></h5>
+                        <div class="categories__item set-bg" data-setbg="${path}/resources/img/categories/ACC-1.jpg">
+                            <h5><a href="buyList.giv?categories=ACC">ACC</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="${path}/resources/img/categories/cat-5.jpg">
-                            <h5><a href="#">악세사리</a></h5>
+                            <h5><a href="buyList.giv?categories=CAMPAIGN">CAMPAIGN</a></h5>
                         </div>
                     </div>
                 </div>
@@ -144,135 +147,80 @@
                     <div class="featured__controls">
                         <ul>
                             <li class="active" data-filter="*">전체</li>
-                            <li data-filter=".sale">할인중</li>
-                            <li data-filter=".hot">인기 상품</li>
-                            <li data-filter=".gift">사은품 증정</li>
-                            <li data-filter=".high">알찬 기부</li>
+                            <li data-filter=".TOP">TOP</li>
+                            <li data-filter=".BOTTOM">BOTTOM</li>
+                            <li data-filter=".BAG">BAG</li>
+                            <li data-filter=".ACC">ACC</li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="row featured__filter">
-                <div class="col-lg-3 col-md-4 col-sm-6 mix hot sale">
+            	<c:forEach items="${listTOP }" var='listTOP' end="2">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix TOP">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="${path}/resources/img/featured/feature-1.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="${path}/resources/img/good/${listTOP.good_img}" onclick="location.href='buyForm.giv?good_no=${listTOP.good_no}'" style="cursor:pointer">
                             <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">수공 원예 화분</a></h6>
-                            <h5 style="color: red;">24,000원(-20%)</h5>
+                            <h6><a href="#">${listTOP.good_name }</a></h6>
+                            <h5><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${listTOP.good_price }" /></h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix gift high">
+                </c:forEach>
+                <c:forEach items="${listBOTTOM }" var='listBOTTOM' end="2">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix BOTTOM">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="${path}/resources/img/featured/feature-2.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="${path}/resources/img/good/${listBOTTOM.good_img}" onclick="location.href='buyForm.giv?good_no=${listBOTTOM.good_no}'" style="cursor:pointer" >
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">수공 가죽 파우치+기부뱃지</a></h6>
-                            <h5>55,000원</h5>
+                            <h6><a href="#">${listBOTTOM.good_name }</a></h6>
+                            <h5><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${listBOTTOM.good_price }" /></h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix hot high">
+                </c:forEach>
+                <c:forEach items="${listBAG }" var='listBAG' end="2">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix BAG">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="${path}/resources/img/featured/feature-3.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="${path}/resources/img/good/${listBAG.good_img}" onclick="location.href='buyForm.giv?good_no=${listBAG.good_no}'" style="cursor:pointer" >
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">버튼 홀더</a></h6>
-                            <h5>5,000원</h5>
+                            <h6><a href="#">${listBAG.good_name }</a></h6>
+                            <h5><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${listBAG.good_price }" /></h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix sale gift">
+                </c:forEach>
+                <c:forEach items="${listACC }" var='listACC' end="2">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix ACC">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="${path}/resources/img/featured/feature-4.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="${path}/resources/img/good/${listACC.good_img}" onclick="location.href='buyForm.giv?good_no=${listACC.good_no}'" style="cursor:pointer">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">유기농 조미료 세트+덤증정</a></h6>
-                            <h5 style="color: red;">45,000원(-10%)</h5>
+                            <h6><a href="#">${listACC.good_name }</a></h6>
+                            <h5><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${listACC.good_price }" /></h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix gift high">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="${path}/resources/img/featured/feature-5.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">패럴림픽 후원 패키지</a></h6>
-                            <h5>50,000원</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix sale hot">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="${path}/resources/img/featured/feature-6.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">수제 천연 비누</a></h6>
-                            <h5 style="color: red;">8,000원(-20%)</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix high hot">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="${path}/resources/img/featured/feature-7.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">희망을 그린 그림</a></h6>
-                            <h5 >20,000원</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix hot high">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="${path}/resources/img/featured/feature-8.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">수제 캔들</a></h6>
-                            <h5>12,000원</h5>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>
+                
             </div>
         </div>
     </section>
@@ -291,62 +239,30 @@
                         <h4>최신 상품</h4>
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
+                                <c:forEach items="${latestGood1 }" var='latestGood1' begin='0' end='2'>
+                                <a href="buyForm.giv?good_no=${latestGood1.good_no }" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
+                                        <img src="${path}/resources/img/good/${latestGood1.good_img}" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
+                                        <h6>${latestGood1.good_name}</h6>
+                                        <span><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${latestGood1.good_price }" /></span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
-                                    </div>
-                                </a>
+                                </c:forEach>
                             </div>
                             <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
+                                 <c:forEach items="${latestGood1 }" var='latestGood1' begin='3' end='5'>
+                                <a href="buyForm.giv?good_no=${latestGood1.good_no }" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
+                                        <img src="${path}/resources/img/good/${latestGood1.good_img}" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
+                                        <h6>${latestGood1.good_name}</h6>
+                                        <span><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${latestGood1.good_price }" /></span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
-                                    </div>
-                                </a>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
@@ -356,62 +272,30 @@
                         <h4>최고 인기 상품</h4>
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
+                             <c:forEach items="${rankingGood }" var='rankingGood' begin='0' end='2'>
+                                <a href="buyForm.giv?good_no=${rankingGood.good_no }" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
+                                        <img src="${path}/resources/img/good/${rankingGood.good_img }" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
+                                        <h6>${rankingGood.good_name }</h6>
+                                        <span><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${rankingGood.good_price }" /></span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
-                                    </div>
-                                </a>
+                                </c:forEach>
                             </div>
                             <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
+                                <c:forEach items="${rankingGood }" var='rankingGood' begin='3' end='5'>
+                                <a href="buyForm.giv?good_no=${rankingGood.good_no }" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
+                                        <img src="${path}/resources/img/good/${rankingGood.good_img }" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
+                                        <h6>${rankingGood.good_name }</h6>
+                                        <span><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${rankingGood.good_price }" /></span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
-                                    </div>
-                                </a>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
@@ -421,62 +305,30 @@
                         <h4>리뷰 상품</h4>
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
+                               <c:forEach items="${goodComRanking }" var='goodComRanking' begin="0" end="2">
+                                <a href="buyForm.giv?good_no=${goodComRanking.good_no }" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
+                                        <img src="${path}/resources/img/good/${goodComRanking.good_img}" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
+                                        <h6>${goodComRanking.good_name}</h6>
+                                        <span><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${goodComRanking.good_price }" /></span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
-                                    </div>
-                                </a>
+                                </c:forEach>
                             </div>
                             <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
+                               <c:forEach items="${goodComRanking }" var='goodComRanking' begin="3" end="5">
+                                <a href="buyForm.giv?good_no=${goodComRanking.good_no }" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
+                                        <img src="${path}/resources/img/good/${goodComRanking.good_img}" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
+                                        <h6>${goodComRanking.good_name}</h6>
+                                        <span><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${goodComRanking.good_price }" /></span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="${path}/resources/img/latest-product/prepare.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>준비중입니다</h6>
-                                        <span>-원</span>
-                                    </div>
-                                </a>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>

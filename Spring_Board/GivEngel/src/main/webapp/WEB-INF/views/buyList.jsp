@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -13,7 +14,36 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>살아숨쉬는 기부의 즐거움, GivEngel</title>
 
+<script type="text/javascript">
+//이전 버튼 이벤트
 
+function fn_prev(page, range, rangeSize) {
+		var page = ((range - 2) * rangeSize) + 1;
+		var range = range - 1;
+		var url = "buyList.giv";
+		url = url + "?page=" + page;
+		url = url + "&range=" + range;
+		location.href = url;
+	}
+
+  //페이지 번호 클릭
+	function fn_pagination(page, range, rangeSize, searchType, keyword) {
+		var url = "buyList.giv";
+		url = url + "?page=" + page;
+		url = url + "&range=" + range;
+		location.href = url;	
+	}
+  
+	//다음 버튼 이벤트
+	function fn_next(page, range, rangeSize) {
+		var page = parseInt((range * rangeSize)) + 1;
+		var range = parseInt(range) + 1;
+		var url = "buyList.giv";
+		url = url + "?page=" + page;
+		url = url + "&range=" + range;
+		location.href = url;
+	}
+</script>
 
 
 <!-- Google Font -->
@@ -63,30 +93,42 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-9">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="#">
-                                <div class="hero__search__categories">
-                                    All Categories
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
-                                <input type="text" placeholder="어떤 상품을 원하세요?">
-                                <button type="submit" class="site-btn">검색</button>
-                            </form>
+               <div class="col-lg-6 card-margin"  style="margin-bottom:50px">
+			        <div class="card search-form">
+			            <div class="card-body p-0">
+			                <form id="searchForm" action="buyList.giv" method="post">
+			                    <div class="row">
+			                        <div class="col-12">
+			                            <div class="row no-gutters">
+			                                <div class="col-lg-3 col-md-3 col-sm-3 p-0" style="padding:0px">
+			                                    <select class="form-control" id="part" name="part" style="margin-left:10px" >
+			                                        <option value="good_name">상품 이름</option>
+			                                        <option value="good_tag">상품 태그</option>
+			                                        <option value="good_detail">상품 설명</option>
+			                                    </select>
+			                                </div>
+			                                <div class="col-lg-6 col-md-3 col-sm-3 p-0" style="padding:0px">
+			                                    <input type="text" placeholder="검색 내용" style="margin-left:10px" class="form-control" id="searchData" name="searchData">
+			                                </div>
+			                                <div class="col-lg-3 col-md-1 col-sm-1 p-0" style="padding:0px">
+			                                    <input id="submitbtn" type="submit" class="btn btn-success" style="margin-left:20px; background-color:#7fad39" value="검색">
+			                                </div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </form>
+			            </div>
+			        </div>
+			        <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                           <i class="fa fa-phone"></i>
                         </div>
-                        <div class="hero__search__phone">
-                            <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
-                            </div>
-                            <div class="hero__search__phone__text">
-                                <h5>010-9159-5358</h5>
-                                <span>24시간 상담 가능</span>
-                            </div>
+                        <div class="hero__search__phone__text">
+                           <h5>010-9159-5358</h5>
+                           <span>24시간 상담 가능</span>
                         </div>
                     </div>
-                   
-                </div>
+    			</div>
             </div>
         </div>
     </section>
@@ -141,10 +183,16 @@
                                     <input type="radio" id="white">
                                 </label>
                             </div>
-                            <div class="sidebar__item__color sidebar__item__color--gray">
-                                <label for="Gray">
-                                    Gray
-                                    <input type="radio" id="gray">
+                            <div class="sidebar__item__color sidebar__item__color--gold">
+                                <label for="Gold">
+                                    Gold
+                                    <input type="radio" id="Gold">
+                                </label>
+                            </div>
+                            <div class="sidebar__item__color sidebar__item__color--silver">
+                                <label for="Silver">
+                                    Silver
+                                    <input type="radio" id="Silver">
                                 </label>
                             </div>
                             <div class="sidebar__item__color sidebar__item__color--red">
@@ -165,10 +213,10 @@
                                     <input type="radio" id="blue">
                                 </label>
                             </div>
-                            <div class="sidebar__item__color sidebar__item__color--green">
-                                <label for="Green">
-                                    Green
-                                    <input type="radio" id="green">
+                            <div class="sidebar__item__color sidebar__item__color--brown">
+                                <label for="Brown">
+                                    Brown
+                                    <input type="radio" id="Brown">
                                 </label>
                             </div>
                         </div>
@@ -182,40 +230,40 @@
                                 <!-- 이미지 크기 고정을 위한 style 속성 추가 -->
                                 <div class="latest-product__slider owl-carousel">
                                     <div class="latest-prdouct__slider__item">
-                                    <c:forEach items="${ latestGood1}" var="latestGood1">
+                                    <c:forEach items="${ latestGood1}" var="latestGood1" begin="0" end ="2">
                                         <a href="buyForm.giv?good_no=${latestGood1.good_no}" class="latest-product__item" >
                                             <div class="latest-product__item__pic">
                                                 <img style="width:130px; height:150px;" src="${path}/resources/img/good/${latestGood1.good_img}" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>${latestGood1.good_name}</h6>
-                                                <span>${latestGood1.good_price}</span>
+                                                <span><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${latestGood1.good_price }" /></span>
                                             </div>
                                         </a>
                                  	</c:forEach> 
                                     </div>
                                      <div class="latest-prdouct__slider__item">
-                                    <c:forEach items="${ latestGood2}" var="latestGood2">
-                                        <a href="buyForm.giv?good_no=${latestGood2.good_no}" class="latest-product__item" id="buyForm">
+                                    <c:forEach items="${ latestGood1}" var="latestGood1" begin="3" end ="5">
+                                        <a href="buyForm.giv?good_no=${latestGood1.good_no}" class="latest-product__item" id="buyForm">
                                             <div class="latest-product__item__pic">
-                                                <img style="width:130px; height:150px;" src="${path}/resources/img/good/${latestGood2.good_img}" alt="">
+                                                <img style="width:130px; height:150px;" src="${path}/resources/img/good/${latestGood1.good_img}" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
-                                                <h6>${latestGood2.good_name}</h6>
-                                                <span>${latestGood2.good_price}</span>
+                                                <h6>${latestGood1.good_name}</h6>
+                                                <span><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${latestGood1.good_price }" /></span>
                                             </div>
                                         </a>
                                  	</c:forEach> 
                                     </div>
                                      <div class="latest-prdouct__slider__item">
-                                    <c:forEach items="${ latestGood3}" var="latestGood3">
-                                        <a href="buyForm.giv?good_no=${latestGood3.good_no}" class="latest-product__item" id="buyForm">
+                                    <c:forEach items="${ latestGood1}" var="latestGood1" begin="5" end ="7">
+                                        <a href="buyForm.giv?good_no=${latestGood1.good_no}" class="latest-product__item" id="buyForm">
                                             <div class="latest-product__item__pic">
-                                                <img style="width:130px; height:150px;" src="${path}/resources/img/good/${latestGood3.good_img}" alt="">
+                                                <img style="width:130px; height:150px;" src="${path}/resources/img/good/${latestGood1.good_img}" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
-                                                <h6>${latestGood3.good_name}</h6>
-                                                <span>${latestGood3.good_price}</span>
+                                                <h6>${latestGood1.good_name}</h6>
+                                                <span><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${latestGood1.good_price }" /></span>
                                             </div>
                                         </a>
                                  	</c:forEach> 
@@ -252,9 +300,14 @@
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">
-                                            <span>재고 / ${popularList.good_stock}</span>
-                                            <h5><a href="buyGood.do?good_no=${popularList.good_no }">${popularList.good_name} </a></h5>
-                                            <div class="product__item__price">${popularList.good_price} </div>
+                                          				<c:if test="${popularList.good_stock > 0}">
+                                           					<span>재고 / ${popularList.good_stock}</span>
+                                           				</c:if>
+                                           				<c:if test="${popularList.good_stock <= 0}">
+                                           					<span>재고 / 품절입니다.</span>
+                                           				</c:if>
+                                            <h5><a href="buyGood.do?good_no=${popularList.good_no }" >${popularList.good_name} </a></h5>
+                                            <div class="product__item__price"><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${popularList.good_price }" /></div>
                                         </div>
                                     </div>
                                 </div>
@@ -272,14 +325,15 @@
                                 <div class="filter__sort">
                                     <span>Sort By</span>
                                     <select id='sorting' name='sorting'>
-                                        <option value="0">가격 낮은 순</option>
-                                        <option value="1">가격 높은 순</option>
+                                        <option value="1">최신 순</option>
+                                        <option value="2">가격 높은 순</option>
+                                        <option value="3">가격 낮은 순</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span>16</span> Products found</h6>
+                                    <h6><span>${pagingVO.listCnt} </span> Products found</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
@@ -303,21 +357,44 @@
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                     </ul>
                                 </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">${goodVO.good_name}</a></h6>
-                                    <h5>${goodVO.good_price}</h5>
-                                </div>
+                                 <div class="product__discount__item__text">
+                                          				<c:if test="${goodVO.good_stock > 0}">
+                                           					<span>재고 / ${goodVO.good_stock}</span>
+                                           				</c:if>
+                                           				<c:if test="${goodVO.good_stock <= 0}">
+                                           					<span>재고 / 품절입니다.</span>
+                                           				</c:if>
+                                            <h5><a href="buyGood.do?good_no=${goodVO.good_no }">${goodVO.good_name} </a></h5>
+                                            <div class="product__item__price"><fmt:setLocale value="ko_KR" /><fmt:formatNumber type='currency' value="${goodVO.good_price }" /></div>
+                                 </div>
                             </div>
                         </div>
                     </c:forEach>
                     </div>
-                    <!-- 전체상품 리스트 end -->
-                    <div class="product__pagination">
-                        <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-                    </div>
+                    <!-- pagination{s} -->
+
+					<div id="paginationBox" class="row">
+					<div class="col-4">
+					</div>
+						<ul class="pagination col-4">
+							<c:if test="${pagingVO.prev}">
+								<li class="page-item"><a class="page-link" href="javascript:void(0)" onClick="fn_prev('${pagingVO.page}', '${pagingVO.range}', '${pagingVO.rangeSize}')">Previous</a></li>
+							</c:if>
+							<c:forEach begin="${pagingVO.startPage}" end="${pagingVO.endPage}" var="idx">
+								<li class="page-item <c:out value="${pagingVO.page == idx ? 'active' : ''}"/> "><a class="page-link" href="javascript:void(0)" onClick="fn_pagination('${idx}', '${pagingVO.range}', '${pagingVO.rangeSize}')"> ${idx} </a></li>
+							</c:forEach>
+							<c:if test="${pagingVO.next}">
+								<li class="page-item"><a class="page-link" href="javascript:void(0)" onClick="fn_next('${pagingVO.range}', '${pagingVO.range}', '${pagingVO.rangeSize}')" >Next</a></li>
+							</c:if>
+						</ul>
+						<div class="col-4">
+						</div>
+					</div>
+					<!-- pagination{e} -->
+					
+
+
+                    
                 </div>
             </div>
         </div>

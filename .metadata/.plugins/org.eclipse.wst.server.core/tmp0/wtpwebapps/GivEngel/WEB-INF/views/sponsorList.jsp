@@ -122,19 +122,20 @@
 			<!-- 스폰서 리스트 불러오기 -->
 				<!--  각 캠패인 출력 단위 표시 ****************-->
 				<c:forEach items="${sponList }" var="spon">
+				<input type="hidden" value="${spon.spon_no}" id="spon_no" name="spon_no" />
 					<div class="col-lg-4 col-md-4 col-sm-6">
 						<div class="blog__item">
 							<div class="blog__item__pic" style="border:2px solid #f9f9f9">
 								<c:choose>
 								<c:when test= "${spon.spon_img == '' }"><a href="sponsorView.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/null.jpg" alt=""></a></c:when>
-								<c:otherwise><a href="sponsorView.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/${spon.spon_img }" alt="${spon.spon_name }"></a></c:otherwise>
+								<c:otherwise><a href="sponsorView.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/${spon.spon_img }.jpg" alt="${spon.spon_name }"></a></c:otherwise>
 								</c:choose>
 							</div>
 							<div class="blog__item__text">
 								<ul>
 									<li>
 									<li><i class="fa fa-calendar-o"></i>${spon.spon_start }</li>
-									<li id="countSponCom"><i class="fa fa-comment-o"></i></li>
+									<li><i class="fa fa-comment-o"></i><span id="countSponCom2"></span></li>
 								</ul>
 								<h5>
 									<a href="sponsorView.giv?spon_no=${spon.spon_no }">${spon.spon_name }</a>

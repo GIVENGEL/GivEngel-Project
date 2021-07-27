@@ -26,9 +26,9 @@
 	</insert>
 
 	<!-- 댓글 목록 -->
-	<select id="listSponCom" resultType="spon_comVO">
+	<select id="listSponCom" resultType="spon_comVO" parameterType="spon_comVO">
 		SELECT spon_com_no, spon_com_writer, spon_com_content, spon_com_date
-		FROM spon_com
+		FROM spon_com WHERE spon_no = #{spon_no}
 	</select>
 
 	<!-- 댓글 삭제 -->
@@ -66,9 +66,14 @@
 		WHERE spon_name = #{spon_name}
 	</update>
 	
-	<!-- 댓글 목록 -->
+	<!-- 후원 총 누적금액 -->
 	<select id="showSponTotal" resultType="sponVO">
 		SELECT spon_total FROM spon WHERE spon_name = #{spon_name}
+	</select>
+	
+	<!-- 게시물별 총 댓글수 -->
+	<select id="countSponCom" parameterType="spon_comVO" resultType="spon_comVO">
+		SELECT count(spon_com_no) FROM spon_com WHERE spon_no = #{spon_no}
 	</select>
 	
 

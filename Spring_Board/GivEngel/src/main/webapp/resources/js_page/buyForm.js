@@ -60,13 +60,12 @@ $(function(){
 	})
 	
 	//	구매버튼 클릭시 
-	
 	$('#buyGoodBtn').click(function(){
 		var good_no =  $('#good_no_cart').val();
 		var totalPrice = $('#totalPrice').text().replace("원","").trim(); // 총 구입금액
 		var buyCnt = $('#buyCntNow').val();
 		var good_stock = $('#goodStock').text().trim();
-	
+		if(good_stock>=1){
 		//  재고 업데이트
 			$.ajax({
 				type :'post',
@@ -99,7 +98,7 @@ $(function(){
 					if(result == "1"){
 						alert("마일리지적립 성공")
 					}else{
-						alert("재고 업데이트 실패")
+						alert("마일리지 적립 실패")
 					}
 				}
 			})
@@ -117,7 +116,7 @@ $(function(){
 					if(result == "1"){
 						alert("마일리지 로그 업데이트 성공")
 					}else{
-						alert("마일리지 로그 업데이트")
+						alert("마일리지 로그 업데이트 실패")
 					}
 				}
 			})
@@ -141,37 +140,39 @@ $(function(){
 				}
 				
 			})
-			
+		}else{
+			alert("재고가 부족합니다.")
+		}
 			
 			
 	})
 	
 		
-//	장바구니 추가
-	$('#addCart').click(function(){
-		// 물품번호
-		var good_no = $('#good_no_cart').val();
-		// 선택한 수량
-		var good_Cnt = $('#buyCntNow').val();
-		$.ajax({
-			type : 'post',
-			url : 'addCart.giv',
-			contentType : 'application/x-www-form-urlencoded;charset=UTF-8',
-			data : {
-				good_no	: good_no,
-				cart_count : good_Cnt
-			},
-			success : function(result){
-				if(result == '1'){					
-				alert('장바구니 추가 완료');
-				}else if(result == '-1'){
-					alert('로그인이 필요한 서비스 입니다.');
-					location.herf='loginForm.giv';
-				}
+	//	장바구니 추가
+		$('#addCart').click(function(){
+			// 물품번호
+			var good_no = $('#good_no_cart').val();
+			// 선택한 수량
+			var good_Cnt = $('#buyCntNow').val();
+			$.ajax({
+				type : 'post',
+				url : 'addCart.giv',
+				contentType : 'application/x-www-form-urlencoded;charset=UTF-8',
+				data : {
+					good_no	: good_no,
+					cart_count : good_Cnt
+				},
+				success : function(result){
+					if(result == '1'){					
+					alert('장바구니 추가 완료');
+					}else if(result == '-1'){
+						alert('로그인이 필요한 서비스 입니다.');
+						location.herf='loginForm.giv';
+					}
+						
 					
-				
-			}
-		})	
+				}
+			})	
 		
 	})
 	
@@ -190,7 +191,6 @@ $(function(){
 					 user_pw : $('#user_pw').val()
 					},
 				success : function(result){
-					alert("성공 " + result);
 					if(result == "1"){
 					$.ajax({
 						type : 'post',
@@ -206,7 +206,6 @@ $(function(){
 							if(result == "1"){
 							alert("댓글이 입력되었습니다.");
 							location.reload();
-							location.href('#tabs-3');
 							}else{
 								alert("댓글 입력 실패, 로그인 다시")
 							}
@@ -225,7 +224,7 @@ $(function(){
 
 //	댓글 삭제
 	$('.comDelete').css("cursor","pointer").click(function(){
-		var com_no =  $(this).parent().parent().parent().find($('.com_no')).val()
+		var com_no =  $(this).parent().parent().parent().parent().find($('.com_no')).val()
 		alert(com_no)
 				$.ajax({
 					type : 'post',
@@ -250,10 +249,13 @@ $(function(){
 	
 //	댓글 수정
 		$('.comModify').css("cursor","pointer").click(function(){
-			var com_content =  $(this).parent().parent().parent().find($('.com_content')).val()
-			var com_no =  $(this).parent().parent().parent().find($('.com_no')).val()
+			var com_content =  $(this).parent().parent().parent().parent().find($('.com_content')).val()
+			var com_no =  $(this).parent().parent().parent().parent().find($('.com_no')).val()
 			alert(com_content)
 			alert(com_no)
+			if(com_content != null){
+				
+			
 				$.ajax({
 					type : 'post',
 					url : 'modifyGoodCom.giv',
@@ -270,7 +272,10 @@ $(function(){
 							alert("수정 실패.")
 						}
 					}
-				})	
+				})
+			}else{
+				alert("댓글을 입력해주세요")
+			}
 		})
 	
 

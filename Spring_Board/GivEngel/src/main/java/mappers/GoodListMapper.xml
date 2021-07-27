@@ -4,8 +4,8 @@
 <mapper namespace="GoodDAO">
 <!-- ********************** -->
 <!-- 김민주 -->
-<!-- 카테고리에 따른 전체 상품리스트 가져오는 쿼리문-->
-	<select id='getGoodList' resultType="hashmap" parameterType="hashmap">
+<!-- 상품리스트페이지 전체 상품리스트(카테고리별 분류) -->
+	<select id='getGoodList' resultType="goodVO" parameterType="hashmap">
 		SELECT 
 		*
 		FROM good         
@@ -17,9 +17,11 @@
 			<if test="color != null">
 				good_tag LIKE '%${color}%'
 			</if>
-			<if test='keyword != null'>
-				good_tag LIKE '%${keyword}%' OR g.good_name LIKE '%${keyword}%'
-			</if>				
+			<if test="part != null">
+				<if test="keyword != null">
+				${part} LIKE '%${keyword}%'
+				</if>
+			</if>
 		</where>
 		<choose>
 			<when test="sorting != null">
@@ -29,35 +31,30 @@
 				ORDER BY good_date DESC
 			</otherwise>
 		</choose>
+		<if test="pagingVO != null">
+		LIMIT #{pagingVO.startList},#{pagingVO.listSize}
+		</if>
 	</select>
 	
-	<!-- 최신상품 가져오는 쿼리문1 date 순 -->
-	<select id='getlatestGood1' resultType="hashmap">
+	<select id="getGoodListCnt" resultType="int">
+		SELECT 
+		count(*) as listCnt
+		FROM 
+		good
+	</select>
+	
+	<!-- 최신상품  date 순 -->
+	<select id='getlatestGood1' resultType="goodVO">
 		SELECT 
 		*
 		FROM good 
-		ORDER BY good_date LIMIT 0,4
+		ORDER BY good_date DESC
 	</select>
-	
-	<!-- 최신상품 가져오는 쿼리문2 date 순 -->
-	<select id='getlatestGood2' resultType="hashmap">
-		SELECT 
-		*
-		FROM good 
-		ORDER BY good_date LIMIT 4,4
-	</select>
-	
-	<!-- 최신상품 가져오는 쿼리문3 date 순 -->
-	<select id='getlatestGood3' resultType="hashmap">
-		SELECT 
-		*
-		FROM good 
-		ORDER BY good_date LIMIT 8,4
-	</select>
+
 	
 	
-	<!-- 인기상품  고정! -->
-	<select id='getPopularGoodList' resultType="hashmap" parameterType="hashmap">
+	<!-- 인기상품  고정!(찜순) -->
+	<select id='getPopularGoodList' resultType="goodVO" parameterType="hashmap">
 		SELECT 
 		*
 		FROM good   
@@ -70,18 +67,26 @@
 				good_tag LIKE '%${color}%'
 			</if>
 		</where>
-		ORDER BY good_like LIMIT 0,9
+		ORDER BY good_like DESC LIMIT 0,9
 	</select>
 	
 	<!-- 판매량 순 추천상품 고정! -->
 	<select id="rankingGood" resultType="goodVO">
-	SELECT good_no, good_img  FROM
-	(SELECT count(user_buylog.good_no) countbuy, good.good_no, good.good_img 
+	SELECT good_no, good_name,good_img, good_tag,good_price  FROM
+	(SELECT count(user_buylog.good_no) countbuy, good.good_no, good.good_name,good.good_img,good.good_tag,good.good_price
 	FROM user_buylog 
 	INNER JOIN good 
-	ON user_buylog.good_no = good.good_no  
-	GROUP BY user_buylog.good_no 
+	ON user_buylog.good_no = good.good_no 	
+	GROUP BY user_buylog.good_no
 	ORDER BY countbuy DESC) AS GOOD;
+	</select>
+	
+	<!-- 댓글 순 추천상품 고정 -->
+	<select id="goodComRanking" resultType="hashmap">
+	SELECT good.good_no,good.good_name,good.good_price,good.good_img, IFNULL(cnt,0)
+	FROM good LEFT JOIN (select good_no,count(*) as cnt FROM good_com group by good_no) AS tb 
+	ON good.good_no= tb.good_no
+	GROUP BY good_no ORDER BY cnt DESC;
 	</select>
 	
 	
@@ -103,7 +108,7 @@
 	</select>
 	
 	
-	<!-- 댓글 입력 유효성 -->
+	<!-- 로그인 여부 확인 -->
 	<select id="loginCheckCom" parameterType="userVO" resultType="userVO">
 		SELECT user_pw 
 		FROM user

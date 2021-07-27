@@ -1,6 +1,7 @@
 package com.project.givengel.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import com.project.givengel.vo.CartVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.Good_comVO;
 import com.project.givengel.vo.LikeToVO;
+import com.project.givengel.vo.PagingVO;
 import com.project.givengel.vo.UserVO;
 import com.project.givengel.vo.User_buylogVO;
 import com.project.givengel.vo.User_cashlogVO;
@@ -24,9 +26,10 @@ public class GoodListServiceImpl implements GoodListService {
 	
 //	전체상품(카테고리 별로) 가져옴 // 추후 파라매터 추가 예정(good_price 순 정렬)
 	@Override
-	public List<GoodVO> getGoodList(String categories, String color, String sorting, String keyword) {
+	public List<GoodVO> getGoodList(String categories, String color, String sorting, String part, String keyword,PagingVO pagingVO) {
 		System.out.println("impl : " +keyword);
-		return goodDAO.getGoodList(categories,color,sorting,keyword);
+		System.out.println("part : " + part);
+		return goodDAO.getGoodList(categories,color,sorting,part,keyword,pagingVO);
 	}
 	
 //	인기상품(like 순)
@@ -42,16 +45,17 @@ public class GoodListServiceImpl implements GoodListService {
 		
 		return goodDAO.getlatestGood1();
 	}
-	@Override
-	public List<GoodVO> getlatestGood2() {
-		
-		return goodDAO.getlatestGood2();
+	
+	public int getGoodListCnt() {
+		return goodDAO.getGoodListCnt();
 	}
+
+//	추천상품(댓글순)
 	@Override
-	public List<GoodVO> getlatestGood3() {
-		
-		return goodDAO.getlatestGood3();
+	public List<Map<String, Object>> goodComRanking() {
+		return goodDAO.goodComRanking();
 	}
+
 	
 	
 	
@@ -134,6 +138,7 @@ public class GoodListServiceImpl implements GoodListService {
 	public void addCart(CartVO vo) {
 		goodDAO.addCart(vo);
 	}
+
 
 	
 

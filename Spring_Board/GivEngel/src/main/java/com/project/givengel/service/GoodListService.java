@@ -1,11 +1,12 @@
 package com.project.givengel.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.project.givengel.vo.CartVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.Good_comVO;
-import com.project.givengel.vo.LikeToVO;
+import com.project.givengel.vo.PagingVO;
 import com.project.givengel.vo.UserVO;
 import com.project.givengel.vo.User_buylogVO;
 import com.project.givengel.vo.User_cashlogVO;
@@ -15,13 +16,19 @@ import com.project.givengel.vo.User_cashlogVO;
 public interface GoodListService {
 	
 	// 전체상품
-	public List<GoodVO> getGoodList(String categories, String color,String sorting, String keyword);
+	public List<GoodVO> getGoodList(String categories, String color,String sorting,String part,String keyword,PagingVO pagingVO);
 	// 인기상품
 	public List<GoodVO> getPopularGoodList(String categories, String color);
 	// 최신상품
 	public List<GoodVO> getlatestGood1();
-	public List<GoodVO> getlatestGood2();
-	public List<GoodVO> getlatestGood3();
+	// 총 상품 수 
+	public int getGoodListCnt();
+	
+	
+	// 추천상품(댓글순)
+	public List<Map<String,Object>> goodComRanking();
+	
+	
 
 	// 상품 상세정보
 	public GoodVO getGoodView(GoodVO vo);
