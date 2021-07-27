@@ -121,7 +121,10 @@
 		SELECT * FROM good
 		WHERE ${part} LIKE '%${searchData}%'
 	</select>
-
+	<delete id="deleteGood_com" parameterType="GoodVO">
+		DELETE FROM good_com
+		WHERE good_no = #{good_no}
+	</delete>
 
 
 
@@ -153,6 +156,11 @@
 		DELETE FROM spon
 		WHERE
 		spon_no = #{spon_no}
+	</delete>
+	
+	<delete id="deleteSpon_com" parameterType="SponVO">
+		DELETE FROM spon_com
+		WHERE spon_no = #{spon_no}
 	</delete>
 	
 	
@@ -195,7 +203,7 @@
 	
 	
 
-<select id="searchUser" parameterType="String"
+	<select id="searchUser" parameterType="String"
 		resultType="UserVO">
 		SELECT * FROM user
 		WHERE user_id LIKE '%${searchData}%'
@@ -215,7 +223,11 @@
 		WHERE
 		user_no = #{user_no}
 	</delete>
-
+	<update id="updateUser" parameterType="UserVO">
+		UPDATE user
+		SET user_id = #{user_id}, user_name = #{user_name}, user_pw = #{user_pw}, user_addr = #{user_addr}, user_tel = #{user_tel}, user_cash = #{user_cash}
+		WHERE user_no = #{user_no}
+	</update>
 
 
 

@@ -212,6 +212,25 @@ public class AdminController {
 	 ************************/
 	
 	/*****************************************************
+	 * 함수명 			: 	adminSelectGoods
+	 * 
+	 * 함수 기능 		:	1. 상품 리스트를 맵으로 반환
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-21
+	 *****************************************************/
+	@RequestMapping("/adminSelectGoods.giv")
+	@ResponseBody
+	public Map<String,Object> adminSelectGoods() {
+		List<GoodVO> list = adminService.selectGood();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("list", list);
+		return map;
+	}
+	
+	
+	/*****************************************************
 	 * 함수명 			: 	adminSelectGood
 	 * 
 	 * 함수 기능 		:	1. 상품 리스트 중 4개를 맵으로 반환
@@ -933,11 +952,29 @@ public class AdminController {
 	/************************
 	 * 유틸 영역  start			*
 	 ************************/
+	/*****************************************************
+	 * 함수명 			: 	adminUserAccount
+	 * 
+	 * 함수 기능 		:	1. 유저 계정 리스트를 가져오는 기능
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-25
+	 *****************************************************/
 	@RequestMapping("/adminUserAccount.giv")
 	public void adminUserAccount(Model m) {
 		m.addAttribute("userList", adminService.selectUsers());
 	}
 	
+	/*****************************************************
+	 * 함수명 			: 	searchUser	[ajax]
+	 * 
+	 * 함수 기능 		:	1. 유저 계정 검색 기능
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-26
+	 *****************************************************/
 	@RequestMapping("/searchUser.giv")
 	@ResponseBody
 	public Map<String,Object> searchUser(String searchData) {
@@ -961,6 +998,15 @@ public class AdminController {
 	/************************
 	 * 수정 영역  start			*
 	 ************************/
+	/*****************************************************
+	 * 함수명 			: 	adminUserAccountModifyForm	
+	 * 
+	 * 함수 기능 		:	1. 특정 유저의 계정 정보를 맵에 담아 반환하는 기능
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-25
+	 *****************************************************/
 	@RequestMapping("/adminUserAccountModifyForm.giv")
 	public Map<String, UserVO> adminUserAccountModifyForm(UserVO vo) {
 		UserVO users = new UserVO();
@@ -968,6 +1014,21 @@ public class AdminController {
 		Map<String, UserVO> map = new HashMap<String, UserVO>();
 		map.put("users", users);
 		return map;
+	}
+	
+	/*****************************************************
+	 * 함수명 			: 	adminUserAccountModifyAction
+	 * 
+	 * 함수 기능 		:	1. 특정 유저의 계정 정보 수정하는 기능
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-27
+	 *****************************************************/
+	@RequestMapping("/adminUserAccountModifyAction.giv")
+	public String adminUserAccountModifyAction(UserVO vo) {
+		adminService.updateUser(vo);
+		return "redirect:adminUserAccount.giv";
 	}
 	
 	/************************
@@ -979,6 +1040,15 @@ public class AdminController {
 	/************************
 	 * 삭제 영역  start			*
 	 ************************/
+	/*****************************************************
+	 * 함수명 			: 	adminUserAccountDeleteForm	
+	 * 
+	 * 함수 기능 		:	1. 특정 유저의 계정 정보를 맵에 담아 반환하는 기능
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-25
+	 *****************************************************/
 	@RequestMapping("/adminUserAccountDeleteForm.giv")
 	public Map<String, UserVO> adminUserAccountDeleteForm(UserVO vo) {
 		UserVO users = new UserVO();
@@ -988,6 +1058,15 @@ public class AdminController {
 		return map;
 	}
 	
+	/*****************************************************
+	 * 함수명 			: 	adminUserAccountDeleteAction	
+	 * 
+	 * 함수 기능 		:	1. 특정 유저의 계정을 삭제하는 기능
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-25
+	 *****************************************************/
 	@RequestMapping("/adminUserAccountDeleteAction.giv")
 	public String adminUserAccountDeleteAction(UserVO vo) {
 		adminService.deleteUser(vo);
@@ -1029,11 +1108,30 @@ public class AdminController {
 	 * 유틸 영역  start			*
 	 ************************/
 	
+	/*****************************************************
+	 * 함수명 			: 	adminFlea	
+	 * 
+	 * 함수 기능 		:	1. 중고 장터 전체 상품리스트를 모델에 담아 반환
+	 * 					하는 기능
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-26
+	 *****************************************************/
 	@RequestMapping("/adminFlea.giv")
 	public void adminFlea(Model m) {
 		m.addAttribute("fleaList", adminService.selectFleaList());
 	}
 	
+	/*****************************************************
+	 * 함수명 			: 	searchFlea	[ajax]
+	 * 
+	 * 함수 기능 		:	1. 중고 장터 상품을 검색하는 기능
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-26
+	 *****************************************************/
 	@RequestMapping("/searchFlea.giv")
 	@ResponseBody
 	public Map<String,Object> searchFlea(String searchData,String test) {
@@ -1066,7 +1164,16 @@ public class AdminController {
 	 * 테스트 영역  start		*
 	 ************************/
 	
-
+	/*****************************************************
+	 * 함수명 			: 	adminFleaTestForm
+	 * 
+	 * 함수 기능 		:	1. 특정 중고 상품에 대한 정보를 맵에 담아 반환
+	 * 					하는 기능
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-26
+	 *****************************************************/
 	@RequestMapping("/adminFleaTestForm.giv")
 	public Map<String, Object> adminFleaTestForm(FleaVO vo) {
 		FleaVO fleas = new FleaVO();
@@ -1077,12 +1184,20 @@ public class AdminController {
 		
 		return map;
 	}
+	
+	/*****************************************************
+	 * 함수명 			: 	adminFleaTestAction
+	 * 
+	 * 함수 기능 		:	1. 중고 상품의 심사 상태를 업데이트하는 기능
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-26
+	 *****************************************************/
 	@RequestMapping("/adminFleaTestAction.giv")
 	@ResponseBody
 	public void adminFleaTestAction(String test,int flea_no) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println("test : " + test);
-		System.out.println("test2 :" + flea_no );
 		map.put("test", test);
 		map.put("flea_no",flea_no);
 		
@@ -1092,11 +1207,22 @@ public class AdminController {
 	 * 테스트 영역  end			*
 	 ************************/
 	
+	
+	
 	/************************
 	 * 삭제 영역  end			*
 	 ************************/
 	
-	
+	/*****************************************************
+	 * 함수명 			: 	adminFleaDeleteForm
+	 * 
+	 * 함수 기능 		:	1. 특정 중고 상품에 대한 정보를 맵에 담아 반환
+	 * 					하는 기능
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-26
+	 *****************************************************/
 	@RequestMapping("/adminFleaDeleteForm.giv")
 	public Map<String, FleaVO> adminFleaDeleteForm(FleaVO vo) {
 		FleaVO fleas = new FleaVO();
@@ -1106,6 +1232,17 @@ public class AdminController {
 		return map;
 	}
 	
+	
+	
+	/*****************************************************
+	 * 함수명 			: 	adminFleaDeleteForm
+	 * 
+	 * 함수 기능 		:	1. 중고 상품을 삭제하는 기능
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-26
+	 *****************************************************/
 	@RequestMapping("/adminFleaDeleteAction.giv")
 	public String adminFleaDeleteAction(FleaVO vo) {
 		adminService.deleteFlea(vo);
@@ -1175,6 +1312,16 @@ public class AdminController {
 		
 	}
 	
+	/*****************************************************
+	 * 함수명 			: 	chartPriceAndCash [ajax]
+	 * 
+	 * 함수 기능 		:	1. user_cashlog와 user_buylog를 활용하여
+	 * 					최근 7일 간의 데이터를 전송해주는 기능
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	adminService
+	 * 마지막 수정		:	2021-07-25
+	 *****************************************************/
 	@RequestMapping("/chartPriceAndCash.giv")
 	@ResponseBody
 	public  Map<String,Object> chartPriceAndCash() {
@@ -1248,7 +1395,15 @@ public class AdminController {
 		}	
 	}
 	
-	
+	/*****************************************************
+	 * 함수명 			: 	insertNoticeLog	[ajax]
+	 * 
+	 * 함수 기능 		:	1. 마스터 계정의 공지 로그를 남기는 기능
+	 * 
+	 * 사용된 함수 		:	-
+	 * 사용된 서비스 	:	logService
+	 * 마지막 수정		:	2021-07-26
+	 *****************************************************/
 	@RequestMapping("/insertNoticeLog.giv")
 	@ResponseBody
 	public void insertNoticeLog(String notice_detail,HttpServletRequest request) {
@@ -1345,23 +1500,6 @@ public class AdminController {
 	public void adminWidgets() {
 		
 	}
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
 	
 	
 	

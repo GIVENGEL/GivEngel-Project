@@ -214,18 +214,73 @@
 
 			function checkform(){
 				
-				var admin = $("#admin");
-				var admin_pw = $("#admin_pw").val();
-				var admin_level = $("#admin_level").val();
-				var admin_available = $("#admin_available").val();
-				if(admin_id==""){
+				var user_idCheck = RegExp(/^[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z0-9]/);
+				var user_pwCheck = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*()\-_=+\\\|\[\]{};:\'",.<>\/?]).{8,16}$/);
+				var user_addrCheck = RegExp(/^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/);
+				var user_telCheck = RegExp(/^01[0179][0-9]{7,8}$/);
+				var user_cashCheck = RegExp(/[0-9]/);
+				
+				var user_id=$("#user_id").val();
+				var user_pw = $("#user_pw").val();
+				var user_addr = $("#user_addr").val();
+				var user_tel = $("#user_tel").val();
+				var user_cash = $("#user_cash").val();
+				
+				
+				
+				
+				if(user_id==""){
 					alert("아이디을 입력해주세요");
 					return false;
 				}
-				if(admin_pw==""){
+				
+				if(!user_idCheck.test(user_id)){
+					alert("(아이디 양식 오류) [아이디는 이메일 형식으로 입력 가능합니다]")
+					return false;
+				}
+				
+				
+				
+				if(user_pw==""){
 					alert("패스워드를 입력해주세요");
 					return false;
 				}
+				if(!user_pwCheck.test(user_pw)){
+					alert("(패스워드 양식 오류) - [영어 대문자 시작+소문자],[숫자와 특수기호 필히 입력],[8~16 자리]")
+					return false;
+				}
+				
+				
+				
+				if(user_addr==""){
+					alert("주소를 입력해주세요");
+					return false;
+				}
+				if(!user_addrCheck.test(user_addr)){
+					alert("(주소 양식 오류) : [_ / - 를 제외한 특수문자는 사용이 불가합니다]");
+					return false;
+				}
+				
+				if(user_tel==""){
+					alert("전화번호를 입력해주세요");
+					return false;
+				}
+				if(!user_telCheck.test(user_tel)){
+					alert("(전화번호 양식 오류) [ '-' 없이 입력해주세요]");
+					return false;
+				}
+				
+				if(user_cash == ""){
+					alert("마일리지를 입력해주세요");
+					return false
+				}
+				if(!user_cashCheck.test(user_cash)){
+					alert("(마일리지 양식 오류) [숫자만 입력해주세요]");
+					return false;
+				}
+				
+				
+				
 				return true;	
 			}
 			

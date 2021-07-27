@@ -23,6 +23,10 @@ public class AdminDAOImpl implements AdminDAO {
 	private SqlSessionTemplate mybatis;
 	
 	
+	
+	/************************************************
+	 * 개발자 모드 로그인 DAO 							*
+	 ************************************************/
 	@Override
 	public AdminVO login(AdminVO vo) {
 		AdminVO vos = mybatis.selectOne("AdminDAO.login",vo);
@@ -31,41 +35,124 @@ public class AdminDAOImpl implements AdminDAO {
 		}
 		return vos;
 	}
+	@Override
+	public int checkAdminId(AdminVO vo) {
+		return mybatis.selectOne("AdminDAO.checkAdminId",vo);
+	}
 	
+	/************************************************/
+	
+	
+	
+	
+	
+	
+	/************************************************
+	 * 개발자 모드 계정 관리 DAO 							*
+	 ************************************************/
 	@Override
 	public List<AdminVO> selectAdmins() {
 		return mybatis.selectList("AdminDAO.selectAdmins");
 	}
+	@Override
+	public AdminVO selectAdmin(String admin_id) {
+		return mybatis.selectOne("AdminDAO.selectAdmin", admin_id);
+	}
+	@Override
+	public List<AdminVO> searchAdmin(Map<String,String> map) {
+		return mybatis.selectList("AdminDAO.searchAdmin", map);
+	}
+	@Override
+	public void updateAdmins(AdminVO vo) {
+		mybatis.update("AdminDAO.updateAdmins",vo);
+	}
+	@Override
+	public void deleteAdmins(AdminVO vo) {
+		mybatis.delete("AdminDAO.deleteAdmins",vo);
+	}
+	@Override
+	public void insertAdmins(AdminVO vo) {
+		mybatis.insert("AdminDAO.insertAdmins",vo);
+	}
 	
+	/************************************************/
+	
+	
+	
+	
+	
+	
+	
+	
+	/************************************************
+	* 개발자 모드 유저 계정 관리 DAO 						*
+	************************************************/
+	@Override
+	public List<UserVO> selectUsers() {
+		return mybatis.selectList("AdminDAO.selectUsers");
+	}
+	@Override
+	public List<UserVO> searchUser(Map<String, String> map) {
+		return mybatis.selectList("AdminDAO.searchUser",map);
+	}
+	@Override
+	public UserVO selectUser(UserVO vo) {
+		return mybatis.selectOne("AdminDAO.selectUser", vo);
+	}
+	@Override
+	public void updateUser(UserVO vo) {
+		mybatis.update("AdminDAO.updateUser",vo);
+	}
+	@Override
+	public void deleteUser(UserVO vo) {
+		mybatis.delete("AdminDAO.deleteUser", vo);
+	}
+	
+	/************************************************/
+
+	
+	
+	
+	
+	
+	
+	/************************************************
+	* 개발자 모드 누적 데이터 관리 DAO 						*
+	************************************************/
 	@Override
 	public int userCount() {
 		return mybatis.selectOne("AdminDAO.userCount");
 	}
-	
 	@Override
 	public int priceCount() {
 		return mybatis.selectOne("AdminDAO.priceCount");
 	}
-	
 	@Override
 	public int cashCount() {
 		return mybatis.selectOne("AdminDAO.cashCount");
 	}
-
+	@Override
+	public int orderCount() {
+		int result = mybatis.selectOne("AdminDAO.selectUserBuyLog");
+		return result;
+	}
+	
+	/************************************************/
+	
+	
+	
+	
+	
+	
+	
+	
+	/************************************************
+	* 개발자 모드 상품 관리 DAO 							*
+	************************************************/
 	@Override
 	public List<GoodVO> selectGood() {
-
 		return mybatis.selectList("AdminDAO.selectGood");
 	}
-
-	@Override
-	public List<SponVO> selectSpon() {
-		
-		return mybatis.selectList("AdminDAO.selectSpon");
-	}
-
-	
-	
 	@Override
 	public void insertGood(GoodVO vo) {
 		mybatis.insert("AdminDAO.insertGood", vo);
@@ -77,24 +164,29 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public void deleteGood(GoodVO vo) {
 		mybatis.delete("AdminDAO.deleteGood",vo);
+		mybatis.delete("AdminDAO.deleteGodd_com",vo);
 	}
-	
 	@Override
 	public List<GoodVO> searchGood(Map<String,String> map){	
 		return mybatis.selectList("AdminDAO.searchGood", map);
 	}
+	
+	/************************************************/
 
 	
 	
 	
+	
+	
+	
+	
+	/************************************************
+	* 개발자 모드 후원 단체 관리 DAO 						*
+	************************************************/
 	@Override
-	public AdminVO selectAdmin(String admin_id) {
-		return mybatis.selectOne("AdminDAO.selectAdmin", admin_id);
-		
-	}
-
-	
-	
+	public List<SponVO> selectSpon() {	
+		return mybatis.selectList("AdminDAO.selectSpon");
+	}	
 	@Override
 	public void insertSpon(SponVO vo) {
 		mybatis.insert("AdminDAO.insertSpon", vo);
@@ -106,106 +198,71 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public void deleteSpon(SponVO vo) {
 		mybatis.delete("AdminDAO.deleteSpon",vo);
+		mybatis.delete("AdminDAO.deleteSpon_com",vo);
 	}
+	/************************************************/
 
-	@Override
-	public int orderCount() {
-		int result = mybatis.selectOne("AdminDAO.selectUserBuyLog");
-		return result;
-	}
 
-	@Override
-	public List<AdminChartTimeVO> chartPricePerTime() {
-		
-		return mybatis.selectList("AdminDAO.chartPricePerTime");
-	}
-
-	@Override
-	public List<AdminVO> searchAdmin(Map<String,String> map) {
-		return mybatis.selectList("AdminDAO.searchAdmin", map);
-	}
-
-	@Override
-	public int checkAdminId(AdminVO vo) {
-		return mybatis.selectOne("AdminDAO.checkAdminId",vo);
-	}
-
-	@Override
-	public void updateAdmins(AdminVO vo) {
-		mybatis.update("AdminDAO.updateAdmins",vo);
-		
-	}
-
-	@Override
-	public void deleteAdmins(AdminVO vo) {
-		mybatis.delete("AdminDAO.deleteAdmins",vo);
-		
-	}
-
-	@Override
-	public void insertAdmins(AdminVO vo) {
-		mybatis.insert("AdminDAO.insertAdmins",vo);
-		
-	}
 
 	
-	@Override
-	public List<UserVO> selectUsers() {
-		return mybatis.selectList("AdminDAO.selectUsers");
-	}
-
-	@Override
-	public List<UserVO> searchUser(Map<String, String> map) {
-		return mybatis.selectList("AdminDAO.searchUser",map);
-	}
-
-	@Override
-	public UserVO selectUser(UserVO vo) {
-		return mybatis.selectOne("AdminDAO.selectUser", vo);
-	}
-
-	@Override
-	public void deleteUser(UserVO vo) {
-		mybatis.delete("AdminDAO.deleteUser", vo);
-		
-	}
-
-	@Override
-	public List<AdminChartBarVO> chartPriceAndCash() {
-		return mybatis.selectList("AdminDAO.chartPriceAndCash");
-	}
-
+	
+	
+	
+	
+	
+	
+	
+	/************************************************
+	* 개발자 모드 중고장터 관리 DAO 						*
+	************************************************/
 	@Override
 	public List<FleaVO> selectFleaList() {
 		return mybatis.selectList("AdminDAO.selectFleaList");
 	}
-
 	@Override
 	public List<FleaVO> searchFlea(Map<String, Object> map) {
-		
 		return mybatis.selectList("AdminDAO.searchFlea", map);
 	}
-
 	@Override
 	public FleaVO selectFlea(FleaVO vo) {
 		return mybatis.selectOne("AdminDAO.selectFlea",vo);
 	}
-
 	@Override
 	public void updateFleaTest(Map<String, Object> map) {
 		mybatis.update("AdminDAO.updateFleaTest", map);
-		
 	}
-
 	@Override
 	public void deleteFlea(FleaVO vo) {
 		mybatis.delete("AdminDAO.deleteFlea", vo);
 	}
 	
+	/************************************************/
 
 	
-
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/************************************************
+	* 개발자 모드 차트 데이터 관리 DAO 						*
+	************************************************/
+	@Override
+	public List<AdminChartTimeVO> chartPricePerTime() {
+		return mybatis.selectList("AdminDAO.chartPricePerTime");
+	}
+	@Override
+	public List<AdminChartBarVO> chartPriceAndCash() {
+		return mybatis.selectList("AdminDAO.chartPriceAndCash");
+	}
+	
+	/************************************************/
+
 
 	
 

@@ -70,13 +70,13 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li class="active"><a href="adminMode.giv"><em class="fa fa-dashboard">&nbsp;</em> 누적통계</a></li>
+			<li class=""><a href="adminMode.giv"><em class="fa fa-dashboard">&nbsp;</em> 누적통계</a></li>
 			<li><a href="adminWidgets.giv"><em class="fa fa-calendar">&nbsp;</em> 개발자보드</a></li>
 			<c:if test="${admin.admin_level > 0 }">
 			<li ><a href="adminCharts.giv"><em class="fa fa-bar-chart">&nbsp;</em> 분석/통계</a></li>
 			</c:if>
 			<c:if test="${admin.admin_level > 1 }">
-			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
+			<li class="parent active"><a data-toggle="collapse" href="#sub-item-1">
 				<em class="fa fa-navicon">&nbsp;</em> 상품 관리 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>
 				<ul class="children collapse" id="sub-item-1">
@@ -147,6 +147,10 @@
 				<div class="col-lg-12">
 
 					<h2>상품 목록</h2>
+					<div class="product__pagination" id="paging_div">
+                      
+             </div>
+             <hr>
 				</div>
 
 				<!-- /.row -->
@@ -164,7 +168,7 @@
                                         <option value="good_detail">상품 설명</option>
                                     </select>
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-sm-3 p-0" style="padding:0px" >
+                                 <div class="col-lg-3 col-md-3 col-sm-3 p-0" style="padding:0px">
                                     <input type="text" placeholder="검색 내용" style="margin-left:30px" class="form-control" id="searchData" name="searchData">
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1 p-0" style="padding:0px">
@@ -183,12 +187,16 @@
 					<!-- 전체상품 리스트 출력(현재 카테고리별 출력까지 구현) -->
 					<div class="row">
 					<div id="searchResult">
+					 <c:set var="i" value="0" />
 					 <c:forEach items="${goodList }" var="goodVO">
-					 	<div class="col-sm-3 col-md-2">
+					 	 <c:if test="${i != '12' }">
+					 <c:set var="i" value="${i+1 }" />
+					
+					 	<div class="col-sm-3 col-md-2" >
 							<div class="thumbnail">
-								<img src="${path}/resources/img/good/${goodVO.good_img}" alt="${goodVO.good_name}">
+								<img src="${path}/resources/img/good/${goodVO.good_img}" onerror="this.src='${path}/resources/img/null.jpg'" alt="${goodVO.good_name}">
 								<div class="caption">
-									<h4>${goodVO.good_name}</h4>
+									<h4 style=" overflow: hidden;text-overflow: ellipsis;white-space: nowrap; width: 200px;height: 40px;">${goodVO.good_name}</h4>
 									<p>${goodVO.good_price} 원</p>
 									<p>
 										<a href="adminGoodDeleteForm.giv?good_no=${goodVO.good_no}" class="btn btn-primary" role="button">삭제하기</a>
@@ -196,6 +204,7 @@
 								</div>
 							</div>
 						</div>
+						</c:if>
 					 </c:forEach>
 					</div>
 					</div>
@@ -206,14 +215,7 @@
 			<!-- /.panel-->
 		</div>
 		<!-- /.col-->
-		<div class="col-sm-12">
-			<p class="back-link">
-				Lumino Theme by <a href="https://www.medialoot.com">Medialoot</a>
-			</p>
-		</div>
-		</div>
-		<!-- /.row -->
-		</div>
+
 		<!--/.main-->
 
 		<script src="${path}/resources/js/admin/jquery-1.11.1.min.js"></script>
@@ -227,6 +229,147 @@
 		<script>
 			window.onload = function() {
 
+				<a href="#"><i class="fa fa-long-arrow-left"></i></a>
+                <a class="page">1</a>
+                <a class="page">2</a>
+                <a class="page">3</a>
+                <a href="#"><i class="fa fa-long-arrow-right"></i></a> */
+                var divider = 12;
+                var header=1;
+                var maxPage;
+				
+                $.ajax({
+					url : "adminSelectGoods.giv",
+					type : "post",
+					success : function(data) {
+						var goodCount = data.list.length;
+						
+						if(goodCount%divider == 0){
+							maxPage = parseInt(goodCount/divider);
+						}
+						else{
+							maxPage = parseInt(goodCount/divider)+1;
+						}
+						$("#paging_div").empty();
+						$("#paging_div").append('<a id="left" href="#"><i class="fa fa-long-arrow-left"></i></a>');
+						for(var i=1;i<=maxPage;i++){
+                	$("#paging_div").append("<a class='page' href='#'>"+i+"</a>");
+              			}
+                $("#paging_div").append('<a id="right" href="#"><i class="fa fa-long-arrow-right"></i></a>');
+                $(".page").eq(header-1).css({
+					"background": "#7fad39",
+					"border-color": "#7fad39",
+					"color": "#ffffff"
+				});
+					}
+				});
+				
+				
+				
+				
+				
+				$(document).on("click",".page",function(){
+					header = parseInt($(this).text());
+					$(".page").css({
+						"background": "none",
+						"border-color": "none",
+						"color": "#b2b2b2"
+					})
+					$(this).css({
+						"background": "#7fad39",
+					"border-color": "#7fad39",
+					"color": "#ffffff"
+					});
+					var start = divider*header-divider;
+					var end = divider*(header+1)-divider;
+					$.ajax({
+						url : "adminSelectGoods.giv",
+						type : "post",
+						success : function(data) {
+							var list = data.list;
+							
+							$("#searchResult").empty();
+							for(var i=start;i<end;i++){
+								$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img class="good_img" src="${path}/resources/img/good/'+data.list[i].good_img+'"  alt="'+data.list[i].good_name+'" ><div class="caption"><h4 style=" overflow: hidden;text-overflow: ellipsis;white-space: nowrap; width: 200px;height: 40px;" >'+data.list[i].good_name+'</h4><p>'+data.list[i].good_price +' 원</p><p><a href="adminGoodDeleteForm.giv?good_no='+data.list[i].good_no+'" class="btn btn-primary" role="button">삭제하기</a></p></div></div></div>')
+							}
+							
+						}
+					});
+					
+				})
+				
+				$(document).on("click","#right",function(){
+					if(header>=maxPage){
+					
+					}
+					else{
+						header = header+1;
+						$(".page").css({
+							"background": "none",
+							"border-color": "none",
+							"color": "#b2b2b2"
+						})
+						$(".page").eq(header-1).css({
+							"background": "#7fad39",
+							"border-color": "#7fad39",
+							"color": "#ffffff"
+							});
+						
+						var start = divider*(header)-divider;
+						var end = divider*(header+1)-divider;
+						$.ajax({
+							url : "adminSelectGoods.giv",
+							type : "post",
+							success : function(data) {
+								var list = data.list;
+								
+								$("#searchResult").empty();
+								for(var i=start;i<end;i++){
+									$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img class="good_img" src="${path}/resources/img/good/'+data.list[i].good_img+'"  alt="'+data.list[i].good_name+'" ><div class="caption"><h4 style=" overflow: hidden;text-overflow: ellipsis;white-space: nowrap; width: 200px;height: 40px;">'+data.list[i].good_name+'</h4><p>'+data.list[i].good_price +' 원</p><p><a href="adminGoodDeleteForm.giv?good_no='+data.list[i].good_no+'" class="btn btn-primary" role="button">삭제하기</a></p></div></div></div>')
+								}
+								
+							}
+						});
+						
+					}
+				})
+				
+				$(document).on("click","#left",function(){
+					if(header<=1){
+					
+					}
+					else{
+						header = header-1;
+						$(".page").css({
+							"background": "none",
+							"border-color": "none",
+							"color": "#b2b2b2"
+						});
+						$(".page").eq(header-1).css({
+							"background": "#7fad39",
+							"border-color": "#7fad39",
+							"color": "#ffffff"
+						});
+						
+						var start = divider*(header)-divider;
+						var end = divider*(header+1)-divider;
+						$.ajax({
+							url : "adminSelectGoods.giv",
+							type : "post",
+							success : function(data) {
+								var list = data.list;
+								
+								$("#searchResult").empty();
+								for(var i=start;i<end;i++){
+									$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img class="good_img" src="${path}/resources/img/good/'+data.list[i].good_img+'"  alt="'+data.list[i].good_name+'" ><div class="caption"><h4 style=" overflow: hidden;text-overflow: ellipsis;white-space: nowrap; width: 200px;height: 40px;">'+data.list[i].good_name+'</h4><p>'+data.list[i].good_price +' 원</p><p><a href="adminGoodDeleteForm.giv?good_no='+data.list[i].good_no+'" class="btn btn-primary" role="button">삭제하기</a></p></div></div></div>')
+								}
+								
+							}
+						});
+						
+					}
+				})
+				
 				
 				/* <div class="col-sm-3 col-md-2">
 				<div class="thumbnail">
@@ -235,13 +378,14 @@
 						<h3>${goodVO.good_name}</h3>
 						<p>${goodVO.good_price} 원</p>
 						<p>
-							<a href="adminGoodModifyForm.giv?good_no=${goodVO.good_no}" class="btn btn-primary" role="button">수정하기</a>
-						</p>
+						<a href="adminGoodDeleteForm.giv?good_no=${goodVO.good_no}" class="btn btn-primary" role="button">삭제하기</a>						</p>
 					</div>
 				</div>
 			</div>
 				 */
 				$("#searchData").on("keyup",function(){
+					
+					
 					var part = $("#part").val();
 					var searchData = $("#searchData").val();
 					$.ajax({
@@ -253,11 +397,10 @@
 						},
 						success : function(data) {
 							var list = data.list;
-							
+							header=1;
 							$("#searchResult").empty();
 							for(var i=0;i<list.length;i++){
-								$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img src="${path}/resources/img/good/'+data.list[i].good_img+'" alt="'+data.list[i].good_name+'"><div class="caption"><h4>'+data.list[i].good_name+'</h4><p>'+data.list[i].good_price +' 원</p><p><a href="adminGoodDeleteForm.giv?good_no='+data.list[i].good_no+'" class="btn btn-primary" role="button">수정하기</a></p></div></div></div>')
-							}
+								$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img class="good_img" src="${path}/resources/img/good/'+data.list[i].good_img+'"  alt="'+data.list[i].good_name+'" ><div class="caption"><h4 style=" overflow: hidden;text-overflow: ellipsis;white-space: nowrap; width: 200px;height: 40px;">'+data.list[i].good_name+'</h4><p>'+data.list[i].good_price +' 원</p><p><a href="adminGoodDeleteForm.giv?good_no='+data.list[i].good_no+'" class="btn btn-primary" role="button">삭제하기</a></p></div></div></div>')							}
 							
 						}
 					});

@@ -91,25 +91,25 @@
 											<tr>
 												<th>이름</th>
 												<td><input type="text" class="form-control w-50"
-													name="user_name"></td>
+													id="user_name" name="user_name"></td>
 											</tr>
 
 											<tr>
 												<th>주민번호</th>
 												<td><input type="password" class="form-control"
-													placeholder="'-' 없이  입력해주세요." name="user_jumin"></td>
+													placeholder="'-' 없이  입력해주세요." id="user_jumin" name="user_jumin"></td>
 											</tr>
 
 											<tr>
 												<th>전화번호</th>
 												<td><input type="tel" class="form-control"
-													name="user_tel"></td>
+													id="user_tel" name="user_tel"></td>
 											</tr>
 
 											<tr>
 												<th>주소</th>
 												<td><input type="text" class="form-control"
-													name="user_addr"></td>
+													id="user_addr" name="user_addr"></td>
 											</tr>
 
 											<tr>
@@ -164,24 +164,82 @@
 </body>
 <script type="text/javascript">
 	$(document).ready(function(e) {
-		alert("시작");
-		var idx = false;
-
-		$('#signUp').click(function() {
-			if ($.trim($('#userId').val()) == '') {
-				alert("아이디 입력.");
-				$('#userId').focus();
-				return;
-			} else if ($.trim($('#passwd').val()) == '') {
-				alert("패스워드 입력.");
-				$('#passwd').focus();
-				return;
+function checkform(){
+			
+			var user_idCheck = RegExp(/^[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z0-9]/);
+			var user_pwCheck = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*()\-_=+\\\|\[\]{};:\'",.<>\/?]).{8,16}$/);
+			var user_juminCheck = RegExp(/[0-9]/);
+			var user_nameCheck = RegExp(/^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/);
+			var user_addrCheck = RegExp(/^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/);
+			var user_telCheck = RegExp(/^01[0179][0-9]{7,8}$/);
+			var user_cashCheck = RegExp(/[0-9]/);
+			
+			var user_id=$("#userId").val();
+			var user_pw = $("#passwd").val();
+			var user_jumin = $("#user_jumin").val();
+			var user_name = $("#user_name").val();
+			var user_addr = $("#user_addr").val();
+			var user_tel = $("#user_tel").val();
+			
+			
+			
+			
+			if(user_id==""){
+				alert("아이디을 입력해주세요");
+				return false;
 			}
-			//패스워드 확인
-			else if ($('#passwd').val() != $('#passwdCheck').val()) {
-				alert('패스워드가 다릅니다.');
-				$('#passwd').focus();
-				return;
+			if(!user_idCheck.test(user_id)){
+				alert("(아이디 양식 오류) [아이디는 이메일 형식으로 입력 가능합니다]")
+				return false;
+			}
+			
+			
+			
+			if(user_pw==""){
+				alert("패스워드를 입력해주세요");
+				return false;
+			}
+			if(!user_pwCheck.test(user_pw)){
+				alert("(패스워드 양식 오류) - [영어 대문자 시작+소문자],[숫자와 특수기호 필히 입력],[8~16 자리]")
+				return false;
+			}
+			
+			
+			if(user_jumin==""){
+				alert("주민번호를 입력하세요");
+				return false;
+			}
+			if(!user_juminCheck.test(user_jumin)){
+				alert("(주민번호 양식 오류) - [숫자만 - 없이 입력하시오]")
+				return false;
+			}
+			
+			if(user_name==""){
+				alert("이름을 입력하세요");
+				return false;
+			}
+			if(!user_nameCheck.test(user_name)){
+				alert("(이름 양식 오류) - [한글/영어로 된 이름을 입력하세요]");
+				return false;
+			}
+			
+			
+			
+			if(user_addr==""){
+				alert("주소를 입력해주세요");
+				return false;
+			}
+			if(!user_addrCheck.test(user_addr)){
+				alert("(주소 양식 오류) : [_ / - 를 제외한 특수문자는 사용이 불가합니다]");
+				return false;
+			}
+			
+			if(user_tel==""){
+				alert("전화번호를 입력해주세요");
+				return false;
+		
+			}
+			
 			}
 
 			else if (idx == false) {
@@ -191,7 +249,36 @@
 				$('#joinfrm').submit();
 			}
 		});
+	
+	if(!user_telCheck.test(user_tel)){
+		alert("(전화번호 양식 오류) [ '-' 없이 입력해주세요]");
+		return false;
+	}
+	
+	
+	return true;	
+}
+
+
+
+
+
+var idx = false;
 		
+		
+$('#signUp').click(function() {
+	if(checkform()){
+		if (idx == false) {
+			alert("아이디 중복체크를 해주세요.");
+			return;
+		} else {
+			$('#joinfrm').submit();
+		}
+	}
+	
+});
+
+
 		
 		$('#idCheck').click(function(){
 			$.ajax({

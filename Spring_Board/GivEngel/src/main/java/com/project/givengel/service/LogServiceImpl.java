@@ -15,18 +15,20 @@ public class LogServiceImpl implements LogService {
 	@Autowired
 	private LogDAOImpl logDAO;
 	
+	
+	
+	/************************************************
+	 * 로그 데이터 관리 DAO								*
+	 ************************************************/
 	@Override
 	public List<LogVO> selectLog() {
-		
 		return logDAO.selectLog();
 	}
-
 	@Override
 	public void insertLog(LogVO vo) {
 		// TODO Auto-generated method stub
 		logDAO.insertLog(vo);
 	}
-
 	@Override
 	public int deleteLog(LogVO vo) {
 		return logDAO.deleteLog(vo);
