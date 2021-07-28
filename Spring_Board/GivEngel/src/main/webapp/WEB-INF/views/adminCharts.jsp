@@ -68,7 +68,7 @@
 			<li class=""><a href="adminMode.giv"><em class="fa fa-dashboard">&nbsp;</em> 누적통계</a></li>
 			<li><a href="adminWidgets.giv"><em class="fa fa-calendar">&nbsp;</em> 개발자보드</a></li>
 			<c:if test="${admin.admin_level > 0 }">
-			<li><a href="adminCharts.giv"><em class="fa fa-bar-chart">&nbsp;</em> 분석/통계</a></li>
+			<li class="active"><a href="adminCharts.giv"><em class="fa fa-bar-chart">&nbsp;</em> 분석/통계</a></li>
 			</c:if>
 			<c:if test="${admin.admin_level > 1 }">
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
@@ -111,7 +111,7 @@
 			<li><a href="adminUserAccount.giv"><em class="fa fa-toggle-off">&nbsp;</em> 유저 계정 관리</a></li>
 			</c:if>
 			<c:if test="${admin.admin_level > 3 }">
-			<li class="active"><a href="adminAccount.giv"><em class="fa fa-toggle-off">&nbsp;</em> 개발자 계정 관리</a></li>
+			<li><a href="adminAccount.giv"><em class="fa fa-toggle-off">&nbsp;</em> 개발자 계정 관리</a></li>
 			</c:if>
 			
 			<li><a href="adminlogoutAction.giv"><em class="fa fa-power-off">&nbsp;</em> 로그아웃</a></li>

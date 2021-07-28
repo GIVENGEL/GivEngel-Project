@@ -41,15 +41,19 @@
 			<div class="profile-userpic">
 			<c:if test="${admin.admin_level ==1 }">
 				<img src="${path}/resources/img/admin/lv1.png" class="img-responsive" alt="">
+				<input type="hidden" id="level" value="one">
 			</c:if>
 			<c:if test="${admin.admin_level ==2 }">
 				<img src="${path}/resources/img/admin/lv2.png" class="img-responsive" alt="">
+				<input type="hidden" id="level" value="two">
 			</c:if>
 			<c:if test="${admin.admin_level ==3 }">
 				<img src="${path}/resources/img/admin/lv3.png" class="img-responsive" alt="">
+				<input type="hidden" id="level" value="three">
 			</c:if>
 			<c:if test="${admin.admin_level ==4 }">
 				<img src="${path}/resources/img/admin/lv4.png" class="img-responsive" alt="">
+				<input type="hidden" id="level" value="four">
 			</c:if>
 			</div>
 			<div class="profile-usertitle">
@@ -316,7 +320,7 @@
 				</div>
 				<div class="panel panel-default chat">
 					<div class="panel-heading">
-						포스트잇
+						메시지함
 						<ul class="pull-right panel-settings panel-button-tab-right">
 							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
 								<em class="fa fa-cogs"></em>
@@ -324,16 +328,16 @@
 								<ul class="dropdown-menu dropdown-menu-right">
 									<li>
 										<ul class="dropdown-settings">
-											<li><a href="#">
-												<em class="fa fa-cog"></em> Settings 1
+											<li id="status_all"><a href="#">
+												<em class="fa fa-cog"></em> 전체 메시지함
 											</a></li>
 											<li class="divider"></li>
-											<li><a href="#">
-												<em class="fa fa-cog"></em> Settings 2
+											<li id="status_given"><a href="#">
+												<em class="fa fa-cog"></em> 받은 메시지함
 											</a></li>
 											<li class="divider"></li>
-											<li><a href="#">
-												<em class="fa fa-cog"></em> Settings 3
+											<li id="status_send"><a href="#">
+												<em class="fa fa-cog"></em> 보낸 메시지함
 											</a></li>
 										</ul>
 									</li>
@@ -341,32 +345,10 @@
 							</li>
 						</ul>
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
-					<div class="panel-body">
-						<ul>
-							<li class="left clearfix"><span class="chat-img pull-left">
-								<img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
-								</span>
-								<div class="chat-body clearfix">
-									<div class="header"><strong class="primary-font">John Doe</strong> <small class="text-muted">32 mins ago</small></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante turpis, rutrum ut ullamcorper sed, dapibus ac nunc.</p>
-								</div>
-							</li>
-							<li class="right clearfix"><span class="chat-img pull-right">
-								<img src="http://placehold.it/60/dde0e6/5f6468" alt="User Avatar" class="img-circle" />
-								</span>
-								<div class="chat-body clearfix">
-									<div class="header"><strong class="pull-left primary-font">Jane Doe</strong> <small class="text-muted">6 mins ago</small></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante turpis, rutrum ut ullamcorper sed, dapibus ac nunc.</p>
-								</div>
-							</li>
-							<li class="left clearfix"><span class="chat-img pull-left">
-								<img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
-								</span>
-								<div class="chat-body clearfix">
-									<div class="header"><strong class="primary-font">John Doe</strong> <small class="text-muted">32 mins ago</small></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante turpis, rutrum ut ullamcorper sed, dapibus ac nunc.</p>
-								</div>
-							</li>
+					<div class="panel-body" id="allmsgBox">
+						<ul id="msgBox">
+							
+							
 						</ul>
 					</div>
 					<div class="panel-footer">
@@ -488,7 +470,7 @@
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						로그에 직접 남기기
+						메시지 보내기
 						<ul class="pull-right panel-settings panel-button-tab-right">
 							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
 								<em class="fa fa-cogs"></em>
@@ -514,27 +496,27 @@
 						</ul>
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
-						<form class="form-horizontal" action="#" method="post">
+						<form class="form-horizontal" action="SendMsg.giv" method="post">
 							<fieldset>
 								<!-- Name input-->
 								<div class="form-group">
-									<label class="col-md-3 control-label" for="name">제목</label>
+									<label class="col-md-3 control-label" for="name">받는 사람</label>
 									<div class="col-md-9">
-										<input id="todo_title" name="title" type="text" placeholder="제목" class="form-control">
+										<input id="msg_to" name="msg_to" type="text" placeholder="받는 사람" class="form-control">
 									</div>
 								</div>								
 								<!-- Message body -->
 								<div class="form-group">
 									<label class="col-md-3 control-label" for="message">메시지</label>
 									<div class="col-md-9">
-										<textarea class="form-control" id="content" name="todo_content" placeholder="메시지를 입력해주세요..." rows="5"></textarea>
+										<textarea class="form-control" id="msg_detail" name="msg_detail" placeholder="메시지를 입력해주세요..." rows="5"></textarea>
 									</div>
 								</div>
 								
 								<!-- Form actions -->
 								<div class="form-group">
 									<div class="col-md-12 widget-right">
-										<button type="submit" class="btn btn-default btn-md pull-right">Submit</button>
+										<input type="button" id="msgSubmit" class="btn btn-success" style="float:right" value="Submit">
 									</div>
 								</div>
 							</fieldset>
@@ -549,6 +531,7 @@
 	</div>	<!--/.main-->
 	  
 
+<input type="hidden" id="src" value="${path}/resources/img/admin/">
 <script src="${path}/resources/js/admin/jquery-1.11.1.min.js"></script>
 	<script src="${path}/resources/js/admin/bootstrap.min.js"></script>
 	<script src="${path}/resources/js/admin/chart.min.js"></script>
@@ -561,6 +544,152 @@
 		window.onload = function () {
 			 updateToDoLog();
 			 updateNoticeLog();
+			 updateMsg();
+			 
+			 
+			 
+		
+			
+			
+			var status = "all";
+			
+			$(document).on("click","#status_all",function(){
+				status = "all";
+				updateMsg();
+			})
+			$(document).on("click","#status_given",function(){
+				status = "given";
+				updateMsg();
+			})
+			$(document).on("click","#status_send",function(){
+				status = "send";
+				updateMsg();
+			})
+			
+			// 보낸 메시지
+			/* 	 <li class="left clearfix"><span class="chat-img pull-left">
+				<img src=이미지 alt="User Avatar" class="img-circle" />
+				</span>
+				<div class="chat-body clearfix">
+					<div class="header"><strong class="primary-font">받은사람 에게..</strong> <small class="text-muted">날짜</small></div>
+					<p>내용</p>
+				</div>
+			</li> */
+			
+			// 받은 메시지
+			/* 	 <li class="right clearfix"><span class="chat-img pull-right">
+			<img src=경로 alt="User Avatar" class="img-circle" />
+			</span>
+			<div class="chat-body clearfix">
+				<div class="header"><strong class="pull-left primary-font">보낸사람 (으)로 부터..</strong> <small class="text-muted">시간</small></div>
+				<p>내용</p>
+			</div>
+		</li> */
+			
+			function updateMsg(){
+			
+			var admin = "${admin.admin_id}"
+
+				if(admin != null){
+					 $.ajax({
+							url:"selectMsg.giv",
+							type:"post",
+							data:{"status": "all"},
+							success:function(data){
+
+								var srcs;
+								
+								
+								$("#msgBox").empty();
+								for(var i=0;i<data.msgList.length;i++){
+									if(data.senderList[i].admin_level ==1){ srcs="${path}/resources/img/admin/lv1.png"	}
+									if(data.senderList[i].admin_level ==2){ srcs="${path}/resources/img/admin/lv2.png"	}
+									if(data.senderList[i].admin_level ==3){ srcs="${path}/resources/img/admin/lv3.png"	}
+									if(data.senderList[i].admin_level ==4){ srcs="${path}/resources/img/admin/lv4.png"	}
+									
+									var me;
+									if(data.giverList[i].admin_level ==1){ me="${path}/resources/img/admin/lv1.png"	}
+									if(data.giverList[i].admin_level ==2){ me="${path}/resources/img/admin/lv2.png"	}
+									if(data.giverList[i].admin_level ==3){ me="${path}/resources/img/admin/lv3.png"	}
+									if(data.giverList[i].admin_level ==4){ me="${path}/resources/img/admin/lv4.png"	}
+									
+									if(data.msgList[i].msg_to == admin){
+										$("#msgBox").append('<li class="left clearfix"><span class="chat-img pull-left" ><div class="profile-userpic"><img src='+me+' alt="User Avatar" class="img-circle img-responsive" /></div></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+ data.msgList[i].msg_from + '님으로 부터</strong> <small class="text-muted">'+data.msgList[i].msg_date+'</small></div><p>'+data.msgList[i].msg_detail+'</p></div></li>')
+										
+									}
+									if(data.msgList[i].msg_from == admin){
+										$("#msgBox").append('<li class="right clearfix"><span class="chat-img pull-right"><div class="profile-userpic"><img src='+srcs+' alt="User Avatar" class="img-circle img-responsive" /></div></span><div class="chat-body clearfix"><div class="header"><strong class="pull-left primary-font">'+ data.msgList[i].msg_to + '님에게 </strong> <small class="text-muted">'+data.msgList[i].msg_date+'</small></div><p>'+data.msgList[i].msg_detail+'</p></div></li>')			
+									}
+									
+									
+								}
+
+
+								
+								
+								
+							}, beforeSend: function () {
+					              var width = 0;
+					              var height = 0;
+					              var left = $("#allmsgBox").offset().left+10;
+					              var top = $("#allmsgBox").offset().top+40;
+
+					              width = 50;
+					              height = 50;
+
+
+					              
+
+					 
+
+					              if($("#div_ajax_load_image").length != 0) {
+					                     $("#div_ajax_load_image").css({
+					                            "top": $("#allmsgBox").offset().top+40+"px",
+					                            "left": $("#allmsgBox").offset().left+10+"px"
+					                     });
+					                     $("#div_ajax_load_image").show();
+					              }
+					              else {
+					                     $("#allmsgBox").append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#ffffff; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${path}/resources/img/loading.gif" style="width:50px; height:50px;"></div>');
+					              }
+
+					       }
+					       , complete: function () {
+					                     $("#div_ajax_load_image").hide();
+					       }
+						});
+				}
+			}
+			
+			 
+			 
+			 
+			 $(document).on("click","#msgSubmit",function(){
+				 if($("#msg_to").val() != ""){
+					 $.ajax({
+							url:"SendMsg.giv",
+							type:"post",
+							data:{"msg_to": $("#msg_to").val(),
+								"msg_detail": $("#msg_detail").val()},
+							success:function(data){
+								$("#msg_to").val("");
+								$("#msg_detail").val("");
+								updateMsg();
+								
+							}
+						});
+					 
+				 }
+				 
+			 })
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
 			 
 			$(document).on("click","#todosubmit",function(){
 				if($("#todo_detail").val()!=""){
@@ -647,7 +776,7 @@
 			}
 			
 			 setInterval(updateToDoLog,5000); 
- 
+			 setInterval(updateMsg(),3000); 
 			 
 			 
 			 

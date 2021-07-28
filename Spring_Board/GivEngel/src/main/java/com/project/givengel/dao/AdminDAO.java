@@ -9,6 +9,7 @@ import com.project.givengel.vo.AdminChartTimeVO;
 import com.project.givengel.vo.AdminVO;
 import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.GoodVO;
+import com.project.givengel.vo.MsgVO;
 import com.project.givengel.vo.SponVO;
 import com.project.givengel.vo.UserVO;
 
@@ -54,6 +55,8 @@ public interface AdminDAO {
 	public int priceCount();
 	public int cashCount();
 	public int orderCount();
+	public int adminCount();
+	public int selectTodayUser();
 
 	
 
@@ -96,8 +99,16 @@ public interface AdminDAO {
 	************************************************/
 	public List<AdminChartTimeVO> chartPricePerTime();
 	public List<AdminChartBarVO> chartPriceAndCash();
-
-
+	
+	
+	
+	
+	/************************************************
+	* 개발자 모드 메시지 데이터 관리 DAO 						*
+	************************************************/
+	public void insertMsg(MsgVO vo);
+	public List<MsgVO> selectMsg(MsgVO vo);
+	public List<MsgVO> myMsg(String msg_from);
 
 
 

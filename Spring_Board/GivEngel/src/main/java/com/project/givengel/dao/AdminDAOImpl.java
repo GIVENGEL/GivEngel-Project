@@ -1,5 +1,6 @@
 package com.project.givengel.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import com.project.givengel.vo.AdminChartTimeVO;
 import com.project.givengel.vo.AdminVO;
 import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.GoodVO;
+import com.project.givengel.vo.MsgVO;
 import com.project.givengel.vo.SponVO;
 import com.project.givengel.vo.UserVO;
 
@@ -135,6 +137,14 @@ public class AdminDAOImpl implements AdminDAO {
 	public int orderCount() {
 		int result = mybatis.selectOne("AdminDAO.selectUserBuyLog");
 		return result;
+	}
+	@Override
+	public int adminCount() {
+		return mybatis.selectOne("AdminDAO.adminCount");
+	}
+	@Override
+	public int selectTodayUser() {
+		return mybatis.selectOne("AdminDAO.selectTodayUser");
 	}
 	
 	/************************************************/
@@ -265,5 +275,27 @@ public class AdminDAOImpl implements AdminDAO {
 
 
 	
+	
+	
+	
+	
+	
+	
+	
+	/************************************************
+	* 개발자 모드 메시지 데이터 관리 DAO 						*
+	************************************************/
+	public void insertMsg(MsgVO vo) {
+		mybatis.insert("MsgDAO.insertMsg",vo);
+	}
+	public List<MsgVO> selectMsg(MsgVO vo){
+		return mybatis.selectList("MsgDAO.selectMsg",vo);
+	}
+	@Override
+	public List<MsgVO> myMsg(String msg_from) {
+		return mybatis.selectList("MsgDAO.myMsg", msg_from);
+	}
+
+
 
 }

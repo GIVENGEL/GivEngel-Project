@@ -230,6 +230,14 @@
 	</update>
 
 
+	<select id="selectTodayUser" resultType="int">
+		SELECT count(*) FROM user WHERE DATE_FORMAT(user_date, "%Y-%m-%d") = CURDATE()
+	</select>
+	<select id="adminCount" resultType="int">
+		SELECT count(*) FROM admin
+	</select>
+
+
 
 
 

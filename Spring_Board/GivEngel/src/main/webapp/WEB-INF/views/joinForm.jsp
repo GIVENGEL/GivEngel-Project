@@ -73,8 +73,8 @@
 												<td class="row"><input type="email" id="userId"
 													class="form-control col-6" name="user_id"
 													placeholder="아이디를 입력하세요.">
-													<div class="col-2"></div>
-													<input type="button" id="idCheck" class="btn btn-success col-4 float-right" value="아이디 중복체크"></td>
+													<div class="col-2"></div> <input type="button" id="idCheck"
+													class="btn btn-success col-4 float-right" value="아이디 중복체크"></td>
 											</tr>
 											<tr>
 												<th>패스워드</th>
@@ -97,7 +97,8 @@
 											<tr>
 												<th>주민번호</th>
 												<td><input type="password" class="form-control"
-													placeholder="'-' 없이  입력해주세요." id="user_jumin" name="user_jumin"></td>
+													placeholder="'-' 없이  입력해주세요." id="user_jumin"
+													name="user_jumin"></td>
 											</tr>
 
 											<tr>
@@ -239,8 +240,7 @@ function checkform(){
 				return false;
 		
 			}
-			
-			}
+
 
 			else if (idx == false) {
 				alert("아이디 중복체크를 해주세요.");
@@ -248,7 +248,6 @@ function checkform(){
 			} else {
 				$('#joinfrm').submit();
 			}
-		});
 	
 	if(!user_telCheck.test(user_tel)){
 		alert("(전화번호 양식 오류) [ '-' 없이 입력해주세요]");

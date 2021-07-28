@@ -274,7 +274,7 @@
 							</li>
 						</ul>
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
-					<div class="panel-body">
+					<div class="panel-body" id="alldevLog">
 						<ul id="devLog">
 						
 							
@@ -545,6 +545,10 @@
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante turpis, rutrum ut ullamcorper sed, dapibus ac nunc.</p>
 	</div>
 </li> */
+
+
+
+
 	function updateDevLog(){
 	$.ajax({
 		url:"selectDevLog.giv",
@@ -557,13 +561,13 @@
 			if(data.devLog.length<10){
 				for(var i=0;i<data.devLog.length;i++){
 					if(data.level[i]==1){
-						 src = "/GivEngel/resources/img/admin/lv1.png";
+						 src = "${path}/resources/img/admin/lv1.png";
 					}else if(data.level[i]==2){
-						 src = "/GivEngel/resources/img/admin/lv2.png";
+						 src = "${path}/resources/img/admin/lv2.png";
 					}else if(data.level[i]==3){
-						 src = "/GivEngel/resources/img/admin/lv3.png";
+						 src = "${path}/resources/img/admin/lv3.png";
 					}else if(data.level[i]==4){
-						src = "/GivEngel/resources/img/admin/lv4.png";
+						src = "${path}/resources/img/admin/lv4.png";
 					}else{
 					 src = "http://placehold.it/60/30a5ff/fff";
 					}
@@ -572,13 +576,13 @@
 			}else{
 				for(var i=0;i<10;i++){
 					if(data.level[i]==1){
-						 src = "/GivEngel/resources/img/admin/lv1.png";
+						 src = "${path}/resources/img/admin/lv1.png";
 					}else if(data.level[i]==2){
-						 src = "/GivEngel/resources/img/admin/lv2.png";
+						 src = "${path}/resources/img/admin/lv2.png";
 					}else if(data.level[i]==3){
-						 src = "/GivEngel/resources/img/admin/lv3.png";
+						 src = "${path}/resources/img/admin/lv3.png";
 					}else if(data.level[i]==4){
-						src = "/GivEngel/resources/img/admin/lv4.png";
+						src = "${path}/resources/img/admin/lv4.png";
 					}else{
 					 src = "http://placehold.it/60/30a5ff/fff";
 					}
@@ -586,18 +590,46 @@
 				}
 				}
 			
-		}
+		}, beforeSend: function () {
+            var width = 0;
+            var height = 0;
+            var left = $("#alldevLog").position().left+ $("#alldevLog").width()/2-23;
+            var top = $("#alldevLog").position().top+ $("#alldevLog").height()/2;
+
+            width = 50;
+            height = 50;
+
+
+
+            if($("#div_ajax_load_image").length != 0) {
+                   $("#div_ajax_load_image").css({
+                          "top": $("#alldevLog").position().top + $("#alldevLog").height()/2  +"px",
+                          "left": $("#alldevLog").position().left+ $("#alldevLog").width()/2-23+"px"
+                   });
+                   $("#div_ajax_load_image").show();
+            }
+            else {
+                   $("#alldevLog").prepend('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#ffffff; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${path}/resources/img/loading.gif" style="width:50px; height:50px;"></div>');
+            }
+
+     }
+     , complete: function () {
+                   $("#div_ajax_load_image").hide();
+     }
 	});
 	
 }
-	
 	
 	
 	setInterval(updateUserCount,2000);
 	setInterval(updateSaleCount,2000);
 	setInterval(updateCashCount,2000);
 	setInterval(updatOrderCount,2000);
-	setInterval(updateDevLog,5000);
+	
+	
+
+	
+	
 	
 };
 	</script>

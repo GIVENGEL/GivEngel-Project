@@ -13,6 +13,7 @@ import com.project.givengel.vo.AdminChartTimeVO;
 import com.project.givengel.vo.AdminVO;
 import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.GoodVO;
+import com.project.givengel.vo.MsgVO;
 import com.project.givengel.vo.SponVO;
 import com.project.givengel.vo.UserVO;
 
@@ -139,6 +140,14 @@ public class AdminServiceImpl implements AdminService {
 	public int orderCount() {
 		return adminDAO.orderCount();
 	}
+	@Override
+	public int adminCount() {
+		return adminDAO.adminCount();
+	}
+	@Override
+	public int selectTodayUser() {
+		return adminDAO.selectTodayUser();
+	}
 	
 	/************************************************/
 	
@@ -255,7 +264,19 @@ public class AdminServiceImpl implements AdminService {
 
 	
 	
-
+	/************************************************
+	* 개발자 모드 메시지 데이터 관리 DAO 						*
+	************************************************/
+	public void insertMsg(MsgVO vo) {
+		adminDAO.insertMsg(vo);
+	}
+	public List<MsgVO> selectMsg(MsgVO vo){
+		return adminDAO.selectMsg(vo);
+	}
+	@Override
+	public List<MsgVO> myMsg(String msg_from) {
+		return adminDAO.myMsg(msg_from);
+	}
 
 	
 	

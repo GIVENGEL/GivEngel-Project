@@ -31,6 +31,7 @@ import com.project.givengel.vo.AdminVO;
 import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.LogVO;
+import com.project.givengel.vo.MsgVO;
 import com.project.givengel.vo.SponVO;
 import com.project.givengel.vo.UserVO;
 
@@ -110,13 +111,23 @@ public class AdminController {
 	public String adminLoginAction(AdminVO vo,HttpServletRequest req, RedirectAttributes rttr) {
 		HttpSession session = req.getSession();
 		AdminVO login = adminService.login(vo);
+		
 		System.out.println("[AdminLoginAction] 파라미터 체크 : " + vo.getAdmin_id());
 		if(login == null) {
-
+			
+			
+			
 			session.setAttribute("admin", null);
+		
 			rttr.addFlashAttribute("msg", false);
 			return "/adminLogin";
 		}else {
+			List<MsgVO> list = new ArrayList<MsgVO>();
+			list = adminService.myMsg(login.getAdmin_id());
+			session.setAttribute("myMsg", list);
+			session.setAttribute("msgCnt", list.size());
+			session.setAttribute("adminCnt", adminService.adminCount());
+			session.setAttribute("todayUserCnt", adminService.selectTodayUser());
 			System.out.println("[AdminLoginAction] 세션 생성 : " + login.getAdmin_id());
 
 			session.setAttribute("admin", login);
@@ -1423,6 +1434,81 @@ public class AdminController {
 		}
 
 	}
+	
+	
+	
+	
+	
+	@RequestMapping("/SendMsg.giv")
+	@ResponseBody
+	public void SendMsg(MsgVO vo,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		AdminVO adminvo = (AdminVO) session.getAttribute("admin");
+		
+		vo.setMsg_from(adminvo.getAdmin_id());
+		vo.setMsg_where("ADMIN");
+
+		adminService.insertMsg(vo);
+	}
+	
+	@RequestMapping("/selectMsg.giv")
+	@ResponseBody
+	public Map<String,Object> selectMsg(String status,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		AdminVO adminvo = (AdminVO) session.getAttribute("admin");
+		String admin = adminvo.getAdmin_id();
+		
+		System.out.println("status 체크" + status);
+		System.out.println("세션 체크" + admin);
+		MsgVO vo = new MsgVO();
+		vo.setMsg_from(admin);
+		vo.setMsg_to(admin);
+		
+		List<MsgVO> list = new ArrayList<MsgVO>();
+		list = adminService.selectMsg(vo);
+		List<MsgVO> temp = new ArrayList<MsgVO>();
+		List<AdminVO> senderList = new ArrayList<AdminVO>();
+		List<AdminVO> giverList = new ArrayList<AdminVO>();
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		// 송신자와 수신자가 세션 사용자와 일치되는 경우 temp 리스트에 추가 후 map에 넣음
+		if(status.equals("all")) {
+			for(int i=0;i<list.size();i++) {
+				senderList.add(adminService.selectAdmin(list.get(i).getMsg_to()));
+				giverList.add(adminService.selectAdmin(list.get(i).getMsg_from()));
+			}
+			
+			map.put("giverList",giverList);
+			map.put("senderList",senderList);
+			map.put("msgList", list);		
+		}else if(status.equals("send")) {
+			for(int i=0;i<list.size();i++) {
+				if(list.get(i).getMsg_to().equals(admin)) {
+					temp.add(list.get(i));
+					senderList.add(adminService.selectAdmin(list.get(i).getMsg_to()));
+					giverList.add(adminService.selectAdmin(list.get(i).getMsg_from()));
+				}
+			}
+			map.put("senderList",senderList);
+			map.put("msgList", temp);
+	
+		}else {
+			for(int i=0;i<list.size();i++) {
+				if(list.get(i).getMsg_from().equals(admin)) {
+					temp.add(list.get(i));
+					senderList.add(adminService.selectAdmin(list.get(i).getMsg_to()));
+					giverList.add(adminService.selectAdmin(list.get(i).getMsg_from()));
+				}
+			}
+			map.put("senderList",senderList);
+			map.put("msgList", temp);
+		}
+		
+		return map;
+	}
+	
+	
 	/************************
 	 * 로그 보드 영역  end		*
 	 ************************/
@@ -1465,6 +1551,23 @@ public class AdminController {
 		int result = adminService.orderCount();
 		return Integer.toString(result) ;
 	}
+	
+	@RequestMapping("/adminCount.giv")
+	@ResponseBody
+	public int adminCount() {
+		int result = adminService.adminCount();
+		return result ;
+	}
+	
+	@RequestMapping("/selectTodayUser.giv")
+	@ResponseBody
+	public int selectTodayUser() {
+		int result = adminService.selectTodayUser();
+		return result ;
+	}
+	
+
+	
 
 	
 	/************************
