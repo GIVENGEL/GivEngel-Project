@@ -63,7 +63,7 @@ public class LogController {
 	@RequestMapping("/countCash.giv")
 	@ResponseBody
 	public String countCash() {
-		int result = adminService.cashCount();
+		int result = adminService.cashCount()*-1;
 		return Integer.toString(result);
 	}
 	

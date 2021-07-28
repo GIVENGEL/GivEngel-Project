@@ -148,7 +148,18 @@ public class AdminServiceImpl implements AdminService {
 	public int selectTodayUser() {
 		return adminDAO.selectTodayUser();
 	}
-	
+	@Override
+	public int priceRate() {
+		return adminDAO.priceRate();
+	}
+	@Override
+	public int userRate() {
+		return adminDAO.userRate();
+	}
+	@Override
+	public int cashRate() {
+		return adminDAO.cashRate();
+	}
 	/************************************************/
 	
 	

@@ -1586,8 +1586,10 @@ public class AdminController {
 	
 	
 	@RequestMapping("/adminMode.giv")
-	public void adminMode() {
-		
+	public void adminMode(Model m) {
+		m.addAttribute("priceRate", adminService.priceRate());
+		m.addAttribute("userRate", adminService.userRate());
+		m.addAttribute("cashRate", adminService.cashRate());
 	}
 	
 	@RequestMapping("/adminCharts.giv")

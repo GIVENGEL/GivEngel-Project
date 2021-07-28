@@ -214,16 +214,26 @@
 			<div class="col-xs-6 col-md-3">
 				<div class="panel panel-default">
 					<div class="panel-body easypiechart-panel">
-						<h4>저번 달 비교 주문율</h4>
-						<div class="easypiechart" id="easypiechart-blue" data-percent="92" ><span class="percent">92%</span></div>
+						<h4>수익 성장률(일 단위)</h4>
+						<c:if test="${priceRate<0 }">
+						<div class="easypiechart" id="easypiechart-blue" data-percent="${priceRate }" ><span class="percent">${priceRate }%</span></div>
+						</c:if>
+						<c:if test="${priceRate>=0 }">
+						<div class="easypiechart" id="easypiechart-blue" data-percent="${priceRate }" ><span class="percent">${priceRate }%</span></div>
+						</c:if>
 					</div>
 				</div>
 			</div>
 			<div class="col-xs-6 col-md-3">
 				<div class="panel panel-default">
 					<div class="panel-body easypiechart-panel">
-						<h4>저번 달 비교 신규 유저</h4>
-						<div class="easypiechart" id="easypiechart-orange" data-percent="65" ><span class="percent">65%</span></div>
+						<h4>가입자 수 성장률(일 단위)</h4>
+						<c:if test="${userRate<0 }">
+						<div class="easypiechart" id="easypiechart-orange" data-percent="${userRate }" ><span class="percent">${userRate }%</span></div>
+						</c:if>
+						<c:if test="${userRate>=0 }">
+						<div class="easypiechart" id="easypiechart-orange" data-percent="${userRate }" ><span class="percent">${userRate }%</span></div>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -238,8 +248,13 @@
 			<div class="col-xs-6 col-md-3">
 				<div class="panel panel-default">
 					<div class="panel-body easypiechart-panel">
-						<h4>저번 달 비교 방문자</h4>
-						<div class="easypiechart" id="easypiechart-red" data-percent="27" ><span class="percent">27%</span></div>
+						<h4>마일리지 환수율</h4>
+						<c:if test="${cashRate<0 }">
+						<div class="easypiechart" id="easypiechart-red" data-percent="${cashRate }" ><span class="percent">${cashRate }%</span></div>
+						</c:if>
+						<c:if test="${cashRate>=0 }">
+						<div class="easypiechart" id="easypiechart-red" data-percent="${cashRate }" ><span class="percent">${cashRate }%</span></div>
+						</c:if>
 					</div>
 				</div>
 			</div>

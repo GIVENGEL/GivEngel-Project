@@ -57,6 +57,9 @@ public interface AdminDAO {
 	public int orderCount();
 	public int adminCount();
 	public int selectTodayUser();
+	public int priceRate();
+	public int userRate();
+	public int cashRate();
 
 	
 

@@ -146,6 +146,23 @@ public class AdminDAOImpl implements AdminDAO {
 	public int selectTodayUser() {
 		return mybatis.selectOne("AdminDAO.selectTodayUser");
 	}
+	@Override
+	public int priceRate() {
+		int x = Math.round(mybatis.selectOne("AdminDAO.priceRate"));
+		return x;
+	}
+	@Override
+	public int userRate() {
+		int x = Math.round(mybatis.selectOne("AdminDAO.userRate"));
+		return x;
+	}
+	@Override
+	public int cashRate() {
+		int x = Math.round(mybatis.selectOne("AdminDAO.cashRate"));
+		return x;
+	}
+
+
 	
 	/************************************************/
 	
