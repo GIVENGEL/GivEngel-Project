@@ -161,6 +161,23 @@ public class AdminDAOImpl implements AdminDAO {
 		int x = Math.round(mybatis.selectOne("AdminDAO.cashRate"));
 		return x;
 	}
+	@Override
+	public int countBag() {
+		return mybatis.selectOne("AdminDAO.countBag");
+	}
+	@Override
+	public int countAcc() {
+		return mybatis.selectOne("AdminDAO.countAcc");
+	}
+	@Override
+	public int countTop() {
+		return mybatis.selectOne("AdminDAO.countTop");
+	}
+	@Override
+	public int countBottom() {
+		return mybatis.selectOne("AdminDAO.countBottom");
+	}
+	
 
 
 	
@@ -312,6 +329,7 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<MsgVO> myMsg(String msg_from) {
 		return mybatis.selectList("MsgDAO.myMsg", msg_from);
 	}
+	
 
 
 

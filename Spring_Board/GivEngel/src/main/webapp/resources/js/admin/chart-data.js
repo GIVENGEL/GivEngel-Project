@@ -151,31 +151,43 @@ $.ajax({
 	    ]
 	};
 	
-	var polarData = [
-		    {
-		    	value: 300,
-		    	color: "#1ebfae",
-		    	highlight: "#38cabe",
-		    	label: "Teal"
-		    },
-		    {
-		    	value: 140,
-		    	color: "#ffb53e",
-		    	highlight: "#fac878",
-		    	label: "Orange"
-		    },
-		    {
-		    	value: 220,
-		    	color:"#30a5ff",
-		    	highlight: "#62b9fb",
-		    	label: "Blue"
-		    },
-		    {
-		    	value: 250,
-		    	color: "#f9243f",
-		    	highlight: "#f6495f",
-		    	label: "Red"
-		    }
-		
-	];
+	
+	
+	var polarData
+	$.ajax({
+		url:"categoryReport.giv",
+		type:"post",
+		async: false,
+		success:function(data){
+			
+			polarData = [
+			    {
+			    	value: data.countAcc,
+			    	color: "#1ebfae",
+			    	highlight: "#38cabe",
+			    	label: "ACC"
+			    },
+			    {
+			    	value: data.countBag,
+			    	color: "#ffb53e",
+			    	highlight: "#fac878",
+			    	label: "BAG"
+			    },
+			    {
+			    	value: data.countTop,
+			    	color:"#30a5ff",
+			    	highlight: "#62b9fb",
+			    	label: "TOP"
+			    },
+			    {
+			    	value: data.countBottom,
+			    	color: "#f9243f",
+			    	highlight: "#f6495f",
+			    	label: "BOTTOM"
+			    }
+			
+			    ];
+			}
+			
+		});
 

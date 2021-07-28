@@ -1344,6 +1344,26 @@ public class AdminController {
 		return map;
 		
 	}
+	
+	@RequestMapping("/categoryReport.giv")
+	@ResponseBody
+	public  Map<String,Object> categoryReport() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int countAcc = adminService.countAcc();
+		int countBag = adminService.countBag();
+		int countTop = adminService.countTop();
+		int countBottom = adminService.countBottom();
+		
+		map.put("countAcc", countAcc);
+		map.put("countBag", countBag);
+		map.put("countTop", countTop);
+		map.put("countBottom", countBottom);
+		return map;
+		
+	}
+	
+	
+	
 	/************************
 	 * 차트 영역  end			*
 	 ************************/
@@ -1580,9 +1600,6 @@ public class AdminController {
 	
 	
 	
-	/************************************************************************************************************
-	 * 개발자모드 - 개발자 중고 장터 관리 영역 start																		*
-	 ************************************************************************************************************/
 	
 	
 	@RequestMapping("/adminMode.giv")
@@ -1593,8 +1610,10 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/adminCharts.giv")
-	public void adminCharts() {
-		
+	public void adminCharts(Model m) {
+		m.addAttribute("priceRate", adminService.priceRate());
+		m.addAttribute("userRate", adminService.userRate());
+		m.addAttribute("cashRate", adminService.cashRate());
 	}
 	
 	@RequestMapping("/adminPanels.giv")

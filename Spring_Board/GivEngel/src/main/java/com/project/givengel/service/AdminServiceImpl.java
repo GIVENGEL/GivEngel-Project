@@ -160,6 +160,27 @@ public class AdminServiceImpl implements AdminService {
 	public int cashRate() {
 		return adminDAO.cashRate();
 	}
+	@Override
+	public List<MsgVO> myMsg(String msg_from) {
+		return adminDAO.myMsg(msg_from);
+	}
+	@Override
+	public int countBag() {
+		return adminDAO.countBag();
+	}
+	@Override
+	public int countAcc() {
+		return adminDAO.countAcc();
+	}
+	@Override
+	public int countTop() {
+		return adminDAO.countTop();
+	}
+	@Override
+	public int countBottom() {
+		return adminDAO.countBottom();
+	}
+
 	/************************************************/
 	
 	
@@ -284,11 +305,7 @@ public class AdminServiceImpl implements AdminService {
 	public List<MsgVO> selectMsg(MsgVO vo){
 		return adminDAO.selectMsg(vo);
 	}
-	@Override
-	public List<MsgVO> myMsg(String msg_from) {
-		return adminDAO.myMsg(msg_from);
-	}
-
+	
 	
 	
 

@@ -124,10 +124,10 @@
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
 			<ol class="breadcrumb">
-				<li><a href="#">
+				<li><a href="adminMode.giv">
 					<em class="fa fa-home"></em>
 				</a></li>
-				<li class="active">Charts</li>
+				<li class="active">차트</li>
 			</ol>
 		</div><!--/.row-->
 		
@@ -141,6 +141,33 @@
 			<div class="col-xs-6 col-md-3">
 				<div class="panel panel-default">
 					<div class="panel-body easypiechart-panel">
+						<h4>수익 성장률(일 단위)</h4>
+						<c:if test="${priceRate<0 }">
+						<div class="easypiechart" id="easypiechart-blue" data-percent="${priceRate }" ><span class="percent">${priceRate }%</span></div>
+						</c:if>
+						<c:if test="${priceRate>=0 }">
+						<div class="easypiechart" id="easypiechart-blue" data-percent="${priceRate }" ><span class="percent">${priceRate }%</span></div>
+						</c:if>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-md-3">
+				<div class="panel panel-default">
+					<div class="panel-body easypiechart-panel">
+						<h4>가입자 수 성장률(일 단위)</h4>
+						<c:if test="${userRate<0 }">
+						<div class="easypiechart" id="easypiechart-orange" data-percent="${userRate }" ><span class="percent">${userRate }%</span></div>
+						</c:if>
+						<c:if test="${userRate>=0 }">
+						<div class="easypiechart" id="easypiechart-orange" data-percent="${userRate }" ><span class="percent">${userRate }%</span></div>
+						</c:if>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-md-3">
+				<div class="panel panel-default">
+					<div class="panel-body easypiechart-panel">
+						<h4>저번 달 비교 구입금액</h4>
 						<div class="easypiechart" id="easypiechart-teal" data-percent="56" ><span class="percent">56%</span></div>
 					</div>
 				</div>
@@ -148,25 +175,18 @@
 			<div class="col-xs-6 col-md-3">
 				<div class="panel panel-default">
 					<div class="panel-body easypiechart-panel">
-						<div class="easypiechart" id="easypiechart-blue" data-percent="92" ><span class="percent">92%</span></div>
+						<h4>마일리지 환수율</h4>
+						<c:if test="${cashRate<0 }">
+						<div class="easypiechart" id="easypiechart-red" data-percent="${cashRate }" ><span class="percent">${cashRate }%</span></div>
+						</c:if>
+						<c:if test="${cashRate>=0 }">
+						<div class="easypiechart" id="easypiechart-red" data-percent="${cashRate }" ><span class="percent">${cashRate }%</span></div>
+						</c:if>
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-6 col-md-3">
-				<div class="panel panel-default">
-					<div class="panel-body easypiechart-panel">
-						<div class="easypiechart" id="easypiechart-orange" data-percent="65" ><span class="percent">65%</span></div>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-6 col-md-3">
-				<div class="panel panel-default">
-					<div class="panel-body easypiechart-panel">
-						<div class="easypiechart" id="easypiechart-red" data-percent="27" ><span class="percent">27%</span></div>
-					</div>
-				</div>
-			</div>
-		</div><!--/.row-->
+		</div>
+		<!--/.row-->
 		
 		<div class="row">
 			<div class="col-lg-12">
@@ -356,7 +376,7 @@
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						카테고리 별 전월 대비 판매율
+						카테고리 별 판매량 비교
 						<ul class="pull-right panel-settings panel-button-tab-right">
 							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
 								<em class="fa fa-cogs"></em>
@@ -388,9 +408,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-12">
-				<p class="back-link">Lumino Theme by <a href="https://www.medialoot.com">Medialoot</a></p>
-			</div>
+			
 		</div><!--/.row-->
 	</div>	<!--/.main-->
 	  
@@ -420,30 +438,31 @@
 			scaleGridLineColor: "rgba(0,0,0,.05)",
 			scaleFontColor: "#c5c7cc"
 			});
+			var chart3 = document.getElementById("doughnut-chart").getContext("2d");
+			window.myDoughnut = new Chart(chart3).Doughnut(doughnutData, {
+			responsive: true,
+			segmentShowStroke: false
+			});
+			var chart4 = document.getElementById("pie-chart").getContext("2d");
+			window.myPie = new Chart(chart4).Pie(pieData, {
+			responsive: true,
+			segmentShowStroke: false
+			});
+			var chart5 = document.getElementById("radar-chart").getContext("2d");
+			window.myRadarChart = new Chart(chart5).Radar(radarData, {
+			responsive: true,
+			scaleLineColor: "rgba(0,0,0,.05)",
+			angleLineColor: "rgba(0,0,0,.2)"
+			});
+			var chart6 = document.getElementById("polar-area-chart").getContext("2d");
+			window.myPolarAreaChart = new Chart(chart6).PolarArea(polarData, {
+			responsive: true,
+			scaleLineColor: "rgba(0,0,0,.2)",
+			segmentShowStroke: false
+			});
 			
 		}, 300);
-	var chart3 = document.getElementById("doughnut-chart").getContext("2d");
-	window.myDoughnut = new Chart(chart3).Doughnut(doughnutData, {
-	responsive: true,
-	segmentShowStroke: false
-	});
-	var chart4 = document.getElementById("pie-chart").getContext("2d");
-	window.myPie = new Chart(chart4).Pie(pieData, {
-	responsive: true,
-	segmentShowStroke: false
-	});
-	var chart5 = document.getElementById("radar-chart").getContext("2d");
-	window.myRadarChart = new Chart(chart5).Radar(radarData, {
-	responsive: true,
-	scaleLineColor: "rgba(0,0,0,.05)",
-	angleLineColor: "rgba(0,0,0,.2)"
-	});
-	var chart6 = document.getElementById("polar-area-chart").getContext("2d");
-	window.myPolarAreaChart = new Chart(chart6).PolarArea(polarData, {
-	responsive: true,
-	scaleLineColor: "rgba(0,0,0,.2)",
-	segmentShowStroke: false
-	});
+	
 };
 	</script>	
 	</c:if>

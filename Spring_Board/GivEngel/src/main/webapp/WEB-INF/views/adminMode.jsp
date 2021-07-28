@@ -123,10 +123,10 @@
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
 			<ol class="breadcrumb">
-				<li><a href="#">
+				<li><a href="adminMode.giv">
 					<em class="fa fa-home"></em>
 				</a></li>
-				<li class="active">Dashboard</li>
+				<li class="active">누적통계</li>
 			</ol>
 		</div><!--/.row-->
 		
@@ -258,7 +258,9 @@
 					</div>
 				</div>
 			</div>
-		</div><!--/.row-->
+		</div>
+		
+		<!--/.row-->
 		
 		<div class="row">
 			<div class="col-md-6">
@@ -648,6 +650,12 @@
 	
 };
 	</script>
+		</c:if>
+		<c:if test="${admin == null}">
+		<script>
+		 location. href="adminLogin.giv";
+		</script>
+		
 		</c:if>
 </body>
 </html>

@@ -125,7 +125,8 @@
 				<ol class="breadcrumb">
 					<li><a href="#"> <em class="fa fa-home"></em>
 					</a></li>
-					<li class="active">Forms</li>
+					<li>중고 상품 관리</li>
+					<li class="active">중고 상품 삭제 절차</li>
 				</ol>
 			</div>
 			<!--/.row-->

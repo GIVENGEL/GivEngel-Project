@@ -128,7 +128,8 @@
 				<ol class="breadcrumb">
 					<li><a href="#"> <em class="fa fa-home"></em>
 					</a></li>
-					<li class="active">Forms</li>
+					<li>후원 단체 관리</li>
+					<li class="active">후원 단체 수정</li>
 				</ol>
 			</div>
 			<!--/.row-->

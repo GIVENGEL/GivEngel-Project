@@ -99,6 +99,33 @@ WHERE user_cashlog_price < 0) as m;
 	]]>
 	</select>
 	
+	<select id="countBag" resultType="int">
+	<![CDATA[
+	select count(*) from user_buylog b natural join good
+WHERE good_tag LIKE '%BAG%';
+	]]>
+	</select>
+	<select id="countAcc" resultType="int">
+	<![CDATA[
+	select count(*) from user_buylog b natural join good
+WHERE good_tag LIKE '%ACC%';
+	]]>
+	</select>
+	<select id="countTop" resultType="int">
+	<![CDATA[
+	select count(*) from user_buylog b natural join good
+WHERE good_tag LIKE '%TOP%';
+	]]>
+	</select>
+	
+	<select id="countBottom" resultType="int">
+	<![CDATA[
+	select count(*) from user_buylog b natural join good
+WHERE good_tag LIKE '%BOTTOM%';
+	]]>
+	</select>
+	
+	
 	
 	<select id="selectUserBuyLog" resultType="int">
 		SELECT count(*) FROM

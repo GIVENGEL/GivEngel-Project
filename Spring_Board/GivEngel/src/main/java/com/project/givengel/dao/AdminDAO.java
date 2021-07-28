@@ -60,6 +60,10 @@ public interface AdminDAO {
 	public int priceRate();
 	public int userRate();
 	public int cashRate();
+	public int countBag();
+	public int countAcc();
+	public int countTop();
+	public int countBottom();
 
 	
 

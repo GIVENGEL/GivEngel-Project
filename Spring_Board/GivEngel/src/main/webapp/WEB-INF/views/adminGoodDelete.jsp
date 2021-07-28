@@ -38,7 +38,7 @@
 	rel="stylesheet">
 </head>
 <body>
-<c:if test="${admin != null}">
+	<c:if test="${admin != null}">
 	
 	<jsp:include page="module/adminSidebar.jsp" />
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
@@ -128,9 +128,10 @@
 		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 			<div class="row">
 				<ol class="breadcrumb">
-					<li><a href="#"> <em class="fa fa-home"></em>
+					<li><a href="adminMode.giv"> <em class="fa fa-home"></em>
 					</a></li>
-					<li class="active">Forms</li>
+					<li>상품 관리</li>
+					<li class="active">상품 삭제</li>
 				</ol>
 			</div>
 			<!--/.row-->
@@ -168,7 +169,7 @@
                                         <option value="good_detail">상품 설명</option>
                                     </select>
                                 </div>
-                                 <div class="col-lg-3 col-md-3 col-sm-3 p-0" style="padding:0px">
+                                <div class="col-lg-3 col-md-3 col-sm-3 p-0" style="padding:0px">
                                     <input type="text" placeholder="검색 내용" style="margin-left:30px" class="form-control" id="searchData" name="searchData">
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1 p-0" style="padding:0px">
@@ -215,7 +216,14 @@
 			<!-- /.panel-->
 		</div>
 		<!-- /.col-->
-
+		<div class="col-sm-12">
+			<p class="back-link">
+				Lumino Theme by <a href="https://www.medialoot.com">Medialoot</a>
+			</p>
+		</div>
+		</div>
+		<!-- /.row -->
+		</div>
 		<!--/.main-->
 
 		<script src="${path}/resources/js/admin/jquery-1.11.1.min.js"></script>
@@ -229,6 +237,7 @@
 		<script>
 			window.onload = function() {
 
+				/* 				
 				<a href="#"><i class="fa fa-long-arrow-left"></i></a>
                 <a class="page">1</a>
                 <a class="page">2</a>
@@ -250,12 +259,15 @@
 						else{
 							maxPage = parseInt(goodCount/divider)+1;
 						}
+						
 						$("#paging_div").empty();
 						$("#paging_div").append('<a id="left" href="#"><i class="fa fa-long-arrow-left"></i></a>');
 						for(var i=1;i<=maxPage;i++){
                 	$("#paging_div").append("<a class='page' href='#'>"+i+"</a>");
               			}
                 $("#paging_div").append('<a id="right" href="#"><i class="fa fa-long-arrow-right"></i></a>');
+                
+                
                 $(".page").eq(header-1).css({
 					"background": "#7fad39",
 					"border-color": "#7fad39",
@@ -270,16 +282,21 @@
 				
 				$(document).on("click",".page",function(){
 					header = parseInt($(this).text());
+					
 					$(".page").css({
 						"background": "none",
 						"border-color": "none",
 						"color": "#b2b2b2"
 					})
+					
+					
 					$(this).css({
 						"background": "#7fad39",
 					"border-color": "#7fad39",
 					"color": "#ffffff"
 					});
+					
+					
 					var start = divider*header-divider;
 					var end = divider*(header+1)-divider;
 					$.ajax({
@@ -370,7 +387,6 @@
 					}
 				})
 				
-				
 				/* <div class="col-sm-3 col-md-2">
 				<div class="thumbnail">
 					<img src="${path}/resources/img/good/${goodVO.good_img}" alt="${goodVO.good_name}">
@@ -378,14 +394,13 @@
 						<h3>${goodVO.good_name}</h3>
 						<p>${goodVO.good_price} 원</p>
 						<p>
-						<a href="adminGoodDeleteForm.giv?good_no=${goodVO.good_no}" class="btn btn-primary" role="button">삭제하기</a>						</p>
+							<a href="adminGoodDeleteForm.giv?good_no=${goodVO.good_no}" class="btn btn-primary" role="button">삭제하기</a>
+						</p>
 					</div>
 				</div>
 			</div>
 				 */
 				$("#searchData").on("keyup",function(){
-					
-					
 					var part = $("#part").val();
 					var searchData = $("#searchData").val();
 					$.ajax({
@@ -397,10 +412,12 @@
 						},
 						success : function(data) {
 							var list = data.list;
+							
 							header=1;
 							$("#searchResult").empty();
 							for(var i=0;i<list.length;i++){
-								$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img class="good_img" src="${path}/resources/img/good/'+data.list[i].good_img+'"  alt="'+data.list[i].good_name+'" ><div class="caption"><h4 style=" overflow: hidden;text-overflow: ellipsis;white-space: nowrap; width: 200px;height: 40px;">'+data.list[i].good_name+'</h4><p>'+data.list[i].good_price +' 원</p><p><a href="adminGoodDeleteForm.giv?good_no='+data.list[i].good_no+'" class="btn btn-primary" role="button">삭제하기</a></p></div></div></div>')							}
+								$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img class="good_img" src="${path}/resources/img/good/'+data.list[i].good_img+'"  alt="'+data.list[i].good_name+'" ><div class="caption"><h4 style=" overflow: hidden;text-overflow: ellipsis;white-space: nowrap; width: 200px;height: 40px;">'+data.list[i].good_name+'</h4><p>'+data.list[i].good_price +' 원</p><p><a href="adminGoodDeleteForm.giv?good_no='+data.list[i].good_no+'" class="btn btn-primary" role="button">삭제하기</a></p></div></div></div>')								
+							}
 							
 						}
 					});

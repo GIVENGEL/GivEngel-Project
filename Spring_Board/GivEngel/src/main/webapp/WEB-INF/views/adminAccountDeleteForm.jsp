@@ -125,7 +125,8 @@
 				<ol class="breadcrumb">
 					<li><a href="#"> <em class="fa fa-home"></em>
 					</a></li>
-					<li class="active">Forms</li>
+					<li>개발자 계정 관리</li>
+					<li class="active">개발자 계정 삭제</li>
 				</ol>
 			</div>
 			<!--/.row-->
