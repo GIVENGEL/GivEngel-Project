@@ -12,6 +12,8 @@ $(function(){
 	})
 	
 
+	
+	
 	// 수량 선택 시 총 가격 산정
 	$('#plus').css("cursor","pointer").click(function(){
 		var buyCntNow = $('#buyCntNow').val();
@@ -58,6 +60,11 @@ $(function(){
 			$('#totalPrice').text(totalPrice + " 원");
 		}
 	})
+	// 구매수량 ,총가격 end
+	
+	
+	
+	
 	
 	//	구매버튼 클릭시 
 	$('#buyGoodBtn').click(function(){
@@ -65,6 +72,7 @@ $(function(){
 		var totalPrice = $('#totalPrice').text().replace("원","").trim(); // 총 구입금액
 		var buyCnt = $('#buyCntNow').val();
 		var good_stock = $('#goodStock').text().trim();
+		
 		if(good_stock>=1){
 		//  재고 업데이트
 			$.ajax({
@@ -78,8 +86,6 @@ $(function(){
 				}, success : function(result){
 					if(result == "1"){
 						alert("재고업데이트성공")
-					}else{
-						alert("재고 업데이트 실패")
 					}
 				}
 				
@@ -97,8 +103,6 @@ $(function(){
 				}, success : function(result){
 					if(result == "1"){
 						alert("마일리지적립 성공")
-					}else{
-						alert("마일리지 적립 실패")
 					}
 				}
 			})
@@ -115,8 +119,6 @@ $(function(){
 				}, success : function(result){
 					if(result == "1"){
 						alert("마일리지 로그 업데이트 성공")
-					}else{
-						alert("마일리지 로그 업데이트 실패")
 					}
 				}
 			})
@@ -129,13 +131,14 @@ $(function(){
 				async: false,
 				data : {
 					good_no :  good_no,
-					user_buylog_price : totalPrice,
+					user_buylog_price : totalPrice * buyCnt,
 				},success : function(result){
 					if(result == "1"){
 						alert("구매 로그 업데이트 성공")
-						location.herf='index.giv';
+						window.location.reload();
 					}else{
-						alert("구매 로그 업데이트 실패")
+						alert("로그인이 필요한 서비스입니다.")
+						location.href='loginForm.giv'
 					}
 				}
 				
@@ -146,33 +149,33 @@ $(function(){
 			
 			
 	})
+	// 구매버튼 end
+	
 	
 		
 	//	장바구니 추가
-		$('#addCart').click(function(){
-			// 물품번호
-			var good_no = $('#good_no_cart').val();
-			// 선택한 수량
-			var good_Cnt = $('#buyCntNow').val();
-			$.ajax({
-				type : 'post',
-				url : 'addCart.giv',
-				contentType : 'application/x-www-form-urlencoded;charset=UTF-8',
-				data : {
-					good_no	: good_no,
-					cart_count : good_Cnt
-				},
-				success : function(result){
-					if(result == '1'){					
-					alert('장바구니 추가 완료');
-					}else if(result == '-1'){
-						alert('로그인이 필요한 서비스 입니다.');
-						location.herf='loginForm.giv';
-					}
-						
-					
+	$('#addCart').click(function(){
+		// 물품번호
+		var good_no = $('#good_no_cart').val();
+		// 선택한 수량
+		var good_Cnt = $('#buyCntNow').val();
+		$.ajax({
+			type : 'post',
+			url : 'addCart.giv',
+			contentType : 'application/x-www-form-urlencoded;charset=UTF-8',
+			data : {
+				good_no	: good_no,
+				cart_count : good_Cnt
+			},
+			success : function(result){
+				if(result == '1'){					
+				alert('장바구니 추가 완료');
+				}else if(result == '-1'){
+					alert('로그인이 필요한 서비스 입니다.');
+					location.href='loginForm.giv'
 				}
-			})	
+			}
+		})	
 		
 	})
 	
@@ -180,9 +183,8 @@ $(function(){
 	
 	
 	
-	// 댓글 입력 : 마지막 수정 : 2021 - 07 - 24
+	// 댓글 입력
 	$('#goodComBtn').click(function(){
-		alert($('#user_pw').val())
 		$.ajax({
 			type : 'post',
 			url : 'loginCheckCom.giv',
@@ -225,7 +227,6 @@ $(function(){
 //	댓글 삭제
 	$('.comDelete').css("cursor","pointer").click(function(){
 		var com_no =  $(this).parent().parent().parent().parent().find($('.com_no')).val()
-		alert(com_no)
 				$.ajax({
 					type : 'post',
 					url : 'deleteGoodCom.giv',
@@ -251,11 +252,7 @@ $(function(){
 		$('.comModify').css("cursor","pointer").click(function(){
 			var com_content =  $(this).parent().parent().parent().parent().find($('.com_content')).val()
 			var com_no =  $(this).parent().parent().parent().parent().find($('.com_no')).val()
-			alert(com_content)
-			alert(com_no)
 			if(com_content != null){
-				
-			
 				$.ajax({
 					type : 'post',
 					url : 'modifyGoodCom.giv',

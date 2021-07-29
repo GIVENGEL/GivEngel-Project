@@ -27,7 +27,7 @@ function fn_prev(page, range, rangeSize) {
 	}
 
   //페이지 번호 클릭
-	function fn_pagination(page, range, rangeSize, searchType, keyword) {
+	function fn_pagination(page, range, rangeSize) {
 		var url = "buyList.giv";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
@@ -35,7 +35,7 @@ function fn_prev(page, range, rangeSize) {
 	}
   
 	//다음 버튼 이벤트
-	function fn_next(page, range, rangeSize) {
+	function fn_next(page, range, rangeSized) {
 		var page = parseInt((range * rangeSize)) + 1;
 		var range = parseInt(range) + 1;
 		var url = "buyList.giv";
@@ -94,24 +94,24 @@ function fn_prev(page, range, rangeSize) {
                     </div>
                 </div>
                <div class="col-lg-6 card-margin"  style="margin-bottom:50px">
-			        <div class="card search-form">
+			        <div class="search-form">
 			            <div class="card-body p-0">
 			                <form id="searchForm" action="buyList.giv" method="post">
 			                    <div class="row">
 			                        <div class="col-12">
 			                            <div class="row no-gutters">
 			                                <div class="col-lg-3 col-md-3 col-sm-3 p-0" style="padding:0px">
-			                                    <select class="form-control" id="part" name="part" style="margin-left:10px" >
+			                                    <select class="form-control" id="searchType" name="searchType" style="margin-left:10px" >
 			                                        <option value="good_name">상품 이름</option>
 			                                        <option value="good_tag">상품 태그</option>
 			                                        <option value="good_detail">상품 설명</option>
 			                                    </select>
 			                                </div>
-			                                <div class="col-lg-6 col-md-3 col-sm-3 p-0" style="padding:0px">
-			                                    <input type="text" placeholder="검색 내용" style="margin-left:10px" class="form-control" id="searchData" name="searchData">
+			                                <div class="col-lg-8 col-md-3 col-sm-3 p-0" style="padding:0px">
+			                                    <input type="text" placeholder="검색 내용" style="margin-left:10px" class="form-control" id="keyword" name="keyword" >
 			                                </div>
-			                                <div class="col-lg-3 col-md-1 col-sm-1 p-0" style="padding:0px">
-			                                    <input id="submitbtn" type="submit" class="btn btn-success" style="margin-left:20px; background-color:#7fad39" value="검색">
+			                                <div class="col-lg-1 col-md-1 col-sm-1 p-0" style="padding:0px">
+			                                    <input id="submitbtn" type="submit" class="btn btn-success float-right" style="background-color:#7fad39" value="검색">
 			                                </div>
 			                            </div>
 			                        </div>
@@ -119,7 +119,9 @@ function fn_prev(page, range, rangeSize) {
 			                </form>
 			            </div>
 			        </div>
-			        <div class="hero__search__phone">
+			        
+    			</div>
+    			<div class="hero__search__phone col-3">
                         <div class="hero__search__phone__icon">
                            <i class="fa fa-phone"></i>
                         </div>
@@ -128,7 +130,6 @@ function fn_prev(page, range, rangeSize) {
                            <span>24시간 상담 가능</span>
                         </div>
                     </div>
-    			</div>
             </div>
         </div>
     </section>
@@ -287,7 +288,7 @@ function fn_prev(page, range, rangeSize) {
                             <div class="product__discount__slider owl-carousel">
                    
                                 <!-- 인기상품 반복문 최대 출력 개수 3개로 제한 -->
-                                <c:forEach items="${getPopularGoodList }" var="popularList">
+                                <c:forEach items="${getPopularGoodList }" var="popularList" end='8'>
                                 <div class="col-lg-4">
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg"

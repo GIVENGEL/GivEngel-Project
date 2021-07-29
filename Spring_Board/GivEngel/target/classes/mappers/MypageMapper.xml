@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MypageDAO"> 
-  
+
 <update id="myPwdConfirm" parameterType="userVO">
 UPDATE user SET user_pw = #{user_pw} WHERE user_no=#{user_no}
 </update>
@@ -19,24 +19,49 @@ UPDATE user SET user_tel=#{user_tel} WHERE user_no=#{user_no}
 UPDATE user SET user_addr=#{user_addr} WHERE user_no=#{user_no}
 </update>
 
-<select id="genderDetect" parameterType="userVO" resultType="hashmap">
+<select id="genderDetect" parameterType="userVO" resultType="String">
 SELECT substr(user_jumin,8,1) FROM user WHERE user_no=#{user_no}
 </select>
 
+<select id="birthDetect" parameterType="userVO" resultType="String">
+SELECT substr(user_jumin,1,8) FROM user WHERE user_no=#{user_no}
+</select>
+
 <select id="userGradeBuy" parameterType="userVO" resultType="user_buylogVO">
-SELECT sum(user_buylog_price) FROM user WHERE user_no=#{user_no}
-</select>
-
-<select id="userGradeCash" parameterType="userVO" resultType="user_cashlogVO">
-SELECT sum(user_cashlog_price) FROM user WHERE user_no=#{user_no}
-</select>
-
+SELECT sum(user_buylog_price) AS user_buylog_price FROM user_buylog WHERE user_no=#{user_no}
+</select> 
+  
 <select id="myCashList" parameterType="userVO" resultType="user_cashlogVO">
-SELECT * FROM user_cashlog WHERE user_no=#{user_no} ORDER BY user_cashlog_date DESC
+SELECT * FROM user_cashlog WHERE user_no=#{user_no}
 </select>
  
 <select id="myBuyList" parameterType="userVO" resultType="hashmap">
-SELECT a.good_no, a.user_buy_price, a.user_buylog_date, b.good_img, b.good_price, b.spon_no 
-FROM user_buylog a INNER JOIN good b ON a.good_no = b.good_no where user_no=#{user.no}
+SELECT a.good_no as good_no, user_buylog_price, DATE_FORMAT(user_buylog_date,'%Y-%m-%d') AS user_buylog_date, good_name, b.good_img as good_img, good_price, spon_no 
+FROM user_buylog as a INNER JOIN good as b ON a.good_no = b.good_no where user_no=#{user_no} 
+</select> 
+ 
+<select id="myCartList" parameterType="userVO" resultType="hashmap">
+SELECT a.cart_no AS cart_no, a.good_no AS good_no, a.cart_count AS cart_count, b.good_name AS good_name, b.good_price AS good_price, b.good_img AS good_img
+from cart AS a NATURAL JOIN good AS b
 </select>
+
+<update id="mycountGoodStock" parameterType="goodVO">
+UPDATE good SET good_stock=#{good_stock} where good_no = #{good_no}
+</update>
+
+<select id="myfleaMarket" parameterType="userVO" resultType="hashmap">
+select flea_writer, flea_no, flea_title, flea_price, flea_isokay, flea_img, DATE_FORMAT(flea_date,'%Y-%m-%d') AS flea_date
+FROM flea where flea_writer = (select user_id AS flea_writer FROM user where user_id=#{user_id}) ORDER BY flea_no desc;  
+</select>
+
+<update id="minusCart" parameterType="cartVO">
+UPDATE cart SET cart_count=#{cart_count} where cart_no = #{cart_no}
+</update>
+ 
+<update id="plusCart" parameterType="cartVO">
+UPDATE cart SET cart_count=#{cart_count} where cart_no = #{cart_no}
+</update>
+
+ 
+
 </mapper> 
