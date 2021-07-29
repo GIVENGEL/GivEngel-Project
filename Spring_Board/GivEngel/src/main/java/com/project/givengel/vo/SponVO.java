@@ -17,7 +17,8 @@ public class SponVO {
 	private String spon_img;
 	private int spon_img_size;
 	private String spon_campaign_img;
-	
+	private String spon_total_string;
+	 
 	
 MultipartFile file;
 	
@@ -127,5 +128,13 @@ MultipartFile file;
 	public void setSpon_comment(String spon_comment) {
 		this.spon_comment = spon_comment;
 	}
+	
+	public String getSpon_total_string() {
+		return spon_total_string;
+	}
+	
+	public void setSpon_total_string(String spon_total_string) {
+		this.spon_total_string = spon_total_string;
+	} 
 	
 }

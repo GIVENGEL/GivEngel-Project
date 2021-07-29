@@ -6,6 +6,7 @@
 <html lang="zxx">
 
 <head>
+ 
 
 <meta charset="UTF-8">
 <meta name="description" content="Ogani Template">
@@ -37,49 +38,41 @@
 
 //세션 할당해서 붙여넣기
 
-<%
-
-int user_no = (Integer)session.getAttribute("user_no");
-int user_cash = (Integer)session.getAttribute("user_cash");
-String user_id = (String)session.getAttribute("user_id");
-
-%>
-
- 
+  
 
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
-	<input type="hidden" id="cam_user_id">
+	<input type="hidden" id="cam_user_id" value="${user.user_id}">
 
 	<!--  navbar &  side over wrap -->
-	<jsp:include page="module/navbar.jsp" />
+	<jsp:include page="module/navbar.jsp" />  
 
 	<jsp:include page="module/sideCategory.jsp" />
 
 
 	<!-- Blog Details Hero Begin -->
 	<section class="blog-details-hero set-bg"
-		data-setbg="${path}/resources/img/campaign/campaign-logo.jpg">
+		data-setbg="${path}/resources/img/sponsor/givengelsponbanner.png">
 		<div class="container">
-			<div class="row">
+			<div class="row"> 
 				<div class="col-lg-12">
-					<div class="blog__details__hero__text">
-						<h2>${Campaign.spon_name }<h2>
-						<ul>
-							<li>후원 만료일</li>
-							<li><h3 class="text-white">총 누적 금액</h3></li>
-							<li>댓글 수</li>
-						</ul>
-						<ul>
-							<li>${Campaign.spon_end }</li>
-							<li><h3 class="text-white">${Campaign.spon_total}원</h3></li>
-							<li>43 개</li>
-						</ul>
-					</div>
+					<div class="blog__details__hero__text"> 
+					<h2>${Campaign.spon_name }<h2> 
+						<ul>  
+							<li><h4 class="text-white">후원 만료일</h4></li>
+							<li><h2 class="text-white">총 누적 금액</h2></li>
+							<li><h4 class="text-white">댓글 수</h4></li>
+						</ul> 
+						<ul> 
+							<li><h4 class="text-white">${Campaign.spon_end }</h4></li>
+							<li><h2 class="text-white">${Campaign.spon_total_string}원</h2></li>
+							<li><h4 class="text-white">43 개</h4></li> 
+						</ul>  
+					</div>  
 				</div>
-			</div>
+			</div> 
 		</div>
 	</section>
 	<!-- Blog Details Hero End -->
@@ -88,324 +81,69 @@ String user_id = (String)session.getAttribute("user_id");
 	<!-- Blog Details Section Begin -->
 	<section class="blog-details spad"> 
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-md-5 order-md-1 order-2">
-					<div class="blog__sidebar">
-						<h2>
-							[${Campaign.spon_name}] 후원 하기
-							</h3>
-							<hr />
-							<p>${Campaign.spon_comment}</p>
-							<br>
-							<br>
+			<div class="row" style="float: none; margin:0 auto">
+				<div class="col-lg-12 col-md-12 order-md-1 order-2" style="float: none; margin:0 auto">
+					<div class="blog__sidebar" style="float: center; margin:0 auto">
+						<h1 style="text-align:center; font-weight:bold;">  
+							${Campaign.spon_name}
+							</h1>     
+							<hr />      
+							<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${Campaign.spon_comment}</h4>
+							<br>    
+							<br>   
+							<input type="hidden" id="cam_user_id" value="${User.user_id}">
+							<input type="hidden" id="hiddenNo" value="${Campaign.spon_no}">
+							<input type="hidden" id="hiddenName" value="${Campaign.spon_name }">
 							<br>
  
 
-							<div class="row">
-								<div class="col-lg-3"></div>
-								<div class="col-lg-6">
-									<hr>
-									<input id="pleasegive" type="number" class="form-control mb-4" name="id" placeholder="후원 금액을 입력하세요!"> 
-								 
-								</div>
-
-								<div class="col-lg-3">
-									<hr>
+							<div class="row" style="float: none; margin:0 auto">
+								<div class="col-lg-6" style="float: none; margin:0 auto">
+								<input id="pleasegive" type="number" class="form-control mb-4" name="id" placeholder="소유 마일리지:${user.user_cash}원">
+									     
+								 	<input id="pleasegivehidden" type="hidden" value="${user.user_cash}">
+								</div> 
+								<div class="col-lg-3" style="float: none; margin:0 auto">  
+							
 									<button type="button" name="donation"
-										class="btn btn-block btn-success" id="donation_btn">
-										<spaa>후원하기!</spaa>
-									</button>
+										class="btn btn-block btn-success btn-lg" id="donation_btn">
+										<spaa>후원하기!</spaa> 
+									</button>   
+									
+								</div>
+  
+								<div class="col-lg-3" style="float: none; margin:0 auto">
+									
+								 	
 								</div>
 							</div>
 							<br>
 							<hr>
 							<h3>From GivEngel...</h3>
 							<br>
-							<p>대충 후원은 어떤 사회적 발전을 가져오는지 설명하는 GivEngel 가이드 불라불라</p>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-7 order-md-1 order-1">
-					<div class="blog__details__text">
-						<img src="img/blog/details/details-pic.jpg" alt="">
-
-					</div>
-					<div class="blog__details__content">
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="blog__details__author">
-									<div class="blog__details__author__pic">
-										<img src="img/blog/details/details-author.jpg" alt="">
-									</div>
-									<div class="blog__details__author__text">
-										<h6>GivEngel 이미지 사진 넣기</h6>
-										<span>Admin</span>
-									</div>
-								</div>
+							<div class="col-lg-12 col-md-12" style="float: none; margin:0 auto; text-align:center;"> 
+							<img style="text-align:center" src="${path}/resources/img/sponsor/${Campaign.spon_img}" />
+							</div>    
+							<br/>
+							<br/> 
+							<div class="col-lg-6 col-md-12" style="float: none; margin:0 auto">
+							<input style="margin:5px" type="button" class="btn btn-block btn-success btn-lg" value="상품 사러가기">
 							</div>
-							<div class="col-lg-6">
-								<div class="blog__details__widget">
-									<ul>
-										<li><span>Categories:</span> Campaign</li>
-										<li><span>Tags:</span> 태그 내용 넣기</li>
-									</ul>
-									<div class="blog__details__social">
-										<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
-											class="fa fa-twitter"></i></a> <a href="#"><i
-											class="fa fa-google-plus"></i></a> <a href="#"><i
-											class="fa fa-linkedin"></i></a> <a href="#"><i
-											class="fa fa-envelope"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
+							<div class="col-lg-10" style="float: none; margin:0 auto">
+							<hr/>      
+							</div>    
+							<div class="col-lg-6 col-md-12" style="float: none; margin:0 auto">   
+							<input style="margin:5px;" type="button" class="btn btn-block btn-success btn-lg" value="후원단체 홈페이지" onclick="window.open('${Campaign.spon_url}')">
+							</div>              
+							  
 					</div>
-				</div>
+				</div>  
+				 
 			</div>
 
-
+ 
 			<!--  캠페인 상품 리스트 출력 -->
-			<div class="filter__item">
-				<div class="row">
-					<div class="col-lg-4 col-md-5">
-						<div class="filter__sort">
-							<span>정렬</span> <select>
-								<option value="0">낮은 가격순</option>
-								<option value="0">높은 가격순</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-4">
-						<div class="filter__found">
-							<h6>
-								<span>[숫자]</span> 검색된 상품 개수 출력
-							</h6>
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-3">
-						<div class="filter__option">
-							<span class="icon_grid-2x2"></span> <span class="icon_ul"></span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="img/product/product-1.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">상품명</a>
-							</h6>
-							<h5>가격</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="img/product/product-2.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="img/product/product-3.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="img/product/product-4.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="img/product/product-5.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="img/product/product-6.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="img/product/product-7.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="img/product/product-8.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="img/product/product-9.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="img/product/product-10.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="img/product/product-11.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="product__item">
-						<div class="product__item__pic set-bg"
-							data-setbg="img/product/product-12.jpg">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-			</div>
+			 
 			<div class="col-lg-12">
 					<div class="product__details__tab">
 						<ul class="nav nav-tabs" role="tablist">
@@ -416,22 +154,21 @@ String user_id = (String)session.getAttribute("user_id");
 								href="#tabs-2" role="tab" aria-selected="false">GivEngel 이용
 									수칙</a></li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"
-								href="#tabs-3" role="tab" aria-selected="false">리뷰 <span>(댓글
-										수)</span></a></li>
-						</ul>
+								href="#tabs-3" role="tab" aria-selected="false">리뷰 <span>(${countReview})</span></a></li>
+						</ul> 
 						<div class="tab-content">
 							<div class="tab-pane active text-center" id="tabs-1"
 								role="tabpanel">
 								<div class="product__details__tab__desc">
 									<h6> 대표의 말</h6>
-									<p>[캠페인 설명]</p>
+									<p>${Campaign.spon_comment}</p>
 								</div>
 							</div>
 							<div class="tab-pane text-center" id="tabs-2" role="tabpanel">
 								<div class="product__details__tab__desc">
 									<h6>GivEngel 이용수칙</h6>
-									<p>이용 수칙~~</p>
-									<p>2용 수칙~~</p>
+									<p>후원할 때 응원의 댓글 한마디 꼭 해주세요!</p>
+									<p>마일리지 후원 뿐 아니라 관련 물품 구매도 꼭 해주세요!</p>
 								</div>
 							</div>
 							<div class="tab-pane " id="tabs-3" role="tabpanel">
@@ -441,7 +178,7 @@ String user_id = (String)session.getAttribute("user_id");
 										<div class="col-md-12">
 											<div
 												class="headings d-flex justify-content-between align-items-center mb-3">
-												<h5>댓글 (댓글수)</h5>
+												<h5>댓글 ("${countReview}")</h5>
 												<div class="buttons">
 													<span
 														class="badge bg-white d-flex flex-row align-items-center">
@@ -455,7 +192,9 @@ String user_id = (String)session.getAttribute("user_id");
 											<div id="reviewtotal">
 											
 											</div>
-											
+											 <ul class="pagination myreviewPaging" style="height:40px"> 
+                							 
+											</ul> 
 										
 										</div>
 									</div>
@@ -474,14 +213,14 @@ String user_id = (String)session.getAttribute("user_id");
 												<div class="form-inline mb-2">
 													<label for="replyId"><i
 														class="fa fa-user-circle-o fa-2x"></i></label> <input type="text"
-														class="form-control ml-2" placeholder="${user_id}" 
-														id="replyId" value="${user_id}" readonly> <label for="replyPassword"
-														class="ml-4"><i class="fa fa-unlock-alt fa-2x"></i></label>			
+														class="form-control ml-2" placeholder="${user.user_id}" 
+														id="replyId" value="${user.user_id}" readonly> <label for="replyPassword"
+														class="ml-4"></label>	 		
 												</div> <textarea class="form-control"
 													id="Reviewcontent" rows="3"></textarea>
 												<button type="button"
-													class="bntReview"
-													>답글 달기</button>
+													class="btn btn-success bntReview"
+													>답글 달기</button> 
 											</li>																			
 										</ul>
 									</div>
@@ -514,7 +253,6 @@ String user_id = (String)session.getAttribute("user_id");
 	<script src="${path}/resources/js/mixitup.min.js"></script>
 	<script src="${path}/resources/js/owl.carousel.min.js"></script>
 	<script src="${path}/resources/js/main.js"></script>
-	<script src="${path}/resources/js_page/Campaign.js"></script>
 	
 	<%-- <div class="card p-3 mb-5">									
 		<div class="d-flex justify-content-between align-items-center">									
@@ -609,52 +347,51 @@ $(function(){
     * 마지막 수정      :   2021-07-21
     *****************************************************/
 $('#donation_btn').on('click',function(){
-	if(true) {
-		alert("로그인을 먼저 해주세요")
-	}  
-	else if($('#pleasegive').val()=="") {
+	alert($("#pleasegive").val() + "현재금액")
+	alert($("#pleasegivehidden").val() + "입력금액")
+	 if($('#pleasegive').val()=="") {
 		alert("금액을 입력해주세요")
-		$('#pleasegive').focus()
-		return false;
-	} else if($('#pleasegive').val()<="100"){
+		$('#pleasegive').focus() 
+		} else if($('#pleasegive').val()<=100){ 
 		alert("100마일리지 이상 후원해주세요.")
-	} 
-	
-	
+		}  
+	     else if($('#pleasegive').val()>$('#pleasegivehidden').val())
+		 {     
+	     alert($("#pleasegive").val())	
+		 alert("후원 할 마일리지가 부족해요.") 
+		 $('#pleasegive').focus()
+		 } else  {  
 	    $.ajax({
-	    	type:'post',
+	    	type:'post', 
 	    	url:'camSponCash.giv',
 	    	data: { 
-	    		spon_no:${Campaign.spon_no},
+	    		spon_no:$('#hiddenNo').val(),
 	    		spon_total:$('#pleasegive').val()		
 	    	}, success:function() {
-	    		alert("누적되었습니다"); 
+	    		
 	    	}
 	    	 
 	    	
 	    	 
 	    })
-	    
+	     
 		$.ajax({
 			type:'post',
 			url:'camUserCash.giv',
-			data: {
-				user_no:'<%=user_no%>',   
+			data: {  
 				user_cash:$('#pleasegive').val()
-				    
 			}, success:function() {
-				alert("호갱이 되셨습니다.")
+				
 			} 
 			 
 		})
 		 
 		
 		 $.ajax({
-			type:'post',  
+			type:'post',   
 			url:'campaignLog.giv',
 			data:{ 
-				user_no:'<%=user_no%>',
-				user_cashlog_log:${Campaign.spon_name},   
+				user_cashlog_log:$('#hiddenName').val(), 
 				user_cashlog_price:$('#pleasegive').val()   
 			},
 			success: function() {
@@ -662,6 +399,8 @@ $('#donation_btn').on('click',function(){
 			}
 			  
 		})
+		
+	 }//else문
 })	
 		
 	
@@ -672,58 +411,105 @@ $('#donation_btn').on('click',function(){
     * 사용된 함수       :   						할일 x
     * 사용된 서비스       :   -
     * 마지막 수정      :   2021-07-23
-    *****************************************************/	
+    *****************************************************/
+var onepagethose = 10;
+var page=1;
+var maxpage=0;
+var start=0;  
+var end=0; 
+$(".myreviewPaging").append('<li class="page-item"><a class="page-link" href="">이전</a></li>')
+
+
 function directView() {
  
-	$.ajax({  
+	$.ajax({   
 		type:'post',
-		url:'reviewList.giv',
-		data:{spon_no:${Campaign.spon_no} },
+		url:'reviewList.giv', 
+		data:{spon_no:$('#hiddenNo').val() },
 		success:function(data){
+			var list = data.listReview.length
+			if(list%onepagethose==0){
+				maxpage = list/onepagethose
+			}else{
+				maxpage = list/onepagethose + 1
+			}
 			$("#reviewtotal").empty();
 			
-			for(var i=0; i<data.listReview.length; i++)
-			{$("#reviewtotal").append('<div class="card p-3 mb-5"><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-center"><img src="https://i.imgur.com/hczKIze.jpg" width="30"class="user-img rounded-circle mr-2"> <span><small class="font-weight-bold text-primary">'+data.listReview[i].spon_com_writer+']</small><small class="font-weight-bold">['+data.listReview[i].spon_com_content+']</small></span></div><label><input type="button" class="modify_btn" value="수정"></label><label ><input class="deleteValue" type="button"><small class="believe">'+data.listReview[i].spon_com_no+'</small></label></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div class="reply px-4 w-100"><span class="dots"></span><div class="modify_div"><input type="text" style="display:none" class="w-100"></div><span class="dots"></span></div><div class="modify_div"><input class="modify_button" type="button" value="확인" style="display:none"><input type="hidden" value="'+data.listReview[i].spon_com_no+'"></div></div></div></div>')} 
-		}, 
-		error:function(request, status, error){
-
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
- 
-         } 
+			  alert($("#cam_user_id").val())
+			for(var i=0; i<onepagethose; i++)
+			{$("#reviewtotal").append('<div class="card p-3 mb-5"><input type="hidden" id="hiddenwritergo'+i+'"  value="'+data.listReview[i].spon_com_writer+'"><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-start"><img src="https://i.imgur.com/hczKIze.jpg" width="30"class="user-img rounded-circle mr-2"> <span><small class="font-weight-bold text-primary idwriter">'+data.listReview[i].spon_com_writer+']</small><small class="font-weight-bold">['+data.listReview[i].spon_com_content+']</small></span></div><div class="align-items-end" style="float:right;"><label><input type="button" id="modify_btn'+i+'" class="modify_btn btn btn-link" value="수정" style="align:right; display:none;"></label><label ><input style="display:none" id="deleteValue'+i+'" class="deleteValue btn btn-link" type="button" value="삭제"><small class="believe"></small></label></div></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div class="reply px-4 w-100" style="height:20px"><span class="dots" style="height:20px"></span><div class="modify_div_text" style="display:none" "height:20px"><textarea  class="w-100 lookingplz" ></textarea></div><span class="dots"></span></div><div class="modify_div"><input class="modify_button" type="button" value="확인" style="display:none"><input class="comcomnono" type="hidden" value="'+data.listReview[i].spon_com_no+'"></div></div></div></div>')
+			 	if($("#cam_user_id").val()==$("#hiddenwritergo"+i+"").val()){
+					$("#modify_btn"+i+"").css('display', 'block').show()  
+		    		$("#deleteValue"+i+"").css('display', 'block').show()   
+		    	}//if문 닫기 
+			}
+			for(var a=1; a<maxpage; a++){  
+				$(".myreviewPaging").append('<li class="page-item"><a class="page-link paging4" style="cursor:pointer;">'+a+'</a></li>')
+				}   
+				 
+		  
+				  
 		 
-		   
-	}) 		
-
-}
-
-/* function deleteReview() {
-	$.ajax({
-		type:'post',
-		url:'deleteReview.giv',
-		data : spon_com_no:$('#spon_com_no').val(),
-		contentType : 'application/x-www-form-urlencoded;charset=UTF-8',
-		success : function(){
-			alert("댓글을 삭제하였습니다.")
-		}
-		
-	})
-	
-	
-	
-	
-} */
+         } //석세스 닫기
+		  
+	}) 	//아작스	  
   
+} //함수
 directView();
+$(".myreviewPaging").append('<li class="page-item"><a class="page-link" href="">다음</a></li>')
+$(document).on('click', '.paging4', function(){
+	
+	page = parseInt($(this).text());
+	start = onepagethose*(page-1);
+	end = onepagethose*page;
+	
+	$.ajax({   
+		type:'post',
+		url:'reviewList.giv', 
+		data:{spon_no:$('#hiddenNo').val() },
+		success:function(data){
+			var list = data.listReview
+			
+			$("#reviewtotal").empty();
+			if(list>=end){
+			for(var i=start; i<end; i++)
+			{$("#reviewtotal").append('<div class="card p-3 mb-5"><input type="hidden" id="hiddenwritergo'+i+'"  value="'+data.listReview[i].spon_com_writer+'"><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-start"><img src="https://i.imgur.com/hczKIze.jpg" width="30"class="user-img rounded-circle mr-2"> <span><small class="font-weight-bold text-primary idwriter">'+data.listReview[i].spon_com_writer+']</small><small class="font-weight-bold">['+data.listReview[i].spon_com_content+']</small></span></div><div class="align-items-end" style="float:right;"><label><input type="button" id="modify_btn'+i+'" class="modify_btn btn btn-link" value="수정" style="align:right; display:none;"></label><label ><input style="display:none" id="deleteValue'+i+'" class="deleteValue btn btn-link" type="button" value="삭제"><small class="believe"></small></label></div></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div class="reply px-4 w-100" style="height:20px"><span class="dots" style="height:20px"></span><div class="modify_div_text" style="display:none" "height:20px"><textarea  class="w-100 lookingplz" ></textarea></div><span class="dots"></span></div><div class="modify_div"><input class="modify_button" type="button" value="확인" style="display:none"><input class="comcomnono" type="hidden" value="'+data.listReview[i].spon_com_no+'"></div></div></div></div>')
+			 	if($("#cam_user_id").val()==$("#hiddenwritergo"+i+"").val()){
+					$("#modify_btn"+i+"").css('display', 'block').show()  
+		    		$("#deleteValue"+i+"").css('display', 'block').show()   
+		    	}//if문 닫기 
+			
+			}//for문 닫기 
+			} else {
+				for(var i=start; i<list; i++) 
+				{$("#reviewtotal").append('<div class="card p-3 mb-5"><input type="hidden" id="hiddenwritergo'+i+'"  value="'+data.listReview[i].spon_com_writer+'"><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-start"><img src="https://i.imgur.com/hczKIze.jpg" width="30"class="user-img rounded-circle mr-2"> <span><small class="font-weight-bold text-primary idwriter">'+data.listReview[i].spon_com_writer+']</small><small class="font-weight-bold">['+data.listReview[i].spon_com_content+']</small></span></div><div class="align-items-end" style="float:right;"><label><input type="button" id="modify_btn'+i+'" class="modify_btn btn btn-link" value="수정" style="align:right; display:none;"></label><label ><input style="display:none" id="deleteValue'+i+'" class="deleteValue btn btn-link" type="button" value="삭제"><small class="believe"></small></label></div></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div class="reply px-4 w-100" style="height:20px"><span class="dots" style="height:20px"></span><div class="modify_div_text" style="display:none" "height:20px"><textarea  class="w-100 lookingplz" ></textarea></div><span class="dots"></span></div><div class="modify_div"><input class="modify_button" type="button" value="확인" style="display:none"><input class="comcomnono" type="hidden" value="'+data.listReview[i].spon_com_no+'"></div></div></div></div>')
+				 	if($("#cam_user_id").val()==$("#hiddenwritergo"+i+"").val()){
+						$("#modify_btn"+i+"").css('display', 'block').show()  
+			    		$("#deleteValue"+i+"").css('display', 'block').show()   
+			    	}//if문 닫기 
+				
+				}//for문 닫기 
+				
+			}	  
+		
+		 
+         } //석세스 닫기
+		  
+	}) 	//아작스
+}) 
+
  
 /*****************************************************
  * 함수 기능       :   댓글입력
  * 마지막 수정      :   2021-07-23                          제약조건= 빈칸, 로그인 거르기
  *****************************************************/
 $('.bntReview').on('click', function(){
+	alert("일단확인" + "***" + $('#Reviewcontent').val() + "***" )
 	$.ajax({ 
 		 type:'post',
 		 url:'reviewInsert.giv', 
-		 data:{ spon_com_writer:$('#replyId').val(),
+		 data:{ spon_no:$('#hiddenNo').val(),
+			 	spon_com_writer:$('#replyId').val(),
  			   spon_com_content:$('#Reviewcontent').val() },     
 		 contentType : 'application/x-www-form-urlencoded;charset=UTF-8',  
 		 success : function(data) { 
@@ -737,21 +523,22 @@ $('.bntReview').on('click', function(){
  *  (삭제조건 추가해야함)
  * 사용된 함수       :   
  * 사용된 서비스       :   -
- * 마지막 수정      :   2021-07-23					제약 : 삭제조건 추가.
+ * 마지막 수정      :   2021-07-23					
  *****************************************************/
  
 $(document).on('click','.deleteValue', function(){
-	{}
+	
 	$.ajax({
 		type:'post',
 		url:'deleteReview.giv',
-		data:{spon_com_no:$(this).next().text()}, 
-		success : function(result) {   
-			directView();   
+		data:{spon_com_no:$(this).parent().parent().parent().parent().find(".comcomnono").val()}, 
+		success : function(result) {    
+			directView(); 
+			alert("선택한 댓글을 삭제하셨습니다.")
 		}
+		 
 		
-		
-	}) 
+	})  
 		
 });
 
@@ -763,16 +550,22 @@ $(document).on('click','.deleteValue', function(){
 
     * 마지막 수정      :   2021-07-23
     *****************************************************/
+    let flag=true;
 $(document).on('click', '.modify_btn', function(){
-	$(".modify_button").css('display', 'block')
-	$(this).parent().parent().next().find(".reply px-4 w-100").find(".modify_div").find(".w-100").css('display','block')
+	if(flag==true){
+	$(this).parent().parent().parent().next().find(".modify_div_text").css('display','block');
+	$(this).parent().parent().parent().next().find(".modify_div").find(".modify_button").css('display','block');
+	return flag=false;
+	 } else if(flag==false) {
+	$(this).parent().parent().parent().next().find(".modify_div_text").css('display','none');
+	$(this).parent().parent().parent().next().find(".modify_div").find(".modify_button").css('display','none');
+	return flag=true;
+	}   
 	
-	
-	 
-})
+}) 
 
 /*****************************************************
-    * 함수 기능       :   댓글수정     			//제약조건 걸기
+    * 함수 기능       :   댓글수정     			
     * 
     * 사용된 함수       :   insertAdminLogoutLog
     * 사용된 서비스       :   -
@@ -780,32 +573,25 @@ $(document).on('click', '.modify_btn', function(){
     *****************************************************/
 
 $(document).on('click','.modify_button',function(){
-	if($(this).parent().prev().find(".modify_div").find(".w-100").val() == ""){
-		alert("내용을 입력해주세요")
-		$(this).parent().prev().find(".modify_div").find(".w-100").focus()
-		return false;
-	} else if($(this).next().val() == ""){
-		alert("로그인 후 입력해주세요.")
-		return false;
-	} else {
+
 	
-	
+	 
 	alert("일단 확인")
 	$.ajax({ 
 		type:'post',
 		url:'updateReview.giv',
-		data:{ spon_com_no:$(this).next().val(),
-			spon_com_content:$(this).parent().prev().find(".modify_div").find(".w-100").val()
+		data:{ spon_com_no:$(this).parent().parent().parent().find('.comcomnono').val(),
+			spon_com_content:$(this).parent().parent().parent().find(".lookingplz").val()
 		},
 		success : function() {
 			directView();
-			spon_com_content:$(this).parent().prev().find(".modify_div").find(".w-100").val("_")
+			
 			alert("수정이 완료되었습니다.")
-		} 
+		}  
 		
-	})  
+	})   
 	
-	} //else문
+	//} //else문 spon_com_content:$(this).parent().prev().find(".modify_div").find(".w-100").val("_")
 	
 })
 
@@ -824,7 +610,7 @@ $(document).on('click','.modify_button',function(){
 
 
 	
-}) 
+})  
 
 	</script>
 

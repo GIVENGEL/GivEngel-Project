@@ -46,7 +46,7 @@ public class CampaignController {
 			String countreview = Integer.toString(campaignService.countReview(comvo));
 			m.addAttribute("countReview",countreview);
 			
-		} catch(NullPointerException e){
+		} catch(NullPointerException e){ 
 			System.out.println(e);
 		}  
 		 
@@ -133,7 +133,7 @@ public class CampaignController {
 	
 	/*****************************************************
 	    * 함수명          :   campaignLog
-	    * 함수 기능       :   후원로그 입력 , 그러고보니 댓글로그도 필요한가?
+	    * 함수 기능       :   후원로그 입력 
 	    * 사용된 함수 : -
 	    * 사용된 서비스       :   deleteReview (Service, dao)
 	    * 마지막 수정      :   2021-07-23
@@ -169,7 +169,7 @@ public class CampaignController {
 		}catch(NullPointerException e) {
 			System.out.println(e);
 		}
-	}
+	} 
 	/*****************************************************
 	    * 함수명          :   camSponCash
 	    * 함수 기능       :  후원금액 증가
@@ -186,6 +186,8 @@ public class CampaignController {
 			System.out.println(e);
 		}
 	}
+	
+	 
 	
 }
  

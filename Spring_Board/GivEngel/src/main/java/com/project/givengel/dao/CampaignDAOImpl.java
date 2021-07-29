@@ -17,13 +17,15 @@ public class CampaignDAOImpl implements CampaignDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
+	
+	
 	public String nowSysdate() {
 		return mybatis.selectOne("CampaignDAO.nowSysdate");
 	}
 	
 	public int countReview(Spon_comVO vo) {
 		return mybatis.selectOne("CampaignDAO.countReview", vo);
-	}
+	} 
 	 
 	public List<SponVO> campaignList() {
 		return mybatis.selectList("CampaignDAO.campaignList");

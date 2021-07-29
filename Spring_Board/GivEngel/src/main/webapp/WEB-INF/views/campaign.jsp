@@ -111,44 +111,30 @@
             </div>
             <div class="row">
             	<!--  각 캠패인 출력 단위 표시 ****************-->
-                <c:forEach items="${spon_list }" var="campaign">
+            	
+                <c:forEach items="${spon_list }" var="campa">
+                <c:set var="sysdate" value="${nowSysdate}"/>
+                <c:if test="${campa.spon_end>=sysdate}">
                <div class="col-lg-4 col-md-4 col-sm-6">
-                  <div class="blog__item">
+                  <div class="blog__item"> 
                      <div class="blog__item__pic">
-                        <a href="campaignView.giv?spon_no=${campaign.spon_no}"><img src="${path}/resources/img/sponsor/${campaign.spon_img }" alt="${campaign.spon_name }"></a>
+                        <a href="campaignView.giv?spon_no=${campa.spon_no}"><img src="${path}/resources/img/sponsor/${campa.spon_img}" height="300px" alt="${campa.spon_name}"></a>
                      </div> 
-                     <div class="blog__item__text">
+                     <div class="blog__item__text"> 
                         <ul>
-                           <li>
-                           <li><i class="fa fa-calendar-o"></i>${campaign.spon_start }</li>
-                           <li><i class="fa fa-comment-o"></i> 댓글 수 출력</li>
-                        </ul>
+                             
+                        </ul>   
                         <h5>
-                           <a href="campaignView.giv?spon_no=${campaign.spon_no }">${campaign.spon_name }</a>
+                           <a href="campaignView.giv?spon_no=${campa.spon_no }">${campa.spon_name }</a> 
                         </h5>
                         <p>${campaign.spon_comment }</p>
                      </div>
                   </div>
                </div>
+               </c:if>
             </c:forEach>  
                 <!-- ****************************** -->
-                <!--  각 캠패인 출력 단위 표시 ****************-->
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="${path}/resources/img/blog/blog-2.jpg" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                <li><i class="fa fa-comment-o"></i> 5</li>
-                            </ul>
-                            <h5><a href="#">고양이, 그리고 불편한 진실</a></h5>
-                            <p>인간만이 신체적 결함에 부조리함을 느낀다고 생각하시나요? 고양이 로소의 이야기를 들어보세요. </p>
-                        </div>
-                    </div>
-                </div>
-                 <!-- ****************************** -->
+              
     </section>
     <!-- Blog Section End -->
     

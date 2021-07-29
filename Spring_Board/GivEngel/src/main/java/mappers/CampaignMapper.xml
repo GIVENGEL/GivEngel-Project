@@ -9,16 +9,17 @@
 </insert> 
   
 <select id="sponView" resultType="sponVO" parameterType="sponVO">
-	SELECT * FROM spon where spon_no = #{spon_no}
-</select>
+	SELECT spon_no, spon_name, spon_total, FORMAT(spon_total, 0) AS spon_total_string, spon_iscampaign, spon_start, spon_end, spon_url, spon_comment, spon_img, spon_img_size FROM spon where spon_no = #{spon_no}
+</select> 
 
-<select id="cashPlus" parameterType="sponVO">
+<select id="cashPlus" parameterType="sponVO"> 
 	INSERT INTO spon (spon_total) VALUES(#{spon_total}) where spon_no = #{spon_no}
 </select> 
 
 <delete id="reviewDelete" parameterType="spon_comVO">
 	DELETE FROM spon WHERE #{spon_com_no} = spon_com_no
 </delete>
+
 <select id="reviewList" resultType="spon_comVO">
 	SELECT * FROM spon_com where spon_no = #{spon_no}
 </select>
@@ -33,8 +34,8 @@ UPDATE spon_com SET spon_com_content=#{spon_com_content} where spon_com_no=#{spo
 
 <insert id="campaignLog" parameterType="user_cashlogVO">
 INSERT INTO user_cashlog (user_no, user_cashlog_log, user_cashlog_price, user_cashlog_date) 
-VALUES(#{user_no},#{user_cashlog_log},#{user_cashlog_price},sysdate())
-</insert>
+VALUES(#{user_no},#{user_cashlog_log},'-${user_cashlog_price}',sysdate())
+</insert>   
 
 <update id="camUserCash" parameterType="userVO">
 UPDATE user a SET user_cash=((SELECT user_cash from (SELECT user_cash as c from user WHERE user_no = #{user_no}) d)-(#{user_cash})) WHERE user_no = #{user_no}
@@ -53,7 +54,7 @@ SELECT count(*) FROM spon_com WHERE spon_no=#{spon_no}
 </select>
 
 <select id="nowSysdate" resultType="String">
-SELECT sysdate()
+SELECT sysdate();
 </select>
 
 </mapper>

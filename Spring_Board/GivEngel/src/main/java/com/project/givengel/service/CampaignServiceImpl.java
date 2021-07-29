@@ -22,8 +22,8 @@ public class CampaignServiceImpl implements CampaignService {
 	
 	public int countReview(Spon_comVO vo) {
 		return CampaignDAO.countReview(vo);
-	}
-	
+	} 
+	 
 	public List<SponVO> campaignList(){
 		return CampaignDAO.campaignList();
 	}  
