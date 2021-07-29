@@ -110,7 +110,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<h6>
-						<span class="icon_tag_alt"></span> 앗! 중고 장터는 처음이신가요? <a href="/fleaManual.giv">[여기를 눌러주세요!]</a> 안내해드릴게요!
+						<span class="icon_tag_alt"></span> 앗! 중고 장터는 처음이신가요? <a href="fleaManual.giv">[여기를 눌러주세요!]</a> 안내해드릴게요!
 					</h6>
 				</div>
 			</div>

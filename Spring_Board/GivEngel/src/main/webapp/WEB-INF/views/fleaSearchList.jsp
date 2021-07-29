@@ -122,37 +122,39 @@
 					<jsp:include page="module/sidebar.jsp" />
 				</div>
 				<div class="col-lg-8 col-md-7">
+				<div><h6><b>${map.count}</b>개의 게시물이 있습니다.</h6></div>
+				<hr>
 					<div class="row">
 
-						<c:forEach items="${list }" var="flea" varStatus="loop">
-							<input type="hidden" value="${flea.flea_no }" name="flea_no"
-								id="flea_no">
+						<!-- 검색 했을때 리스트 -->
+						<c:forEach items="${map.searchList }" var="search">
+							<input type="hidden" value="${search.flea_no }" name="flea_no" id="flea_no">
 							<div class="col-lg-6 col-md-6 col-sm-6">
 								<div class="blog__item">
 									<div class="blog__item__pic" style="border: 2px solid #f9f9f9">
 										<c:choose>
-											<c:when test="${flea.flea_isokay == '0' }">
-												<a href="fleaView.giv?flea_no=${flea.flea_no }"><img
+											<c:when test="${search.flea_isokay == '0' }">
+												<a href="fleaView.giv?flea_no=${search.flea_no }"><img
 													src="${path}/resources/img/flea/soon.jpg" alt=""></a>
 											</c:when>
 											<c:otherwise>
-												<a href="fleaView.giv?flea_no=${flea.flea_no }"><img
-													src="${path}/resources/img/flea/${flea.flea_img }"
-													alt="${flea.flea_no }"></a>
+												<a href="fleaView.giv?flea_no=${search.flea_no }"><img
+													src="${path}/resources/img/flea/${search.flea_img }"
+													alt="${search.flea_no }"></a>
 											</c:otherwise>
 										</c:choose>
 									</div>
 									<div class="blog__item__text">
 										<ul>
-											<li><i class="fa fa-calendar-o"></i> ${flea.flea_date }</li>
+											<li><i class="fa fa-calendar-o"></i> ${search.flea_date }</li>
 											<li><i class="fa fa-comment-o"></i><span
 												id="countSponCom2"></span></li>
 										</ul>
 										<h5>
-											<a href="#">${flea.flea_title }</a>
+											<a href="#">${search.flea_title }</a>
 										</h5>
-										<p>${flea.flea_price }원</p>
-										<a href="fleaView.giv?flea_no=${flea.flea_no }"
+										<p>${search.flea_price }원</p>
+										<a href="fleaView.giv?flea_no=${search.flea_no }"
 											class="blog__btn">자세히 보기 <span class="arrow_right"></span></a>
 									</div>
 								</div>
@@ -160,56 +162,23 @@
 						</c:forEach>
 						
 						
-						
-						
-					<%-- 	<c:forEach items="${listIsOkay }" var="flea" varStatus="loop">
-							<input type="hidden" value="${flea.flea_no }" name="flea_no"
-								id="flea_no">
-							<div class="col-lg-6 col-md-6 col-sm-6">
-								<div class="blog__item">
-									<div class="blog__item__pic" style="border: 2px solid #f9f9f9">
-										<c:choose>
-											<c:when test="${flea.flea_isokay == '0' }">
-												<a href="fleaView.giv?flea_no=${flea.flea_no }"><img
-													src="${path}/resources/img/flea/soon.jpg" alt=""></a>
-											</c:when>
-											<c:otherwise>
-												<a href="fleaView.giv?flea_no=${flea.flea_no }"><img
-													src="${path}/resources/img/flea/${flea.flea_img }"
-													alt="${flea.flea_no }"></a>
-											</c:otherwise>
-										</c:choose>
-									</div>
-									<div class="blog__item__text">
-										<ul>
-											<li><i class="fa fa-calendar-o"></i> ${flea.flea_date }</li>
-											<li><i class="fa fa-comment-o"></i><span
-												id="countSponCom2"></span></li>
-										</ul>
-										<h5>
-											<a href="#">${flea.flea_title }</a>
-										</h5>
-										<p>${flea.flea_price }원</p>
-										<a href="fleaView.giv?flea_no=${flea.flea_no }"
-											class="blog__btn">자세히 보기 <span class="arrow_right"></span></a>
-									</div>
-								</div>
-							</div>
-						</c:forEach> --%>
-													
-						
+
+
+
+
 						<div class="col-lg-12">
 							<div class="product__pagination blog__pagination paination">
 
-								<c:if test="${page.prev }">
-									<a href="fleaBoard.giv?page=${page.startPage-1}"><i class="fa fa-long-arrow-left"></i></a>
+								<c:if test="${map.page.prev }">
+									<a href="fleaSearchList.giv?page=${map.page.startPage-1}"><i class="fa fa-long-arrow-left"></i></a>
 								</c:if>
-								<c:forEach begin="${page.startPage }" end="${page.endPage }" var="num" >
-									<a href="fleaBoard.giv?page=${num}" id="num" >${num}</a>
+								<c:set var="i" value="1"/>
+								<c:forEach begin="${page.startPage }" end="${map.page.endPage }" var="num" >
+									<a href="fleaSearchList.giv?page=${num}" id="num" >${num}</a>
 								</c:forEach>
 
-							<c:if test="${page.next && page.endPage > 0}">
-									<a href="fleaBoard.giv?page=${page.endPage+1}"/><i class="fa fa-long-arrow-right"></i></a>
+							<c:if test="${map.page.next && map.page.endPage > 0}">
+									<a href="fleaSearchList.giv?page=${map.page.endPage+1}"/><i class="fa fa-long-arrow-right"></i></a>
 								</c:if>
 								<c:if test="${sessionScope.user != null}">
 									<a href="fleaWrite.giv" style="width:100px; text-decoration:none; float:right;"><button type="button" class="btn btn-success">
@@ -218,20 +187,12 @@
 
 							</div>
 						</div>
-						
-						
-						<div id="listBox">
-						
-						
-						</div>
-						
-						
-						
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+
 	<!-- Blog Section End -->
 	<!-- Footer -->
 	<jsp:include page="module/footer.jsp" />

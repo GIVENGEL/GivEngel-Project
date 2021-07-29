@@ -1,9 +1,12 @@
 package com.project.givengel.service;
 
 import java.util.List;
+import java.util.Map;
 
+import com.project.givengel.vo.Criteria;
 import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.Flea_comVO;
+import com.project.givengel.vo.SearchCriteria;
 
 public interface FleaService {
 	
@@ -28,5 +31,22 @@ public interface FleaService {
 	
 	// 댓글 삭제
 	public void deleteFleaCom(Flea_comVO vo);
+	
+	
+	// 게시물 총 갯수
+	public int countFleaList();
+	
+	// 페이징 리스트 (최신순)
+	public List<Map<String, Object>> pageFleaList(Criteria cri);
+	
+	// 페이징 리스트 (확정순)
+	public List<Map<String, Object>> pageFleaListIsOkay(Criteria cri);
+	
+	// 검색
+	public List<FleaVO> searchList(SearchCriteria cri);
+	
+	// 검색에 대한 게시글 수
+	public int countSearch(String searchType, String keyword);
+	
 
 }

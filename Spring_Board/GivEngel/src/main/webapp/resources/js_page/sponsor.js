@@ -16,12 +16,11 @@ $(function() {
 
 	$('#donationBtn').click(function(){
 		
-		var user_cash = $('#user_cash').val();
-		var donate = $('#user_cashlog_price').val();
-		
-		if( donate > user_cash ) { // 입력한 금액이 유저의 마일리지보다 크다면
-			alert("마일리지가 부족합니다");
-			location.reload();
+		if( $('#user_cashlog_price').val() > $('#user_cash').val() ) { // 입력한 금액이 유저의 마일리지보다 크다면
+			$('#guideText').text('마일리지가 부족합니다');
+			$('#guideText').css('color', 'red');
+			//alert("마일리지가 부족합니다");
+			//location.reload();
 			
 		} else {
 			

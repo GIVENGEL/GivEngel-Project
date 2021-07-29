@@ -61,6 +61,46 @@
 		WHERE flea_com_no = #{flea_com_no}
 	</delete>
 
-
+	<!-- 총 게시글 갯수 -->
+	<select id="countFleaList" resultType="int"> 
+		SELECT COUNT(*) FROM flea WHERE flea_no
+	</select>
+	
+	<!-- 페이징 최신순 -->
+	<select id="pageFleaList" resultType="hashmap" parameterType="hashmap">
+		SELECT * FROM flea
+		ORDER BY flea_no desc
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<!-- 페이징 확정순 -->
+	<select id="pageFleaListIsOkay" resultType="hashmap" parameterType="hashmap">
+		SELECT * FROM flea
+		WHERE flea_isokay = '1'
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<!-- 검색에 대한 게시글 수 -->
+	<select id="countSearch" resultType="int">
+		SELECT COUNT(*) FROM flea
+		<where>
+			<if test="searchType != null">
+				${searchType} LIKE '%${keyword}%'
+			</if>
+		</where> 
+	</select>
+	
+	<!-- 검색 -->
+	<select id="searchList" resultType="fleaVO" parameterType="hashmap">
+		SELECT * FROM flea
+		<where>
+			<if test="searchType != null">
+				${searchType} LIKE '%${keyword}%'
+			</if>
+		</where> 
+		ORDER BY flea_no
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
 
 </mapper>

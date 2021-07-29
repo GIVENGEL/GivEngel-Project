@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,14 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.givengel.service.FleaServiceImpl;
+import com.project.givengel.vo.Criteria;
 import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.Flea_comVO;
+import com.project.givengel.vo.PageVO;
+import com.project.givengel.vo.SearchCriteria;
 import com.project.givengel.vo.UserVO;
 
 @Controller
 public class FleaController {
 	
 	@Autowired
+	@Inject
 	private FleaServiceImpl fleaService;
 	
 
@@ -46,6 +51,7 @@ public class FleaController {
 	    * 사용된 서비스   :   -
 	    * 마지막 수정      :   2021-07-25
 	*****************************************************/
+	/*
 	@RequestMapping("/fleaBoard.giv")
 	public Map<String, Object> getFleaList(FleaVO vo, HttpServletRequest request) {
 		
@@ -63,7 +69,8 @@ public class FleaController {
 		
 		return map;
 	}
-	
+	*/
+
 	
 	/*****************************************************
 	    * 함수명          :    getFlea
@@ -104,7 +111,17 @@ public class FleaController {
 	}
 	
 	
-
+	
+	
+	/*****************************************************
+	    * 함수명          :    deleteFlea
+	    * 
+	    * 함수 기능       :   1. 중고장터 게시물 삭제
+	    * 
+	    * 사용된 함수     :   deleteFlea
+	    * 사용된 서비스   :   -
+	    * 마지막 수정      :   2021-07-26
+	*****************************************************/
 	 @RequestMapping(value = "/deleteFleaView.giv", produces = "application/text;charset=UTF-8")
 	 @ResponseBody
 	 public void deleteFlea(FleaVO vo) {
@@ -176,6 +193,98 @@ public class FleaController {
 	public void deleteFleaCom(Flea_comVO vo) {
 		fleaService.deleteFleaCom(vo);
 	}
+	
+	
+	
+	
+	/*****************************************************
+	    * 함수명          :    pageFleaList
+	    * 
+	    * 함수 기능       :   1. 게시판 페이징을 위한 게시물 리스트 (최신순)
+	    * 
+	    * 사용된 함수     :   pageFleaList
+	    * 사용된 서비스   :   -
+	    * 마지막 수정      :   2021-07-27
+	*****************************************************/
+	@RequestMapping(value = "/fleaBoard.giv")
+	public Model pageFleaList(Criteria cri, Model m) {
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(fleaService.countFleaList());
+		
+		List<Map<String, Object>> list = fleaService.pageFleaList(cri);
+		
+		m.addAttribute("list", list);
+		m.addAttribute("page", pageVO);
+		
+		
+		return m;
+	}
+	
+	
+	
+	/*****************************************************
+	    * 함수명          :    pageFleaListIsOkay
+	    * 
+	    * 함수 기능       :   1. 게시판 페이징을 위한 게시물 리스트 (확정순)
+	    * 
+	    * 사용된 함수     :   pageFleaListIsOkay
+	    * 사용된 서비스   :   -
+	    * 마지막 수정      :   2021-07-27
+	*****************************************************/
+	@RequestMapping("/fleaBoardIsOkay.giv")
+	@ResponseBody
+	public Model pageFleaListIsOkay(Criteria cri, FleaVO vo, Model m) {
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(fleaService.countFleaList());
+		
+		List<Map<String, Object>> listIsOkay = fleaService.pageFleaListIsOkay(cri);
+
+		m.addAttribute("listIsOkay", listIsOkay);
+		m.addAttribute("page", pageVO);
+		
+		return m;
+	}
+	
+	
+	
+	/*****************************************************
+	    * 함수명          :    list
+	    * 
+	    * 함수 기능       :   1. 검색을 위한 게시판 리스트, 페이징
+	    * 
+	    * 사용된 함수     :   list
+	    * 사용된 서비스   :   -
+	    * 마지막 수정      :   2021-07-28
+	*****************************************************/
+	@RequestMapping(value = "/fleaSearchList.giv")
+	public Model list(SearchCriteria cri, Model m) {
+		
+		
+		PageVO pageVO = new PageVO();
+		pageVO.setCri(cri);
+		pageVO.setTotalCount(fleaService.countSearch(cri.getSearchType(), cri.getKeyword()));
+		
+		List<FleaVO> searchList = fleaService.searchList(cri);
+		int count = fleaService.countSearch(cri.getSearchType(), cri.getKeyword());
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchList", searchList);
+		map.put("count", count);
+		map.put("searchType", cri.getSearchType());
+		map.put("keyword", cri.getKeyword());
+		m.addAttribute("page", pageVO);
+		m.addAttribute("map", map);
+		
+		System.out.println("키워드 확인" + cri.getKeyword());
+		System.out.println("searchType 확인" +cri.getSearchType());
+		System.out.println("searchList 확인" + map.values());
+		
+		return m;
+	}
+	
+	
 	
 	
 	

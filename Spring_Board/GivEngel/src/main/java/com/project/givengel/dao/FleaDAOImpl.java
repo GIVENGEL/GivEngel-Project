@@ -1,13 +1,17 @@
 package com.project.givengel.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.project.givengel.vo.Criteria;
 import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.Flea_comVO;
+import com.project.givengel.vo.SearchCriteria;
 
 @Repository("fleaDAO")
 public class FleaDAOImpl implements FleaDAO {
@@ -58,6 +62,34 @@ public class FleaDAOImpl implements FleaDAO {
 	// 댓글 삭제
 	public void deleteFleaCom(Flea_comVO vo) {
 		mybatis.delete("FleaDAO.deleteFleaCom", vo);
+	}
+	
+	// 게시글 총 개수
+	public int countFleaList() {
+		return mybatis.selectOne("FleaDAO.countFleaList");
+	}
+	
+	// 페이징 리스트 (최신순)
+	public List<Map<String, Object>> pageFleaList(Criteria cri) {
+		return mybatis.selectList("FleaDAO.pageFleaList", cri);
+	}
+	
+	// 페이징 리스트 (확정순)
+	public List<Map<String, Object>> pageFleaListIsOkay(Criteria cri) {
+		return mybatis.selectList("FleaDAO.pageFleaListIsOkay", cri);
+	}
+	
+	// 검색에 대한 게시글 수
+	public int countSearch(String searchType, String keyword) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchType", searchType);
+		map.put("keyword", keyword);
+		return mybatis.selectOne("FleaDAO.countSearch", map);
+	}
+	
+	// 검색
+	public List<FleaVO> searchList(SearchCriteria cri) {
+		return mybatis.selectList("FleaDAO.searchList", cri);
 	}
 
 }

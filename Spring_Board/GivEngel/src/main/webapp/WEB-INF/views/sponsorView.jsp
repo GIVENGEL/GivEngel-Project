@@ -84,11 +84,11 @@
 	<!-- Blog Details Section Begin -->
 	<section class="blog-details spad">
 		<div class="container">
-			<div class="row">
+			<div class="row" style="float:none; margin:0 auto;">
 
 				<!-- 로그인 했을때 -->
 				<c:if test="${user != null}">
-					<div class="col-lg-8 col-md-5 order-md-1 order-2">
+					<div class="col-lg-12 col-md-12 order-md-1 order-2">
 						<div class="blog__sidebar">
 							<!-- 유저번호, 후원단체 이름 히든으로 받기 -->
 							<input type="hidden" id="user_no" name="user_no" value="${user.user_no }">
@@ -106,7 +106,8 @@
 								<div class="col-lg-6">
 									<hr>
 									<input type="number" class="form-control mb-4" name="user_cashlog_price"
-										id="user_cashlog_price" placeholder="${user.user_cash }">
+										id="user_cashlog_price" placeholder="${user.user_cash }" />
+									<div id="guideText"></div>
 								</div>
 
 								<div class="col-lg-3">
@@ -131,7 +132,7 @@
 
 				<!-- 로그인 안했을때 -->
 				<c:if test="${user == null}">
-					<div class="col-lg-8 col-md-5 order-md-1 order-2">
+					<div class="col-lg-12 col-md-12 order-md-1 order-2">
 						<div class="blog__sidebar">
 							<h2>
 								[${spon.spon_name }] 후원 하기
@@ -168,46 +169,7 @@
 						</div>
 					</div>
 				</c:if>
-
-
-				<!-- 후원단체 이미지 -->
-				<div class="col-lg-4 col-md-7 order-md-1 order-1">
-					<div class="blog__details__text" style="border:1px solid lightgrey">
-						<img src="${path}/resources/img/sponsor/${spon.spon_img }.jpg" alt="">
-
-					</div>
-					<div class="blog__details__content">
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="blog__details__author">
-									<div class="blog__details__author__pic">
-										<img src="resources/img/blog/details/details-author.jpg"
-											alt="">
-									</div>
-									<div class="blog__details__author__text">
-										<h6>GivEngel 이미지 사진 넣기</h6>
-										<span>Admin</span>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="blog__details__widget">
-									<ul>
-										<li><span>Categories:</span> Campaign</li>
-										<li><span>Tags:</span> 태그 내용 넣기</li>
-									</ul>
-									<div class="blog__details__social">
-										<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
-											class="fa fa-twitter"></i></a> <a href="#"><i
-											class="fa fa-google-plus"></i></a> <a href="#"><i
-											class="fa fa-linkedin"></i></a> <a href="#"><i
-											class="fa fa-envelope"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				
 			</div>
 			<!-- end of "row" -->
 
@@ -228,8 +190,8 @@
 						<div class="tab-pane active text-center" id="tabs-1"
 							role="tabpanel">
 							<div class="product__details__tab__desc">
-								<h6>대표의 말</h6>
-								<p>[캠페인 설명]</p>
+								<h6>"${spon.spon_comment }"</h6>
+								<p></p>
 							</div>
 						</div>
 						<div class="tab-pane text-center" id="tabs-2" role="tabpanel">

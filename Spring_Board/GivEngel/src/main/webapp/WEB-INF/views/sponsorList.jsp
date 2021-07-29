@@ -101,11 +101,6 @@
 
 
 
-
-
-
-
-
 	<!-- Blog Section Begin -->
 	<section class="from-blog spad">
 		<div class="container">
@@ -128,7 +123,7 @@
 							<div class="blog__item__pic" style="border:2px solid #f9f9f9">
 								<c:choose>
 								<c:when test= "${spon.spon_img == '' }"><a href="sponsorView.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/null.jpg" alt=""></a></c:when>
-								<c:otherwise><a href="sponsorView.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/${spon.spon_img }.jpg" alt="${spon.spon_name }"></a></c:otherwise>
+								<c:otherwise><a href="sponsorView.giv?spon_no=${spon.spon_no }"><img src="${path}/resources/img/sponsor/${spon.spon_img }" alt="${spon.spon_name }"></a></c:otherwise>
 								</c:choose>
 							</div>
 							<div class="blog__item__text">

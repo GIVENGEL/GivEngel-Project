@@ -226,17 +226,6 @@ public class SponsorController {
 	 
 	 
 	 
-	
-	 
-	 
-	 
-	 
-
-	 
-	 
-	 
-	 
-	 
 	 
 
 }
