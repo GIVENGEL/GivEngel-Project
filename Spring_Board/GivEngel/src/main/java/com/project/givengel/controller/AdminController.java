@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import  java.math.BigDecimal;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -1360,6 +1362,78 @@ public class AdminController {
 		map.put("countBottom", countBottom);
 		return map;
 		
+	}
+	
+	@RequestMapping("/hotCategory.giv")
+	@ResponseBody
+	public  Map<String,Object> hotCategory() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<HashMap<String,Object>> list = adminService.chartHotCatergory();
+		List<String> tag = new ArrayList<String>();
+		
+		// tag 안에 모든 태그들을 넣음
+		for(int i=0;i<list.size();i++) {
+			String temp[]  = ((String) list.get(i).get("tag")).split("#");
+			
+			BigDecimal big = (BigDecimal) list.get(i).get("num");
+			
+			int num = big.intValue();
+			for(int k=0;k<num;k++) {
+				for(int j=0;j<temp.length;j++) {
+					tag.add(temp[j]);
+				}
+			}
+		}
+		
+		int top[] = {0,0,0,0,0,0,0};
+		String tops[] = {"","","","","","",""};
+		
+		List<String> hot = new ArrayList<String>();
+		// 카운팅
+		for(int i=0;i<tag.size();i++) {
+			int cnt=0;
+			String search = tag.get(i);
+			if(!search.equals("")) {
+				
+			
+			for(int j=0;j<tag.size();j++) {
+				if(tag.get(j).equals(search)) {
+					cnt++;
+				}
+			}
+			
+			// push
+			for(int x=0;x<7;x++) {
+				if(tops[x].equals(search)) {
+					break;
+				}
+				if(top[x]<cnt) {
+					//한칸씩 옮기기
+					for(int y=6;y>x;y--) {
+						
+							top[y]=top[y-1];
+							tops[y]=tops[y-1];
+						
+						
+						
+					}
+					
+					top[x]=cnt;
+					tops[x]=search;
+					System.out.println(tops[0]+" , "+tops[1]+" , "+tops[2]+" , "+tops[3]+" , "+tops[4]+" , "+tops[5]+" , "+tops[6]);
+					System.out.println(top[0]+" , "+top[1]+" , "+top[2]+" , "+top[3]+" , "+top[4]+" , "+top[5]+" , "+top[6]);
+					break;
+				}
+			}
+			
+			}
+		}
+		
+		
+		
+		map.put("top",top );
+		map.put("tops", tops);
+		return map;
 	}
 	
 	

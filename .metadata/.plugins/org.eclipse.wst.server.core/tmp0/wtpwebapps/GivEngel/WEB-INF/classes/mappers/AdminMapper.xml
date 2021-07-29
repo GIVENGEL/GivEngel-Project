@@ -67,9 +67,66 @@
 		as sum from user_buylog;
 	</select>
 	<select id="cashCount" resultType="int">
-		select sum(user_cashlog_price)
-		as sum from user_cashlog;
+	 <![CDATA[
+		select sum(user_cashlog_price) as sum from user_cashlog
+		WHERE user_cashlog_price < 0
+	]]>
 	</select>
+	
+	<select id="priceRate" resultType="float">
+	 <![CDATA[
+		select (today-yesterday)/yesterday*100 from(
+select ifnull(sum(user_buylog_price),0) as today from user_buylog WHERE DATE_FORMAT(user_buylog_date, "%Y-%m-%d") = CURDATE()) as todaytb,
+(select ifnull(sum(user_buylog_price),0) as yesterday from user_buylog WHERE DATE_FORMAT(user_buylog_date, "%Y-%m-%d") = CURDATE()- INTERVAL 1 DAY) as yesterdaytb;
+	]]>
+	</select>
+	
+	<select id="userRate" resultType="float">
+	 <![CDATA[
+		select (today-yesterday)/yesterday*100 from(
+select ifnull(count(*),0) as today from user WHERE DATE_FORMAT(user_date, "%Y-%m-%d") = CURDATE()) as todaytb,
+(select ifnull(count(*),0) as yesterday from user WHERE DATE_FORMAT(user_date, "%Y-%m-%d") = CURDATE()- INTERVAL 1 DAY) as yestertb;
+	]]>
+	</select>
+	
+	<select id="cashRate" resultType="float">
+	 <![CDATA[
+		select plus/minus*-100 from
+(select ifnull(sum(user_cashlog_price),0) as plus from user_cashlog
+WHERE user_cashlog_price >= 0) as p,
+(select ifnull(sum(user_cashlog_price),0) as minus  from user_cashlog
+WHERE user_cashlog_price < 0) as m;
+	]]>
+	</select>
+	
+	<select id="countBag" resultType="int">
+	<![CDATA[
+	select count(*) from user_buylog b natural join good
+WHERE good_tag LIKE '%BAG%';
+	]]>
+	</select>
+	<select id="countAcc" resultType="int">
+	<![CDATA[
+	select count(*) from user_buylog b natural join good
+WHERE good_tag LIKE '%ACC%';
+	]]>
+	</select>
+	<select id="countTop" resultType="int">
+	<![CDATA[
+	select count(*) from user_buylog b natural join good
+WHERE good_tag LIKE '%TOP%';
+	]]>
+	</select>
+	
+	<select id="countBottom" resultType="int">
+	<![CDATA[
+	select count(*) from user_buylog b natural join good
+WHERE good_tag LIKE '%BOTTOM%';
+	]]>
+	</select>
+	
+	
+	
 	<select id="selectUserBuyLog" resultType="int">
 		SELECT count(*) FROM
 		user_buylog
@@ -230,6 +287,14 @@
 	</update>
 
 
+	<select id="selectTodayUser" resultType="int">
+		SELECT count(*) FROM user WHERE DATE_FORMAT(user_date, "%Y-%m-%d") = CURDATE()
+	</select>
+	<select id="adminCount" resultType="int">
+		SELECT count(*) FROM admin
+	</select>
+
+
 
 
 
@@ -269,7 +334,22 @@
 		date_format(now(),'%Y-%m-%d 23:59:59')
 		group by dates
 		LIMIT 0,7) AS buy;
-
+	</select>
+	
+	
+	
+	<resultMap type="HashMap" id="hotCategory">
+		<id column="tag" property="tag"/>
+		<id column="num" property="num"/>
+	</resultMap>
+	
+	<select id="chartHotCategory" resultMap="hotCategory">
+	(SELECT SUBSTR(good_tag,7) AS tag,(user_buylog_price/good_price) AS num 
+	FROM user_buylog b NATURAL JOIN good
+	WHERE good_tag LIKE '%BOTTOM%') UNION ALL
+	(SELECT SUBSTR(good_tag,4) AS tag,(user_buylog_price/good_price) AS num 
+	FROM user_buylog b NATURAL JOIN good
+	WHERE good_tag NOT LIKE '%BOTTOM%'); 
 	</select>
 
 

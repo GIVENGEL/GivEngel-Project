@@ -293,6 +293,10 @@ public class AdminServiceImpl implements AdminService {
 	public List<AdminChartBarVO> chartPriceAndCash() {
 		return adminDAO.chartPriceAndCash();
 	}
+	@Override
+	public List<HashMap<String, Object>> chartHotCatergory() {
+		return adminDAO.chartHotCatergory();
+	}
 
 	
 	
@@ -305,6 +309,7 @@ public class AdminServiceImpl implements AdminService {
 	public List<MsgVO> selectMsg(MsgVO vo){
 		return adminDAO.selectMsg(vo);
 	}
+	
 	
 	
 	

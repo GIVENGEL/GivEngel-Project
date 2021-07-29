@@ -25,3 +25,4 @@ $(function() {
        barColor: '#30a5ff'
    });
 });
+

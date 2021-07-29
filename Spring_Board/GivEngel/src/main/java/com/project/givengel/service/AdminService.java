@@ -109,6 +109,8 @@ public interface AdminService {
 	 ************************************************/
 	public List<AdminChartTimeVO> chartPricePerTime();
 	public List<AdminChartBarVO> chartPriceAndCash();
+	public List<HashMap<String,Object>> chartHotCatergory();
+
 
 
 	/************************************************

@@ -106,6 +106,7 @@ public interface AdminDAO {
 	************************************************/
 	public List<AdminChartTimeVO> chartPricePerTime();
 	public List<AdminChartBarVO> chartPriceAndCash();
+	public List<HashMap<String,Object>> chartHotCatergory();
 	
 	
 	

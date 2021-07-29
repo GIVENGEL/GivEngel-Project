@@ -125,31 +125,32 @@ $.ajax({
 
 			];
 			
-	var radarData = {
-	    labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
-	    datasets: [
-	        {
-	            label: "My First dataset",
-	            fillColor: "rgba(220,220,220,0.2)",
-	            strokeColor: "rgba(220,220,220,1)",
-	            pointColor: "rgba(220,220,220,1)",
-	            pointStrokeColor: "#fff",
-	            pointHighlightFill: "#fff",
-	            pointHighlightStroke: "rgba(220,220,220,1)",
-	            data: [65, 59, 90, 81, 56, 55, 40]
-	        },
-	        {
-	            label: "My Second dataset",
-	            fillColor : "rgba(48, 164, 255, 0.2)",
-	            strokeColor : "rgba(48, 164, 255, 0.8)",
-	            pointColor : "rgba(48, 164, 255, 1)",
-	            pointStrokeColor : "#fff",
-	            pointHighlightFill : "#fff",
-	            pointHighlightStroke : "rgba(48, 164, 255, 1)",
-	            data: [28, 48, 40, 19, 96, 27, 100]
-	        }
-	    ]
-	};
+	var radarData
+	$.ajax({
+		url:"hotCategory.giv",
+		type:"post",
+		async: false,
+		success:function(data){
+			radarData = {
+				    labels: [data.tops[0], data.tops[1], data.tops[2], data.tops[3], data.tops[4], data.tops[5], data.tops[6]],
+				    datasets: [
+				        {
+				            label: "가장 Hot한 태그 Top 7",
+				            fillColor : "rgba(48, 164, 255, 0.2)",
+				            strokeColor : "rgba(48, 164, 255, 0.8)",
+				            pointColor : "rgba(48, 164, 255, 1)",
+				            pointStrokeColor : "#fff",
+				            pointHighlightFill : "#fff",
+				            pointHighlightStroke : "rgba(48, 164, 255, 1)",
+				            data: [data.top[0], data.top[1], data.top[2], data.top[3], data.top[4], data.top[5], data.top[6]]
+				        }
+				       
+				    ]
+				};
+		}
+	});
+	
+	
 	
 	
 	

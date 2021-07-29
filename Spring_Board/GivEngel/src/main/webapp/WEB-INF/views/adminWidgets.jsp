@@ -631,8 +631,8 @@
 							}, beforeSend: function () {
 					              var width = 0;
 					              var height = 0;
-					              var left = $("#allmsgBox").offset().left+10;
-					              var top = $("#allmsgBox").offset().top+40;
+					              var left = $("#allmsgBox").position().left + $("#allmsgBox").width()/2-30;
+					              var top = $("#allmsgBox").position().top + $("#allmsgBox").height()/2+150;
 
 					              width = 50;
 					              height = 50;
@@ -644,8 +644,8 @@
 
 					              if($("#div_ajax_load_image").length != 0) {
 					                     $("#div_ajax_load_image").css({
-					                            "top": $("#allmsgBox").offset().top+40+"px",
-					                            "left": $("#allmsgBox").offset().left+10+"px"
+					                            "top": $("#allmsgBox").position().top + $("#allmsgBox").height()/2+150  +"px",
+					                            "left": $("#allmsgBox").position().left + $("#allmsgBox").width()/2-30  +"px"
 					                     });
 					                     $("#div_ajax_load_image").show();
 					              }
