@@ -117,6 +117,7 @@ public interface AdminDAO {
 	public void insertMsg(MsgVO vo);
 	public List<MsgVO> selectMsg(MsgVO vo);
 	public List<MsgVO> myMsg(String msg_from);
+	public List<MsgVO> timeLine(MsgVO vo);
 
 
 

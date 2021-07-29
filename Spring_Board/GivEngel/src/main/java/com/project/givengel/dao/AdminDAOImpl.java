@@ -333,6 +333,11 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<MsgVO> myMsg(String msg_from) {
 		return mybatis.selectList("MsgDAO.myMsg", msg_from);
 	}
+	@Override
+	public List<MsgVO> timeLine(MsgVO vo){
+		return mybatis.selectList("MsgDAO.timeLine",vo);
+	}
+
 	
 
 

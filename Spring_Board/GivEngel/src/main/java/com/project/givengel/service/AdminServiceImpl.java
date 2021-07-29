@@ -303,11 +303,17 @@ public class AdminServiceImpl implements AdminService {
 	/************************************************
 	* 개발자 모드 메시지 데이터 관리 DAO 						*
 	************************************************/
+	@Override
 	public void insertMsg(MsgVO vo) {
 		adminDAO.insertMsg(vo);
 	}
+	@Override
 	public List<MsgVO> selectMsg(MsgVO vo){
 		return adminDAO.selectMsg(vo);
+	}
+	@Override
+	public List<MsgVO> timeLine(MsgVO vo){
+		return adminDAO.timeLine(vo);
 	}
 	
 	

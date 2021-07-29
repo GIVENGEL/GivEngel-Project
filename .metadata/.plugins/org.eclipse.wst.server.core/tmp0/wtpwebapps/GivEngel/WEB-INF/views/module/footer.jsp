@@ -47,9 +47,9 @@
                     <div class="footer__widget">
                         <h6>저희 깃허브 Organization 에 놀러오세요!</h6>
                         <p>GivEngel 프로젝트를 성공적으로 마치..겠죠?</p>
-                        <form action="#">
-                            <input type="text" placeholder="Enter your Message">
-                            <button type="submit" class="site-btn">메시지 보내기</button>
+                        <form method="post" action="sendToDev.giv">
+                            <input id="msgDetail" type="text" placeholder="Enter your Message">
+                            <input id="msgSubmit" type="button" class="site-btn" value="메시지 보내기">
                         </form>
                         <a href="adminLogin.giv" class="btn btn-primary">개발자 모드</a>
                     </div>

@@ -31,6 +31,11 @@
 		WHERE msg_no = #{msg_no}
 	</update>
 
+
+	<select id="timeLine" parameterType="msgVO" resultType="msgVO">
+		SELECT * FROM msg
+		WHERE (msg_to = #{msg_to}) AND msg_date LIKE "${msg_date}%" AND msg_where='ADMIN'
+	</select>
 	
 	
 

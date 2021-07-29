@@ -1545,6 +1545,41 @@ public class AdminController {
 		adminService.insertMsg(vo);
 	}
 	
+	@RequestMapping("/timeLine.giv")
+	@ResponseBody
+	public Map<String, Object> timeLine(String formatDate,HttpServletRequest request) {
+		MsgVO temp = new MsgVO();
+		HttpSession session = request.getSession();
+		AdminVO adminvo = (AdminVO) session.getAttribute("admin");
+		
+		temp.setMsg_date(formatDate);
+		temp.setMsg_to(adminvo.getAdmin_id());
+		temp.setMsg_from(adminvo.getAdmin_id());
+		
+		List<MsgVO> list = new ArrayList<MsgVO>();
+		list = adminService.timeLine(temp);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("list", list);
+		return map ;
+	}
+	
+	@RequestMapping("/sendToDev.giv")
+	@ResponseBody
+	public void sendToDev(String msg,HttpServletRequest request) {
+		MsgVO temp = new MsgVO();
+		HttpSession session = request.getSession();
+		UserVO uservo = (UserVO) session.getAttribute("user");
+		
+		temp.setMsg_detail(msg);
+		temp.setMsg_where("USER");
+		temp.setMsg_to("DEV");
+		temp.setMsg_from(uservo.getUser_id());
+		
+		adminService.insertMsg(temp);
+	}
+	
+	
 	@RequestMapping("/selectMsg.giv")
 	@ResponseBody
 	public Map<String,Object> selectMsg(String status,HttpServletRequest request) {
@@ -1659,6 +1694,9 @@ public class AdminController {
 		int result = adminService.selectTodayUser();
 		return result ;
 	}
+	
+	
+	
 	
 
 	

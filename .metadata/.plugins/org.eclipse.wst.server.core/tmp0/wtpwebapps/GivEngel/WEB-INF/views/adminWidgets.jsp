@@ -394,7 +394,7 @@
 				</div>
 				<div class="panel panel-default ">
 					<div class="panel-heading">
-						타임라인
+						<div id="timeLine">타임라인</div>
 						<ul class="pull-right panel-settings panel-button-tab-right">
 							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
 								<em class="fa fa-cogs"></em>
@@ -420,51 +420,8 @@
 						</ul>
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body timeline-container">
-						<ul class="timeline">
-							<li>
-								<div class="timeline-badge"><i class="glyphicon glyphicon-pushpin"></i></div>
-								<div class="timeline-panel">
-									<div class="timeline-heading">
-										<h4 class="timeline-title">LOG 로그인 기록</h4>
-									</div>
-									<div class="timeline-body">
-										<p>[SELECT LOG ~~~]</p>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="timeline-badge primary"><i class="glyphicon glyphicon-link"></i></div>
-								<div class="timeline-panel">
-									<div class="timeline-heading">
-										<h4 class="timeline-title">Lorem ipsum dolor sit amet</h4>
-									</div>
-									<div class="timeline-body">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="timeline-badge"><i class="glyphicon glyphicon-camera"></i></div>
-								<div class="timeline-panel">
-									<div class="timeline-heading">
-										<h4 class="timeline-title">Lorem ipsum dolor sit amet</h4>
-									</div>
-									<div class="timeline-body">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.</p>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="timeline-badge"><i class="glyphicon glyphicon-paperclip"></i></div>
-								<div class="timeline-panel">
-									<div class="timeline-heading">
-										<h4 class="timeline-title">Lorem ipsum dolor sit amet</h4>
-									</div>
-									<div class="timeline-body">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-									</div>
-								</div>
-							</li>
+						<ul class="timeline" id="timeDiv">
+							
 						</ul>
 					</div>
 				</div>
@@ -547,6 +504,119 @@
 			 updateMsg();
 			 
 			 
+			 $('#calendar').datepicker({
+					format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
+						//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
+					 //생략
+
+					    
+					}).on("changeDate", function(e) {
+			                 //이벤트의 종류
+			                 //show : datePicker가 보이는 순간 호출
+			                 //hide : datePicker가 숨겨지는 순간 호출
+			                 //clearDate: clear 버튼 누르면 호출
+			                 //changeDate : 사용자가 클릭해서 날짜가 변경되면 호출 (개인적으로 가장 많이 사용함)
+			                 //changeMonth : 월이 변경되면 호출
+			                 //changeYear : 년이 변경되는 호출
+			                 //changeCentury : 한 세기가 변경되면 호출 ex) 20세기에서 21세기가 되는 순간
+			                
+			 					
+							var temp = ""+e.date;
+							temp = temp.split(" ");
+			                 temp[0];	// 요일
+			                
+			                 temp[1];	// 월
+			                 if(temp[1]=="Jan"){
+			                	 temp[1]="01";
+			                 }else if(temp[1]=="Feb"){
+			                	 temp[1]="02";
+			                 }else if(temp[1]=="Mar"){
+			                	 temp[1]="03";
+			                 }else if(temp[1]=="Apr"){
+			                	 temp[1]="04";
+			                 }else if(temp[1]=="May"){
+			                	 temp[1]="05";
+			                 }else if(temp[1]=="Jun"){
+			                	 temp[1]="06";
+			                 }else if(temp[1]=="Jul"){
+			                	 temp[1]="07";
+			                 }else if(temp[1]=="Aug"){
+			                	 temp[1]="08";
+			                 }else if(temp[1]=="Sep"){
+			                	 temp[1]="09";
+			                 }else if(temp[1]=="Oct"){
+			                	 temp[1]="10";
+			                 }else if(temp[1]=="Nov"){
+			                	 temp[1]="11";
+			                 }else if(temp[1]=="Dec"){
+			                	 temp[1]="12";
+			                 }
+			                 temp[2];	// 일
+			                 temp[3];	// 년
+			                 var formatDate = temp[3]+"-"+temp[1] +"-"+temp[2];
+			                 $("#timeLine").text("타임라인 : " + temp[3]+"년 "+temp[1]+"월 "+ temp[2]+ "일 ("+temp[0]+")");
+			                 
+			                 console.log(e);// 찍어보면 event 객체가 나온다.
+			                 //간혹 e 객체에서 date 를 추출해야 하는 경우가 있는데 
+			                 // e.date를 찍어보면 Thu Jun 27 2019 00:00:00 GMT+0900 (한국 표준시)
+			                 // 위와 같은 형태로 보인다. 
+			                 // 추후에 yyyy-mm-dd 형태로 변경하는 코드를 업로드 하겠습니다. 
+			                 
+			                 
+			                 
+			                 
+			                 
+			                  /* 문자 처리일 경우
+			 <li>
+				<div class="timeline-badge"><i class="glyphicon glyphicon-pushpin"></i></div>
+				<div class="timeline-panel">
+					<div class="timeline-heading">
+						<h4 class="timeline-title">제목 문자열</h4>
+						<small>날짜</samll>
+					</div>
+					<div class="timeline-body">
+						<p>내용 문자열</p>
+					</div>
+				</div>
+			</li>
+			 
+ */	
+			                 
+			                 
+			               /*   문자 메시지의 경우
+			                 <li>
+								<div class="timeline-badge primary"><i class="glyphicon glyphicon-link"></i></div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h4 class="timeline-title">제목 문자열</h4>
+										<small>날짜</samll>
+									</div>
+									<div class="timeline-body">
+										<p>내용 문자열</p>
+										
+									</div>
+								</div>
+							</li>
+			                  */
+			                  $.ajax({
+			                	 
+							url:"timeLine.giv",
+							type:"post",
+							data:{"formatDate": formatDate},
+							success:function(data){
+								
+								$("#timeDiv").empty();
+								for(var i=0;i<data.list.length;i++){
+									$("#timeDiv").append(' <li><div class="timeline-badge primary"><i class="glyphicon glyphicon-link"></i></div><div class="timeline-panel"><div class="timeline-heading"><h4 class="timeline-title">'+data.list[i].msg_from+' 님으로부터 온 메시지</h4><small>'+data.list[i].msg_date+'</samll></div><div class="timeline-body"><p>'+data.list[i].msg_detail+'</p></div></div></li>')
+								}
+								
+								
+									
+									
+								}
+			                  });
+			            })
+			 
 			 
 		
 			
@@ -587,6 +657,7 @@
 		</li> */
 			
 			function updateMsg(){
+			
 			
 			var admin = "${admin.admin_id}"
 
@@ -778,10 +849,7 @@
 			 setInterval(updateToDoLog,5000); 
 			 setInterval(updateMsg(),3000); 
 			 
-			 
-			 
-			 
-			 /* <div class="article border-bottom">
+					 /* <div class="article border-bottom">
 				<div class="col-xs-12">
 					<div class="row">
 						<div class="col-xs-2 col-md-2 date">
@@ -828,5 +896,11 @@
 	</script>
 	
 	</c:if>
+		<c:if test="${admin == null}">
+		<script>
+		 location. href="adminLogin.giv";
+		</script>
+		
+		</c:if>
 </body>
 </html>

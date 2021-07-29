@@ -279,5 +279,11 @@ var admin_id = $("#admin_id").val();
 		}
 	</script>
 	</c:if>
+		<c:if test="${admin == null}">
+		<script>
+		 location. href="adminLogin.giv";
+		</script>
+		
+		</c:if>
 </body>
 </html>
