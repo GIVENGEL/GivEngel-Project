@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -19,14 +19,22 @@
 	rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="${path}/resources/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="${path}/resources/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="${path}/resources/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="${path}/resources/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="${path}/resources/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="${path}/resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="${path}/resources/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="${path}/resources/css/style.css" type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/nice-select.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/jquery-ui.min.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/owl.carousel.min.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/slicknav.min.css"
+	type="text/css">
+<link rel="stylesheet" href="${path}/resources/css/style.css"
+	type="text/css">
 </head>
 
 <body>
@@ -35,8 +43,10 @@
 		<div class="loader"></div>
 	</div>
 
+
 	<!--  navbar &  side over wrap -->
 	<jsp:include page="module/navbar.jsp" />
+
 
 
 	<section class="hero hero-normal">
@@ -88,16 +98,15 @@
 
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg"
-		data-setbg="${path}/resources/img/flea/details_flea.jpg" width="1920px">
+		data-setbg="${path}/resources/img/flea/details_flea.jpg"
+		width="1920px">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<div class="breadcrumb__text">
 						<h2>중고 장터 게시판</h2>
 						<a href=""> 2021 SUMMER SEASON</a>
-						<div class="breadcrumb__option">
-						
-						</div>
+						<div class="breadcrumb__option"></div>
 					</div>
 				</div>
 			</div>
@@ -105,71 +114,139 @@
 	</section>
 	<!-- Breadcrumb Section End -->
 
-<!-- Blog Section Begin -->
-    <section class="blog spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-5">
-                    <jsp:include page="module/sidebar.jsp" />
-                </div>
-                <div class="col-lg-8 col-md-7">
-                    <div class="row">
-                        
-                        <c:forEach items="${fleaList }" var="flea">
-                        <input type="hidden" value="${flea.flea_no }" name="flea_no" id="flea_no">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic" style="border:2px solid #f9f9f9">
-                                    <c:choose>
-									<c:when test= "${flea.flea_isokay == '0' }"><a href="fleaView.giv?flea_no=${flea.flea_no }"><img src="${path}/resources/img/flea/soon.jpg" alt=""></a></c:when>
-									<c:otherwise><a href="fleaView.giv?flea_no=${flea.flea_no }"><img src="${path}/resources/img/flea/${flea.flea_img }" alt="${flea.flea_no }" ></a></c:otherwise>
-									</c:choose>
-                                </div>
-                                <div class="blog__item__text">
-                                    <ul>
-                                        <li><i class="fa fa-calendar-o"></i> ${flea.flea_date }</li>
-                                        <li><i class="fa fa-comment-o"></i><span id="countSponCom2"></span></li>
-                                    </ul>
-                                    <h5><a href="#">${flea.flea_title }</a></h5>
-                                    <p>${flea.flea_price }원 </p>
-                                    <a href="fleaView.giv?flea_no=${flea.flea_no }" class="blog__btn">자세히 보기 <span class="arrow_right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        </c:forEach>
-                        
-                      
-                        <div class="col-lg-12">
-                            <div class="product__pagination blog__pagination">
-                                <a href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-                                <c:if test="${sessionScope.user != null}">
-                                <button type="button" class="btn btn-success float-right"><a href="fleaWrite.giv">신청하기</a></button>
-                                </c:if>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Blog Section End -->
-<!-- Footer -->
+	<!-- Blog Section Begin -->
+	<section class="blog spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-5">
+					<jsp:include page="module/sidebar.jsp" />
+				</div>
+				<div class="col-lg-8 col-md-7">
+					<div class="row">
+
+						<c:forEach items="${list }" var="flea" varStatus="loop">
+							<input type="hidden" value="${flea.flea_no }" name="flea_no"
+								id="flea_no">
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<div class="blog__item">
+									<div class="blog__item__pic" style="border: 2px solid #f9f9f9">
+										<c:choose>
+											<c:when test="${flea.flea_isokay == '0' }">
+												<a href="fleaView.giv?flea_no=${flea.flea_no }"><img
+													src="${path}/resources/img/flea/soon.jpg" alt=""></a>
+											</c:when>
+											<c:otherwise>
+												<a href="fleaView.giv?flea_no=${flea.flea_no }"><img
+													src="${path}/resources/img/flea/${flea.flea_img }"
+													alt="${flea.flea_no }"></a>
+											</c:otherwise>
+										</c:choose>
+									</div>
+									<div class="blog__item__text">
+										<ul>
+											<li><i class="fa fa-calendar-o"></i> ${flea.flea_date }</li>
+											<li><i class="fa fa-comment-o"></i><span
+												id="countSponCom2"></span></li>
+										</ul>
+										<h5>
+											<a href="#">${flea.flea_title }</a>
+										</h5>
+										<p>${flea.flea_price }원</p>
+										<a href="fleaView.giv?flea_no=${flea.flea_no }"
+											class="blog__btn">자세히 보기 <span class="arrow_right"></span></a>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+						
+						
+						
+						
+					<%-- 	<c:forEach items="${listIsOkay }" var="flea" varStatus="loop">
+							<input type="hidden" value="${flea.flea_no }" name="flea_no"
+								id="flea_no">
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<div class="blog__item">
+									<div class="blog__item__pic" style="border: 2px solid #f9f9f9">
+										<c:choose>
+											<c:when test="${flea.flea_isokay == '0' }">
+												<a href="fleaView.giv?flea_no=${flea.flea_no }"><img
+													src="${path}/resources/img/flea/soon.jpg" alt=""></a>
+											</c:when>
+											<c:otherwise>
+												<a href="fleaView.giv?flea_no=${flea.flea_no }"><img
+													src="${path}/resources/img/flea/${flea.flea_img }"
+													alt="${flea.flea_no }"></a>
+											</c:otherwise>
+										</c:choose>
+									</div>
+									<div class="blog__item__text">
+										<ul>
+											<li><i class="fa fa-calendar-o"></i> ${flea.flea_date }</li>
+											<li><i class="fa fa-comment-o"></i><span
+												id="countSponCom2"></span></li>
+										</ul>
+										<h5>
+											<a href="#">${flea.flea_title }</a>
+										</h5>
+										<p>${flea.flea_price }원</p>
+										<a href="fleaView.giv?flea_no=${flea.flea_no }"
+											class="blog__btn">자세히 보기 <span class="arrow_right"></span></a>
+									</div>
+								</div>
+							</div>
+						</c:forEach> --%>
+													
+						
+						<div class="col-lg-12">
+							<div class="product__pagination blog__pagination paination">
+
+								<c:if test="${page.prev }">
+									<a href="fleaBoard.giv?page=${page.startPage-1}"><i class="fa fa-long-arrow-left"></i></a>
+								</c:if>
+								<c:forEach begin="${page.startPage }" end="${page.endPage }" var="num" >
+									<a href="fleaBoard.giv?page=${num}" id="num" >${num}</a>
+								</c:forEach>
+
+							<c:if test="${page.next && page.endPage > 0}">
+									<a href="fleaBoard.giv?page=${page.endPage+1}"/><i class="fa fa-long-arrow-right"></i></a>
+								</c:if>
+								<c:if test="${sessionScope.user != null}">
+									<a href="fleaWrite.giv" style="width:100px; text-decoration:none; float:right;"><button type="button" class="btn btn-success">
+										신청하기</button></a>
+								</c:if>
+
+							</div>
+						</div>
+						
+						
+						<div id="listBox">
+						
+						
+						</div>
+						
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Blog Section End -->
+	<!-- Footer -->
 	<jsp:include page="module/footer.jsp" />
 
 
 	<!-- Js Plugins -->
-    <script src="${path}/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="${path}/resources/js/bootstrap.min.js"></script>
-    <script src="${path}/resources/js/jquery.nice-select.min.js"></script>
-    <script src="${path}/resources/js/jquery-ui.min.js"></script>
-    <script src="${path}/resources/js/jquery.slicknav.js"></script>
-    <script src="${path}/resources/js/mixitup.min.js"></script>
-    <script src="${path}/resources/js/owl.carousel.min.js"></script>
-    <script src="${path}/resources/js/main.js"></script>
-    <script src="${path}/resources/js_page/flea.js"></script>
+	<script src="${path}/resources/js/jquery-3.3.1.min.js"></script>
+	<script src="${path}/resources/js/bootstrap.min.js"></script>
+	<script src="${path}/resources/js/jquery.nice-select.min.js"></script>
+	<script src="${path}/resources/js/jquery-ui.min.js"></script>
+	<script src="${path}/resources/js/jquery.slicknav.js"></script>
+	<script src="${path}/resources/js/mixitup.min.js"></script>
+	<script src="${path}/resources/js/owl.carousel.min.js"></script>
+	<script src="${path}/resources/js/main.js"></script>
+	<script src="${path}/resources/js_page/flea.js"></script>
 
 
 </body>

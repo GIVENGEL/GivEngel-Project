@@ -49,7 +49,7 @@ public class LoginController {
 			System.out.println("LoginAction 세션 생성 : " + login.getUser_id());
 			session.setAttribute("user", login);
 		}
-		return "/index";
+		return "redirect:index.giv";
 	}
 	
 	
@@ -65,7 +65,7 @@ public class LoginController {
 	@RequestMapping(value = "/logout.giv", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception{
 		session.invalidate();
-		return "/index";
+		return "redirect:index.giv";
 	}
 	
 	

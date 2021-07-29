@@ -39,8 +39,8 @@
 	type="text/css">
 <link rel="stylesheet" href="${path}/resources/css/style.css"
 	type="text/css">
-	
-	
+<input type="hidden" id="pathes" value="${path }">	
+
 	<link rel="icon" type="image/x-icon" href="${path}/resources/img/mypage/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>

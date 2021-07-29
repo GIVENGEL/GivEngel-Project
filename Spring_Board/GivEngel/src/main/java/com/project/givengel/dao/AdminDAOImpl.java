@@ -208,7 +208,7 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public void deleteGood(GoodVO vo) {
 		mybatis.delete("AdminDAO.deleteGood",vo);
-		mybatis.delete("AdminDAO.deleteGodd_com",vo);
+		mybatis.delete("AdminDAO.deleteGood_com",vo);
 	}
 	@Override
 	public List<GoodVO> searchGood(Map<String,String> map){	

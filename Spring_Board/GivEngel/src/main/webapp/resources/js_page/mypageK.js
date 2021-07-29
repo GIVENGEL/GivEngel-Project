@@ -1,3 +1,4 @@
+
 $(function(){
 	
 	//비밀번호 변경 클릭시
@@ -609,12 +610,12 @@ function myCartList(){
 		url:'myCartList.giv',
 		success: function(cart) {
 			cartCnt = cart.length;
-			
+			var path = $("#pathes").val();
 			$(".myCartListBody").empty();
 			 var i;
 			 let sum = 0;
 			for(i=0; i<cartCnt; i++){
-		 	$(".myCartListBody").append('<tr><input type="hidden" id="myHiddenTotalBuy'+i+'" value='+cart[i].cart_count*cart[i].good_price+'><input type="hidden" class="hiddencart" id="hiddenCartNum'+i+'" value='+cart[i].good_no+'><td class="shoping__cart__item"><img style="height:150px; width:150px;" src="${path}/resources/img/good/'+cart[i].good_img+'" alt=""><h5>['+cart[i].good_name+']</h5></td><input type:"hidden" class="hiddencartcart" value="'+cart[i].cart_no+'"><td class="shoping__cart__price">['+cart[i].good_price+']</td><td class="good__details__quantity"><div class="quantity"><div class="pro-qty"><span id="minus'+i+'" class="minusbutton" style="cursor:pointer">-</span><input id="hiddenCartCount'+i+'" class="hiddenCartCount" type="text" value="'+cart[i].cart_count+'"><span class="plusbutton" id="plus'+i+'" style="cursor:pointer">+</span></div></div></td><td class="shoping__cart__total" id="sumtotalprice'+'">['+cart[i].cart_count*cart[i].good_price+']</td><td class="shoping__cart__item__close"><span class="icon_close"></span></td></tr>')
+		 	$(".myCartListBody").append('<tr><input type="hidden" id="myHiddenTotalBuy'+i+'" value='+cart[i].cart_count*cart[i].good_price+'><input type="hidden" class="hiddencart" id="hiddenCartNum'+i+'" value='+cart[i].good_no+'><td class="shoping__cart__item"><img style="height:150px; width:150px;" src="'+path+'/resources/img/good/'+cart[i].good_img+'"><h5>['+cart[i].good_name+']</h5></td><input type:"hidden" class="hiddencartcart" value="'+cart[i].cart_no+'"><td class="shoping__cart__price">['+cart[i].good_price+']</td><td class="good__details__quantity"><div class="quantity"><div class="pro-qty"><span id="minus'+i+'" class="minusbutton" style="cursor:pointer">-</span><input id="hiddenCartCount'+i+'" class="hiddenCartCount" type="text" value="'+cart[i].cart_count+'"><span class="plusbutton" id="plus'+i+'" style="cursor:pointer">+</span></div></div></td><td class="shoping__cart__total" id="sumtotalprice'+'">['+cart[i].cart_count*cart[i].good_price+']</td><td class="shoping__cart__item__close"><span class="icon_close"></span></td></tr>')
 		 	   sum += parseInt(cart[i].cart_count*cart[i].good_price)   
 			}       	 
 			 $('#myTotalBuyAc').text(sum+'원');  
@@ -726,6 +727,7 @@ $(document).on('click', '.paging2', function(){
 			type:'post',
 			url:'myfleaMarket.giv',
 			success : function(fl){
+				
 				 $(".myfleaMarket").empty();
 				$(".myfleaMarket").append('<div><h2 style="color:#808080"class="mb-5">내 구매내역</h2></div>')
 				if(fl.length>=end2) {

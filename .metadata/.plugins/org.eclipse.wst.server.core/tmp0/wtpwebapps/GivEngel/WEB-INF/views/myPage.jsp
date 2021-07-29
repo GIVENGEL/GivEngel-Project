@@ -7,6 +7,7 @@
 
 <head>
 
+
 <meta charset="UTF-8">
 <meta name="description" content="Ogani Template">
 <meta name="keywords" content="Ogani, unica, creative, html">
@@ -19,7 +20,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
 	rel="stylesheet">
-
+ 
 
 <!-- Css Styles -->
 <link rel="stylesheet" href="${path}/resources/css/bootstrap.min.css"
@@ -38,8 +39,8 @@
 	type="text/css">
 <link rel="stylesheet" href="${path}/resources/css/style.css"
 	type="text/css">
-	
-	
+<input type="hidden" id="pathes" value="${path }">	
+
 	<link rel="icon" type="image/x-icon" href="${path}/resources/img/mypage/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
@@ -185,7 +186,7 @@
 											</tr> 
 											  
 											
-											<br/> r
+											<br/> 
 											<br/>
 										</table>
 										<input id="cancle" type="button" class="btn btn-block btn-success btn-lg"
@@ -195,17 +196,17 @@
 										<h3 class="display-6">기타 유저 정보</h3>
 										<tr>  
 											<th>생년월일</th>
-											<td>생년월일임</td>
+											<td><label id="birthDetect"></label></td>
 										</tr>
 										<tr>
 											<th>성별</th>
-											<td>성별임</td>
-										</tr>
+											<td><label id="genderDetect"></label></td>
+										</tr>  
 										<tr>
 											<th>마일리지</th>
-											<td>마일리지총액임</td>
+											<td>${user.user_cash}</td>
 										</tr>
-										</table>
+										</table> 
 										
 								</section>
 							</section>
@@ -229,9 +230,9 @@
             <hr class="m-0" />
             <!-- Experience-->
             <section class="resume-section" id="experience">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">장바구니[ajax 페이징처리]</h2>
-                  <section class="shoping-cart spad">
+                <div class="resume-section-content"> 
+                    <h2 class="mb-5">장바구니</h2>
+                  <section class="shoping-cart spad"> 
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -246,55 +247,23 @@
 									<th></th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td class="shoping__cart__item"><img
-										src="${path}/resources/img/cart/cart-1.jpg" alt="">
-										<h5>[물품1 이름]</h5></td>
-									<td class="shoping__cart__price">[물품 1 가격]</td>
-									<td class="shoping__cart__quantity">
-										<div class="quantity">
-											<div class="pro-qty">
-												<input type="text" value="1">
-											</div>
-										</div>
-									</td>
-									<td class="shoping__cart__total">[계산한 가격]</td>
-									<td class="shoping__cart__item__close"><span
-										class="icon_close"></span></td>
-								</tr>
-								<tr>
-									<td class="shoping__cart__item"><img
-										src="${path}/resources/img/cart/cart-1.jpg" alt="">
-										<h5>[물품2 이름]</h5></td>
-									<td class="shoping__cart__price">[물품2 가격]</td>
-									<td class="shoping__cart__quantity">
-										<div class="quantity">
-											<div class="pro-qty">
-												<input type="text" value="1">
-											</div>
-										</div>
-									</td>
-									<td class="shoping__cart__total">[계산한 가격]</td>
-									<td class="shoping__cart__item__close"><span
-										class="icon_close"></span></td>
-								</tr>
-								<tr>
-									<td class="shoping__cart__item"><img
-										src="${path}/resources/img/cart/cart-1.jpg" alt="">
-										<h5>[물품3 이름]</h5></td>
-									<td class="shoping__cart__price">[물품3 가격]</td>
-									<td class="shoping__cart__quantity">
-										<div class="quantity">
-											<div class="pro-qty">
-												<input type="text" value="1">
-											</div>
-										</div>
-									</td>
-									<td class="shoping__cart__total">[계산한 가격]</td>
-									<td class="shoping__cart__item__close"><span
-										class="icon_close"></span></td>
-								</tr>
+							<tbody class="myCartListBody">
+						<%-- 		<tr>
+<td class="shoping__cart__item"><img
+	src="${path}/resources/img/cart/cart-1.jpg" alt="">
+	<h5>[물품1 이름]</h5></td>
+<td class="shoping__cart__price">[물품 1 가격]</td>
+<td class="shoping__cart__quantity">
+	<div class="quantity"> 
+		<div class="pro-qty">
+			<input type="text" value="1">
+		</div>
+	</div>
+</td>
+<td class="shoping__cart__total">[계산한 가격]</td>
+<td class="shoping__cart__item__close"><span
+	class="icon_close"></span></td>
+</tr> --%>
 							</tbody>
 						</table>
 					</div>
@@ -311,11 +280,11 @@
 					<div class="shoping__checkout">
 						<h5>장바구니 전체 결제액</h5>
 						<ul>
-							<li>총 가격 <span>[가격 계산]</span></li>
-							<li>적립 마일리지 <span>[적립될 마일리지]</span></li>
+							<li>총 가격 <span id="myTotalBuyAc">[가격 계산]</span></li>
+							<li>적립 마일리지 <span class="mysaveCashNow"></span></li>
 						</ul>
-						<a href="#" class="primary-btn">구매하기</a>
-					</div>
+						<a href="#" class="primary-btn myCartBuybtn">구매하기</a>
+					</div> 
 				</div>
 			</div>
 		</div>
@@ -325,100 +294,49 @@
             <hr class="m-0" />
             <!-- Education-->
             <section class="resume-section" id="education">
-                <div class="resume-section-content" id="myCashListBox">
-                    <h2 class="mb-5">마일리지 사용내역[ajax 페이징 처리]</h2>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">[마일리지 내역 로그]</h3>
-                            <div class="subheading mb-3">[사용/얻은 마일리지]</div>
-                            <div>[관련 후원단체]</div>
-                            <p>[관련 캠페인]</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">[로그 날짜]</span></div>
-                    </div>
+            <div class="container">
+            	<div class="row">
+                <div class="resume-section-content myCashListBox" id="myCashListBox">
+                </div>
+                </div>
+                 <ul class="pagination mycashPaging">
+                
+				</ul> 
                 </div>
             </section>
-            <hr class="m-0" />
+            <hr class="m-0" /> 
             <!-- Skills-->
+          
             <section class="resume-section" id="skills">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">구매내역[ajax 페이징 처리]</h2>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">[구입한 물품]</h3>
-                            <div class="subheading mb-3">[사용한 금액]</div>
-                            <div>[상품번호]</div>
-                            <p>[구입한 개수 ]</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">[로그 날짜]</span></div>
-                    </div>
-                    
-                </div>
+            <div class="container">
+            	<div class="row">
+                <div class="resume-section-content myBuyList" >
+             
+                      
+                      
+                </div> 
+                 <ul class="pagination myBuyPaging">
+				</ul>
+				</div> 
+			</div>
             </section>
-            <hr class="m-0" />
+            <hr class="m-3" />
             <!-- Interests-->
             <section class="resume-section" id="interests">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">중고장터 등록상품</h2>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">[등록한 물품]</h3>
-                            <div class="subheading mb-3">[등록한 금액]</div>
-                            <div>[중고상품번호]</div>
-                            <p>[통과 여부 ]</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">[로그 날짜]</span></div>
-                    </div>
+            <div class="container">
+            <div class="row">
+                <div class="resume-section-content myfleaMarket">
+                    
                 </div>
+               </div>
+                <ul class="pagination myfleaPaging">
+                
+				</ul> 
+             </div>
             </section>
-            <hr class="m-0" />
-            <!-- Awards-->
-            <section class="resume-section" id="awards">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Awards & Certifications</h2>
-                    <ul class="fa-ul mb-0">
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            Google Analytics Certified Developer
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            Mobile Web Specialist - Google Certification
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            1
-                            <sup>st</sup>
-                            Place - University of Colorado Boulder - Emerging Tech Competition 2009
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            1
-                            <sup>st</sup>
-                            Place - University of Colorado Boulder - Adobe Creative Jam 2008 (UI Design Category)
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            2
-                            <sup>nd</sup>
-                            Place - University of Colorado Boulder - Emerging Tech Competition 2008
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            1
-                            <sup>st</sup>
-                            Place - James Buchanan High School - Hackathon 2006
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            3
-                            <sup>rd</sup>
-                            Place - James Buchanan High School - Hackathon 2005
-                        </li>
-                    </ul>
-                </div>
-            </section>
+            
         </div>
+        
         
 
 
@@ -445,13 +363,11 @@
         <script src="${path}/resources/js_page/myPage.js"></script>
         
 	<!-- mypageK -->
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-		<script src="${path}/resources/js_page/mypageK.js"></script> 
-
-
-
+	   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	   <script src="${path}/resources/js_page/mypageK.js"></script>
+ 
 </body>
-<jsp:include page="module/footer.jsp" />
+
 
 
 </html>

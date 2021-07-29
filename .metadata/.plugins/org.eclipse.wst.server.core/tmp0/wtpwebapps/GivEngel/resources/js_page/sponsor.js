@@ -16,12 +16,11 @@ $(function() {
 
 	$('#donationBtn').click(function(){
 		
-		var user_cash = $('#user_cash').val();
-		var donate = $('#user_cashlog_price').val();
-		
-		if( donate > user_cash ) { // 입력한 금액이 유저의 마일리지보다 크다면
-			alert("마일리지가 부족합니다");
-			location.reload();
+		if( $('#user_cashlog_price').val() > $('#user_cash').val() ) { // 입력한 금액이 유저의 마일리지보다 크다면
+			$('#guideText').text('마일리지가 부족합니다');
+			$('#guideText').css('color', 'red');
+			//alert("마일리지가 부족합니다");
+			//location.reload();
 			
 		} else {
 			
@@ -106,7 +105,7 @@ $(function() {
 				spon_no : $('#spon_no').val()
 			},
 			success : function(data) {
-				$('#listSponCom').empty;
+				$('#listSponCom').empty();
 				for(i=0; i<data.listSponCom.length; i++) {	
 					$('#listSponCom').append('<div class="card p-3 mb-5"><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-center"><img src="https://i.imgur.com/hczKIze.jpg"width="30"class="user-img rounded-circle mr-2"><div class="sponComWriter"><small class="font-weight-bold text-primary">'+data.listSponCom[i].spon_com_writer+'</small></div><div><small class="font-weight-bold">'+data.listSponCom[i].spon_com_content+'</small></div></div><small>'+data.listSponCom[i].spon_com_date+'</small></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div style="float:left"><input type="button"class="modifySponComBtn"value="수정"><input type="button"class="deleteSponComBtn"style="margin-left:7px"value="삭제"></div><div style="display: none">'+data.listSponCom[i].spon_com_no+'</div></div></div>');
 					
@@ -116,6 +115,10 @@ $(function() {
 				$('#countSponCom').append('총 ' + data.count + '개');
 				$('.countSponCom').append('응원댓글 ( ' + data.count + '개)');
 				$('#countSponCom2').append( data.count + '개');
+					
+				
+				
+				
 			}, // success
 			error:function(request, status, error){
 
@@ -142,7 +145,7 @@ $(function() {
 			},
 			success : function() {
 				alert("댓글이 입력되었습니다");
-				location.reload();
+				listSponCom();
 				} // seuccess
 			
 		}) // ajax
