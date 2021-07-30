@@ -774,17 +774,15 @@ public class AdminController {
 	 * 
 	 * 사용된 함수 		:	-
 	 * 사용된 서비스 	:	adminService
-	 * 마지막 수정		:	2021-07-24
+	 * 마지막 수정		:	2021-07-30
 	 *****************************************************/
 	@RequestMapping("/searchAdmin.giv")
 	@ResponseBody
-	public Map<String,Object> searchAdmin(String level,String searchData) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("level", level);
-		map.put("searchData", searchData);
+	public Map<String,Object> searchAdmin(String searchData) {
 		
+		System.out.println(searchData);
 		List<AdminVO> list = new ArrayList<AdminVO>();
-		list = adminService.searchAdmin(map);
+		list = adminService.searchAdmin(searchData);
 		
 		Map<String, Object> maps = new HashMap<String, Object>();
 		maps.put("list",list);
@@ -1545,6 +1543,30 @@ public class AdminController {
 		adminService.insertMsg(vo);
 	}
 	
+	@RequestMapping("/sendUserMsg.giv")
+	@ResponseBody
+	public void sendUserMsg(MsgVO vo,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserVO uservo = (UserVO) session.getAttribute("user");
+
+		if(uservo != null) {
+			vo.setMsg_from(uservo.getUser_id());
+			vo.setMsg_to("GIVENGEL");
+			vo.setMsg_where("USER");
+
+			adminService.insertMsg(vo);
+		}
+		else {
+			vo.setMsg_to("GIVENGEL");
+			vo.setMsg_where("USER");
+
+			adminService.insertMsg(vo);
+		}
+		
+	}
+	
+	
+	
 	@RequestMapping("/timeLine.giv")
 	@ResponseBody
 	public Map<String, Object> timeLine(String formatDate,HttpServletRequest request) {
@@ -1637,6 +1659,15 @@ public class AdminController {
 		return map;
 	}
 	
+	@RequestMapping("/selectUserMsg.giv")
+	@ResponseBody
+	public Map<String,Object> selectUserMsg() {
+		Map<String, Object> map = new HashMap<String,Object>();
+		
+
+		map.put("list", adminService.selectUserMsg());
+		return map;
+	}
 	
 	/************************
 	 * 로그 보드 영역  end		*

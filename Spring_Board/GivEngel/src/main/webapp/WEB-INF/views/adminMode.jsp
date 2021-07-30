@@ -403,7 +403,7 @@
 			<div class="col-md-6">
 				<div class="panel panel-default ">
 					<div class="panel-heading">
-						USER LOG
+						USER MESSAGE LOG
 						<ul class="pull-right panel-settings panel-button-tab-right">
 							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
 								<em class="fa fa-cogs"></em>
@@ -429,15 +429,15 @@
 						</ul>
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body timeline-container">
-						<ul class="timeline">
+						<ul class="timeline" id="userMsgDiv">
 							<li>
 								<div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
 								<div class="timeline-panel">
 									<div class="timeline-heading">
-										<h4 class="timeline-title">Lorem ipsum dolor sit amet</h4>
+										<h4 class="timeline-title">유저 아이디</h4>
 									</div>
 									<div class="timeline-body">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.</p>
+										<p>메시지 내용</p>
 									</div>
 								</div>
 							</li>
@@ -563,6 +563,41 @@
 	</div>
 </li> */
 
+
+
+
+
+/* <li>
+<div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
+<div class="timeline-panel">
+	<div class="timeline-heading">
+		<h4 class="timeline-title">유저 아이디</h4>
+	</div>
+	<div class="timeline-body">
+		<p>메시지 내용</p>
+	</div>
+</div>
+</li> */
+
+updateUserMsg();
+
+	function updateUserMsg(){
+	$.ajax({
+		url:"selectUserMsg.giv",
+		type:"post",
+		success:function(data){
+			
+			var userMsgDiv = $("#userMsgDiv");
+			userMsgDiv.empty();
+			for(var i=0;i<data.list.length;i++){
+				userMsgDiv.append('<li><div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div><div class="timeline-panel"><div class="timeline-heading"><h4 class="timeline-title">'+data.list[i].msg_from+'</h4><small>'+data.list[i].msg_date+'</small></div><div class="timeline-body"><p>'+data.list[i].msg_detail+'</p></div></div></li>')
+				
+			}
+			
+			
+		}
+	});
+}
 
 
 

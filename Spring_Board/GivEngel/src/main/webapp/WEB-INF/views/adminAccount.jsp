@@ -214,6 +214,7 @@
 		</div>
 		<!--/.main-->
 
+<input type="hidden" value="${path}" id="path">
 		<script src="${path}/resources/js/admin/jquery-1.11.1.min.js"></script>
 		<script src="${path}/resources/js/admin/bootstrap.min.js"></script>
 		<script src="${path}/resources/js/admin/chart.min.js"></script>
@@ -246,14 +247,22 @@
 						url : "searchAdmin.giv",
 						type : "post",
 						data : {
-							"level":level,
 							"searchData":searchData
 						},
-						success : function(data) {
-							var list = data.list;
-							var paths = $("#path").val();
+						success : function(data) {	
+						
+							
 							$("#searchResult").empty();
-							$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img src='+path+' "alt="'+data.list[i].admin_id+'"><div class="caption"><h3>'+data.list[i].admin_id+'</h3><p> 권한 :'+data.list[i].admin_available +'</p><p><a href="adminAccountModifyForm.giv?admin_id='+data.list[i].admin_id+'" class="btn btn-warning" role="button">수정하기</a><a href="adminAccountDeleteForm.giv?admin_id='+data.list[i].admin_id+'" class="btn btn-danger" role="button" style="margin:5px">삭제하기</a></p></div></div></div>')
+							for(var i=0;i<data.list.length;i++){
+								if(data.list[i].admin_level == 1){var paths = $("#path").val()+"/resources/img/admin/lv1.png";}
+								if(data.list[i].admin_level == 2){var paths = $("#path").val()+"/resources/img/admin/lv2.png";}
+								if(data.list[i].admin_level == 3){var paths = $("#path").val()+"/resources/img/admin/lv3.png";}
+								if(data.list[i].admin_level == 4){var paths = $("#path").val()+"/resources/img/admin/lv4.png";}
+								
+								$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img src='+paths+' "alt="'+data.list[i].admin_id+'"><div class="caption"><h3>'+data.list[i].admin_id+'</h3><p> 권한 :'+data.list[i].admin_available +'</p><p><a href="adminAccountModifyForm.giv?admin_id='+data.list[i].admin_id+'" class="btn btn-warning" role="button">수정하기</a><a href="adminAccountDeleteForm.giv?admin_id='+data.list[i].admin_id+'" class="btn btn-danger" role="button" style="margin:5px">삭제하기</a></p></div></div></div>')
+
+							}
+							
 							
 						}
 					});

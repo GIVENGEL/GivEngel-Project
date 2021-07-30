@@ -30,7 +30,7 @@ public interface AdminService {
 	public void insertAdmins(AdminVO vo);
 	public void updateAdmins(AdminVO vo);
 	public void deleteAdmins(AdminVO vo);
-	public List<AdminVO> searchAdmin(Map<String,String> map);
+	public List<AdminVO> searchAdmin(String searchData);
 
 	
 	
@@ -120,6 +120,7 @@ public interface AdminService {
 	public List<MsgVO> selectMsg(MsgVO vo);
 	public List<MsgVO> myMsg(String msg_from);
 	public List<MsgVO> timeLine(MsgVO vo);
+	public List<MsgVO> selectUserMsg();
 
 
 

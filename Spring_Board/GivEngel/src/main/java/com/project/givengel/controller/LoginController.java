@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.givengel.service.AdminService;
 import com.project.givengel.service.LoginService;
+import com.project.givengel.vo.MsgVO;
 import com.project.givengel.vo.UserVO;
 
 @Controller
@@ -23,6 +25,9 @@ public class LoginController {
 	
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private AdminService adminService;
 	
 	
 	
@@ -81,7 +86,13 @@ public class LoginController {
 	 * 마지막 수정		:	2021-07-21
 	 *****************************************************/
 	@RequestMapping("/joinAction.giv")
-	public String joinAction(UserVO vo,String confirm_pw) {
+	public String joinAction(UserVO vo,String confirm_pw,String msg_detail) {
+		MsgVO msgvo = new MsgVO();
+		msgvo.setMsg_detail(msg_detail);
+		msgvo.setMsg_from(vo.getUser_id());
+		msgvo.setMsg_to("GIVENGEL");
+		msgvo.setMsg_where("USER");
+		adminService.insertMsg(msgvo);
 		return loginService.join(vo,confirm_pw);
 	}
 	

@@ -170,39 +170,10 @@
 						</ul>
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body articles-container" id="notice_list">
-						<div class="article border-bottom">
-							<div class="col-xs-12">
-								<div class="row">
-									<div class="col-xs-2 col-md-2 date">
-										<div class="large">30</div>
-										<div class="text-muted">Jun</div>
-									</div>
-									<div class="col-xs-10 col-md-10">
-										<h4><a href="#">Lorem ipsum dolor sit amet</a></h4>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.</p>
-									</div>
-								</div>
-							</div>
-							<div class="clear"></div>
-						</div><!--End .article-->
 						
 						
 						
-						<div class="article border-bottom">
-							<div class="col-xs-12">
-								<div class="row">
-									<div class="col-xs-2 col-md-2 date">
-										<div class="large">날짜 일 자르기</div>
-										<div class="text-muted">날짜 월 자르기</div>
-									</div>
-									<div class="col-xs-10 col-md-10">
-										<h4><a href="#">제목</a></h4>
-										<p>내용</p>
-									</div>
-								</div>
-							</div>
-							<div class="clear"></div>
-						</div><!--End .article-->
+						
 	
 				</div>
 					<c:if test="${admin.admin_level > 2 }">

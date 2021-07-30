@@ -64,8 +64,8 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.selectAdmin(admin_id);
 	}
 	@Override
-	public List<AdminVO> searchAdmin(Map<String,String> map) {
-		return adminDAO.searchAdmin(map);
+	public List<AdminVO> searchAdmin(String searchData) {
+		return adminDAO.searchAdmin(searchData);
 	}
 	@Override
 	public void updateAdmins(AdminVO vo) {
@@ -314,6 +314,10 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<MsgVO> timeLine(MsgVO vo){
 		return adminDAO.timeLine(vo);
+	}
+	@Override
+	public List<MsgVO> selectUserMsg(){
+		return adminDAO.selectUserMsg();
 	}
 	
 	

@@ -61,8 +61,9 @@ public class AdminDAOImpl implements AdminDAO {
 		return mybatis.selectOne("AdminDAO.selectAdmin", admin_id);
 	}
 	@Override
-	public List<AdminVO> searchAdmin(Map<String,String> map) {
-		return mybatis.selectList("AdminDAO.searchAdmin", map);
+	public List<AdminVO> searchAdmin(String searchData) {
+		
+		return mybatis.selectList("AdminDAO.searchAdmin", searchData);
 	}
 	@Override
 	public void updateAdmins(AdminVO vo) {
@@ -336,6 +337,10 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public List<MsgVO> timeLine(MsgVO vo){
 		return mybatis.selectList("MsgDAO.timeLine",vo);
+	}
+	@Override
+	public List<MsgVO> selectUserMsg(){
+		return mybatis.selectList("MsgDAO.selectUserMsg");
 	}
 
 	

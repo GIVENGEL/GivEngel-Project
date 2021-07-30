@@ -11,6 +11,14 @@
 		LIMIT 0,30
 	</select>
 	
+	<select id="selectUserMsg" parameterType="msgVO" resultType="msgVO">
+		SELECT * FROM msg
+		WHERE msg_to = "GIVENGEL" 
+		OR msg_where = "USER"
+		order by msg_date desc
+		LIMIT 0,30
+	</select>
+	
 	<select id="myMsg" parameterType="String" resultType="msgVO">
 		SELECT * FROM msg
 		WHERE msg_to = #{msg_to}
@@ -21,7 +29,6 @@
 	<insert id="insertMsg" parameterType="msgVO">
 		INSERT INTO msg(msg_to,msg_from,msg_detail,msg_checked,msg_date,msg_where)
 		VALUES(#{msg_to},#{msg_from},#{msg_detail},0,sysdate(),#{msg_where})
-
 	</insert>
 	
 	
