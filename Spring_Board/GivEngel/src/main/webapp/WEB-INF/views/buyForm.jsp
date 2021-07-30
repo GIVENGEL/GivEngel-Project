@@ -32,6 +32,29 @@
 <link rel="stylesheet" href="${path}/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="${path}/resources/css/style.css" type="text/css">
 <link rel="stylesheet" href="${path}/resources/css/quantity.css" type="text/css">
+<script type="text/javascript">
+function openFacebook() {
+	// 페이스북 새창열기
+	window.open('https://www.facebook.com', '_blank');
+
+}
+function openPinterest() {
+	// 핀터레스트 새창열기
+	window.open('https://www.pinterest.com', '_blank');
+
+}
+function openInstagram() {
+	// 페이스북 새창열기
+	window.open('https://www.instagram.com', '_blank');
+
+}
+function openTwitter() {
+	// 페이스북 새창열기
+	window.open('https://www.twitter.com', '_blank');
+
+}
+	
+</script>
 
 </head>
 
@@ -158,8 +181,6 @@
 						<a href="#" class="primary-btn" id='buyGoodBtn'>구매하기</a> 
 						<a href="javascript:void(0);" onclick='addcart();' id='addCart'
 							class="primary-btn">장바구니에 담기</a> 
-						<a href="#" class="heart-icon"><span
-							class="icon_heart"></span></a>
 						<ul>
 							<li><b>상품 카테고리</b> <span>${categories}</span></li>
 							<li><b>남은 재고</b> <span id='goodStock'> ${goodVO.good_stock}</span><br></li>							
@@ -167,10 +188,10 @@
 
 							<li><b>공유하기</b>
 								<div class="share">
-									<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
-										class="fa fa-twitter"></i></a> <a href="#"><i
-										class="fa fa-instagram"></i></a> <a href="#"><i
-										class="fa fa-pinterest"></i></a>
+									<a href="javascript:void(0)" onclick="openFacebook()"><i class="fa fa-facebook"></i></a> 
+									<a href="javascript:void(0)" onclick="openTwitter()"><i class="fa fa-twitter"></i></a> 
+									<a href="javascript:void(0)" onclick="openInstagram()"><i class="fa fa-instagram"></i></a> 
+									<a href="javascript:void(0)" onclick="openPinterest()"><i class="fa fa-pinterest"></i></a>
 								</div></li>
 						</ul>
 					</div>

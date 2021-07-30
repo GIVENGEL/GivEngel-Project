@@ -131,7 +131,7 @@ $(function(){
 				async: false,
 				data : {
 					good_no :  good_no,
-					user_buylog_price : totalPrice * buyCnt,
+					user_buylog_price : totalPrice,
 				},success : function(result){
 					if(result == "1"){
 						alert("구매 로그 업데이트 성공")

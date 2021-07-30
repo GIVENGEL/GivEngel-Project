@@ -3,7 +3,7 @@ package com.project.givengel.vo;
 public class PagingVO {
 	
 	private int listSize = 6;    //한 페이지당 보여줄 게시물 개수 / 초기값으로 목록개수를 10으로 셋팅
-	private int rangeSize = 2;   // 한 페이지 범위에 보여질 페이지의 개수 / 초기값으로 페이지범위를 10으로 셋팅
+	private int rangeSize = 5;   // 한 페이지 범위에 보여질 페이지의 개수 / 초기값으로 페이지범위를 10으로 셋팅
 	private int page;			  // 현재 목록의 페이지 번호
 	private int range;			  // 각 페이지 범위 시작 번호
 	private int listCnt;		  // 전체 개시물 개수

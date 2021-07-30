@@ -35,7 +35,7 @@ function fn_prev(page, range, rangeSize) {
 	}
   
 	//다음 버튼 이벤트
-	function fn_next(page, range, rangeSized) {
+	function fn_next(page, range, rangeSize) {
 		var page = parseInt((range * rangeSize)) + 1;
 		var range = parseInt(range) + 1;
 		var url = "buyList.giv";

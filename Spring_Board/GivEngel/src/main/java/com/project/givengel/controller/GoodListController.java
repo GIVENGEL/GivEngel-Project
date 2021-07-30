@@ -47,7 +47,7 @@ public class GoodListController {
 	*/	
 //	상품리스트 페이지 전체 상품 리스트(카테고리별 분류)
 	@RequestMapping("/buyList.giv")
-	public void getGoodList(Model m, String categories, String color, String sorting,String part,String searchData,
+	public void getGoodList(Model m, String categories, String color, String sorting,String searchType,String keyword,
 			@RequestParam(required = false,defaultValue = "1") int page,
 			@RequestParam(required = false,defaultValue = "1") int range) {
 		//전체 개시글 개수
@@ -58,16 +58,16 @@ public class GoodListController {
 		//PagingVO 객체 생성
 		PagingVO pagingVO = new PagingVO();
 		pagingVO.pageInfo(page, range, listCnt);
-		String keyword;
-		if(searchData!=null) {
-		keyword = searchData.replaceAll(" ","&nbsp;")
+		System.out.println(page +"," + range +","+ listCnt);
+		if(keyword!=null) {
+		keyword = keyword.replaceAll(" ","&nbsp;")
 						.replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll("\n ","<br>").replace("바지", "BOTTOM").replace("상의", "TOP").replace("악세서리", "ACC")
 						.replace("가방", "BAG");
 		}else {
 			keyword = null;
 		}
 		// 전체상품(카테고리 별 정렬) 가져오고 Model에 저장
-		m.addAttribute("goodList", goodListService.getGoodList(categories,color,sorting,part,keyword,pagingVO));
+		m.addAttribute("goodList", goodListService.getGoodList(categories,color,sorting,searchType,keyword,pagingVO));
 		m.addAttribute("pagingVO", pagingVO);
 		// 최신상품(date 순 정렬) 가져오고 Model에 저장
 		m.addAttribute("latestGood1", goodListService.getlatestGood1());
