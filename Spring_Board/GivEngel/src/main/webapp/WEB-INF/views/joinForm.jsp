@@ -122,9 +122,9 @@
 
 											<tr>
 												<td colspan="2"><input id="signUp" type="button"
-													class="btn btn-block btn-success" value="회원가입"> <input
+													class="btn btn-block btn-success" value="회원가입"><hr><a href="loginForm.giv"> <input
 													id="cancle" type="button" class="btn btn-block btn-success"
-													value="되돌아가기"></td>
+													value="되돌아가기"></a></td>
 											</tr>
 
 

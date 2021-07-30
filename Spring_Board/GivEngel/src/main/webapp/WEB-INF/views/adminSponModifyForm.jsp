@@ -273,7 +273,6 @@
 		<script src="${path}/resources/js/admin/custom.js"></script>
 		<script>
 			window.onload = function() {
-	alert("하이")
 	 
 				 $('#calendar').datepicker({
 					format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )

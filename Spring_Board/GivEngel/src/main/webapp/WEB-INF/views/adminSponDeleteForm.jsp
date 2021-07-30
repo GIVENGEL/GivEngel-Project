@@ -188,7 +188,6 @@
 		<script src="${path}/resources/js/admin/custom.js"></script>
 		<script>
 			window.onload = function() {
-	alert("하이")
 	 
 
 				function checkform() {

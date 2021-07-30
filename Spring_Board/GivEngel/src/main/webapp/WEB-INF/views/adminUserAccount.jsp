@@ -209,7 +209,7 @@
 			</p>
 		</div>
 
-
+<input type="hidden" value="${path}" id="path">
 		<script src="${path}/resources/js/admin/jquery-1.11.1.min.js"></script>
 		<script src="${path}/resources/js/admin/bootstrap.min.js"></script>
 		<script src="${path}/resources/js/admin/chart.min.js"></script>
@@ -245,11 +245,11 @@
 						},
 						success : function(data) {
 							var list = data.list;
-							var paths = $("#path").val();
+							var paths = $("#path").val()+"/resources/img/user.jpg";
 							$("#searchResult").empty();
 							for(var i=0;i<list.length;i++){
 								var path = paths+'/resources/img/user.jpg';
-								$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img src='+path+' "alt="'+data.list[i].user_id+'"><div class="caption"><h4>'+data.list[i].user_id+'</h4><p>'+data.list[i].user_name +'</p><p><a href="adminUserAccountModifyForm.giv?user_no='+data.list[i].user_no+'" class="btn btn-warning" role="button">수정하기</a><a href="adminUserAccountDeleteForm.giv?user_no='+data.list[i].user_no+'" class="btn btn-danger" role="button" style="margin:5px">삭제하기</a></p></div></div></div>')
+								$("#searchResult").append('<div class="col-sm-3 col-md-2"><div class="thumbnail"><img src='+paths+' "alt="'+data.list[i].user_id+'"><div class="caption"><h4>'+data.list[i].user_id+'</h4><p>'+data.list[i].user_name +'</p><p><a href="adminUserAccountModifyForm.giv?user_no='+data.list[i].user_no+'" class="btn btn-warning" role="button">수정하기</a><a href="adminUserAccountDeleteForm.giv?user_no='+data.list[i].user_no+'" class="btn btn-danger" role="button" style="margin:5px">삭제하기</a></p></div></div></div>')
 							}
 							
 						}
