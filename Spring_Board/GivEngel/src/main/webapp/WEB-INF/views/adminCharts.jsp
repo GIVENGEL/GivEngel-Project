@@ -263,7 +263,43 @@
 				</div>
 			</div>
 		</div><!--/.row-->
-		
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						 검색 데이터 요일 분석 (1년 네이버)
+						<ul class="pull-right panel-settings panel-button-tab-right">
+							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
+								<em class="fa fa-cogs"></em>
+							</a>
+								<ul class="dropdown-menu dropdown-menu-right">
+									<li>
+										<ul class="dropdown-settings">
+											<li><a href="#">
+												<em class="fa fa-cog"></em> Settings 1
+											</a></li>
+											<li class="divider"></li>
+											<li><a href="#">
+												<em class="fa fa-cog"></em> Settings 2
+											</a></li>
+											<li class="divider"></li>
+											<li><a href="#">
+												<em class="fa fa-cog"></em> Settings 3
+											</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
+					<div class="panel-body">
+						<div class="canvas-wrapper">
+							<canvas class="main-chart" id="bar-chart2" height="200" width="600"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->	
 		
 		<div class="row">
 			<div class="col-lg-12">
@@ -472,6 +508,13 @@
 			});
 			var chart2 = document.getElementById("bar-chart").getContext("2d");
 			window.myBar = new Chart(chart2).Bar(barChartData, {
+			responsive: true,
+			scaleLineColor: "rgba(0,0,0,.2)",
+			scaleGridLineColor: "rgba(0,0,0,.05)",
+			scaleFontColor: "#c5c7cc"
+			});
+			var chart8 = document.getElementById("bar-chart2").getContext("2d");
+			window.myBar = new Chart(chart8).Bar(barChartData2, {
 			responsive: true,
 			scaleLineColor: "rgba(0,0,0,.2)",
 			scaleGridLineColor: "rgba(0,0,0,.05)",

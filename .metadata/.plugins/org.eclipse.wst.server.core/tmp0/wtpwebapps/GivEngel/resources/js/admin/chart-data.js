@@ -115,6 +115,31 @@ $.ajax({
 			}
 	}
 });
+
+var barChartData2
+$.ajax({
+	url:"chartTrendData2.giv",
+	type:"post",
+	success:function(data){
+		
+		barChartData2 = {
+				labels : ["월요일","화요일","수요일","목요일","금요일","토요일","일요일"],
+				datasets : [
+					{
+						fillColor : "rgba(48, 164, 255, 0.2)",
+						strokeColor : "rgba(48, 164, 255, 0.8)",
+						highlightFill : "rgba(48, 164, 255, 0.75)",
+						highlightStroke : "rgba(48, 164, 255, 1)",
+						data : [data.mon,data.tus,data.wed,data.thu,data.fri,data.sat,data.sun]
+					}
+					
+				]
+
+			}
+	}
+});
+
+
 	var pieData = [
 			{
 				value: 44,

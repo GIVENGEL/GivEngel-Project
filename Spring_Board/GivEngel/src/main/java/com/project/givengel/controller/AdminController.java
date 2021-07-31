@@ -1454,6 +1454,80 @@ public class AdminController {
 	}
 	
 	
+	@RequestMapping("/chartTrendData2.giv")
+	@ResponseBody
+	public  Map<String,Object> chartTrendData2() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+		
+		list = adminService.chartTrendData();
+		
+		List<String> date = new ArrayList<String>();
+		List<Double> ratio = new ArrayList<Double>();
+		double Mon = 0;
+		int moncount = 0;
+		double Tus = 0;
+		int tuscount = 0;
+		double Wed = 0;
+		int wedcount = 0;
+		double Thu = 0;
+		int thucount = 0;
+		double Fri = 0;
+		int fricount = 0;
+		double Sat = 0;
+		int satcount = 0;
+		double Sun = 0;
+		int suncount = 0;
+		for(int i=0;i<list.size();i++) {
+			
+			if(i%7==0) {
+				Thu += (double)list.get(i).get("trend_ratio");
+				thucount++;
+			}else if(i%7==1) {
+				Fri += (double)list.get(i).get("trend_ratio");
+				fricount++;
+			}else if(i%7==2) {
+				Sat += (double)list.get(i).get("trend_ratio");
+				satcount++;
+			}else if(i%7==3) {
+				Sun += (double)list.get(i).get("trend_ratio");
+				suncount++;
+			}else if(i%7==4) {
+				Mon += (double)list.get(i).get("trend_ratio");
+				moncount++;
+			}else if(i%7==5) {
+				Tus += (double)list.get(i).get("trend_ratio");
+				tuscount++;
+			}else if(i%7==6) {
+				Wed += (double)list.get(i).get("trend_ratio");
+				wedcount++;
+			}
+			
+	
+		
+		}
+		
+		Thu = Thu/thucount;
+		Fri = Fri/fricount;
+		Sat = Sat/satcount;
+		Sun = Sun/suncount;
+		Mon = Mon/moncount;
+		Tus = Tus/tuscount;
+		Wed = Wed/wedcount;
+		map.put("thu", Thu);
+		map.put("fri", Fri);
+		map.put("sat", Sat);
+		map.put("sun", Sun);
+		map.put("mon", Mon);
+		map.put("tus", Tus);
+		map.put("wed", Wed);
+		
+			
+		return map;
+	}
+	
+	
 	
 	/************************
 	 * 차트 영역  end			*
