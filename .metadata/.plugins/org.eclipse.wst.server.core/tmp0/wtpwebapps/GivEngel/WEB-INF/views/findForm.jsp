@@ -88,6 +88,10 @@
 											<tr>
 												<td colspan="2"><input id="idFind" type="button"
 													class="btn btn-block btn-success" value="아이디 조회하기">
+													<hr>
+													<a href="loginForm.giv"> <input
+													id="cancle" type="button" class="btn btn-block btn-success"
+													value="되돌아가기"></a>
 												</td>
 
 											</tr>
@@ -138,6 +142,10 @@
 												<td colspan="2"><input id="pwFind" type="button"
 													 
 													class="btn btn-block btn-success" value="비밀번호 조회하기">
+													<hr>
+													<a href="loginForm.giv"> <input
+													id="cancle" type="button" class="btn btn-block btn-success"
+													value="되돌아가기"></a>
 
 												</td>
 											</tr>
@@ -182,9 +190,7 @@
 	<script src="${path}/resources/js_page/joinForm.js"></script>
 </body>
 <script type="text/javascript">
-	$(document).ready(function(e) {
-		alert("시작");
-		
+	$(document).ready(function(e) {	
 		$('#idFind').click(function(){
 			
 			var vo = {

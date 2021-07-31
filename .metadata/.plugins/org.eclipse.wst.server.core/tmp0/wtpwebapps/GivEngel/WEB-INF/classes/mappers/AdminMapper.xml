@@ -47,10 +47,9 @@
 		admin_no = #{admin_no}
 	</delete>
 	
-	<select id="searchAdmin" parameterType="String"
-		resultType="AdminVO">
+	<select id="searchAdmin" parameterType="String" resultType="AdminVO">
 		SELECT * FROM admin
-		WHERE admin_id LIKE '%${searchData}%'
+		WHERE admin_id LIKE CONCAT("%", #{searchData}, "%")
 	</select>
 	
 
@@ -91,7 +90,7 @@ select ifnull(count(*),0) as today from user WHERE DATE_FORMAT(user_date, "%Y-%m
 	
 	<select id="cashRate" resultType="float">
 	 <![CDATA[
-		select plus/minus*-100 from
+		select minus/plus*-100 from
 (select ifnull(sum(user_cashlog_price),0) as plus from user_cashlog
 WHERE user_cashlog_price >= 0) as p,
 (select ifnull(sum(user_cashlog_price),0) as minus  from user_cashlog
@@ -354,6 +353,18 @@ WHERE good_tag LIKE '%BOTTOM%';
 	FROM user_buylog b NATURAL JOIN good
 	WHERE good_tag NOT LIKE '%BOTTOM%'); 
 	</select>
+	
+	
+	<resultMap type="HashMap" id="trendData">
+		<id column="trend_time" property="trend_time"/>
+		<id column="trend_ratio" property="trend_ratio"/>
+	</resultMap>
+	
+	<select id="chartTrendData" resultMap="trendData">
+	SELECT Time as trend_time,Trend_ratio as trend_ratio FROM trend_data
+	</select>
+	
+	
 
 
 

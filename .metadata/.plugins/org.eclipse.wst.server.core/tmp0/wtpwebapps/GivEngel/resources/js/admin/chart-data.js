@@ -38,6 +38,41 @@ $.ajax({
 		
 	}
 });
+
+
+var lineChartData7	
+$.ajax({
+	url:"chartTrendData.giv",
+	type:"post",
+	async: false,
+	success:function(data){
+		var label = new Array();
+		var dataset = new Array();
+		
+		for(var i=0;i<data.date.length;i++){
+			label.push(data.date[i]);
+			dataset.push(data.ratio[i]);
+		}
+		
+		lineChartData7 = {
+				labels : label,
+				datasets : [
+					{
+						label: "트렌트 분석 데이터",
+						fillColor : "rgba(220,220,220,0.2)",
+						strokeColor : "rgba(220,220,220,1)",
+						pointColor : "rgba(220,220,220,1)",
+						pointStrokeColor : "#fff",
+						pointHighlightFill : "#fff",
+						pointHighlightStroke : "rgba(220,220,220,1)",
+						data : dataset
+					}
+				]
+
+			}
+		
+	}
+});
 	
 
 	

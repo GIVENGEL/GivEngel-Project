@@ -230,7 +230,46 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						마일리지 사용과 현금 순환
+						지난 1년간의 패션 검색 데이터 (네이버 랩 자료)
+						<ul class="pull-right panel-settings panel-button-tab-right">
+							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
+								<em class="fa fa-cogs"></em>
+							</a>
+								<ul class="dropdown-menu dropdown-menu-right">
+									<li>
+										<ul class="dropdown-settings">
+											<li><a href="#">
+												<em class="fa fa-cog"></em> Settings 1
+											</a></li>
+											<li class="divider"></li>
+											<li><a href="#">
+												<em class="fa fa-cog"></em> Settings 2
+											</a></li>
+											<li class="divider"></li>
+											<li><a href="#">
+												<em class="fa fa-cog"></em> Settings 3
+											</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
+					<div class="panel-body">
+						<div class="canvas-wrapper">
+							<canvas class="main-chart" id="line-chart7" height="200" width="600"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->
+		
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						현금 사용과 마일리지 사용
 						<ul class="pull-right panel-settings panel-button-tab-right">
 							<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
 								<em class="fa fa-cogs"></em>
@@ -438,6 +477,13 @@
 			scaleGridLineColor: "rgba(0,0,0,.05)",
 			scaleFontColor: "#c5c7cc"
 			});
+			var chart7 = document.getElementById("line-chart7").getContext("2d");
+			window.myLine = new Chart(chart7).Line(lineChartData7, {
+			responsive: true,
+			scaleLineColor: "rgba(0,0,0,.2)",
+			scaleGridLineColor: "rgba(0,0,0,.05)",
+			scaleFontColor: "#c5c7cc"
+			});
 			var chart3 = document.getElementById("doughnut-chart").getContext("2d");
 			window.myDoughnut = new Chart(chart3).Doughnut(doughnutData, {
 			responsive: true,
@@ -460,6 +506,7 @@
 			scaleLineColor: "rgba(0,0,0,.2)",
 			segmentShowStroke: false
 			});
+			
 			
 		}, 300);
 	

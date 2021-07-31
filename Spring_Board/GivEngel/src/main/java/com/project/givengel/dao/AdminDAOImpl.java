@@ -309,6 +309,10 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<HashMap<String,Object>> chartHotCatergory(){
 		return mybatis.selectList("AdminDAO.chartHotCategory");
 	}
+	@Override
+	public List<HashMap<String,Object>> chartTrendData(){
+		return mybatis.selectList("AdminDAO.chartTrendData");
+	}
 
 	/************************************************/
 

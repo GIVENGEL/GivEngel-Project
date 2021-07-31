@@ -211,12 +211,12 @@
 							</div>
 							<div class="radio">
 								<label> <input type="radio" name="good_tag"
-									id="optionsRadios3" value="BAG">BAG
+									id="optionsRadios4" value="BAG">BAG
 								</label>
 							</div>
 							<div class="radio">
 								<label> <input type="radio" name="good_tag"
-									id="optionsRadios3" value="SHOES">SHOES
+									id="optionsRadios5" value="CAMPAIGN">CAMPAIGN
 								</label>
 							</div>
 						</div>

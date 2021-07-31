@@ -124,17 +124,12 @@
                     </div>
                 </div>
             </div>
-            <form action="#">
+            <form method="post" id="frm" action="sendUserMsg.giv">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <input type="text" placeholder="이름">
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <input type="text" placeholder="이메일">
-                    </div>
+                  
                     <div class="col-lg-12 text-center">
-                        <textarea placeholder="GivEngel은 고객의 소리에 귀기울이도록 노력하겠습니다."></textarea>
-                        <button type="submit" class="site-btn">메시지 보내기</button>
+                        <textarea id="msg_details" name="msg_detail" placeholder="GivEngel은 고객의 소리에 귀기울이도록 노력하겠습니다."></textarea>
+                        <input id="submit" type="button" class="site-btn" value="메시지 보내기">
                     </div>
                 </div>
             </form>
@@ -156,7 +151,34 @@
     <script src="${path}/resources/js/owl.carousel.min.js"></script>
     <script src="${path}/resources/js/main.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"></script>
+<script>
+window.onload = function() {
+	$(document).on("click","#submit",function(){
+		if($("#msg_details").val == ""){
+			alert("메시지를 입력해주세요!");
+		}
+		else{
+			$.ajax({
+				url : "sendUserMsg.giv",
+				type : "post",
+				data : {
+					"msg_detail":$("#msg_details").val()
+				},
+				success : function(data) {
+					alert("전송이 완료되었습니다!");
+					$("#msg_details").val("");
+				}
+			});
+		}
+		
+	})
 
+	
+	
+}
+
+
+</script>
 
 </body>
 

@@ -1399,7 +1399,6 @@ public class AdminController {
 					cnt++;
 				}
 			}
-			
 			// push
 			for(int x=0;x<7;x++) {
 				if(tops[x].equals(search)) {
@@ -1410,12 +1409,8 @@ public class AdminController {
 					for(int y=6;y>x;y--) {
 						
 							top[y]=top[y-1];
-							tops[y]=tops[y-1];
-						
-						
-						
+							tops[y]=tops[y-1];	
 					}
-					
 					top[x]=cnt;
 					tops[x]=search;
 					System.out.println(tops[0]+" , "+tops[1]+" , "+tops[2]+" , "+tops[3]+" , "+tops[4]+" , "+tops[5]+" , "+tops[6]);
@@ -1431,6 +1426,30 @@ public class AdminController {
 		
 		map.put("top",top );
 		map.put("tops", tops);
+		return map;
+	}
+	
+	@RequestMapping("/chartTrendData.giv")
+	@ResponseBody
+	public  Map<String,Object> chartTrendData() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+		
+		list = adminService.chartTrendData();
+		
+		List<String> date = new ArrayList<String>();
+		List<Double> ratio = new ArrayList<Double>();
+		
+		for(int i=0;i<list.size();i++) {
+			date.add((String)(list.get(i).get("trend_time")));
+			
+			ratio.add( (double)list.get(i).get("trend_ratio"));
+		}
+		map.put("date", date);
+		map.put("ratio", ratio);
+		
+			
 		return map;
 	}
 	

@@ -353,6 +353,18 @@ WHERE good_tag LIKE '%BOTTOM%';
 	FROM user_buylog b NATURAL JOIN good
 	WHERE good_tag NOT LIKE '%BOTTOM%'); 
 	</select>
+	
+	
+	<resultMap type="HashMap" id="trendData">
+		<id column="trend_time" property="trend_time"/>
+		<id column="trend_ratio" property="trend_ratio"/>
+	</resultMap>
+	
+	<select id="chartTrendData" resultMap="trendData">
+	SELECT Time as trend_time,Trend_ratio as trend_ratio FROM trend_data
+	</select>
+	
+	
 
 
 
