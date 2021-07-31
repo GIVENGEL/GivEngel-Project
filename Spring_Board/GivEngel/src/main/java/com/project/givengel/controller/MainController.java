@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.givengel.service.CampaignServiceImpl;
+import com.project.givengel.service.FleaService;
 import com.project.givengel.service.GoodListService;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.SponVO;
@@ -22,6 +23,8 @@ public class MainController {
 	private CampaignServiceImpl campaignService;
 	@Autowired
 	private GoodListService goodListService;
+	@Autowired
+	private FleaService fleaService;
 	
 
 	

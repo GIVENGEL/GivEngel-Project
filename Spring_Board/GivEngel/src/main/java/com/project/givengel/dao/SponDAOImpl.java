@@ -85,10 +85,15 @@ public class SponDAOImpl implements SponDAO {
 	
 	
 	// 총 댓글 수
-	public Spon_comVO countSponCom(Spon_comVO vo) {
+	public int countSponCom(Spon_comVO vo) {
 		System.out.println("===> Mybatis countSponCom() 호출");
 		return mybatis.selectOne("SponDAO.countSponCom", vo);
 	}
+	
+	// 캠페인 리스트
+		public List<SponVO> campaignList() {
+			return mybatis.selectList("SponDAO.campaignList");
+		} 
 	
 
 

@@ -1,5 +1,5 @@
 $(function() {
-	alert("개발 시작");
+
 	
 	$('#donationBtn_notlogin').click(function() {
 		alert("로그인이 필요합니다");
@@ -16,20 +16,28 @@ $(function() {
 
 	$('#donationBtn').click(function(){
 		
-		if( $('#user_cashlog_price').val() > $('#user_cash').val() ) { // 입력한 금액이 유저의 마일리지보다 크다면
+		if( ! $('#donationBox').val() > $('#user_cash').val() ) { // 입력한 금액이 유저의 마일리지보다 크다면
 			$('#guideText').text('마일리지가 부족합니다');
 			$('#guideText').css('color', 'red');
-			//alert("마일리지가 부족합니다");
-			//location.reload();
-			
-		} else {
+			$('#user_cashlog_price').focus();
+			console.log($('#user_cash').val());
+			console.log($('#donationBox').val());
+		}
+		
+		if ( $('#donationBox').val() == "") {
+			$('#guideText').text('사용할 마일리지를 입력해주세요');
+			$('#guideText').css('color', 'red');
+			$('#user_cashlog_price').focus();
+		}
+		
+		else {
 			
 			$.ajax({
 				type : 'post',
 				url : 'minusCash.giv',
 				contentType : 'application/x-www-form-urlencoded;charset=UTF-8',
 				data : {
-					user_no : $('#user_cashlog_price').val(),
+					user_no : $('#donationBox').val(),
 					user_id : $('#spon_com_writer').val()
 				},
 				success : function() {
@@ -42,7 +50,7 @@ $(function() {
 						data : {
 							user_no : $('#user_no').val(),
 							user_cashlog_log : $('#spon_name').val(),
-							user_cashlog_price :  $('#user_cashlog_price').val()								
+							user_cashlog_price :  $('#donationBox').val()								
 						},
 						success : function() {
 							
@@ -53,12 +61,11 @@ $(function() {
 								contentType : 'application/x-www-form-urlencoded;charset=UTF-8',
 								data : {
 									spon_name : $('#spon_name').val(),
-									spon_no : $('#user_cashlog_price').val()
+									spon_no : $('#donationBox').val()
 								},
 								success : function() {
 									alert("후원해주셔서 감사합니다");
-									location.reload();
-									
+									location.reload();	
 								}
 							})// ajax
 							
@@ -111,14 +118,7 @@ $(function() {
 					
 					//$('#listSponCom').append('');
 					// $('#listSponCom').append('<div class="card p-3 mb-5"><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-center"><img src="https://i.imgur.com/hczKIze.jpg"width="30"class="user-img rounded-circle mr-2"><span><small class="font-weight-bold text-primary">'+data.listSponCom[i].spon_com_writer+'</small></span></div><small>'+data.listSponCom[i].spon_com_date+'</small></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div class="reply px-4"><input type="button"class="deleteSponComBtn"value="삭제하기"><div style="display: none">'+data.listSponCom[i].spon_com_no+'</div><span class="dots"></span><input type="button"class="modifySponComBtn"value="수정하기"><div style="display: none">'+data.listSponCom[i].spon_com_no+'</div><textarea class="sponComBox"style="display:none; width:100%;" row="3"></textarea><input type="button"class="saveSponComBtn"style="display:none"value="확인"><span class="dots"><small class="font-weight-bold">'+data.listSponCom[i].spon_com_content+'</small></span></div><div class="icons align-items-center"><i class="fa fa-star text-warning"></i><i class="fa fa-check-circle-o check-icon"></i></div></div></div>');				
-				} // for
-				$('#countSponCom').append('총 ' + data.count + '개');
-				$('.countSponCom').append('응원댓글 ( ' + data.count + '개)');
-				$('#countSponCom2').append( data.count + '개');
-					
-				
-				
-				
+				} // for				
 			}, // success
 			error:function(request, status, error){
 
@@ -129,6 +129,10 @@ $(function() {
 	}
 	
 	listSponCom();
+	
+	
+	
+	// 댓글 갯수 가져오기 ------------------------------------------------------------------------------
 
 	
 	// 댓글입력 -------------------------------------------------------------------------------------------------------
@@ -185,7 +189,7 @@ $(function() {
 					},
 					success : function() {
 						alert("댓글이 수정되었습니다");
-						location.reload();
+						listSponCom();
 						} // ajax seuccess
 					
 				}) // ajax	
@@ -205,22 +209,22 @@ $(function() {
 	
 	$(document).on('click','.deleteSponComBtn',function(){
 		
-		var userid = $('#spon_com_writer').val();
-		
-		if(userid == null) {
-			alert("로그인이 필요합니다.");
+		if( $('#userId').val() != $(this).parent().parent().prev().children().children().next('.sponComWriter').text() ) {
+			alert("아이디를 확인해주세요!");
 		} else {
+			
+			var num = $(this).parent().next().text();
 			
 			$.ajax({
 				type : 'post',
 				url : 'deleteSponCom.giv',
 				contentType : 'application/x-www-form-urlencoded;charset=UTF-8',
 				data : {
-					spon_com_no : $(this).next().next().text()
+					spon_com_no : num
 				},
 				success : function() {
 					alert("댓글이 삭제 되었습니다.");
-					location.reload();
+					listSponCom();
 					} // seuccess
 			}); // ajax	
 			

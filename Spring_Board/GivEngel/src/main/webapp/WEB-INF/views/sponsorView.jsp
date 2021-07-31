@@ -57,7 +57,7 @@
 	<input type="hidden" value="${user.user_id }" id="userId">
 	<input type="hidden" value="${spon.spon_no }" id="spon_no" />
 	<section class="blog-details-hero set-bg"
-		data-setbg="${path}/resources/img/sponsor/details_${spon.spon_img }.jpg" width="1920px">
+		data-setbg="${path}/resources/img/sponsor/details_${spon.spon_img }" width="1920px">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -71,7 +71,7 @@
 						<ul>
 							<li>~21.07.31</li>
 							<li id="spon_total"><h3 class="text-white">${spon.spon_total }</li>
-							<li id="countSponCom"></li>
+							<li>총 ${countSponCom }개</li>
 						</ul>
 					</div>
 				</div>
@@ -94,20 +94,20 @@
 							<input type="hidden" id="user_no" name="user_no" value="${user.user_no }">
 							<input type="hidden" id="user_cash" name="user_cash" value="${user.user_cash }">
 							<input type="hidden" id="spon_name" name="spon_name" value="${spon.spon_name }">
-							<h2>[${spon.spon_name }] 후원 하기</h2>
+							<h2><b>${spon.spon_name }</b> 후원 하기</h2>
 							<hr />
 							<p>${spon.spon_comment }</p>
 							<br> <br> <br>
 
 
-							<div class="row">
-
-								<div class="col-lg-3"></div>
-								<div class="col-lg-6">
+							<div class="row" style="float: none; margin:0 auto; text-align:center;">
+							
+							<div class="col-lg-2"></div>
+								<div class="col-lg-5" >
 									<hr>
-									<input type="number" class="form-control mb-4" name="user_cashlog_price"
-										id="user_cashlog_price" placeholder="${user.user_cash }" />
-									<div id="guideText"></div>
+									<input type="number" class="form-control mb-4" name="donationBox"
+										id="donationBox" placeholder="${user.user_cash }" />
+									<div id="guideText" style="float: left;"></div>
 								</div>
 
 								<div class="col-lg-3">
@@ -117,14 +117,16 @@
 										<spaa>후원하기!</spaa>
 									</button>
 								</div>
+								<div class="col-lg-2"></div>
+								
 
 							</div>
 
 							<br>
 							<hr>
-							<h3>From GivEngel...</h3>
 							<br>
-							<p>대충 후원은 어떤 사회적 발전을 가져오는지 설명하는 GivEngel 가이드 불라불라</p>
+							<div class="col-lg-12 col-md-12" style="float: none; margin:0 auto; text-align:center;">
+								<img src="${path}/resources/img/sponsor/contents_${spon.spon_img }"></div>
 						</div>
 					</div>
 				</c:if>
@@ -132,40 +134,42 @@
 
 				<!-- 로그인 안했을때 -->
 				<c:if test="${user == null}">
-					<div class="col-lg-12 col-md-12 order-md-1 order-2">
+					<div class="col-lg-12 col-md-12 order-md-1 order-2" >
 						<div class="blog__sidebar">
 							<h2>
-								[${spon.spon_name }] 후원 하기
+								<b>${spon.spon_name }</b> 후원 하기
 								</h3>
 								<hr />
 								<p>${spon.spon_comment }</p>
 								<br> <br> <br>
 
 
-								<div class="row">
-
-									<div class="col-lg-3"></div>
-									<div class="col-lg-6">
-										<hr>
-										<input type="number" class="form-control mb-4" name="id"
-											id="donationBox_notlogin" placeholder="${user.user_cash }">
-									</div>
-
-									<div class="col-lg-3">
-										<hr>
-										<button type="button" name="donation"
-											id="donationBtn_notlogin" class="btn btn-block btn-success">
-											<spaa>후원하기!</spaa>
-										</button>
-									</div>
-
+								<div class="row" style="float: none; margin:0 auto; text-align:center;">
+							
+							<div class="col-lg-2"></div>
+								<div class="col-lg-5" >
+									<hr>
+									<input type="number" class="form-control mb-4" name="donationBox_notlogin"
+										id="donationBox_notlogin" placeholder="${user.user_cash }" />
 								</div>
+
+								<div class="col-lg-3">
+									<hr>
+									<button type="button" name="donation" id="donationBtn_notlogin"
+										class="btn btn-block btn-success">
+										<spaa>후원하기!</spaa>
+									</button>
+								</div>
+								<div class="col-lg-2"></div>
+								
+							</div>
+
 
 								<br>
 								<hr>
-								<h3>From GivEngel...</h3>
 								<br>
-								<p>대충 후원은 어떤 사회적 발전을 가져오는지 설명하는 GivEngel 가이드 불라불라</p>
+								<div class="col-lg-12 col-md-12" style="float: none; margin:0 auto; text-align:center;">
+								<img src="${path}/resources/img/sponsor/contents_${spon.spon_img }"></div>
 						</div>
 					</div>
 				</c:if>
@@ -184,13 +188,18 @@
 							href="#tabs-2" role="tab" aria-selected="false">GivEngel 이용
 								수칙</a></li>
 						<li class="nav-item"><a class="nav-link" data-toggle="tab"
-							href="#tabs-3" role="tab" aria-selected="false"> 응원댓글 (<span id="countSponCom2"></span>)</a></li>
+							href="#tabs-3" role="tab" aria-selected="false"> 응원댓글 (${countSponCom })</a></li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active text-center" id="tabs-1"
 							role="tabpanel">
 							<div class="product__details__tab__desc">
 								<h6>"${spon.spon_comment }"</h6>
+								<div class="col-lg-6" style="float: none; margin:0 auto;">
+								<button type="button" name="homepage" id="homepage"
+										class="btn btn-block btn-success" onclick="location.href='${spon.spon_url}'">
+										<spaa>홈페이지 바로가기</spaa> </button>
+								</div>
 								<p></p>
 							</div>
 						</div>

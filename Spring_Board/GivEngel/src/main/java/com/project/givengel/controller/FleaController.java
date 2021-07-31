@@ -22,6 +22,7 @@ import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.Flea_comVO;
 import com.project.givengel.vo.PageVO;
 import com.project.givengel.vo.SearchCriteria;
+import com.project.givengel.vo.SponVO;
 import com.project.givengel.vo.UserVO;
 
 @Controller
@@ -40,36 +41,6 @@ public class FleaController {
 		
 		return url;
 	}
-	
-	
-	/*****************************************************
-	    * 함수명          :    getFleaList
-	    * 
-	    * 함수 기능       :   1. 중고장터 메뉴에 중고장터 리스트 불러오기
-	    * 
-	    * 사용된 함수     :   getFleaList
-	    * 사용된 서비스   :   -
-	    * 마지막 수정      :   2021-07-25
-	*****************************************************/
-	/*
-	@RequestMapping("/fleaBoard.giv")
-	public Map<String, Object> getFleaList(FleaVO vo, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		UserVO sessionUserVO = (UserVO)session.getAttribute("user");
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<FleaVO> fleaList = new ArrayList<FleaVO>();
-		fleaList = fleaService.getFleaList(vo);
-		map.put("fleaList", fleaList);
-		
-		List<FleaVO> okayFleaList = new ArrayList<FleaVO>();
-		okayFleaList = fleaService.okayFleaList(vo);
-		map.put("okayFleaList", okayFleaList);
-		
-		return map;
-	}
-	*/
 
 	
 	/*****************************************************
@@ -82,13 +53,19 @@ public class FleaController {
 	    * 마지막 수정      :   2021-07-25
 	*****************************************************/
 	@RequestMapping("/fleaView.giv")
-	public void getFlea(FleaVO vo, Model m, HttpServletRequest request) {
+	public Model getFlea(FleaVO vo, Flea_comVO comVO, Model m, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
 		UserVO sessionUserVO = (UserVO)session.getAttribute("user");
 		
 		FleaVO flea = fleaService.getFlea(vo);
 		m.addAttribute("flea", flea);
+		m.addAttribute("countFleaCom", fleaService.countFleaCom(comVO));
+		List<SponVO> list = new ArrayList<SponVO>();
+		list = fleaService.campaignList();
+		m.addAttribute("campaignList", list);
+		
+		return m;
 		
 	}
 	
@@ -172,7 +149,7 @@ public class FleaController {
 		List<Flea_comVO> list = new ArrayList<Flea_comVO>();
 		list = fleaService.listFleaCom(vo);
 		map.put("listFleaCom", list);
-		map.put("count", list.size());
+		map.put("countFlea", list.size());
 		
 		return map;
 	}
@@ -207,15 +184,17 @@ public class FleaController {
 	    * 마지막 수정      :   2021-07-27
 	*****************************************************/
 	@RequestMapping(value = "/fleaBoard.giv")
-	public Model pageFleaList(Criteria cri, Model m) {
+	public Model pageFleaList(Criteria cri, Flea_comVO vo, Model m) {
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(fleaService.countFleaList());
 		
 		List<Map<String, Object>> list = fleaService.pageFleaList(cri);
+		String countSponCom = Integer.toString(fleaService.countFleaCom(vo));
 		
 		m.addAttribute("list", list);
 		m.addAttribute("page", pageVO);
+		m.addAttribute("count", countSponCom);
 		
 		
 		return m;
@@ -234,17 +213,18 @@ public class FleaController {
 	*****************************************************/
 	@RequestMapping("/fleaBoardIsOkay.giv")
 	@ResponseBody
-	public Model pageFleaListIsOkay(Criteria cri, FleaVO vo, Model m) {
+	public Map pageFleaListIsOkay(Criteria cri, FleaVO vo, Model m) {
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(fleaService.countFleaList());
 		
 		List<Map<String, Object>> listIsOkay = fleaService.pageFleaListIsOkay(cri);
-
-		m.addAttribute("listIsOkay", listIsOkay);
-		m.addAttribute("page", pageVO);
 		
-		return m;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("listIsOkay", listIsOkay);
+		map.put("page", pageVO);
+		
+		return map;
 	}
 	
 	
@@ -287,8 +267,32 @@ public class FleaController {
 	
 	
 	
+	/*****************************************************
+	    * 함수명          :    modifyFleaCom
+	    * 
+	    * 함수 기능       :   1. 수정한 댓글을 DB에 업데이트
+	    * 
+	    * 사용된 함수     :   modifyFleaCom
+	    * 사용된 서비스   :   -
+	    * 마지막 수정      :   2021-07-30
+	*****************************************************/
+	@RequestMapping(value = "/modifyFleaCom.giv", produces = "application/text;charset=UTF-8")
+	@ResponseBody
+	public void modifyFleaCom(Flea_comVO vo, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		UserVO sessionUserVO = (UserVO)session.getAttribute("user");
+		
+		fleaService.modifyFleaCom(vo);
+		System.out.println("댓글 수정확인" + vo.getFlea_com_content() + "," + vo.getFlea_com_no());
+	}
 	
 	
+	// 게시글 수정
+	/*
+	 * @RequestMapping("/fleaWriteModifyAction.giv") public void
+	 * updateFleaWrite(FleaVO vo) { fleaService.updateFleaWrite(vo); }
+	 */
 	
 	
 	

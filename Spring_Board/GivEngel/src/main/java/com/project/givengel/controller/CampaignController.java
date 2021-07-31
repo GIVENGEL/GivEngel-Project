@@ -60,7 +60,7 @@ public class CampaignController {
 	    * 사용된 서비스       :   reviewList (Service, dao) , countReview(댓글 갯수)
 	    * 마지막 수정      :   2021-07-23
 	    *****************************************************/
-	@RequestMapping(value="/reviewList.giv", produces="application/json")
+	@RequestMapping(value= "/reviewList.giv", produces="application/json")
 	@ResponseBody  
 	public Map<String,Object> reviewList(Spon_comVO vo) {
 		System.out.println("스폰번호확인" + vo.getSpon_no());

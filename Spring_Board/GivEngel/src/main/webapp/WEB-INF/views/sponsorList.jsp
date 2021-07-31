@@ -130,7 +130,7 @@
 								<ul>
 									<li>
 									<li><i class="fa fa-calendar-o"></i>${spon.spon_start }</li>
-									<li><i class="fa fa-comment-o"></i><span id="countSponCom2"></span></li>
+									<li><i class="fa fa-comment-o"></i>${countSponCom }</li>
 								</ul>
 								<h5>
 									<a href="sponsorView.giv?spon_no=${spon.spon_no }">${spon.spon_name }</a>
@@ -159,48 +159,24 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="categories__slider owl-carousel">
-					<div class="col-lg-3">
-						<div class="categories__item set-bg"
-							data-setbg="${path}/resources/img/categories/cat-1.jpg">
-							<h5>
-								<a href="#">양키 캔들</a>
-							</h5>
+				<c:forEach var="campaign" items="${campaignList}" begin="0" end="2">
+				<div class="col-lg-4 col-md-4 col-sm-6">
+					<div class="blog__item">
+						<div class="blog__item__pic">
+							<img src="${path}/resources/img/sponsor/${campaign.spon_img }" alt="">
 						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="categories__item set-bg"
-							data-setbg="${path}/resources/img/categories/cat-2.jpg">
+						<div class="blog__item__text">
+							<ul>
+								<li><i class="fa fa-calendar-o"></i>${campaign.spon_end }</li>
+							</ul>
 							<h5>
-								<a href="#">도자기 공예</a>
+								<a href="#">${campaign.spon_name }</a>
 							</h5>
-						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="categories__item set-bg"
-							data-setbg="${path}/resources/img/categories/cat-3.jpg">
-							<h5>
-								<a href="#">원예</a>
-							</h5>
-						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="categories__item set-bg"
-							data-setbg="${path}/resources/img/categories/cat-4.jpg">
-							<h5>
-								<a href="#">수제 비누</a>
-							</h5>
-						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="categories__item set-bg"
-							data-setbg="${path}/resources/img/categories/cat-5.jpg">
-							<h5>
-								<a href="#">악세사리</a>
-							</h5>
+							<p>${campaign.spon_comment }</p>
 						</div>
 					</div>
 				</div>
+			</c:forEach>
 			</div>
 		</div>
 	</section>

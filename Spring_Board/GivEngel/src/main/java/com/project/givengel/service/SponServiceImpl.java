@@ -76,9 +76,14 @@ public class SponServiceImpl implements SponService {
 	
 	
 	// 총 댓글 수
-	public Spon_comVO countSponCom(Spon_comVO vo) {
+	public int countSponCom(Spon_comVO vo) {
 		return sponDAO.countSponCom(vo);
 	}
+	
+	// 캠페인 리스트
+		public List<SponVO> campaignList(){
+			return sponDAO.campaignList();
+		} 
 	
 	
 

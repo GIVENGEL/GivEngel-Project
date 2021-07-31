@@ -60,65 +60,61 @@
 	<!-- Blog Details Section Begin -->
 	<input type="hidden" value="${flea.flea_no }" name="flea_no" id="flea_no" >
 	<input type="hidden" value="${user.user_id }" name="user_id" id="user_id">
+	
 	<section class="blog-details spad">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-4 col-md-5 order-md-1 order-2">
-					<jsp:include page="module/sidebar.jsp" />
-
-				</div>
-				<div class="col-lg-8 col-md-7 order-md-1 order-1">
-					<div class="blog__details__text">
-						<img src="img/blog/details/details-pic.jpg" alt="">
-						<div class="blog__details__text" >
-						<p>[${flea.flea_content}]</p>
-						<h3>[${flea.flea_title}]</h3>
-						<a href="#" class="primary-btn float-right" id="buyFleaBtn">구매하기</a>
-						</div>
-						<hr>
+				<div class="col-lg-6 col-md-6">
+					<div class="product__details__pic">
+						<div class="product__details__pic__item">
 							<c:choose>
 							<c:when test= "${flea.flea_isokay == '0' }"><a href="fleaView.giv?flea_no=${flea.flea_no }"><img src="${path}/resources/img/flea/soon.jpg" alt=""></a></c:when>
 							<c:otherwise><a href="fleaView.giv?flea_no=${flea.flea_no }"><img src="${path}/resources/img/flea/${flea.flea_img }" alt="${flea.flea_no }"></a></c:otherwise>
 							</c:choose>
-						<p>[GivEngel 중고 장터 이용수칙]</p>
+						</div>
 					</div>
-					<div class="blog__details__content">
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="blog__details__author">
+				</div>
+				
+				
+					<div class="col-lg-6 col-md-6">
+					<div class="product__details__text">
+						<h3>[${flea.flea_title}]</h3>
+						<p style="font-size: 30px">${flea.flea_content}</p>
+						<div class="product__details__price" id='defalutPrice'>
+						${flea.flea_price}원</div>
+						
+						<a href="#" class="primary-btn" id='buyFleaBtn'>구매하기</a> 
+						<a href="#" id='cartFleaBtn' class="primary-btn">장바구니에 담기</a> 
+						<a href="#" class="heart-icon"><span
+							class="icon_heart"></span></a>
+							
+							<div class="blog__details__author" style="margin-top: 50px">
 									<div class="blog__details__author__pic">
-										<img src="img/blog/details/details-author.jpg" alt="">
+										<img src="${path}/resources/img/blog/details/details-author.jpg" alt="">
 									</div>
 									<div class="blog__details__author__text">
 										<h6>${flea.flea_writer }</h6>
 										<span>[명예등급]</span>
 									</div>
 								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="blog__details__widget">
-									<ul>
-										<li><span>등록일</span> [상품 등록일]</li>
-										<li><span>Tags:</span> All, Trending, Cooking, Healthy
-											Food, Life Style</li>
+								
+						<ul>
+										<li><span>등록일</span> ${flea.flea_date }</li>
 									</ul>
 									<div class="blog__details__social">
-										<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
-											class="fa fa-twitter"></i></a> <a href="#"><i
-											class="fa fa-google-plus"></i></a> <a href="#"><i
+										<a href="#"><i class="fa fa-facebook"></i></a> <a href="https://www.facebook.com/"><i
+											class="fa fa-twitter"></i></a> <a href="https://twitter.com/?lang=ko"><i
+											class="fa fa-google-plus"></i></a> <a href="https://www.google.co.kr/"><i
 											class="fa fa-linkedin"></i></a> <a href="#"><i
 											class="fa fa-envelope"></i></a>
 									</div>
 									<c:if test="${user.user_id == flea.flea_writer}">
 									<button type="button" class="btn btn-outline-secondary float-right" id="deleteFleaBtn">삭제하기</button>
 									</c:if>
-								
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
-			</div>
+				
+				
 			<div class="col-lg-12">
 					<div class="product__details__tab">
 						<ul class="nav nav-tabs" role="tablist">
@@ -129,7 +125,7 @@
 								href="#tabs-2" role="tab" aria-selected="false">GivEngel 이용
 									수칙</a></li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"
-								href="#tabs-3" role="tab" aria-selected="false">리뷰 (<span id="countSponCom2"></span>)</a></li>
+								href="#tabs-3" role="tab" aria-selected="false">리뷰 (${countFleaCom }개)</a></li>
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane active text-center" id="tabs-1"
@@ -203,59 +199,25 @@
 				</div>
 			</div>
 			<div class="row">
+			<c:forEach var="campaign" items="${campaignList}" begin="0" end="2">
 				<div class="col-lg-4 col-md-4 col-sm-6">
 					<div class="blog__item">
 						<div class="blog__item__pic">
-							<img src="img/blog/blog-1.jpg" alt="">
+							<img src="${path}/resources/img/sponsor/${campaign.spon_img }" alt="">
 						</div>
 						<div class="blog__item__text">
 							<ul>
-								<li><i class="fa fa-calendar-o"></i> [캠페인 만료일]</li>
-								<li><i class="fa fa-comment-o"></i> [캠페인 댓글수]</li>
+								<li><i class="fa fa-calendar-o"></i>${campaign.spon_end }</li>
 							</ul>
 							<h5>
-								<a href="#">[캠페인 이름]</a>
+								<a href="#">${campaign.spon_name }</a>
 							</h5>
-							<p>[캠페인 설명 20글자 까지 ...]</p>
+							<p>${campaign.spon_comment }</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4 col-md-4 col-sm-6">
-					<div class="blog__item">
-						<div class="blog__item__pic">
-							<img src="img/blog/blog-2.jpg" alt="">
-						</div>
-						<div class="blog__item__text">
-							<ul>
-								<li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-								<li><i class="fa fa-comment-o"></i> 5</li>
-							</ul>
-							<h5>
-								<a href="#">6 ways to prepare breakfast for 30</a>
-							</h5>
-							<p>Sed quia non numquam modi tempora indunt ut labore et
-								dolore magnam aliquam quaerat</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-4 col-sm-6">
-					<div class="blog__item">
-						<div class="blog__item__pic">
-							<img src="img/blog/blog-3.jpg" alt="">
-						</div>
-						<div class="blog__item__text">
-							<ul>
-								<li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-								<li><i class="fa fa-comment-o"></i> 5</li>
-							</ul>
-							<h5>
-								<a href="#">Visit the clean farm in the US</a>
-							</h5>
-							<p>Sed quia non numquam modi tempora indunt ut labore et
-								dolore magnam aliquam quaerat</p>
-						</div>
-					</div>
-				</div>
+			</c:forEach>
+
 			</div>
 			
 		</div>

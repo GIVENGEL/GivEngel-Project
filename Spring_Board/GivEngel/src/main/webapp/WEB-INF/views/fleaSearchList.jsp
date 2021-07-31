@@ -181,8 +181,8 @@
 									<a href="fleaSearchList.giv?page=${map.page.endPage+1}"/><i class="fa fa-long-arrow-right"></i></a>
 								</c:if>
 								<c:if test="${sessionScope.user != null}">
-									<a href="fleaWrite.giv" style="width:100px; text-decoration:none; float:right;"><button type="button" class="btn btn-success">
-										신청하기</button></a>
+									<button type="button" class="btn btn-success" style="float:right;"><span onClick="location.href='fleaWrite.giv'">
+										신청하기</span></button>
 								</c:if>
 
 							</div>

@@ -1,7 +1,5 @@
 $(function(){
 	
-	alert("개발시작");
-	
 	$('#submitBtn').click(function(){
 		
 		var pattern_num = /[0-9]/;	// 숫자 
@@ -63,6 +61,8 @@ $(function(){
 		
 		$('#deleteFleaBtn').click(function(){
 			
+			alert("정말로 삭제하시겠습니까?")
+			
 			$.ajax({
 				type : 'post',
 				url : 'deleteFleaView.giv',
@@ -71,7 +71,7 @@ $(function(){
 					flea_no : $('#flea_no').val()
 				},
 				success : function() {
-					alert("삭제되었습니다");
+					alert("삭제되었습니다.");
 					location.replace("fleaBoard.giv");
 				}
 				
@@ -108,6 +108,9 @@ $(function(){
 		$('#buyFleaBtn').click(function(){
 			alert("구매가능한 시즌이 아닙니다. 조금만 기다려 주세요.");
 		})
+		$('#cartFleaBtn').click(function(){
+			alert("구매가능한 시즌이 아닙니다. 조금만 기다려 주세요.");
+		})
 		
 		
 		
@@ -126,7 +129,7 @@ $(function(){
 				},
 				success : function() {
 					alert("댓글이 입력되었습니다");
-					location.reload();
+					listFleaCom();
 					} // seuccess
 				
 			}) // ajax
@@ -147,7 +150,7 @@ $(function(){
 					flea_no : $('#flea_no').val()
 				},
 				success : function(data) {
-					$('#listFleaCom').empty;
+					$('#listFleaCom').empty();
 					
 					
 					
@@ -155,10 +158,10 @@ $(function(){
 						$('#listFleaCom').append('<div class="card p-3 mb-5"><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-center"><img src="https://i.imgur.com/hczKIze.jpg"width="30"class="user-img rounded-circle mr-2"><div class="fleaComWriter"><small class="font-weight-bold text-primary">'+data.listFleaCom[i].flea_com_writer+'</small></div><small class="font-weight-bold">'+data.listFleaCom[i].flea_com_content+'</small></div><small>'+data.listFleaCom[i].flea_com_date+'</small></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div style="float:left"><input type="button"class="modifyFleaComBtn"value="수정"><input type="button"class="deleteFleaComBtn"style="margin-left:7px"value="삭제"></div><div style="display: none">'+data.listFleaCom[i].flea_com_no+'</div></div></div>');
 						
 						//$('#listFleaCom').append('');
+						$('#countSponCom2').append(data.countFlea + '개');
 
 					} // for
-					$('.countSponCom').append('응원댓글 ( ' + data.count + '개)');
-					$('#countSponCom2').append( data.count + '개');;
+
 				}, // success
 				error:function(request, status, error){
 
@@ -233,7 +236,7 @@ $(function(){
 						},
 						success : function() {
 							alert("댓글이 수정되었습니다");
-							location.reload();
+							listFleaCom();
 							} // ajax seuccess
 						
 					}) // ajax	
@@ -258,35 +261,38 @@ $(function(){
 			
 			
 			
-			// ---------------------------------------------------------------
+		// 정렬순 ---------------------------------------------------------------
 			
 			
 /*		$('#isOkay').click(function(){
 			
+			var path = $('#pathes').val();
 			alert("클릭확인");
 			
 			$.ajax({
 				type : 'post',
 				url : 'fleaBoardIsOkay.giv',
 				success : function(data) {
-					$('#listBox').empty();
+					alert("성공");
+					$('.row').empty();
 					
-					for(i=0; i<data.listIsOkay.length; i++) {	
-					$('#listBox').apppend( data.listIsOkay[i].flea_title + "," + data.listIsOkay[i].flea_no + "," + data.listIsOkay[i].flea_isOkay + "," + data.listIsOkay[i].flea_img + "," + data.listIsOkay[i].flea_date + "," + data.listIsOkay[i].flea_price );
+					for(var i=0; i<data.listIsOkay.length; i++) {	
+						$('.row').append('<div class="col-lg-6 col-md-6 col-sm-6"><div class="blog__item"><div class="blog__item__pic"style="border: 2px solid #f9f9f9"><a href="fleaView.giv?flea_no=$'+ data.listIsOkay[i].flea_no +'"><img src="' +path+'/resources/img/flea/soon.jpg"alt=""></a></div><div class="blog__item__text"><ul><li><i class="fa fa-calendar-o"></i>'+ data.listIsOkay[i].flea_date +'</li><li><i class="fa fa-comment-o"></i><span id="countSponCom2"></span></li></ul><h5><a href="#">'+ data.listIsOkay[i].flea_title +'</a></h5><p>'+ data.listIsOkay[i].flea_price +'원</p><a href="fleaView.giv?flea_no='+ data.listIsOkay[i].flea_no +'"class="blog__btn">자세히보기<span class="arrow_right"></span></a></div></div></div>');
+						for(var i=0; i<data.page.length; i++) {
+							$('.row').append('<div class="col-lg-12"><div class="product__pagination blog__pagination paination"><c:if test="'+data.page[i].prev+'"><a href="fleaBoard.giv?page='+data.page[i].startPage-1+'"><i class="fa fa-long-arrow-left"></i></a></c:if><c:forEach begin="'+data.page[i].startPage +'"end="'+data.page[i].endPage +'"var="num"><a href="fleaBoard.giv?page=${num}"id="num">${num}</a></c:forEach><c:if test="'+data.page[i].next && data.page[i].endPage > 0+'"><a href="fleaBoard.giv?page='+data.page[i].endPage+1 +'"/><i class="fa fa-long-arrow-right"></i></a></c:if><c:if test="${sessionScope.user != null}"><button type="button"class="btn btn-success"style="float:right;"><span onClick="location.href="fleaWrite.giv"">신청하기</span></button></c:if></div></div>');
+						}	
 					}
 					
-				}, // success
-				error:function(request, status, error){
-
-					alert("code:"+request.status+"\n\n\n"+"message:"+request.responseText+"\n\n\n"+"error:"+error);
-
-				}
-			}); //ajax
-		})
-*/
-			
-			
+					//$('#listBox').append('');
 	
+					
+				} // success
+			}); //ajax
+		})*/
+		
+		
+		
+
 	
 	
 	

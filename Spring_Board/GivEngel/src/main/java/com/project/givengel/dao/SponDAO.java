@@ -40,7 +40,10 @@ public interface SponDAO {
 	public void showSponTotal(SponVO vo);
 	
 	// 총 댓글 수
-	public Spon_comVO countSponCom(Spon_comVO vo);
+	public int countSponCom(Spon_comVO vo);
+	
+	// 캠페인 리스트
+	public List<SponVO> campaignList();
 	
 
 

@@ -7,6 +7,8 @@ import com.project.givengel.vo.Criteria;
 import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.Flea_comVO;
 import com.project.givengel.vo.SearchCriteria;
+import com.project.givengel.vo.SponVO;
+import com.project.givengel.vo.Spon_comVO;
 
 public interface FleaDAO {
 	
@@ -32,6 +34,9 @@ public interface FleaDAO {
 	// 댓글 삭제
 	public void deleteFleaCom(Flea_comVO vo);
 	
+	// 댓글 수정하기
+	public void modifyFleaCom(Flea_comVO vo); 
+	
 	// 게시물 총 갯수
 	public int countFleaList();
 	
@@ -46,5 +51,14 @@ public interface FleaDAO {
 	
 	// 검색 리스트
 	public List<FleaVO> searchList(SearchCriteria cri);
+	
+	// 총 댓글 수
+	public int countFleaCom(Flea_comVO vo);
+	
+	// 캠페인 리스트
+	public List<SponVO> campaignList();
+	
+	// 중고장터 게시글 수정
+	public void updateFleaWrite(FleaVO vo);
 		
 }

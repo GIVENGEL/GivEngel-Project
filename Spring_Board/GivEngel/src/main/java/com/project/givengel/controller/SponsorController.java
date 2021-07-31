@@ -1,6 +1,5 @@
 package com.project.givengel.controller;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.givengel.service.FleaService;
 import com.project.givengel.service.SponService;
 import com.project.givengel.vo.SponVO;
 import com.project.givengel.vo.Spon_comVO;
@@ -38,11 +38,23 @@ public class SponsorController {
 	    * 마지막 수정      :   2021-07-22
 	*****************************************************/
 	@RequestMapping("/sponsorList.giv")
-	public void getSponList(SponVO vo, Model m, HttpServletRequest request) {
+	public String getSponList(SponVO vo, Spon_comVO comVO, Model m, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		UserVO sessionUserVO = (UserVO)session.getAttribute("user");
 		
 		m.addAttribute("sponList", sponService.getSponList(vo));
+		String countSponCom = Integer.toString(sponService.countSponCom(comVO));
+		m.addAttribute("countSponCom", countSponCom);
+		
+		List<SponVO> list = new ArrayList<SponVO>();
+		list = sponService.campaignList();
+		m.addAttribute("campaignList", list);
+		
+		System.out.println("댓글수확인" + countSponCom);
+		System.out.println("번호확인" + vo.getSpon_no());
+		
+		return "/sponsorList";
+
 	}
 	
 	
@@ -60,7 +72,9 @@ public class SponsorController {
 	*****************************************************/
 	@RequestMapping("/sponsorView.giv")
 	public Model getSpon(SponVO vo, Spon_comVO comVO, Model m) {
-		m.addAttribute("spon", sponService.getSpon(vo));		
+		m.addAttribute("spon", sponService.getSpon(vo));
+		String countSponCom = Integer.toString(sponService.countSponCom(comVO));
+		m.addAttribute("countSponCom", countSponCom);
 		
 		return m;
 	}
@@ -148,7 +162,6 @@ public class SponsorController {
 		List<Spon_comVO> list = new ArrayList<Spon_comVO>();
 		list = sponService.listSponCom(vo);
 		map.put("listSponCom", list);
-		map.put("count", list.size());
 		
 		System.out.println("spon_no 확인" + vo.getSpon_no());
 		

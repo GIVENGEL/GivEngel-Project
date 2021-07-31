@@ -156,7 +156,7 @@
 								type="checkbox" id="acc"> <span class="checkmark"></span>
 							</label>
 						</div>
-						<p>[GivEngel 이용 정책 설명]</p>
+						<p><span onclick="location.href='fleaManual.giv'">[GivEngel 이용 정책 설명]</span></p>
 						<div class="checkout__input">
 						<input type="hidden" value="${user.user_pw }" name="user_pw" id="user_pw">
 						<input type="hidden" value="${user.user_id }" name="flea_writer" id="flea_writer">

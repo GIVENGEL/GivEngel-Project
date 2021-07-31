@@ -11,6 +11,8 @@ import com.project.givengel.vo.Criteria;
 import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.Flea_comVO;
 import com.project.givengel.vo.SearchCriteria;
+import com.project.givengel.vo.SponVO;
+import com.project.givengel.vo.Spon_comVO;
 
 @Service("fleaService")
 public class FleaServiceImpl implements FleaService {
@@ -55,6 +57,11 @@ public class FleaServiceImpl implements FleaService {
 	public void deleteFleaCom(Flea_comVO vo) {
 		fleaDAO.deleteFleaCom(vo);
 	}
+	
+	// 댓글 수정
+	public void modifyFleaCom(Flea_comVO vo) {
+		fleaDAO.modifyFleaCom(vo);
+	}
 
 	// 게시글 수
 	public int countFleaList() {
@@ -80,5 +87,21 @@ public class FleaServiceImpl implements FleaService {
 	public int countSearch(String searchType, String keyword) {
 		return fleaDAO.countSearch(searchType, keyword);
 	}
+	
+	// 총 댓글 수
+	public int countFleaCom(Flea_comVO vo) {
+		return fleaDAO.countFleaCom(vo);
+	}
+	
+	// 캠페인 리스트
+	public List<SponVO> campaignList(){
+		return fleaDAO.campaignList();
+	} 
+	
+	// 중고장터 게시글 수정
+	public void updateFleaWrite(FleaVO vo) {
+		fleaDAO.updateFleaWrite(vo);
+	}
+	
 
 }

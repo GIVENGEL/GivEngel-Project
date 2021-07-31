@@ -17,7 +17,7 @@
 	
 	<select id="getFlea" parameterType="fleaVO" resultType="fleaVO">
 	<![CDATA[
-		SELECT flea_no, flea_title, flea_price, flea_date, flea_writer, flea_isokay, flea_content, flea_img FROM flea
+		SELECT * FROM flea
 		WHERE flea_no = #{flea_no}
 		]]>
 	</select>
@@ -60,6 +60,13 @@
 		DELETE FROM flea_com
 		WHERE flea_com_no = #{flea_com_no}
 	</delete>
+	
+	<!-- 댓글 수정 -->
+	<update id="modifyFleaCom">
+		UPDATE flea_com
+		SET flea_com_content = #{flea_com_content}
+		WHERE flea_com_no = #{flea_com_no}
+	</update>
 
 	<!-- 총 게시글 갯수 -->
 	<select id="countFleaList" resultType="int"> 
@@ -101,6 +108,26 @@
 		ORDER BY flea_no
 		LIMIT #{pageStart}, #{perPageNum}
 	</select>
+	
+	<!-- 게시물별 총 댓글수 -->
+	<select id="countFleaCom" parameterType="flea_comVO" resultType="int">
+		SELECT count(*) FROM flea_com WHERE flea_no = #{flea_no}
+	</select>
+	
+	<!-- 캠페인 리스트 -->
+	<select id="campaignList" resultType="sponVO">
+		SELECT * FROM spon WHERE spon_iscampaign = '1'
+	</select>
+	
+	<!-- 중고장터 게시글 수정 -->
+	<update id="updateFleaWrite">
+		UPDATE flea
+		SET flea_title = #{flea_title}, flea_content = #{flea_content}, flea_price = #{flea_price}, flea_date = sysdate(),
+		<if test="flea_img != null">
+		flea_img = #{flea_img}
+		</if>
+		WHERE flea_no = #{flea_no}
+	</update>
 	
 
 </mapper>

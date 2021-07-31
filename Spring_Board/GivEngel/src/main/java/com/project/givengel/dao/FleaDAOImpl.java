@@ -12,6 +12,8 @@ import com.project.givengel.vo.Criteria;
 import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.Flea_comVO;
 import com.project.givengel.vo.SearchCriteria;
+import com.project.givengel.vo.SponVO;
+import com.project.givengel.vo.Spon_comVO;
 
 @Repository("fleaDAO")
 public class FleaDAOImpl implements FleaDAO {
@@ -64,6 +66,12 @@ public class FleaDAOImpl implements FleaDAO {
 		mybatis.delete("FleaDAO.deleteFleaCom", vo);
 	}
 	
+	// 댓글 수정
+	public void modifyFleaCom(Flea_comVO vo) {
+		System.out.println("===> Mybatis modifyFleaCom() 호출");
+		mybatis.update("FleaDAO.modifyFleaCom", vo);
+	}
+	
 	// 게시글 총 개수
 	public int countFleaList() {
 		return mybatis.selectOne("FleaDAO.countFleaList");
@@ -90,6 +98,22 @@ public class FleaDAOImpl implements FleaDAO {
 	// 검색
 	public List<FleaVO> searchList(SearchCriteria cri) {
 		return mybatis.selectList("FleaDAO.searchList", cri);
+	}
+	
+	// 총 댓글 수
+	public int countFleaCom(Flea_comVO vo) {
+		return mybatis.selectOne("FleaDAO.countFleaCom", vo);
+	}
+	
+	// 캠페인 리스트
+	public List<SponVO> campaignList() {
+		return mybatis.selectList("FleaDAO.campaignList");
+	} 
+	
+	// 중고장터 게시글 수정
+	public void updateFleaWrite(FleaVO vo) {
+		System.out.println("===> Mybatis updateFleaWrite() 호출");
+		mybatis.update("FleaDAO.updateFleaWrite", vo);
 	}
 
 }

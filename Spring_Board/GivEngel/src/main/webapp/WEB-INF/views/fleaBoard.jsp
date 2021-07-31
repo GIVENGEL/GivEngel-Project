@@ -122,7 +122,9 @@
 					<jsp:include page="module/sidebar.jsp" />
 				</div>
 				<div class="col-lg-8 col-md-7">
+			
 					<div class="row">
+					<input type="hidden" id="pathes" value="${path }">	
 
 						<c:forEach items="${list }" var="flea" varStatus="loop">
 							<input type="hidden" value="${flea.flea_no }" name="flea_no"
@@ -159,44 +161,7 @@
 							</div>
 						</c:forEach>
 						
-						
-						
-						
-					<%-- 	<c:forEach items="${listIsOkay }" var="flea" varStatus="loop">
-							<input type="hidden" value="${flea.flea_no }" name="flea_no"
-								id="flea_no">
-							<div class="col-lg-6 col-md-6 col-sm-6">
-								<div class="blog__item">
-									<div class="blog__item__pic" style="border: 2px solid #f9f9f9">
-										<c:choose>
-											<c:when test="${flea.flea_isokay == '0' }">
-												<a href="fleaView.giv?flea_no=${flea.flea_no }"><img
-													src="${path}/resources/img/flea/soon.jpg" alt=""></a>
-											</c:when>
-											<c:otherwise>
-												<a href="fleaView.giv?flea_no=${flea.flea_no }"><img
-													src="${path}/resources/img/flea/${flea.flea_img }"
-													alt="${flea.flea_no }"></a>
-											</c:otherwise>
-										</c:choose>
-									</div>
-									<div class="blog__item__text">
-										<ul>
-											<li><i class="fa fa-calendar-o"></i> ${flea.flea_date }</li>
-											<li><i class="fa fa-comment-o"></i><span
-												id="countSponCom2"></span></li>
-										</ul>
-										<h5>
-											<a href="#">${flea.flea_title }</a>
-										</h5>
-										<p>${flea.flea_price }원</p>
-										<a href="fleaView.giv?flea_no=${flea.flea_no }"
-											class="blog__btn">자세히 보기 <span class="arrow_right"></span></a>
-									</div>
-								</div>
-							</div>
-						</c:forEach> --%>
-													
+												
 						
 						<div class="col-lg-12">
 							<div class="product__pagination blog__pagination paination">
@@ -212,22 +177,18 @@
 									<a href="fleaBoard.giv?page=${page.endPage+1}"/><i class="fa fa-long-arrow-right"></i></a>
 								</c:if>
 								<c:if test="${sessionScope.user != null}">
-									<a href="fleaWrite.giv" style="width:100px; text-decoration:none; float:right;"><button type="button" class="btn btn-success">
-										신청하기</button></a>
+									<button type="button" class="btn btn-success" style="float:right;"><span onClick="location.href='fleaWrite.giv'">
+										신청하기</span></button>
 								</c:if>
 
 							</div>
 						</div>
 						
-						
-						<div id="listBox">
-						
-						
-						</div>
-						
-						
-						
-					</div>
+					</div> <!-- div id=row -->
+					
+					
+					
+					
 				</div>
 			</div>
 		</div>

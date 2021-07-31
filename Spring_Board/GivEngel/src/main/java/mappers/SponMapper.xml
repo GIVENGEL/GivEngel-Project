@@ -50,7 +50,7 @@
 		user_cashlog(user_no, user_cashlog_log, user_cashlog_price,
 		user_cashlog_date)
 		VALUES (#{user_no}, #{user_cashlog_log},
-		#{user_cashlog_price}, sysdate())
+		#{user_cashlog_price}*-1, sysdate())
 	</insert>
 
 	<!-- 마일리지 사용한만큼 차감 -->
@@ -72,8 +72,13 @@
 	</select>
 	
 	<!-- 게시물별 총 댓글수 -->
-	<select id="countSponCom" parameterType="spon_comVO" resultType="spon_comVO">
-		SELECT count(spon_com_no) FROM spon_com WHERE spon_no = #{spon_no}
+	<select id="countSponCom" parameterType="spon_comVO" resultType="int">
+		SELECT count(*) FROM spon_com WHERE spon_no = #{spon_no}
+	</select>
+	
+	<!-- 캠페인 리스트 -->
+	<select id="campaignList" resultType="sponVO">
+		SELECT * FROM spon WHERE spon_iscampaign = '1'
 	</select>
 	
 
