@@ -16,18 +16,18 @@ $(function() {
 
 	$('#donationBtn').click(function(){
 		
-		if( ! $('#donationBox').val() > $('#user_cash').val() ) { // 입력한 금액이 유저의 마일리지보다 크다면
+		if( $('#donationBox').val() > $('#user_cash').val() ) { // 입력한 금액이 유저의 마일리지보다 크다면
 			$('#guideText').text('마일리지가 부족합니다');
 			$('#guideText').css('color', 'red');
 			$('#user_cashlog_price').focus();
-			console.log($('#user_cash').val());
-			console.log($('#donationBox').val());
+			return false;
 		}
 		
-		if ( $('#donationBox').val() == "") {
+		else if ( $('#donationBox').val() == "") {
 			$('#guideText').text('사용할 마일리지를 입력해주세요');
 			$('#guideText').css('color', 'red');
 			$('#user_cashlog_price').focus();
+			return false;
 		}
 		
 		else {
