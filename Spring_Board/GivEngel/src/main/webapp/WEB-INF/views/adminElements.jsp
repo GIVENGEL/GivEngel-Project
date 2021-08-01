@@ -339,7 +339,7 @@
 			
 			$("#submitbtn").on("click",function(){
 				if(checkform()){
-					alert("성공");
+				
 					$("#insertfrm").submit();
 				}
 			})

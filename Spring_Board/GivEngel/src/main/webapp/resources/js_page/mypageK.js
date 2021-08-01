@@ -869,7 +869,7 @@ $.ajax({
 			maxpage2 = totalthose/onepagethose + 1 }
 			 
 			$(".myfleaMarket").empty();
-			$(".myfleaMarket").append('<div><h2 style="color:#FF9D62" class="mb-5">중고장터 거래내역</h2></div>')
+			$(".myfleaMarket").append('<div><h2 style="color:#FF9D62" class="mb-5">중고장터 신청 현황</h2></div>')
 			for(var i=0; i<onepagethose; i++){
 				$(".myfleaMarket").append('<div class="container"><div class="row"><div class="col-lg-3"><img style="width:180px; border=1" src="'+path+'/resources/img/flea/'+flea[i].flea_img+'"></div><div class="col-lg-9"><div class="d-flex flex-column flex-md-row justify-content-between mb-5"><div class="flex-grow-1"><h3 class="mb-0">글 제목:'+flea[i].flea_title+'</h3><div class="subheading mb-3" style="font-size:30px; color:#FF9D62;">['+flea[i].flea_price+'원]</div><div>[중고상품번호:'+flea[i].flea_no+']</div><p id="myfleaisokay'+i+'">'+flea[i].flea_isokay+'</p></div><div class="flex-shrink-0"><span class="text-primary">['+flea[i].flea_date+']</span></div></div></div></div></div></hr>')
 				if(flea[i].flea_isokay==true){ 
@@ -910,7 +910,7 @@ $(document).on('click', '.paging2', function(){
 			success : function(fl){
 				
 				 $(".myfleaMarket").empty();
-				$(".myfleaMarket").append('<div><h2 style="color:#FF9D62"class="mb-5">중고장터 거래내역</h2></div>')
+				$(".myfleaMarket").append('<div><h2 style="color:#FF9D62"class="mb-5">중고장터 신청 현황</h2></div>')
 				if(fl.length>=end2) {
 				for(var i=start2; i<end2; i++) { 
 					$(".myfleaMarket").append('<div class="container"><div class="row"><div class="col-lg-3"><img style="width:180px; border=1" src="'+path+'/resources/img/flea/'+fl[i].flea_img+'"></div><div class="col-lg-9"><div class="d-flex flex-column flex-md-row justify-content-between mb-5"><div class="flex-grow-1"><h3 class="mb-0">글 제목:'+fl[i].flea_title+'</h3><div class="subheading mb-3" style="font-size:30px; color:#FF9D62;">['+fl[i].flea_price+'원]</div><div>[중고상품번호:'+fl[i].flea_no+']</div><p id="myfleaisokay'+i+'">'+fl[i].flea_isokay+'</p></div><div class="flex-shrink-0"><span class="text-primary">['+fl[i].flea_date+']</span></div></div></div></div></div>')
@@ -968,7 +968,7 @@ $(document).on('click', '.nextpage2', function(){
 		url : "myfleaMarket.giv",
 		success: function(flea) {
 			$(".myfleaMarket").empty(); 
-			$(".myfleaMarket").append('<h2 class="mb-5" style="color:#FF9D62">중고장터 거래내역</h2>')
+			$(".myfleaMarket").append('<h2 class="mb-5" style="color:#FF9D62">중고장터 신청 현황</h2>')
 			for(var i=start2; i<end2; i++){
 				$(".myfleaMarket").append('<div class="container"><div class="row"><div class="col-lg-3"><img style="width:180px; border=1" src="'+path+'/resources/img/flea/'+flea[i].flea_img+'"></div><div class="col-lg-9"><div class="d-flex flex-column flex-md-row justify-content-between mb-5"><div class="flex-grow-1"><h3 class="mb-0">글 제목:'+flea[i].flea_title+'</h3><div class="subheading mb-3" style="font-size:30px; color:#FF9D62;">['+flea[i].flea_price+'원]</div><div>[중고상품번호:'+flea[i].flea_no+']</div><p id="myfleaisokay'+i+'">'+flea[i].flea_isokay+'</p></div><div class="flex-shrink-0"><span class="text-primary">['+flea[i].flea_date+']</span></div></div></div></div></div></hr>')
 		}   

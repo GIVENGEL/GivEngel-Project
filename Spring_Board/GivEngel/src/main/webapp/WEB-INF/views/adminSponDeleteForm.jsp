@@ -206,7 +206,7 @@
 
 				$("#submitbtn1").on("click", function() {
 					if (checkform()) {
-						alert("성공");
+					
 						$("#deletefrm1").submit();
 					}
 				})

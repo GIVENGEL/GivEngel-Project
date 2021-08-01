@@ -252,7 +252,7 @@
 						data : {"test" : "testing",
 							"flea_no" : $("#flea_no").val() },
 						success : function(data) {
-							alert("성공");
+			
 							$("#status").empty();
 							$("#status").append('<button type="button" class="btn btn-warning" >심사중</button>');
 						}
@@ -270,7 +270,7 @@
 								"flea_no" : $("#flea_no").val()
 							},
 						success : function(data) {
-							alert("성공");
+							
 							$("#status").empty();
 							$("#status").append('<button type="button" class="btn btn-success" >통과</button>');
 			
@@ -288,7 +288,7 @@
 						data : {"test" : "test_no",
 							"flea_no" : $("#flea_no").val() },
 						success : function(data) {
-							alert("성공");
+					
 							$("#status").empty();
 							$("#status").append('<button type="button" class="btn btn-danger" >탈락</button>');
 			

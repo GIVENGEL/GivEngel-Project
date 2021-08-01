@@ -681,7 +681,7 @@ $(document).on('click','.modify_button',function(){
 		success : function() {
 			directView();
 			
-			alert("수정이 완료되었습니다.")
+		
 		}   
 		
 	})   

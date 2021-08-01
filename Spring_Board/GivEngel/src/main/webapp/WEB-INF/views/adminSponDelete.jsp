@@ -366,7 +366,7 @@
 
 				$("#submitbtn1").on("click", function() {
 					if (checkform()) {
-						alert("성공");
+					
 						$("#insertfrm1").submit();
 					}
 				})
@@ -399,7 +399,7 @@
 
 				$("#submitbtn2").on("click", function() {
 					if (checkform2()) {
-						alert("성공");
+					
 						$("#insertfrm2").submit();
 					}
 				})

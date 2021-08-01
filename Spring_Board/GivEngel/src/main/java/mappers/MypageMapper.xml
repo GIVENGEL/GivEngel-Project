@@ -36,7 +36,7 @@ SELECT * FROM user_cashlog WHERE user_no=#{user_no} ORDER BY user_cashlog_date d
 </select>
  
 <select id="myBuyList" parameterType="userVO" resultType="hashmap">
-SELECT a.good_no as good_no, user_buylog_price, DATE_FORMAT(user_buylog_date,'%Y-%m-%d') AS user_buylog_date, good_name, b.good_img as good_img, good_price, spon_no 
+SELECT a.good_no as good_no, user_buylog_price, DATE_FORMAT(user_buylog_date,'%Y-%m-%d %H:%m:%s') AS user_buylog_date, good_name, b.good_img as good_img, good_price, spon_no 
 FROM user_buylog as a INNER JOIN good as b ON a.good_no = b.good_no where user_no=#{user_no} ORDER BY user_buylog_date desc;
 </select> 
  
