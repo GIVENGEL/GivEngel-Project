@@ -184,17 +184,29 @@ public class FleaController {
 	    * 마지막 수정      :   2021-07-27
 	*****************************************************/
 	@RequestMapping(value = "/fleaBoard.giv")
-	public Model pageFleaList(Criteria cri, Flea_comVO vo, Model m) {
+	public Model pageFleaList(Criteria cri, Flea_comVO comvo, Model m) {
 		PageVO pageVO = new PageVO();
 		pageVO.setCri(cri);
 		pageVO.setTotalCount(fleaService.countFleaList());
 		
-		List<Map<String, Object>> list = fleaService.pageFleaList(cri);
-		String countSponCom = Integer.toString(fleaService.countFleaCom(vo));
-		
+		List<Map<String, Object>> list = fleaService.pageFleaList(cri);		
 		m.addAttribute("list", list);
 		m.addAttribute("page", pageVO);
-		m.addAttribute("count", countSponCom);
+		
+		//
+		List<Integer> listString = new ArrayList<Integer>();
+		for(int i=0;i<fleaService.pageFleaList(cri).size();i++) {
+			int temp_sponNum = (int)fleaService.pageFleaList(cri).get(i).get("flea_no");
+			Flea_comVO com = new Flea_comVO();
+			com.setFlea_no(temp_sponNum);
+			
+			int result = fleaService.countFleaCom(com);
+			listString.add(result);
+		}
+		
+		m.addAttribute("countFleaCom", listString);
+		//
+
 		
 		
 		return m;

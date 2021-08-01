@@ -14,7 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.project.givengel.service.FleaService;
+import com.project.givengel.service.MypageServiceImpl;
 import com.project.givengel.service.SponService;
 import com.project.givengel.vo.SponVO;
 import com.project.givengel.vo.Spon_comVO;
@@ -26,6 +26,9 @@ public class SponsorController {
 
 	@Autowired
 	private SponService sponService;
+	
+	@Autowired
+	private MypageServiceImpl mypageService;
 
 	
 	/*****************************************************
@@ -81,10 +84,16 @@ public class SponsorController {
 	    * 마지막 수정      :   2021-07-22
 	*****************************************************/
 	@RequestMapping("/sponsorView.giv")
-	public Model getSpon(SponVO vo, Spon_comVO comVO, Model m) {
+	public Model getSpon(SponVO vo, Spon_comVO comVO, Model m, HttpServletRequest request) {
 		m.addAttribute("spon", sponService.getSpon(vo));
 		String countSponCom = Integer.toString(sponService.countSponCom(comVO));
 		m.addAttribute("countSponCom", countSponCom);
+		
+		HttpSession session = request.getSession();
+		UserVO id = (UserVO)session.getAttribute("user");
+		if(id!=null) {
+		UserVO uvo = mypageService.userInfoView(id);
+		m.addAttribute("uvo", uvo); }
 		
 		return m;
 	}

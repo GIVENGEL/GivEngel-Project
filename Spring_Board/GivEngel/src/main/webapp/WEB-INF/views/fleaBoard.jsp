@@ -125,33 +125,34 @@
 			
 					<div class="row">
 					<input type="hidden" id="pathes" value="${path }">	
-
+					
+					<c:set var="i" value="0" />
 						<c:forEach items="${list }" var="flea" varStatus="loop">
 							<input type="hidden" value="${flea.flea_no }" name="flea_no"
 								id="flea_no">
 							<div class="col-lg-6 col-md-6 col-sm-6">
 								<div class="blog__item">
 									<div class="blog__item__pic" style="border: 2px solid #f9f9f9">
-										<c:choose>
-											<c:when test="${flea.flea_isokay == '0' }">
-												<a href="fleaView.giv?flea_no=${flea.flea_no }"><img
-													src="${path}/resources/img/flea/soon.jpg" alt=""></a>
-											</c:when>
-											<c:otherwise>
 												<a href="fleaView.giv?flea_no=${flea.flea_no }"><img
 													src="${path}/resources/img/flea/${flea.flea_img }"
 													alt="${flea.flea_no }"></a>
-											</c:otherwise>
-										</c:choose>
 									</div>
 									<div class="blog__item__text">
 										<ul>
 											<li><i class="fa fa-calendar-o"></i> ${flea.flea_date }</li>
-											<li><i class="fa fa-comment-o"></i><span
-												id="countSponCom2"></span></li>
+											<li><i class="fa fa-comment-o"></i>${countFleaCom[i] }개</li>
+											<c:set var="i" value="${i+1}" />
 										</ul>
 										<h5>
 											<a href="#">${flea.flea_title }</a>
+													<c:choose>
+											<c:when test="${flea.flea_isokay == '0' }">
+												<span style="font-size: 15px; color: gray;">미확정</span>
+											</c:when>
+											<c:otherwise>
+												<span style="font-size: 15px; color: red;">판매확정</span>
+											</c:otherwise>
+										</c:choose>
 										</h5>
 										<p>${flea.flea_price }원</p>
 										<a href="fleaView.giv?flea_no=${flea.flea_no }"

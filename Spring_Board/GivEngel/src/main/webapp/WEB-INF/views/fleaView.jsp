@@ -67,10 +67,7 @@
 				<div class="col-lg-6 col-md-6">
 					<div class="product__details__pic">
 						<div class="product__details__pic__item">
-							<c:choose>
-							<c:when test= "${flea.flea_isokay == '0' }"><a href="fleaView.giv?flea_no=${flea.flea_no }"><img src="${path}/resources/img/flea/soon.jpg" alt=""></a></c:when>
-							<c:otherwise><a href="fleaView.giv?flea_no=${flea.flea_no }"><img src="${path}/resources/img/flea/${flea.flea_img }" alt="${flea.flea_no }"></a></c:otherwise>
-							</c:choose>
+							<a href="fleaView.giv?flea_no=${flea.flea_no }"><img src="${path}/resources/img/flea/${flea.flea_img }" alt="${flea.flea_no }"></a>
 						</div>
 					</div>
 				</div>
@@ -125,7 +122,8 @@
 								href="#tabs-2" role="tab" aria-selected="false">GivEngel 이용
 									수칙</a></li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"
-								href="#tabs-3" role="tab" aria-selected="false">리뷰 (${countFleaCom }개)</a></li>
+								href="#tabs-3" role="tab" aria-selected="false" id="countFleaComTotal">리뷰 (${countFleaCom }개)</a></li>
+								 <input type="hidden" id="countFleaCom" value="${countFleaCom }" />
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane active text-center" id="tabs-1"

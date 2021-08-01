@@ -158,7 +158,6 @@ $(function(){
 						$('#listFleaCom').append('<div class="card p-3 mb-5"><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-center"><img src="https://i.imgur.com/hczKIze.jpg"width="30"class="user-img rounded-circle mr-2"><div class="fleaComWriter"><small class="font-weight-bold text-primary">'+data.listFleaCom[i].flea_com_writer+'</small></div><small class="font-weight-bold">'+data.listFleaCom[i].flea_com_content+'</small></div><small>'+data.listFleaCom[i].flea_com_date+'</small></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div style="float:left"><input type="button"class="modifyFleaComBtn"value="수정"><input type="button"class="deleteFleaComBtn"style="margin-left:7px"value="삭제"></div><div style="display: none">'+data.listFleaCom[i].flea_com_no+'</div></div></div>');
 						
 						//$('#listFleaCom').append('');
-						$('#countSponCom2').append(data.countFlea + '개');
 
 					} // for
 
@@ -194,6 +193,7 @@ $(function(){
 					},
 					success : function() {
 						alert("댓글이 삭제 되었습니다.");
+						$('#countFleaComTotal').text('리뷰 (' + (parseInt($('#countFleaCom').val()) - 1) + '개)');
 						location.reload();
 						} // seuccess
 				}); // ajax	

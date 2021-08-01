@@ -14,19 +14,38 @@ $(function() {
 	
 	// 후원하기 클릭시 마일리지차감, 사용내역에 저장, 후원단체 금액 누적 -------------------------------------------------------
 
+	var num = /[0-9]/;
+	var num2 = /^\d*[.]\d{1}$/;
+	var eng = /[a-zA-Z]/;
+	var kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+	
 	$('#donationBtn').click(function(){
 		
-		if( $('#donationBox').val() > $('#user_cash').val() ) { // 입력한 금액이 유저의 마일리지보다 크다면
+		if( parseInt($('#donationBox').val()) > parseInt($('#user_cash').val()) ) { // 입력한 금액이 유저의 마일리지보다 크다면
 			$('#guideText').text('마일리지가 부족합니다');
 			$('#guideText').css('color', 'red');
-			$('#user_cashlog_price').focus();
+			$('#donationBox').focus();
 			return false;
 		}
 		
 		else if ( $('#donationBox').val() == "") {
 			$('#guideText').text('사용할 마일리지를 입력해주세요');
 			$('#guideText').css('color', 'red');
-			$('#user_cashlog_price').focus();
+			$('#donationBox').focus();
+			return false;
+		}
+		
+		else if ( !num.test($('#donationBox').val())) {
+			$('#guideText').text('정확한 금액을 입력해주세요');
+			$('#guideText').css('color', 'red');
+			$('#donationBox').focus();
+			return false;
+		}
+		
+		else if ( num2.test($('#donationBox').val())) {
+			$('#guideText').text('정확한 금액을 입력해주세요');
+			$('#guideText').css('color', 'red');
+			$('#donationBox').focus();
 			return false;
 		}
 		
@@ -148,7 +167,7 @@ $(function() {
 				spon_com_writer : $('#spon_com_writer').val()
 			},
 			success : function() {
-				alert("댓글이 입력되었습니다");
+				$('#countSponComTotal').text('응원댓글 (' + (parseInt($('#countSponCom').val()) + 1) + ')');
 				listSponCom();
 				} // seuccess
 			
@@ -224,6 +243,7 @@ $(function() {
 				},
 				success : function() {
 					alert("댓글이 삭제 되었습니다.");
+					$('#countSponComTotal').text('응원댓글 (' + (parseInt($('#countSponCom').val()) - 1) + ')');
 					listSponCom();
 					} // seuccess
 			}); // ajax	
@@ -233,27 +253,6 @@ $(function() {
 	}) // click
 	
 	
-	
-	// 총 댓글 수 ------------------------------------------------------------------------
-	
-	function countSponCom() {
-		
-		$.ajax({
-			type : 'post',
-				url : 'countSponCom.giv',
-				contentType : 'application/x-www-form-urlencoded;charset=UTF-8',
-				data : {
-					spon_no : $('#spon_no')
-				},
-				success : function(data) {
-					
-		
-					
-				}, // seuccess
-				
-		})
-	}
-	countSponCom();
 	
 	
 	
