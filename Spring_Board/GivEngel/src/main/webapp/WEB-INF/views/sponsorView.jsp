@@ -106,7 +106,7 @@
 								<div class="col-lg-5" >
 									<hr>
 									<input type="number" class="form-control mb-4" name="donationBox"
-										id="donationBox" placeholder="${user.user_cash }" />
+										id="donationBox" placeholder="사용가능한 마일리지 : ${user.user_cash }" />
 									<div id="guideText" style="float: left;"></div>
 								</div>
 

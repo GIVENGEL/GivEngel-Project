@@ -43,7 +43,7 @@ $(function(){
 		var buyCntNow = $('#buyCntNow').val();
 		var buyInt = parseInt($('#buyCntNow').val()) // 인트형변환
 		var goodStock = $('#goodStock').text(); // 재고
-		var defalutPrice = $('#defalutPrice').text().slice(1).replace(",","").trim()	// 물품 한개의 가격
+		var defalutPrice = $('#defalutPrice').text().slice(1).replace(/,/gi,"").trim()	// 물품 한개의 가격
 		var totalPrice;
 		
 		

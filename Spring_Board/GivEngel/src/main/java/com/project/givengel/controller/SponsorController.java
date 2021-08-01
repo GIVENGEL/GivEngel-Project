@@ -43,8 +43,20 @@ public class SponsorController {
 		UserVO sessionUserVO = (UserVO)session.getAttribute("user");
 		
 		m.addAttribute("sponList", sponService.getSponList(vo));
-		String countSponCom = Integer.toString(sponService.countSponCom(comVO));
-		m.addAttribute("countSponCom", countSponCom);
+		
+		List<Integer> listString = new ArrayList<Integer>();
+		for(int i=0;i<sponService.getSponList(vo).size();i++) {
+			int temp_sponNum = sponService.getSponList(vo).get(i).getSpon_no();
+			Spon_comVO com = new Spon_comVO();
+			com.setSpon_no(temp_sponNum);
+			
+			int result = sponService.countSponCom(com);
+			listString.add(result);
+		}
+		
+		
+		
+		m.addAttribute("countSponCom", listString);
 		
 		List<SponVO> list = new ArrayList<SponVO>();
 		list = sponService.campaignList();

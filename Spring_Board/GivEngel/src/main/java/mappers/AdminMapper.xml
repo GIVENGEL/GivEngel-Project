@@ -82,15 +82,15 @@ select ifnull(sum(user_buylog_price),0) as today from user_buylog WHERE DATE_FOR
 	
 	<select id="userRate" resultType="float">
 	 <![CDATA[
-		select (today-yesterday)/yesterday*100 from(
+		select ifnull((today-yesterday)/yesterday*100,0) from(
 select ifnull(count(*),0) as today from user WHERE DATE_FORMAT(user_date, "%Y-%m-%d") = CURDATE()) as todaytb,
-(select ifnull(count(*),0) as yesterday from user WHERE DATE_FORMAT(user_date, "%Y-%m-%d") = CURDATE()- INTERVAL 1 DAY) as yestertb;
+(select ifnull(count(*),0) as yesterday from user WHERE DATE_FORMAT(user_date, "%Y-%m-%d") = CURDATE()- INTERVAL 1 DAY) as yestertb
 	]]>
 	</select>
 	
 	<select id="cashRate" resultType="float">
 	 <![CDATA[
-		select minus/plus*-100 from
+		select minus/plus*-1 from
 (select ifnull(sum(user_cashlog_price),0) as plus from user_cashlog
 WHERE user_cashlog_price >= 0) as p,
 (select ifnull(sum(user_cashlog_price),0) as minus  from user_cashlog
@@ -322,20 +322,24 @@ WHERE good_tag LIKE '%BOTTOM%';
 	
 	
 	<select id="chartPriceAndCash" resultType="adminChartBarVO">
+		<![CDATA[
 		select * from
-		(SELECT DAY(user_cashlog_date) AS dates,SUM(user_cashlog_price) buy_sum
+		(SELECT DAY(user_cashlog_date) AS dates,SUM(user_cashlog_price)*-1 cash_sum
 		FROM user_cashlog
 		WHERE user_cashlog_date between '2021-01-01 00:00:00' AND
-		date_format(now(),'%Y-%m-%d 23:59:59')
+		date_format(now(),'%Y-%m-%d 23:59:59') AND user_cashlog_price<0
 		group by dates
+        order by user_cashlog_date desc
 		LIMIT 0,7) AS cash
 		natural join
-		(SELECT DAY(user_buylog_date) AS dates,SUM(user_buylog_price) cash_sum
+		(SELECT DAY(user_buylog_date) AS dates,SUM(user_buylog_price) buy_sum
 		FROM user_buylog
 		WHERE user_buylog_date between '2021-01-01 00:00:00' AND
 		date_format(now(),'%Y-%m-%d 23:59:59')
 		group by dates
-		LIMIT 0,7) AS buy;
+        order by user_buylog_date desc
+		LIMIT 0,7) AS buy
+		]]>
 	</select>
 	
 	

@@ -182,7 +182,7 @@
 								<img id="inputImage" style="width:500px;" onerror="imgAreaError()" /> <br><br><br>
 							</div>
 
-							<input type="file" class="site-btn" id="file" name="file" onclick="setThumbnail(event);">
+							<input type="file" class="site-btn" id="file" name="file" accept="image/*" onclick="setThumbnail(event);">
 						</div>
 					</div>
 			</div>

@@ -146,7 +146,8 @@ function openTwitter() {
 							<img class="product__details__pic__item--large"
 								src="${path}/resources/img/good/${goodVO.good_img}" alt="">
 						</div>
-						<div style='text-align: center;'>인기상품 추천</div>
+						<div style='text-align: center;'><h3>인기상품 추천</h3></div>
+						<hr>
 						<div class="product__details__pic__slider owl-carousel">
 							<c:forEach items="${rankingGood }" var='rankingGood'>
 							<a href='buyForm.giv?good_no=${rankingGood.good_no }'><img src="${path}/resources/img/good/${rankingGood.good_img}" alt=""></a>

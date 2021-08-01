@@ -116,6 +116,8 @@
 			<!-- 편이슬 -->
 			<!-- 스폰서 리스트 불러오기 -->
 				<!--  각 캠패인 출력 단위 표시 ****************-->
+				<c:set var="i" value="0" />
+
 				<c:forEach items="${sponList }" var="spon">
 				<input type="hidden" value="${spon.spon_no}" id="spon_no" name="spon_no" />
 					<div class="col-lg-4 col-md-4 col-sm-6">
@@ -130,7 +132,8 @@
 								<ul>
 									<li>
 									<li><i class="fa fa-calendar-o"></i>${spon.spon_start }</li>
-									<li><i class="fa fa-comment-o"></i>${countSponCom}개</li>
+									<li><i class="fa fa-comment-o"></i>${countSponCom[i]}개</li>
+									<c:set var="i" value="${i+1}" />
 								</ul>
 								<h5>
 									<a href="sponsorView.giv?spon_no=${spon.spon_no }">${spon.spon_name }</a>
@@ -163,7 +166,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-6">
 					<div class="blog__item">
 						<div class="blog__item__pic">
-							<img src="${path}/resources/img/sponsor/${campaign.spon_img }" alt="">
+							<a href=""></a><img src="${path}/resources/img/sponsor/${campaign.spon_img }" alt="">
 						</div>
 						<div class="blog__item__text">
 							<ul>

@@ -14,16 +14,24 @@
 	
 	<div class="blog__sidebar__search" style="width:350px">
 			<form name="searchForm" action="fleaSearchList.giv">
-				<select name="searchType" type="button" style="border-radius: 20px;">
+			<div class="row">
+			<div class="col-3">
+			<select name="searchType" type="button" style="border-radius: 20px;">
 					<option value="flea_title" name="flea_title" class="dropdown-item">제목</option>
 					<option value="flea_writer" name="flea_writer" class="dropdown-item">작성자</option>
 					<option value="flea_content" name="flea_content" class="dropdown-item">내용</option>
 				</select>
-				<input type="text" name="keyword" value="${keyword}" 
+			</div>
+			<div class="col-9">
+			<input type="text" name="keyword" value="${keyword}" 
 					placeholder="상품 검색하기" style="width:270px">
 				<button type="submit" style="none">
 					<span class="icon_search"></span>
 				</button>
+			</div>
+				
+			</div>
+				
 			</form>
 		</div>
  
