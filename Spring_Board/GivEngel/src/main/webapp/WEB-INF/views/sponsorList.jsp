@@ -152,7 +152,7 @@
 	<!-- Blog Section End -->
 
 	<!-- Categories Section Begin -->
-	<section class="categories mb-4">
+	<%-- <section class="categories mb-4">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -182,8 +182,33 @@
 			</c:forEach>
 			</div>
 		</div>
-	</section>
+	</section> --%>
 	<!-- Categories Section End -->
+	
+	
+	
+	<section class="categories mb-4">
+        <div class="container">
+         <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title from-blog__title">
+                        <h2>이런 캠페인은 어떠세요?</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="categories__slider owl-carousel notCampaignList">
+              <c:forEach var="campaign" items="${campaignList}" begin="0" end="2">
+             <div class="col-lg-3">   
+        		<div onclick="location.href='sponsorView.giv?spon_no=${campaign.spon_no}'" class="categories__item set-bg" style="width:250px; height:250px; cursor:pointer" data-setbg="${path}/resources/img/sponsor/${campaign.spon_img}">
+       		    </div> 
+   		     </div> 
+             </c:forEach>      
+                </div>
+            </div>
+        </div>
+    </section>
+	
 
 	<!-- Footer -->
 	<jsp:include page="module/footer.jsp" />

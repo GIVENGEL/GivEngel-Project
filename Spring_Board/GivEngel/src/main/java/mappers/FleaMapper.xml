@@ -23,12 +23,12 @@
 	</select>
 	
 	<insert id="insertFleaWrite" parameterType="fleaVO">
-		INSERT INTO flea(flea_title, flea_price, flea_writer, flea_content, flea_date,
+		INSERT INTO flea(flea_title, flea_price, flea_writer, flea_content, flea_date, flea_isokay,
 		<if test="flea_img != null">
 		flea_img
 		</if>
 		)
-		VALUES (#{flea_title}, #{flea_price}, #{flea_writer}, #{flea_content}, sysdate(),
+		VALUES (#{flea_title}, #{flea_price}, #{flea_writer}, #{flea_content}, sysdate(), null,
 		<if test="flea_img != null">
 		#{flea_img}
 		</if>

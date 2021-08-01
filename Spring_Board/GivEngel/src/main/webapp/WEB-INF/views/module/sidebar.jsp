@@ -24,7 +24,7 @@
 			</div>
 			<div class="col-9">
 			<input type="text" name="keyword" value="${keyword}" 
-					placeholder="상품 검색하기" style="width:270px">
+					placeholder="상품 검색하기" style="width:275px; float: left;">
 				<button type="submit" style="none">
 					<span class="icon_search"></span>
 				</button>

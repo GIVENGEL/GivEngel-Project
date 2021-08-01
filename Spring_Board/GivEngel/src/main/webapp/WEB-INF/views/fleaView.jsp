@@ -59,7 +59,7 @@
 
 	<!-- Blog Details Section Begin -->
 	<input type="hidden" value="${flea.flea_no }" name="flea_no" id="flea_no" >
-	<input type="hidden" value="${user.user_id }" name="user_id" id="user_id">
+	<input type="hidden" value="${uvo.user_id }" name="user_id" id="user_id">
 	
 	<section class="blog-details spad">
 		<div class="container">
@@ -76,7 +76,7 @@
 					<div class="col-lg-6 col-md-6">
 					<div class="product__details__text">
 						<h3>[${flea.flea_title}]</h3>
-						<p style="font-size: 30px">${flea.flea_content}</p>
+						<p style="font-size: 22px; font-weight: 30px;">${flea.flea_content}</p>
 						<div class="product__details__price" id='defalutPrice'>
 						${flea.flea_price}원</div>
 						
@@ -99,13 +99,13 @@
 										<li><span>등록일</span> ${flea.flea_date }</li>
 									</ul>
 									<div class="blog__details__social">
-										<a href="#"><i class="fa fa-facebook"></i></a> <a href="https://www.facebook.com/"><i
-											class="fa fa-twitter"></i></a> <a href="https://twitter.com/?lang=ko"><i
-											class="fa fa-google-plus"></i></a> <a href="https://www.google.co.kr/"><i
+										<a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
+										<a href="https://twitter.com/?lang=ko"><i class="fa fa-twitter"></i></a>
+										<a href="https://www.google.co.kr/"><i class="fa fa-google-plus"></i></a> <a href="https://www.google.co.kr/"><i
 											class="fa fa-linkedin"></i></a> <a href="#"><i
 											class="fa fa-envelope"></i></a>
 									</div>
-									<c:if test="${user.user_id == flea.flea_writer}">
+									<c:if test="${user.user_id == flea.flea_writer && flea.flea_isokay == 'null'}">
 									<button type="button" class="btn btn-outline-secondary float-right" id="deleteFleaBtn">삭제하기</button>
 									</c:if>
 					</div>

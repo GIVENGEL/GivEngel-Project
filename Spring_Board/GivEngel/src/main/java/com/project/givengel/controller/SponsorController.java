@@ -93,7 +93,8 @@ public class SponsorController {
 		UserVO id = (UserVO)session.getAttribute("user");
 		if(id!=null) {
 		UserVO uvo = mypageService.userInfoView(id);
-		m.addAttribute("uvo", uvo); }
+		m.addAttribute("uvo", uvo);
+		}
 		
 		return m;
 	}
@@ -198,7 +199,12 @@ public class SponsorController {
 	*****************************************************/
 	@RequestMapping(value = "/addCashLog.giv", produces = "application/text;charset=UTF-8")
 	@ResponseBody
-	public void addCashLog(User_cashlogVO vo) {
+	public void addCashLog(User_cashlogVO vo, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		UserVO sessionvo = (UserVO)session.getAttribute("user");
+		vo.setUser_no(sessionvo.getUser_no());
+	
 		sponService.addCashLog(vo);
 	}
 	
@@ -215,7 +221,10 @@ public class SponsorController {
 	*****************************************************/
 	@RequestMapping(value = "/minusCash.giv", produces = "application/text;charset=UTF-8")
 	@ResponseBody
-	public void minusCash(UserVO vo) {
+	public void minusCash(UserVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserVO sessionUservo = (UserVO)session.getAttribute("user");
+		vo.setUser_no(sessionUservo.getUser_no());
 		sponService.minusCash(vo);
 	}
 	
@@ -233,9 +242,19 @@ public class SponsorController {
 	*****************************************************/
 	 @RequestMapping("/addSponsorTotal.giv") 
 	 @ResponseBody 
-	 public void addSponTotal(SponVO vo) { 
+	 public void addSponTotal(SponVO vo, HttpServletRequest request) { 
+		 try {
+		 
+		 HttpSession session = request.getSession();
+         UserVO sessionUservo = (UserVO)session.getAttribute("user");
+         sessionUservo.setUser_cash(sessionUservo.getUser_cash()-vo.getSpon_total());
+         session.setAttribute("User", sessionUservo);
+         
 		 sponService.addSponTotal(vo);
+		 }catch(Exception e) {
+			 System.out.println(e);
 		 }
+		}
 	 
 	 
 	 
@@ -251,7 +270,8 @@ public class SponsorController {
 	*****************************************************/
 	 @RequestMapping(value = "/showSponTotal.giv", produces = "application/text;charset=UTF-8")
 	@ResponseBody
-		public void showSponTotal(SponVO vo) {
+	public void showSponTotal(SponVO vo, HttpServletRequest request) {
+		
 			sponService.showSponTotal(vo);
 		}
 	 

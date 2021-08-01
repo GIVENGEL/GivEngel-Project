@@ -146,7 +146,7 @@
 										<h5>
 											<a href="#">${flea.flea_title }</a>
 													<c:choose>
-											<c:when test="${flea.flea_isokay == '0' }">
+											<c:when test="${flea.flea_isokay == null }">
 												<span style="font-size: 15px; color: gray;">미확정</span>
 											</c:when>
 											<c:otherwise>
