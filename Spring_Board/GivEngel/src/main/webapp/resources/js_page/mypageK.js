@@ -149,7 +149,13 @@ $(function(){
 	
 	//전화번호 변경 클릭시
 	$("#telModifybutton").on('click', function(){
-		if($("#myNewTel").val()!=""){
+		if($("#myNewTel").val()==""){
+			alert("변경할 번호를 입력해주세요.")
+			return false;
+		} else if(!user_telCheck.test($("#myNewTel").val())) {
+			alert("전화번호를 다시 확인해주세요.")
+		}
+		else {
 			$.ajax({
 				type:'post',
 				url: 'myTelConfirm.giv',
@@ -161,11 +167,6 @@ $(function(){
 						 reload();
 					}
 				})
-		} else if(!user_telCheck.test($("#myNewTel").val())) {
-			alert("전화번호를 다시 확인해주세요.")
-		}
-		else {
-			alert("변경할 번호를 입력해주세요.")
 		}
 	})
 	 
@@ -179,7 +180,10 @@ $(function(){
 		
 		if(addd==""){
 			alert("주소를 입력해주세요.")
-		}else{
+		}else if(!user_addrCheck.test(addd)){
+			("상세주소를 올바르게 입력해주세요")
+		}
+		else{
 			$.ajax({
 				type:'post',
 				url: 'myAddrConfirm.giv',
@@ -817,24 +821,24 @@ $(document).on('click', '.plusbutton', function(){
 
 
 $(document).on('click', '.mydeletebutton', function(){
-	$(this).parent().parent().parent().parent().empty();
-	
+
 	var totalbuy = parseInt($('#myTotalBuyAc').text())
 	var totalcash = parseInt($('.mysaveCashNow').text())
-	
-	
-	totalbuy += -parseInt($(this).parents().find(".mytotalprice").text());
-	totalcash += -0.1*parseInt($(this).parents().find(".mytotalprice").text());
-	$('.mysaveCashNow').text(totalcash) 
-	$('#myTotalBuyAc').text(totalbuy)	
+	var temp = $(this).parent().parent().find(".hiddencartcartNo").val();
+ 
+	totalbuy -= parseInt($(this).parent().parent().find(".mytotalprice").text());
+	totalcash -= 0.1*parseInt($(this).parent().parent().find(".mytotalprice").text());
+	$(this).parent().parent().empty(); 
+	$('.mysaveCashNow').text(totalcash)  
+	$('#myTotalBuyAc').text(totalbuy)	  
+ 
 
-	$.ajax({
+	$.ajax({ 
 		type:'post', 
-		url:'mydeleteCart.giv',
-		data: { cart_no : $(this).parent().parent().parent().find(".hiddencartcartNo").val() },
-		success :  function() {
-			alert("삭제했습니다.") 
-			
+		url:'mydeleteCart.giv', 
+		data: { cart_no : temp },
+		success :  function() { 
+			 
 		}
 		
 		

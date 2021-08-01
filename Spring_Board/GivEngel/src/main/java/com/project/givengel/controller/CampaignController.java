@@ -187,8 +187,14 @@ public class CampaignController {
 	    *****************************************************/
 	@RequestMapping(value="/camSponCash.giv", produces="application/text;charset=UTF-8")
 	@ResponseBody
-	public void camSponCash(SponVO vo) {
+	public void camSponCash(SponVO vo,HttpServletRequest request) {
 		try {
+			   HttpSession session = request.getSession();
+		         UserVO sessionUservo = (UserVO)session.getAttribute("user");
+		         sessionUservo.setUser_cash(sessionUservo.getUser_cash()-vo.getSpon_total());
+		         session.setAttribute("User", sessionUservo); 	
+			
+			
 		campaignService.camSponCash(vo);
 		}catch(Exception e) {
 			System.out.println(e);

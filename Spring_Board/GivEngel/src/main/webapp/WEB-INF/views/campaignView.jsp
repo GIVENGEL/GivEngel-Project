@@ -65,7 +65,7 @@
 						<ul> 
 							<li><h4 class="text-white">${Campaign.spon_end }</h4></li>
 							<li><h2 class="text-white">${Campaign.spon_total_string}원</h2></li>
-							<li><h4 class="text-white">${countReview}개</h4></li>  
+							<li><h4 class="text-white reviewplus2">${countReview}</h4></li>  
 						</ul>  
 					</div>  
 				</div>
@@ -151,7 +151,7 @@
 								href="#tabs-2" role="tab" aria-selected="false">GivEngel 이용
 									수칙</a></li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"
-								href="#tabs-3" role="tab" aria-selected="false">리뷰 <span>(${countReview})</span></a></li>
+								href="#tabs-3" role="tab" aria-selected="false">리뷰(<span id="reviewplus">${countReview}</span>)</a></li>
 						</ul> 
 						<div class="tab-content">
 							<div class="tab-pane active text-center" id="tabs-1"
@@ -175,7 +175,7 @@
 										<div class="col-md-12">
 											<div
 												class="headings d-flex justify-content-between align-items-center mb-3">
-												<h5>댓글 ("${countReview}")</h5>
+											
 												<div class="buttons">
 													<span
 														class="badge bg-white d-flex flex-row align-items-center">
@@ -352,10 +352,10 @@ $('#donation_btn').on('click',function(){
 		} else if(!user_cashCheck.test($("#pleasegivehidden").val())) {
 			 alert("숫자만 입력해주세요.") 
 		 }
-	 	else if($('#pleasegive').val()<=100){ 
+	 	else if($('#pleasegive').val()<100){ 
 		alert("100마일리지 이상 후원해주세요.")
 		}  
-	     else if($('#pleasegive').val()>$('#pleasegivehidden').val())
+	     else if(parseInt($('#pleasegive').val())>parseInt($('#pleasegivehidden').val()))
 		 {   
 		 alert("후원 할 마일리지가 부족해요.") 
 		 $('#pleasegive').focus()
@@ -367,6 +367,8 @@ $('#donation_btn').on('click',function(){
 	    		spon_no:$('#hiddenNo').val(),
 	    		spon_total:$('#pleasegive').val()		
 	    	}, success:function() {
+	    		$('#pleasegive').val("");
+	              window.location.reload();
 	    		
 	    	}
 	    	 
@@ -415,7 +417,6 @@ var maxpage=0;
 var start=0;  
 var end=0; 
 
-directView();
 
 function directView() {
  
@@ -430,13 +431,16 @@ function directView() {
 			}else{
 				maxpage = list/onepagethose + 1
 			}
+			$("#reviewtotal").empty();
+			$("#myreviewPaging").empty();
 			$("#myreviewPaging").append('<li class="page-item"><a class="page-link preview" href="">이전</a></li>')
-			for(var a=1; a<=maxpage; a++) {  
+			for(var a=1; a<=maxpage; a++)
+			{  
 			$("#myreviewPaging").append('<li class="page-item"><a id="paging4'+a+'" class="page-link paging4" style="cursor:pointer">'+a+'</a></li>')
-				}    
+				}
 			$("#myreviewPaging").append('<li class="page-item"><a class="page-link nextreview" href="">다음</a></li>')	
 			
-			$("#reviewtotal").empty(); 
+		
 			for(var i=0; i<onepagethose; i++)
 			{$("#reviewtotal").append('<div class="card p-3 mb-5"><input type="hidden" id="hiddenwritergo'+i+'"  value='+data.listReview[i].spon_com_writer+'><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-start"><img src="https://i.imgur.com/hczKIze.jpg" width="30"class="user-img rounded-circle mr-2"> <span><small class="font-weight-bold text-primary idwriter">'+data.listReview[i].spon_com_writer+']</small>&nbsp;&nbsp;&nbsp;&nbsp;<small class="font-weight-bold">['+data.listReview[i].spon_com_content+']</small></span></div><div class="align-items-end" style="float:right;"><label><input type="button" id="modify_btn'+i+'" class="modify_btn btn btn-link" value="수정" style="align:right; display:none;"></label><label ><input style="display:none" id="deleteValue'+i+'" class="deleteValue btn btn-link" type="button" value="삭제"><small class="believe"></small></label></div></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div class="reply px-4 w-100" style="height:20px"><span class="dots" style="height:20px"></span><div class="modify_div_text" style="display:none" "height:20px"><textarea  class="w-100 lookingplz" ></textarea></div><span class="dots"></span></div><div class="modify_div"><input class="modify_button" type="button" value="확인" style="display:none"><input class="comcomnono" type="hidden" value="'+data.listReview[i].spon_com_no+'"></div></div></div></div>')
 			 	if($("#cam_user_id").val()==$("#hiddenwritergo"+i+"").val()){
@@ -444,14 +448,14 @@ function directView() {
 		    		$("#deleteValue"+i+"").css('display', 'block').show()   
 		    	}//if문 닫기 
 			} 
-			 
+			  
          } //석세스 닫기
 		  
 	}) 	//아작스	  
   
 } //함수
 
- 
+directView();
 
 
 
@@ -481,7 +485,7 @@ $(document).on('click', '.paging4', function(){
 		success:function(data){
 			var list = data.listReview.length
 			
-			$("#reviewtotal").empty(); 
+			$("#reviewtotal").empty();  
 			if(list>=end){
 			for(var i=start; i<end; i++)
 			{$("#reviewtotal").append('<div class="card p-3 mb-5"><input type="hidden" id="hiddenwritergo'+i+'"  value="'+data.listReview[i].spon_com_writer+'"><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-start"><img src="https://i.imgur.com/hczKIze.jpg" width="30"class="user-img rounded-circle mr-2"> <span><small class="font-weight-bold text-primary idwriter">'+data.listReview[i].spon_com_writer+']</small>&nbsp;&nbsp;&nbsp;&nbsp;<small class="font-weight-bold">['+data.listReview[i].spon_com_content+']</small></span></div><div class="align-items-end" style="float:right;"><label><input type="button" id="modify_btn'+i+'" class="modify_btn btn btn-link" value="수정" style="align:right; display:none;"></label><label ><input style="display:none" id="deleteValue'+i+'" class="deleteValue btn btn-link" type="button" value="삭제"><small class="believe"></small></label></div></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div class="reply px-4 w-100" style="height:20px"><span class="dots" style="height:20px"></span><div class="modify_div_text" style="display:none" "height:20px"><textarea  class="w-100 lookingplz" ></textarea></div><span class="dots"></span></div><div class="modify_div"><input class="modify_button" type="button" value="확인" style="display:none"><input class="comcomnono" type="hidden" value="'+data.listReview[i].spon_com_no+'"></div></div></div></div>')
@@ -498,11 +502,12 @@ $(document).on('click', '.paging4', function(){
 						$("#modify_btn"+i+"").css('display', 'block').show()  
 			    		$("#deleteValue"+i+"").css('display', 'block').show()   
 			    	}//if문 닫기 
+			    	
 				
 				}//for문 닫기 
 				
 			}	  
-		
+		  
 		 
          } //석세스 닫기
 		  
@@ -589,7 +594,9 @@ $(document).on('click', '.preview', function(){
  * 마지막 수정      :   2021-07-23                          제약조건= 빈칸, 로그인 거르기
  *****************************************************/
 $('.bntReview').on('click', function(){
-	alert("일단확인" + "***" + $('#Reviewcontent').val() + "***" )
+	var pluss = parseInt($('#reviewplus').text())+1
+	var pluss2 = parseInt($(".reviewplus2").text())+1
+	
 	$.ajax({ 
 		 type:'post',
 		 url:'reviewInsert.giv', 
@@ -598,7 +605,11 @@ $('.bntReview').on('click', function(){
  			   spon_com_content:$('#Reviewcontent').val() },     
 		 contentType : 'application/x-www-form-urlencoded;charset=UTF-8',  
 		 success : function(data) { 
-					 directView(); 	    
+			 $("#reviewtotal").empty();
+			 directView(); 
+			 $('#reviewplus').text(pluss+"개");
+			 $(".reviewplus2").text(pluss2+"개");		
+			 $('#Reviewcontent').val("");		
 			 }  
 	}) 
 });
@@ -622,8 +633,8 @@ $(document).on('click','.deleteValue', function(){
 			alert("선택한 댓글을 삭제하셨습니다.")
 		}
 		 
-		
-	})  
+	 	
+	})   
 		
 });
 
@@ -682,7 +693,7 @@ $(document).on('click','.modify_button',function(){
  
 
 $(".urlmachan").on('click', function(){
-	self.location = "buyList.giv${pagingVO.makeQuery(1)}"+ "&spon_no="+ ${Campaign.spon_no}
+	self.location = "buyList.giv"+ "?spon_no="+ ${Campaign.spon_no}
 	   
 })
 

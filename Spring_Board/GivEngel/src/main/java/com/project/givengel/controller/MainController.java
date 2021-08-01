@@ -17,8 +17,10 @@ import com.project.givengel.service.CampaignServiceImpl;
 import com.project.givengel.service.FleaService;
 import com.project.givengel.service.GoodListService;
 import com.project.givengel.service.MypageServiceImpl;
+import com.project.givengel.service.SponServiceImpl;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.SponVO;
+import com.project.givengel.vo.Spon_comVO;
 import com.project.givengel.vo.UserVO;
 
 @Controller
@@ -32,6 +34,8 @@ public class MainController {
 	private FleaService fleaService;
 	@Autowired
 	private MypageServiceImpl mypageService; 
+	@Autowired
+	private SponServiceImpl sponService;
 
 	 
 	/*******************************************************
@@ -87,21 +91,45 @@ public class MainController {
 	    * 함수 기능       :   1. 캠페인 리스트(스폰넘버만) 받아온 후 배열로 리스트불러옴  2.현재시간 불러와서 비교하고 안보이게
 	    * 사용된 함수 : -
 	    * 사용된 서비스       :   campaignList (Service, dao)
-	    * 마지막 수정      :   2021-07-23
+	    * 마지막 수정      :   2021-08-01
 	    *****************************************************/
 	@RequestMapping("/campaign.giv")
-	public Map<String,Object> campaignList(SponVO vo) {
-	
-		List<SponVO> spon_list = new ArrayList<SponVO>();
-		spon_list = campaignService.campaignList();
-		Map<String,Object> map = new HashMap<String,Object>();
+	   public Map<String,Object> campaignList(SponVO vo, Model m, Spon_comVO comvo) {
+		/*
+		 * List<Integer> listString = new ArrayList<Integer>(); for(int
+		 * i=0;i<sponService.getSponList(vo).size();i++) { int temp_sponNum =
+		 * sponService.getSponList(vo).get(i).getSpon_no(); Spon_comVO com = new
+		 * Spon_comVO(); com.setSpon_no(temp_sponNum);
+		 */
+		/*
+		 * int result = sponService.countSponCom(com); listString.add(result);]
+		 */
 		
-		String nowSysdate = campaignService.nowSysdate(); 
-		map.put("nowSysdate", nowSysdate);
-		map.put("spon_list", spon_list); 
-		return map;		
-		  
-	}
+		 
+	   
+	      List<SponVO> spon_list = new ArrayList<SponVO>();
+	      spon_list = campaignService.campaignList();
+	      List<Integer> com_list = new ArrayList<Integer>();
+	      
+	      for(int i=0;i<spon_list.size();i++) {
+	    	  Spon_comVO comvos = new Spon_comVO();
+	    	  comvos.setSpon_no(spon_list.get(i).getSpon_no());
+	    	  com_list.add(campaignService.countReview(comvos));
+	    	  
+	      }
+	      
+	      Map<String,Object> map = new HashMap<String,Object>();
+	       
+	      List<SponVO> spon_list2 = new ArrayList<SponVO>();
+	      spon_list2   = campaignService.campaignSpon(); 
+	      String nowSysdate = campaignService.nowSysdate();
+	      map.put("CountReview", com_list);
+	      map.put("nowSysdate", nowSysdate);
+	      map.put("spon_list", spon_list);
+	      map.put("non_campaign", spon_list2);  
+	      return map;      
+	        
+	   }
 	@RequestMapping("/cartForm.giv")
 	public void cartForm() {
 		

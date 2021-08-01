@@ -111,20 +111,24 @@
             </div>
             <div class="row">
             	<!--  각 캠패인 출력 단위 표시 ****************-->
-            	
+            	<c:set var='i' value='0'/>
                 <c:forEach items="${spon_list }" var="campa">
                 <c:set var="sysdate" value="${nowSysdate}"/>
                 <c:if test="${campa.spon_end>=sysdate}">
                <div class="col-lg-4 col-md-4 col-sm-6">
-                  <div class="blog__item"> 
+                  <div class="blog__item">
                      <div class="blog__item__pic">
                         <a href="campaignView.giv?spon_no=${campa.spon_no}"><img src="${path}/resources/img/sponsor/${campa.spon_img}" height="300px" alt="${campa.spon_name}"></a>
                      </div> 
                      <div class="blog__item__text"> 
                         <ul>
-                             
+                           <li><i class="fa fa-calendar-o"></i>${campa.spon_end }</li>  
+                        </ul>
+                        <ul>
+                           <li><i class="fa fa-comment-o"></i>${CountReview[i]}개</li> 
+                           <c:set var='i' value='${i+1}'/> 
                         </ul>   
-                        <h5>
+                        <h5> 
                            <a href="campaignView.giv?spon_no=${campa.spon_no }">${campa.spon_name }</a> 
                         </h5>
                         <p>${campaign.spon_comment }</p>
