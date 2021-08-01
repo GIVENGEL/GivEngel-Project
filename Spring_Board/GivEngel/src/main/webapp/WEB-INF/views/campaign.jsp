@@ -149,32 +149,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="categories__slider owl-carousel">
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${path}/resources/img/categories/cat-1.jpg">
-                            <h5><a href="#">양키 캔들</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${path}/resources/img/categories/cat-2.jpg">
-                            <h5><a href="#">도자기 공예</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${path}/resources/img/categories/cat-3.jpg">
-                            <h5><a href="#">원예</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${path}/resources/img/categories/cat-4.jpg">
-                            <h5><a href="#">수제 비누</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="${path}/resources/img/categories/cat-5.jpg">
-                            <h5><a href="#">악세사리</a></h5>
-                        </div>
-                    </div>
+                <div class="categories__slider owl-carousel notCampaignList">
+              <c:forEach items="${non_campaign}" var="non_campaign" begin="0" end="5">
+             <div class="col-lg-3">   
+        		<div onclick="location.href='sponsorView.giv?spon_no=${non_campaign.spon_no}'" class="categories__item set-bg" style="width:250px; height:250px; cursor:pointer" data-setbg="${path}/resources/img/sponsor/${non_campaign.spon_img}">
+            		<h5><a href="sponsorView.giv?spon_no=${non_campaign.spon_no}">${non_campaign.spon_name}</a></h5>
+       		    </div> 
+   		     </div> 
+             </c:forEach>      
                 </div>
             </div>
         </div>
@@ -194,7 +176,20 @@
     <script src="${path}/resources/js/mixitup.min.js"></script>
     <script src="${path}/resources/js/owl.carousel.min.js"></script>
     <script src="${path}/resources/js/main.js"></script>
+    
 
+    
+    
+    
+    
+	
+	<script type="text/javascript">
+	$(function(){
+	   	
+	
+	 
+})	
+	</script>
 
 
 </body>

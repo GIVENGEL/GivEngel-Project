@@ -9,7 +9,7 @@ import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.UserVO;
 import com.project.givengel.vo.User_cashlogVO;
 
-public interface MypageDAO {
+public interface MypageDAO { 
 	public int userGradeBuy(UserVO vo);
 	public List<HashMap<String,Object>> myfleaMarket(UserVO vo);
 	public void mycountGoodStock(GoodVO vo);
@@ -25,4 +25,10 @@ public interface MypageDAO {
 	public void minusCart(CartVO vo);
 	
 	public void plusCart(CartVO vo);
-}  
+	
+	public void allCartComplete(UserVO vo); 
+	 
+	public void mydeleteCart(CartVO vo);
+	
+	public UserVO userInfoView(UserVO vo);
+}   

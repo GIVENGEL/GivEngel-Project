@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.project.givengel.vo.CartVO;
 import com.project.givengel.vo.GoodVO;
+import com.project.givengel.vo.SponVO;
 import com.project.givengel.vo.UserVO;
 import com.project.givengel.vo.User_cashlogVO;
 
@@ -27,11 +28,19 @@ public interface MypageService {
 	public int myTelConfirm(UserVO vo);
 	
 	public int myAddrConfirm(UserVO vo);
-	 
+	  
 	public List<User_cashlogVO> myCashList(UserVO vo);
-	
+	 
 	public void minusCart(CartVO vo);
 	
 	public void plusCart(CartVO vo);
+	
+	public void allCartComplete(UserVO vo);
+	 
+	public void mydeleteCart(CartVO vo);
+	
+	public UserVO userInfoView(UserVO vo);
+	
+	  
  
 }

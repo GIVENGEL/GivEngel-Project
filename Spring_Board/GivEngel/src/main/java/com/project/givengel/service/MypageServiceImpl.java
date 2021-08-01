@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.project.givengel.dao.MypageDAOImpl;
 import com.project.givengel.vo.CartVO;
 import com.project.givengel.vo.GoodVO;
+import com.project.givengel.vo.SponVO;
 import com.project.givengel.vo.UserVO;
 import com.project.givengel.vo.User_cashlogVO;
 
@@ -75,12 +76,25 @@ public class MypageServiceImpl {
 	public int userGradeBuy(UserVO vo) {
 		return mypageDAO.userGradeBuy(vo);
 	}
-	 
+	   
 	public void minusCart(CartVO vo) {
 		mypageDAO.minusCart(vo);
 	}
 	public void plusCart(CartVO vo) {
 		mypageDAO.plusCart(vo); 
 	}
- 
+	
+	public void allCartComplete(UserVO vo) {
+		mypageDAO.allCartComplete(vo);
+	}
+	
+	public void mydeleteCart(CartVO vo) {
+		mypageDAO.mydeleteCart(vo);  
+	} 
+	
+	public UserVO userInfoView(UserVO vo) {
+		return mypageDAO.userInfoView(vo); 
+	}
+	   
+
 } 

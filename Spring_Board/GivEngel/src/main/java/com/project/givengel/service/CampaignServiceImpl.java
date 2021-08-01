@@ -65,6 +65,11 @@ public class CampaignServiceImpl implements CampaignService {
 		CampaignDAO.reviewInsert(vo);
 		   
 	}
+	
+	public List<SponVO> campaignSpon() {
+		return CampaignDAO.campaignSpon();
+	}  
+	
  
 	@Override
 	public void camTotalGive(int spon_no) {
@@ -82,7 +87,7 @@ public class CampaignServiceImpl implements CampaignService {
 	public void fleaTotal() {
 		// TODO Auto-generated method stub
 		
-	}
+	} 
 
 	@Override
 	public void camSpon(String spon_name) {

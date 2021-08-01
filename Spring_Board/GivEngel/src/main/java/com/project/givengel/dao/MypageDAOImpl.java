@@ -72,7 +72,7 @@ public class MypageDAOImpl {
 	 
 	public int userGradeBuy(UserVO vo) {
 		return mybatis.selectOne("MypageDAO.userGradeBuy", vo);
-	}
+	} 
 	
 	public void minusCart(CartVO vo) { 
 		mybatis.update("MypageDAO.minusCart", vo);
@@ -80,6 +80,18 @@ public class MypageDAOImpl {
 	
 	public void plusCart(CartVO vo) {
 		mybatis.update("MypageDAO.plusCart", vo);
+	} 
+	
+	public void allCartComplete(UserVO vo) {
+		mybatis.delete("MypageDAO.allCartComplete", vo);
+	}
+	  
+	public void mydeleteCart(CartVO vo) { 
+		mybatis.delete("MypageDAO.mydeleteCart", vo);
+	}
+	
+	public UserVO userInfoView(UserVO vo) {
+		return mybatis.selectOne("MypageDAO.userInfoView", vo);
 	}
 	
 }   

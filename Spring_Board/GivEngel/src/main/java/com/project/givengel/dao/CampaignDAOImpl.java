@@ -67,6 +67,10 @@ public class CampaignDAOImpl implements CampaignDAO {
 	public void updateReview(Spon_comVO vo) {
 		mybatis.update("CampaignDAO.updateReview", vo);
 	}
+	 
+	public List<SponVO> campaignSpon() {
+		return mybatis.selectList("CampaignDAO.campaignSpon");
+	} 
   
 	@Override
 	public void camTotalGive(int spon_no) {

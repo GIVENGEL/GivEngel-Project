@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.givengel.service.CampaignServiceImpl;
+import com.project.givengel.service.MypageServiceImpl;
 import com.project.givengel.vo.SponVO;
 import com.project.givengel.vo.Spon_comVO;
 import com.project.givengel.vo.UserVO;
@@ -26,15 +27,18 @@ public class CampaignController {
 	@Autowired 
 	private CampaignServiceImpl campaignService;
 	
-	
+	@Autowired
+	private MypageServiceImpl mypageService;
 
 	
 	
 	/*****************************************************
 	    * 함수명          :    campaignView
-	    * 함수 기능       :    캠페인 뷰로 넘김
+	    * 함수 기능       :    캠페인 뷰로 넘김, 유저정보 넘김, 리뷰수 넘김
 	    * 사용된 함수 : -
-	    * 사용된 서비스       :   sponView (Service, dao) 엔드데이트 있고 시스데이트만 가져오면 됨
+	    * 사용된 서비스       :sponView 화면넘김
+	    * 			 	countReview 댓글수
+	    * 				userInfoView 유저정보넘김
 	    * 마지막 수정      :   2021-07-23
 	    *****************************************************/
 	@RequestMapping(value="/campaignView.giv")
@@ -45,7 +49,11 @@ public class CampaignController {
 			m.addAttribute("Campaign", sponvo);
 			String countreview = Integer.toString(campaignService.countReview(comvo));
 			m.addAttribute("countReview",countreview);
-			
+			HttpSession session = req.getSession();
+			UserVO id = (UserVO)session.getAttribute("user");
+			if(id!=null) {
+			UserVO uvo = mypageService.userInfoView(id);
+			m.addAttribute("uvo", uvo); }
 		} catch(NullPointerException e){ 
 			System.out.println(e);
 		}  
@@ -60,7 +68,7 @@ public class CampaignController {
 	    * 사용된 서비스       :   reviewList (Service, dao) , countReview(댓글 갯수)
 	    * 마지막 수정      :   2021-07-23
 	    *****************************************************/
-	@RequestMapping(value= "/reviewList.giv", produces="application/json")
+	@RequestMapping(value="/reviewList.giv", produces="application/json")
 	@ResponseBody  
 	public Map<String,Object> reviewList(Spon_comVO vo) {
 		System.out.println("스폰번호확인" + vo.getSpon_no());
@@ -186,8 +194,7 @@ public class CampaignController {
 			System.out.println(e);
 		}
 	}
-	
 	 
-	
+ 
 }
  

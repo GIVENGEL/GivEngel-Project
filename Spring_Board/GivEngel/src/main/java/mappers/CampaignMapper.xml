@@ -54,7 +54,11 @@ SELECT count(*) FROM spon_com WHERE spon_no=#{spon_no}
 </select>
 
 <select id="nowSysdate" resultType="String">
-SELECT sysdate();
+SELECT sysdate()
+</select>
+
+<select id="campaignSpon" resultType="sponVO">
+SELECT * FROM spon WHERE spon_iscampaign = '0'
 </select>
 
 </mapper>

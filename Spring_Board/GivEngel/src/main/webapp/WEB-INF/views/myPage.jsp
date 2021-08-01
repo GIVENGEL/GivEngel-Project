@@ -84,16 +84,16 @@
                 <div class="resume-section-content">
                     <h2 class="mb-1">   
                         	반갑습니다. 
-                        <span class="text-primary">${user.user_name}님<p style="font-size:30px">GIVENGEL입니다. 환영합니다</p></span>
-                        <input id="hiddenmypw" type="hidden" value="${user.user_pw}">
-                        <input id="hiddenmyno" type="hidden" value="${user.user_no}">
-                        <input ud="hiddenmynick" type="hidden" value="${user.user_name}">
-                        <input id="hiddenmytel" type="hidden" value="${user.user_tel}">
-                        <input id="hiddenmyaddr" type="hidden" value="${user.user_addr}">
+                        <span class="text-primary">${myvo.user_name}님<p style="font-size:30px">GIVENGEL입니다. 환영합니다</p></span>
+                        <input id="hiddenmypw" type="hidden" value="${myvo.user_pw}">
+                        <input id="hiddenmyno" type="hidden" value="${myvo.user_no}">
+                        <input ud="hiddenmynick" type="hidden" value="${myvo.user_name}">
+                        <input id="hiddenmytel" type="hidden" value="${myvo.user_tel}">
+                        <input id="hiddenmyaddr" type="hidden" value="${myvo.user_addr}">
                     </h2>   
                     <div class="subheading mb-5">
-                        <a class="myInfoModify" href="myPageModify.giv">회원 정보 수정하기</a>
-                        <br/><br/><br/>  
+                    
+                        <br/> 
                         <section class="hero">
 		<div class="container">
 			<div class="row"> 
@@ -104,94 +104,97 @@
     
 						<div>
 							<section class="container">     
-								<section class="login-form">
-									<hr style="border: solid 1px">
+								<section  class="login-form"> 
+									<hr style="border: solid 1px">  
 									<label class="display-4 text-dark">회원 정보 수정</label>
-										<table class="table table-boardered">
-										 										
+										<table class="table  table-boardered"> 
+										 					 		 			
 											<tr>
-												<th>명예등급</th>
-												<td>명예등급임</td>
-											</tr>
+												<th style="width:200px">명예등급</th>
+												<td><label id="honorgrade">명예등급임</label></td>    
+											</tr>  
 											<tr>
 												<th>아이디</th>
-												<td class="row">&nbsp;&nbsp;&nbsp;&nbsp;${user.user_id }</td>
-											
+												<td>${myvo.user_id }</td>
+											   
 											</tr>  
 											<tr>
 												<th>비밀번호</th>
-												<td>********				
+												<td colspan="3">********				
 												<input type="button" style="float:right" class="btn btn-success btn-sm" id="pwModifybtn"  value="비밀번호 변경">
 												</td>
 											</tr>
 											
 											<tr class="pwdShow" style="display:none">  
-											<th style="float:right">현재 비밀번호</th>
-											<td><input id="myNowPass" type="password"></td>
+											<th style="float:left; font-size:20px;">현재 비밀번호</th>
+											<td colspan="3"><input id="myNowPass" style="float:center; height:40px;" type="password"></td>
+											</tr>   
+											<tr class="pwdShow" style="display:none">
+											<th style="float:left; font-size:20px;">신규 비밀번호</th>
+											<td colspan="3"><input id="myNewPass" style="float:center; height:40px;" type="password"></td>
 											</tr>
 											<tr class="pwdShow" style="display:none">
-											<th style="float:right">신규 비밀번호</th>
-											<td><input id="myNewPass" type="password"></td>
-											</tr>
-											<tr class="pwdShow" style="display:none">
-											<th style="float:right">신규 비밀번호 재입력</th>
-											<td><input id="myNewPassOK" type="password"></td>
-											</tr> 
-											<tr class="pwdShow" style="display:none">
-											<td style="float:right"><input type="button" value="변경" class="btn btn-success" id="pwdButton"></td>
-											</tr>
+											<th style="float:left; font-size:20px;">비밀번호 재입력</th>
+											<td colspan="2" ><input id="myNewPassOK" style="float:center; height:40px;" type="password"></td>
+											<td><input type="button" value="변경" class="btn btn-outline-success" style="float:right" id="pwdButton"></td> 
+											</tr>  
 											
-											<tr>
-												<th>이름</th> 
-												<td>${user.user_name}
-												<input type="button" style="float:right" class="btn btn-success btn-sm" id="nameModifybtn" value="닉네임 변경">
-												</td>
-											
+											<tr> 
+												<th>이름</th>  
+												<td colspan="3"><label style="float:center; align:right; margin:0;" id="imodifyname">${myvo.user_name}</label>  
+												<input type="button" style="float:right; vertical-align:middle;" class="btn btn-success btn-sm" id="nameModifybtn" value="닉네임 변경"> 
+												</td>       
+											  
 											</tr>     
 											<tr class="nickShow" style="display:none">  
-											<th style="float:right">변경 할 닉네임&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-											<td style="align:right"><input id="myNewNick" type="text"></td>
-											</tr>  
-											<tr class="nickShow" style="display:none">  
-											<td><input type="button" style="float:right" class="pull-right" id="nickModifybtn" value="변경"></td>
+											<th style="float:left; font-size:20px;">변경 할 닉네임&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+											<td style="align:right;"><input style="height:40px;" id="myNewNick" type="text"></td>
+											<td><input type="button" style="float:right" class="btn btn-outline-success" id="nickModifybtn" value="변경"></td> 
 											</tr>   
+									
      
 											
 											<tr>
-												<th>전화번호</th>
-												<td>${user.user_tel }
+												<th>전화번호</th> 
+												<td colspan="3">${myvo.user_tel}  
 												<input type="button" style="float:right" class="btn btn-success btn-sm" id="telModifybtn" value="전화번호 변경">
 												</td>
 											</tr>
 											<tr class="telShow" style="display:none">
-											<th> 변경 할 번호</th>
-											<td><input type="tel" id="myNewTel"></td>
+											<th style="font-size:20px;"> 변경 할 번호</th>
+											<td><input type="tel" style="height:40px;" id="myNewTel"></td>
+											<td style="float:right"><input type="button" class="btn btn-outline-success" id="telModifybutton" value="변경"></td>
 											</tr>
-											<tr class="telShow" style="display:none">
-											<td style="float:right"><input type="button" id="telModifybutton" value="변경"></td>
-											</tr>
+											
 											<tr>
 												<th>주소</th>
-												<td>${user.user_addr}
+												<td colspan="3">${myvo.user_addr} 
 												<input type="button" style="float:right" class="btn btn-success btn-sm" id="addrModifybtn" value="배송주소 변경">
 												</td>
-											</tr>  
+											</tr>   
 											<tr class="addrShow" style="display:none">
-											<th> 변경 할 주소</th>
-											<td><input type="text" id="myNewAddr"></td>
+											<th style="font-size:20px;">변경 할 주소</th>
+											
+											<td><input style="height:30px;" readonly type="text" id="sample6_postcode" placeholder="우편번호"></td>
+											<td><input style="height:30px;" readonly type="text" id="sample6_address" placeholder="주소"></td>
+											<td><input class="btn btn-success btn-sm"style="float:left" type="button" id="addrModifybutton" value="주소지 찾기"></td>
 											</tr>  
+											
 											<tr class="addrShow" style="display:none">
-											<td style="float:left"><input type="button" id="addrModifybutton" value="주소지 찾기" ></td>
-											<td style="float:right"><input type="button" id="addrModifyConfirm" value="변경" ></td>
+											<td colspan="3"><input style="width:500px; height:40px; float:right;" readonly type="text" id="sample6_detailAddress" placeholder="상세주소"></td>
 											</tr> 
-											  
+											 
+											<tr class="addrShow" style="display:none">
+											<td colspan="3"><input style="width:500px; height:40px; float:right;'" type="text" id="sample6_extraAddress" placeholder="참고항목"></td>
+											<td><input class="btn btn-outline-success"style="float:right" type="button" id="addrModifyConfirm" value="변경" ></td>
+											</tr> 
 											
 											<br/> 
 											<br/>
 										</table>
-										<input id="cancle" type="button" class="btn btn-block btn-success btn-lg"
-													value="되돌아가기" style="width:25%">  
-										<br/><br/><br/>
+										<a href="index.giv"><input id="cancle" type="button" class="btn btn-block btn-success btn-lg"
+													value="홈으로" style="width:25%"></a>  
+										<br/><br/><br/> 
 										<table class="table table-boardered">
 										<h3 class="display-6">기타 유저 정보</h3>
 										<tr>  
@@ -204,7 +207,7 @@
 										</tr>  
 										<tr>
 											<th>마일리지</th>
-											<td>${user.user_cash}</td>
+											<td>${myvo.user_cash}</td>
 										</tr>
 										</table> 
 										
@@ -218,23 +221,23 @@
 	</section>
                         <label>서비스문의:</label><a href="mailto:name@email.com">name@email.com</a>
                     </div>
-                    <p class="lead mb-5">'${user.user_name}'이라는 천사를 드릴게요.&nbsp;&nbsp;&nbsp;&nbsp; from GIVENGEL</p> 
+                    <p class="lead mb-5">'${myvo.user_name}'이라는 천사를 드릴게요.&nbsp;&nbsp;&nbsp;&nbsp; from GIVENGEL, to everyone</p> 
                     <div class="social-icons">
-                        <a class="social-icon" href="#!"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="social-icon" href="#!"><i class="fab fa-github"></i></a>
-                        <a class="social-icon" href="#!"><i class="fab fa-twitter"></i></a>
-                        <a class="social-icon" href="#!"><i class="fab fa-facebook-f"></i></a>
+                        <a class="social-icon" href="https://www.instagram.com/"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="social-icon" href="https://github.com/GIVENGEL"><i class="fab fa-github"></i></a>
+                        <a class="social-icon" href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
+                        <a class="social-icon" href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
                     </div>
-                </div>
+                </div> 
             </section>
             <hr class="m-0" />
             <!-- Experience-->
             <section class="resume-section" id="experience">
                 <div class="resume-section-content"> 
-                    <h2 class="mb-5">장바구니</h2>
+                    <h2 style="color:#FF9D62" class="mb-5">&nbsp;&nbsp;&nbsp;장바구니</h2>
                   <section class="shoping-cart spad"> 
 		<div class="container">
-			<div class="row">
+			<div class="row"> 
 				<div class="col-lg-12">
 					<div class="shoping__cart__table">
 						<table>
@@ -273,16 +276,16 @@
 			
 				<div class="col-lg-6 ">
 				<div class="shoping__cart__btns">
-						<a href="#" class="primary-btn cart-btn">쇼핑 계속하기</a> 
+						<a href="buyList.giv" class="primary-btn cart-btn">쇼핑 계속하기</a> 
 					</div>
 				</div>
 				<div class="col-lg-6 ">
 					<div class="shoping__checkout">
 						<h5>장바구니 전체 결제액</h5>
 						<ul>
-							<li>총 가격 <span id="myTotalBuyAc">[가격 계산]</span></li>
-							<li>적립 마일리지 <span class="mysaveCashNow"></span></li>
-						</ul>
+							<li><label style="font-size:25px">총 가격</label>&nbsp;&nbsp;&nbsp;<label style="font-size:18px; color:red;" id="myTotalBuyAc"></label><label style="font-size:18px; color:red;">원</label></li>
+							<li><label style="font-size:22px">적립 마일리지</label>&nbsp;&nbsp;&nbsp;<label style="font-size:18px; color:red;" class="mysaveCashNow"></label><label style="font-size:18px; color:red;">점</label></li>
+						</ul>     
 						<a href="#" class="primary-btn myCartBuybtn">구매하기</a>
 					</div> 
 				</div>

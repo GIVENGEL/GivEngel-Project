@@ -40,6 +40,7 @@ public interface CampaignService {
 	public void directCamSell(int good_no); //다이렉트 캠페인에서 다이렉트? 이건 ㅣㅇㄹ단 보류
 
 	void camTotalGive(int spon_no);
-
+	
+	public List<SponVO> campaignSpon(); 
 }
  

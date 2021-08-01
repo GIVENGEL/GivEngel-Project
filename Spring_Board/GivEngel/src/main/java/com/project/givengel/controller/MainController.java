@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.project.givengel.service.CampaignServiceImpl;
 import com.project.givengel.service.FleaService;
 import com.project.givengel.service.GoodListService;
+import com.project.givengel.service.MypageServiceImpl;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.SponVO;
+import com.project.givengel.vo.UserVO;
 
 @Controller
 public class MainController {
@@ -25,9 +30,10 @@ public class MainController {
 	private GoodListService goodListService;
 	@Autowired
 	private FleaService fleaService;
-	
+	@Autowired
+	private MypageServiceImpl mypageService; 
 
-	
+	 
 	/*******************************************************
 	 * 김민주 
 	 * 함수명 : index
@@ -94,7 +100,7 @@ public class MainController {
 		map.put("nowSysdate", nowSysdate);
 		map.put("spon_list", spon_list); 
 		return map;		
-		 
+		  
 	}
 	@RequestMapping("/cartForm.giv")
 	public void cartForm() {
@@ -110,9 +116,20 @@ public class MainController {
 	}
 
 	@RequestMapping("/myPage.giv")
-	public void myPage() {
+	public String myPage(UserVO vo, HttpServletRequest req, Model m) {
 		
-	}
+		HttpSession session = req.getSession();
+		UserVO sessionvo = (UserVO)session.getAttribute("user");
+		if(sessionvo==null) {
+			return "/index";
+		}  
+		else {
+		vo.setUser_no(sessionvo.getUser_no());
+		UserVO myvo = mypageService.userInfoView(vo);
+		m.addAttribute("myvo", myvo); 
+		   return "/myPage"; 
+		}
+	} 
 	
 	@RequestMapping("/adminLogin.giv")
 	public void adminLogin() {

@@ -20,30 +20,30 @@ UPDATE user SET user_addr=#{user_addr} WHERE user_no=#{user_no}
 </update>
 
 <select id="genderDetect" parameterType="userVO" resultType="String">
-SELECT substr(user_jumin,8,1) FROM user WHERE user_no=#{user_no}
+SELECT substr(user_jumin,7,1) FROM user WHERE user_no=#{user_no}
 </select>
 
 <select id="birthDetect" parameterType="userVO" resultType="String">
-SELECT substr(user_jumin,1,8) FROM user WHERE user_no=#{user_no}
-</select>
-
-<select id="userGradeBuy" parameterType="userVO" resultType="user_buylogVO">
+SELECT substr(user_jumin,1,7) FROM user WHERE user_no=#{user_no}
+</select>  
+  
+<select id="userGradeBuy" parameterType="userVO" resultType="int">
 SELECT sum(user_buylog_price) AS user_buylog_price FROM user_buylog WHERE user_no=#{user_no}
 </select> 
   
 <select id="myCashList" parameterType="userVO" resultType="user_cashlogVO">
-SELECT * FROM user_cashlog WHERE user_no=#{user_no}
+SELECT * FROM user_cashlog WHERE user_no=#{user_no} ORDER BY user_cashlog_date desc;
 </select>
  
 <select id="myBuyList" parameterType="userVO" resultType="hashmap">
 SELECT a.good_no as good_no, user_buylog_price, DATE_FORMAT(user_buylog_date,'%Y-%m-%d') AS user_buylog_date, good_name, b.good_img as good_img, good_price, spon_no 
-FROM user_buylog as a INNER JOIN good as b ON a.good_no = b.good_no where user_no=#{user_no} 
+FROM user_buylog as a INNER JOIN good as b ON a.good_no = b.good_no where user_no=#{user_no} ORDER BY user_buylog_date desc;
 </select> 
  
 <select id="myCartList" parameterType="userVO" resultType="hashmap">
-SELECT a.cart_no AS cart_no, a.good_no AS good_no, a.cart_count AS cart_count, b.good_name AS good_name, b.good_price AS good_price, b.good_img AS good_img
-from cart AS a NATURAL JOIN good AS b
-</select>
+SELECT a.cart_no AS cart_no, a.good_no AS good_no, a.cart_count AS cart_count, b.good_name AS good_name, b.good_price AS good_price, b.good_img AS good_img, b.good_stock AS good_stock
+from cart AS a NATURAL JOIN good AS b 
+</select> 
 
 <update id="mycountGoodStock" parameterType="goodVO">
 UPDATE good SET good_stock=#{good_stock} where good_no = #{good_no}
@@ -62,6 +62,16 @@ UPDATE cart SET cart_count=#{cart_count} where cart_no = #{cart_no}
 UPDATE cart SET cart_count=#{cart_count} where cart_no = #{cart_no}
 </update>
 
- 
+<delete id="allCartComplete" parameterType="userVO">
+DELETE FROM cart WHERE user_no=#{user_no}  
+</delete>
 
+<select id="mydeleteCart" parameterType="cartVO"> 
+DELETE FROM cart WHERE cart_no = #{cart_no} 
+</select> 
+
+<select id="userInfoView" parameterType="userVO" resultType="userVO">
+SELECT * FROM user WHERE user_no = ${user_no}
+</select>
+ 
 </mapper> 
