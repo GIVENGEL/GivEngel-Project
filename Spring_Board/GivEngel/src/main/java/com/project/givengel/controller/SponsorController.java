@@ -50,8 +50,6 @@ public class SponsorController {
 		list = sponService.campaignList();
 		m.addAttribute("campaignList", list);
 		
-		System.out.println("댓글수확인" + countSponCom);
-		System.out.println("번호확인" + vo.getSpon_no());
 		
 		return "/sponsorList";
 
@@ -136,7 +134,7 @@ public class SponsorController {
 		UserVO sessionUserVO = (UserVO)session.getAttribute("user");
 		
 		sponService.modifySponCom(vo);
-		System.out.println("댓글 수정확인" + vo.getSpon_com_content() + "," + vo.getSpon_com_no());
+
 	}
 	
 	
@@ -163,7 +161,6 @@ public class SponsorController {
 		list = sponService.listSponCom(vo);
 		map.put("listSponCom", list);
 		
-		System.out.println("spon_no 확인" + vo.getSpon_no());
 		
 		return map;
 	}

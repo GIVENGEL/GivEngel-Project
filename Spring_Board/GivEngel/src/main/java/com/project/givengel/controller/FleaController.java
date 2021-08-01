@@ -257,10 +257,6 @@ public class FleaController {
 		m.addAttribute("page", pageVO);
 		m.addAttribute("map", map);
 		
-		System.out.println("키워드 확인" + cri.getKeyword());
-		System.out.println("searchType 확인" +cri.getSearchType());
-		System.out.println("searchList 확인" + map.values());
-		
 		return m;
 	}
 	
@@ -284,7 +280,6 @@ public class FleaController {
 		UserVO sessionUserVO = (UserVO)session.getAttribute("user");
 		
 		fleaService.modifyFleaCom(vo);
-		System.out.println("댓글 수정확인" + vo.getFlea_com_content() + "," + vo.getFlea_com_no());
 	}
 	
 	

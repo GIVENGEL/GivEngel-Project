@@ -196,7 +196,10 @@
 
 	<!-- Related Product Section Begin -->
 	<hr>
-	
+	<section class="related-product">
+		<div class="container">
+		</div>
+	</section>
 	<!-- Related Product Section End -->
 
 

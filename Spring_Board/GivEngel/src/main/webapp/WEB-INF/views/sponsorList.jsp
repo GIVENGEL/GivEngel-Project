@@ -130,7 +130,7 @@
 								<ul>
 									<li>
 									<li><i class="fa fa-calendar-o"></i>${spon.spon_start }</li>
-									<li><i class="fa fa-comment-o"></i>${countSponCom }</li>
+									<li><i class="fa fa-comment-o"></i>${countSponCom}개</li>
 								</ul>
 								<h5>
 									<a href="sponsorView.giv?spon_no=${spon.spon_no }">${spon.spon_name }</a>

@@ -118,7 +118,7 @@ $(function() {
 					
 					//$('#listSponCom').append('');
 					// $('#listSponCom').append('<div class="card p-3 mb-5"><div class="d-flex justify-content-between align-items-center"><div class="user d-flex flex-row align-items-center"><img src="https://i.imgur.com/hczKIze.jpg"width="30"class="user-img rounded-circle mr-2"><span><small class="font-weight-bold text-primary">'+data.listSponCom[i].spon_com_writer+'</small></span></div><small>'+data.listSponCom[i].spon_com_date+'</small></div><div class="action d-flex justify-content-between mt-2 align-items-center"><div class="reply px-4"><input type="button"class="deleteSponComBtn"value="삭제하기"><div style="display: none">'+data.listSponCom[i].spon_com_no+'</div><span class="dots"></span><input type="button"class="modifySponComBtn"value="수정하기"><div style="display: none">'+data.listSponCom[i].spon_com_no+'</div><textarea class="sponComBox"style="display:none; width:100%;" row="3"></textarea><input type="button"class="saveSponComBtn"style="display:none"value="확인"><span class="dots"><small class="font-weight-bold">'+data.listSponCom[i].spon_com_content+'</small></span></div><div class="icons align-items-center"><i class="fa fa-star text-warning"></i><i class="fa fa-check-circle-o check-icon"></i></div></div></div>');				
-				} // for				
+				} // for			
 			}, // success
 			error:function(request, status, error){
 
