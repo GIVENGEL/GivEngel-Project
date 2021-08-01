@@ -1,5 +1,7 @@
 package com.project.givengel.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -48,20 +50,16 @@ public class GoodListController {
 		//PagingVO 객체 생성
 		PagingVO pagingVO = new PagingVO();
 		pagingVO.setCri(cri);
+		//검색 조건에 맞는 총 상품 개수 페이징 처리
 		pagingVO.setTotalCount(goodListService.getGoodListCnt(cri));
-		System.out.println("spon_no : " + cri.getSpon_no());
-		System.out.println("categories : " + cri.getCategories());
-		System.out.println("color : " + cri.getColor());
-		System.out.println("keyword : " + cri.getKeyword());
-		System.out.println("searchType : " + cri.getSearchType());
-		// 전체상품(카테고리 별 정렬) 가져오고 Model에 저장
+		//검색 조건에 맞는 상품 리스트, 페이징 저장
 		m.addAttribute("goodList", goodListService.getGoodList(cri));
 		m.addAttribute("pagingVO", pagingVO);
 		
 		
-		// 최신상품(date 순 정렬) 가져오고 Model에 저장
+		// 최신상품(date 순 정렬)
 		m.addAttribute("latestGood1", goodListService.getlatestGood1());
-		// 인기상품(인기순 고정)
+		// 검색 조건에 맞춰 인기상품 저장(Like 순 정렬)
 		m.addAttribute("getPopularGoodList", goodListService.getPopularGoodList(cri));
 		
 	}
@@ -71,6 +69,7 @@ public class GoodListController {
 	 * 함수명 : getGoodView
 	 * 
 	 * 함수 기능 :  상품 상세 페이지 + 댓글목록
+	 * 사용된 서비스       :   getGoodView ,  listGoodCom, getlatestGood1, rankingGood
 	 * 마지막 수정 : 2021-07-26
 	*/		
 	
@@ -284,7 +283,10 @@ public class GoodListController {
 	/*******************************************************
 	 * 함수명 : addCart
 	 * 
-	 * 함수 기능 :  1. 로그인 세션 여부 확인 후 유저번호,상품번호,상품개수 장바구니 추가  
+	 * 함수 기능 :  1. 로그인 세션 여부 확인 후 세션 유저번호 CartVO에 저장
+	 * 		  	 2. 장바구니에 같은 상품 존재여부 확인
+	 * 			 3. 없으면 장바구니 추가, 이미 같은 상품이 존재한다면 추가 X
+	 * 사용된 서비스       :   checkCart, addCart (Service, dao)  
 	 * 마지막 수정 : 2021-07-26
 	*/		
 	
@@ -297,8 +299,13 @@ public class GoodListController {
 		String result = "-1";
 		if(uvo!=null) {
 			vo.setUser_no(uvo.getUser_no());
-			goodListService.addCart(vo);
-			result="1";
+			List<CartVO> temp = goodListService.checkCart(vo);
+			if(temp.size() == 0) {
+				goodListService.addCart(vo);
+				result="1";				
+			}else {
+				result = "0";
+			}
 		}
 		return result;
 	}

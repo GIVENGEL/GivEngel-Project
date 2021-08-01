@@ -30,7 +30,7 @@ public class GoodDAOImpl implements GoodDAO {
 	public List<GoodVO> getGoodList(SearchCriteriaGood cri) {
 		return mybatis.selectList("GoodDAO.getGoodList",cri);
 	}
-	
+//	검색 조건에 맞는 상품 갯수
 	@Override
 	public int getGoodListCnt(SearchCriteriaGood cri) {
 		
@@ -109,6 +109,10 @@ public class GoodDAOImpl implements GoodDAO {
 		mybatis.update("GoodDAO.modifyGoodCom", gvo);
 	}
 
+	
+	
+	
+	
 //	상품 구매로그 저장
 	@Override
 	public void addUserBuyLog(User_buylogVO vo) {
@@ -143,6 +147,17 @@ public class GoodDAOImpl implements GoodDAO {
 		mybatis.update("GoodDAO.countGoodStock", gvo);
 	}
 
+
+	
+	
+	
+//	장바구니 중복 확인
+	@Override
+	public List<CartVO> checkCart(CartVO vo) {
+		System.out.println("====>mybatis checkCart() 호출");		
+		return mybatis.selectList("GoodDAO.checkCart", vo);
+	}
+
 //	장바구니 추가
 	@Override
 	public void addCart(CartVO vo) {
@@ -150,10 +165,7 @@ public class GoodDAOImpl implements GoodDAO {
 		mybatis.insert("GoodDAO.addCart", vo);
 	}
 
-
-
-
-
+	
 
 	
 

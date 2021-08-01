@@ -56,6 +56,9 @@ public class GoodListServiceImpl implements GoodListService {
 	
 	
 	
+	
+	
+	
 //	상품 상세정보
 	@Override
 	public GoodVO getGoodView(GoodVO vo) {
@@ -68,6 +71,13 @@ public class GoodListServiceImpl implements GoodListService {
 		return goodDAO.rankingGood();
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	
 
 //	상품 댓글리스트
@@ -103,6 +113,11 @@ public class GoodListServiceImpl implements GoodListService {
 	public void modifyGoodCom(Good_comVO gvo) {
 		goodDAO.modifyGoodCom(gvo);
 	}
+	
+	
+	
+	
+	
 
 
 //	유저 구매로그 저장
@@ -128,6 +143,15 @@ public class GoodListServiceImpl implements GoodListService {
 	@Override
 	public void countGoodStock(GoodVO gvo) {
 		goodDAO.countGoodStock(gvo);
+	}
+	
+	
+	
+	
+	
+//	장바구니 중복 확인
+	public List<CartVO> checkCart(CartVO vo) {
+		return goodDAO.checkCart(vo);
 	}
 	
 //	장바구니 추가

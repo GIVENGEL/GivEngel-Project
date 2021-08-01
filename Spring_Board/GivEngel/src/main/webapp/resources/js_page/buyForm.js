@@ -173,6 +173,8 @@ $(function(){
 				}else if(result == '-1'){
 					alert('로그인이 필요한 서비스 입니다.');
 					location.href='loginForm.giv'
+				}else if(result == "0"){
+					alert('이미 장바구니에 같은 상품이 존재합니다.')
 				}
 			}
 		})	

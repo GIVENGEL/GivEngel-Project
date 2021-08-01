@@ -18,6 +18,19 @@
 		]]>
 		
 	</select>
+	
+	<!-- 전체 리스트 카운트 -->
+	<select id="getGoodListCnt" resultType="int" parameterType="searchCriteriaGood">
+		SELECT 
+		count(*) as listCnt
+		FROM 
+		good
+		where good_no >=0
+		<include refid="search"></include>
+	</select>
+	
+	
+	
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 'n'.toString()">
@@ -44,16 +57,16 @@
 			</if>
 	</sql>
 	
-	<!-- 전체 리스트 카운트 -->
-	<select id="getGoodListCnt" resultType="int" parameterType="searchCriteriaGood">
-		SELECT 
-		count(*) as listCnt
-		FROM 
-		good
-		where good_no >=0
-		<include refid="search"></include>
-	</select>
 	
+	
+	<!-- 인기상품  고정!(찜순) -->
+	<select id='getPopularGoodList' resultType="goodVO" parameterType="searchCriteriaGood">
+		SELECT 
+		*
+		FROM good   
+		<include refid="search"></include>
+		ORDER BY good_like DESC LIMIT 0,9
+	</select>
 	
 	<!-- 최신상품  date 순 -->
 	<select id='getlatestGood1' resultType="goodVO">
@@ -65,14 +78,7 @@
 
 	
 	
-	<!-- 인기상품  고정!(찜순) -->
-	<select id='getPopularGoodList' resultType="goodVO" parameterType="searchCriteriaGood">
-		SELECT 
-		*
-		FROM good   
-		<include refid="search"></include>
-		ORDER BY good_like DESC LIMIT 0,9
-	</select>
+
 	
 	<!-- 판매량 순 추천상품 고정! -->
 	<select id="rankingGood" resultType="goodVO">
@@ -101,15 +107,7 @@
 		SELECT * FROM good WHERE good_no = ${good_no}
 	</select>
 	
-	<!-- 댓글 리스트 -->
-	<select id="listGoodCom" parameterType="good_comVO" resultType="good_comVO">
-		SELECT * FROM good_com WHERE good_no = ${good_no}
-	</select>
 	
-	<!-- 총 댓글 수 -->
-	<select id="totalGoodCom" parameterType="good_comVO" resultType="int">
-		SELECT COUNT(*) FROM good_com WHERE good_no = ${good_no}
-	</select>
 	
 	
 	<!-- 로그인 여부 확인 -->
@@ -119,6 +117,15 @@
 		WHERE user_no=${user_no}
 	</select>
 	
+	<!-- 댓글 리스트 -->
+	<select id="listGoodCom" parameterType="good_comVO" resultType="good_comVO">
+		SELECT * FROM good_com WHERE good_no = ${good_no}
+	</select>
+	
+	<!-- 총 댓글 수 -->
+	<select id="totalGoodCom" parameterType="good_comVO" resultType="int">
+		SELECT COUNT(*) FROM good_com WHERE good_no = ${good_no}
+	</select>
 	
 	<!-- 댓글 입력 -->
 	<insert id="addGoodCom" parameterType="good_comVO">
@@ -140,6 +147,11 @@
 		where good_com_no = ${good_com_no} AND good_com_writer = #{good_com_writer};
 	</update>
 	
+	
+	
+	
+	
+	<!-- 구매 관련 mapper -->
 	<!-- 유저 구매 로그 저장 -->
 	<insert id="addUserBuyLog" parameterType="user_buylogVO">
 		INSERT INTO
@@ -164,6 +176,16 @@
 	<update id="countGoodStock" parameterType="goodVO">
 		UPDATE good SET good_stock = good_stock - ${good_stock} WHERE good_no = ${good_no}
 	</update>
+	
+	
+	
+	
+	
+	
+	<!-- 장바구니 중복 확인 -->
+	<select id="checkCart" parameterType="cartVO" resultType="cartVO">
+		select user_no,good_no,cart_count from cart	WHERE user_no = ${user_no} AND good_no = ${good_no} 
+	</select>
 	
 	<!-- 장바구니 추가 -->
 	<insert id="addCart" parameterType="cartVO">

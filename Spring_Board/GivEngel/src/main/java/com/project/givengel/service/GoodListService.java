@@ -23,8 +23,6 @@ public interface GoodListService {
 	public List<GoodVO> getlatestGood1();
 	// 총 상품 수 
 	public int getGoodListCnt(SearchCriteriaGood cri);
-	
-	
 	// 추천상품(댓글순)
 	public List<Map<String,Object>> goodComRanking();
 	
@@ -34,6 +32,10 @@ public interface GoodListService {
 	public GoodVO getGoodView(GoodVO vo);
 	// 추천 상품(랭킹순)
 	public List<GoodVO> rankingGood();
+	
+	
+	
+	
 	
 	// 상품 댓글 리스트
 	public List<Good_comVO> listGoodCom(Good_comVO comVO);
@@ -50,6 +52,10 @@ public interface GoodListService {
 	// 상품 댓글 수정
 	public void modifyGoodCom(Good_comVO gvo);
 	
+	
+	
+	
+	
 	// 유저 구매로그 저장
 	public void addUserBuyLog(User_buylogVO vo);
 	
@@ -61,6 +67,15 @@ public interface GoodListService {
 	
 	// 상품 재고 업데이트
 	public void countGoodStock(GoodVO gvo);
+	
+	
+	
+	
+	
+	
+	
+	// 장바구니 중복 확인
+	public List<CartVO> checkCart(CartVO vo);
 	
 	// 장바구니 추가
 	public void addCart(CartVO vo);

@@ -43,6 +43,7 @@ public class MainController {
 	 * 함수명 : index
 	 * 
 	 * 함수 기능 :  상품리스트 페이지 전체 상품 리스트(카테고리별 분류)
+	 * 사용된 서비스       :   goodList (Service, dao)
 	 * 마지막 수정 : 2021-07-26
 	*/	
 	// 카테고리별 인기상품 출력?
@@ -84,6 +85,7 @@ public class MainController {
 		m.addAttribute("rankingGood", goodListService.rankingGood());
 		m.addAttribute("goodComRanking", goodListService.goodComRanking());
 	}
+	
 	
 	
 	/*****************************************************
