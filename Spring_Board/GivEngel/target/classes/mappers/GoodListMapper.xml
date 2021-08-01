@@ -5,43 +5,55 @@
 <!-- ********************** -->
 <!-- 김민주 -->
 <!-- 상품리스트페이지 전체 상품리스트(카테고리별 분류) -->
-	<select id='getGoodList' resultType="goodVO" parameterType="hashmap">
-		SELECT 
-		*
-		FROM good         
-		<where>
-			<if test="categories != null">
-				<!-- where content LIKE '%내가 쓴 검색어%' -->
-				good_tag LIKE '%${categories}%'
-			</if>
-			<if test="color != null">
-				good_tag LIKE '%${color}%'
-			</if>
-			<if test="part != null">
-				<if test="keyword != null">
-				${part} LIKE '%${keyword}%'
-				</if>
-			</if>
-		</where>
-		<choose>
-			<when test="sorting != null">
-				ORDER BY ${sorting}
-			</when>
-			<otherwise>		
-				ORDER BY good_date DESC
-			</otherwise>
-		</choose>
-		<if test="pagingVO != null">
-		LIMIT #{pagingVO.startList},#{pagingVO.listSize}
-		</if>
+	<select id='getGoodList' resultType="goodVO" parameterType="searchCriteriaGood">
+		<![CDATA[
+		SELECT * FROM  
+		good
+		]]>
+		WHERE good_no >= 0
+		<include refid="search"></include>
+		<![CDATA[
+		ORDER BY good_date DESC
+		LIMIT #{pageStart}, #{perPageNum}
+		]]>
+		
 	</select>
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 'n'.toString()">
+				AND good_tag LIKE CONCAT('%',#{keyword},'%') OR good_name LIKE CONCAT('%',#{keyword},'%') OR good_detail LIKE CONCAT('%',#{keyword},'%')
+			</if>			
+			<if test="searchType == 'good_name'.toString()">
+				AND good_name LIKE CONCAT('%',#{keyword},'%')
+			</if>			
+			<if test="searchType == 'good_tag'.toString()">
+				AND good_tag LIKE CONCAT('%', #{keyword}, '%')
+			</if>			
+			<if test="searchType == 'good_detail'.toString()">
+				AND good_detail LIKE CONCAT('%',#{keyword},'%')
+			</if>			
+		</if>
+			<if test='categories != null and categories != "" '>
+				AND good_tag LIKE CONCAT('%', #{categories}, '%')
+			</if>
+			<if test='color != null and color != "" '>
+				AND good_tag LIKE CONCAT('%', #{color}, '%')
+			</if>
+			<if test='spon_no != null and spon_no != "" '>
+				AND spon_no = ${spon_no}
+			</if>
+	</sql>
 	
-	<select id="getGoodListCnt" resultType="int">
+	<!-- 전체 리스트 카운트 -->
+	<select id="getGoodListCnt" resultType="int" parameterType="searchCriteriaGood">
 		SELECT 
 		count(*) as listCnt
 		FROM 
 		good
+		where good_no >=0
+		<include refid="search"></include>
 	</select>
+	
 	
 	<!-- 최신상품  date 순 -->
 	<select id='getlatestGood1' resultType="goodVO">
@@ -54,19 +66,11 @@
 	
 	
 	<!-- 인기상품  고정!(찜순) -->
-	<select id='getPopularGoodList' resultType="goodVO" parameterType="hashmap">
+	<select id='getPopularGoodList' resultType="goodVO" parameterType="searchCriteriaGood">
 		SELECT 
 		*
 		FROM good   
-		<where>
-			<if test="categories != null">
-				<!-- where content LIKE '%내가 쓴 검색어%' -->
-				good_tag LIKE '%${categories}%'
-			</if>
-			<if test="color != null">
-				good_tag LIKE '%${color}%'
-			</if>
-		</where>
+		<include refid="search"></include>
 		ORDER BY good_like DESC LIMIT 0,9
 	</select>
 	

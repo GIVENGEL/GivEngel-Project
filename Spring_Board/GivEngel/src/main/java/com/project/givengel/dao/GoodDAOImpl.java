@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.project.givengel.vo.CartVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.Good_comVO;
-import com.project.givengel.vo.PagingVO;
+import com.project.givengel.vo.SearchCriteriaGood;
 import com.project.givengel.vo.UserVO;
 import com.project.givengel.vo.User_buylogVO;
 import com.project.givengel.vo.User_cashlogVO;
@@ -27,32 +27,21 @@ public class GoodDAOImpl implements GoodDAO {
 	
 //	전체상품(카테고리 별로) 가져옴 // 추후 파라매터 추가 예정(good_price 순 정렬)
 	@Override
-	public List<GoodVO> getGoodList(String categories,String color, String sorting, String part,String keyword,PagingVO pagingVO) {
-		HashMap map = new HashMap();
-		map.put("categories", categories);
-		map.put("color", color);
-		map.put("sorting", sorting);
-		map.put("part", part);
-		map.put("keyword", keyword);
-		map.put("pagingVO",pagingVO);
-		
-		
-		return mybatis.selectList("GoodDAO.getGoodList",map);
+	public List<GoodVO> getGoodList(SearchCriteriaGood cri) {
+		return mybatis.selectList("GoodDAO.getGoodList",cri);
 	}
 	
 	@Override
-	public int getGoodListCnt() {
-		return mybatis.selectOne("GoodDAO.getGoodListCnt");
+	public int getGoodListCnt(SearchCriteriaGood cri) {
+		
+		return mybatis.selectOne("GoodDAO.getGoodListCnt",cri);
 	}
 	
 //	인기상품(like 순 정렬) 가져옴
 	@Override
-	public List<GoodVO> getPopularGoodList(String categories,String color) {
-		HashMap map = new HashMap();
-		map.put("categories", categories);
-		map.put("color", color);
+	public List<GoodVO> getPopularGoodList(SearchCriteriaGood cri) {
 		
-		return mybatis.selectList("GoodDAO.getGoodList",map);
+		return mybatis.selectList("GoodDAO.getGoodList",cri);
 	}
 
 //  최신상품(date 순 정렬) 가져옴

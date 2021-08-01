@@ -10,8 +10,7 @@ import com.project.givengel.dao.GoodDAOImpl;
 import com.project.givengel.vo.CartVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.Good_comVO;
-import com.project.givengel.vo.LikeToVO;
-import com.project.givengel.vo.PagingVO;
+import com.project.givengel.vo.SearchCriteriaGood;
 import com.project.givengel.vo.UserVO;
 import com.project.givengel.vo.User_buylogVO;
 import com.project.givengel.vo.User_cashlogVO;
@@ -26,17 +25,15 @@ public class GoodListServiceImpl implements GoodListService {
 	
 //	전체상품(카테고리 별로) 가져옴 // 추후 파라매터 추가 예정(good_price 순 정렬)
 	@Override
-	public List<GoodVO> getGoodList(String categories, String color, String sorting, String part, String keyword,PagingVO pagingVO) {
-		System.out.println("impl : " +keyword);
-		System.out.println("part : " + part);
-		return goodDAO.getGoodList(categories,color,sorting,part,keyword,pagingVO);
+	public List<GoodVO> getGoodList(SearchCriteriaGood cri) {
+		return goodDAO.getGoodList(cri);
 	}
 	
 //	인기상품(like 순)
 	@Override
-	public List<GoodVO> getPopularGoodList(String categories, String color) {
+	public List<GoodVO> getPopularGoodList(SearchCriteriaGood cri) {
 		
-		return goodDAO.getPopularGoodList(categories,color);
+		return goodDAO.getPopularGoodList(cri);
 	}
 	
 //  최신상품(date 순 정렬) 가져옴
@@ -46,8 +43,8 @@ public class GoodListServiceImpl implements GoodListService {
 		return goodDAO.getlatestGood1();
 	}
 	
-	public int getGoodListCnt() {
-		return goodDAO.getGoodListCnt();
+	public int getGoodListCnt(SearchCriteriaGood cri) {
+		return goodDAO.getGoodListCnt(cri);
 	}
 
 //	추천상품(댓글순)

@@ -6,8 +6,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.givengel.service.GoodListService;
@@ -15,6 +16,7 @@ import com.project.givengel.vo.CartVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.Good_comVO;
 import com.project.givengel.vo.PagingVO;
+import com.project.givengel.vo.SearchCriteriaGood;
 import com.project.givengel.vo.UserVO;
 import com.project.givengel.vo.User_buylogVO;
 import com.project.givengel.vo.User_cashlogVO;
@@ -28,12 +30,6 @@ public class GoodListController {
 	@Autowired
 	private GoodListService goodListService;
 	
-	
-	
-	
-	
-	
-	
 	/*******************************************************
 	 * 상품 영역
 	*/	
@@ -46,33 +42,27 @@ public class GoodListController {
 	 * 마지막 수정 : 2021-07-26
 	*/	
 //	상품리스트 페이지 전체 상품 리스트(카테고리별 분류)
-	@RequestMapping("/buyList.giv")
-	public void getGoodList(Model m, String categories, String color, String sorting,String searchType,String keyword,
-			@RequestParam(required = false,defaultValue = "1") int page,
-			@RequestParam(required = false,defaultValue = "1") int range) {
-		//전체 개시글 개수
-		int listCnt = goodListService.getGoodListCnt();
-		if(listCnt == 0) {
-			listCnt = 1;
-		}
+	@RequestMapping(value = "/buyList.giv", method=RequestMethod.GET)
+	public void getGoodList(Model m, @ModelAttribute("searchCriteriaGood") SearchCriteriaGood cri)
+	{
 		//PagingVO 객체 생성
 		PagingVO pagingVO = new PagingVO();
-		pagingVO.pageInfo(page, range, listCnt);
-		System.out.println(page +"," + range +","+ listCnt);
-		if(keyword!=null) {
-		keyword = keyword.replaceAll(" ","&nbsp;")
-						.replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll("\n ","<br>").replace("바지", "BOTTOM").replace("상의", "TOP").replace("악세서리", "ACC")
-						.replace("가방", "BAG");
-		}else {
-			keyword = null;
-		}
+		pagingVO.setCri(cri);
+		pagingVO.setTotalCount(goodListService.getGoodListCnt(cri));
+		System.out.println("spon_no : " + cri.getSpon_no());
+		System.out.println("categories : " + cri.getCategories());
+		System.out.println("color : " + cri.getColor());
+		System.out.println("keyword : " + cri.getKeyword());
+		System.out.println("searchType : " + cri.getSearchType());
 		// 전체상품(카테고리 별 정렬) 가져오고 Model에 저장
-		m.addAttribute("goodList", goodListService.getGoodList(categories,color,sorting,searchType,keyword,pagingVO));
+		m.addAttribute("goodList", goodListService.getGoodList(cri));
 		m.addAttribute("pagingVO", pagingVO);
+		
+		
 		// 최신상품(date 순 정렬) 가져오고 Model에 저장
 		m.addAttribute("latestGood1", goodListService.getlatestGood1());
 		// 인기상품(인기순 고정)
-		m.addAttribute("getPopularGoodList", goodListService.getPopularGoodList(categories,color));
+		m.addAttribute("getPopularGoodList", goodListService.getPopularGoodList(cri));
 		
 	}
 	

@@ -14,36 +14,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>살아숨쉬는 기부의 즐거움, GivEngel</title>
 
-<script type="text/javascript">
-//이전 버튼 이벤트
 
-function fn_prev(page, range, rangeSize) {
-		var page = ((range - 2) * rangeSize) + 1;
-		var range = range - 1;
-		var url = "buyList.giv";
-		url = url + "?page=" + page;
-		url = url + "&range=" + range;
-		location.href = url;
-	}
-
-  //페이지 번호 클릭
-	function fn_pagination(page, range, rangeSize) {
-		var url = "buyList.giv";
-		url = url + "?page=" + page;
-		url = url + "&range=" + range;
-		location.href = url;	
-	}
-  
-	//다음 버튼 이벤트
-	function fn_next(page, range, rangeSize) {
-		var page = parseInt((range * rangeSize)) + 1;
-		var range = parseInt(range) + 1;
-		var url = "buyList.giv";
-		url = url + "?page=" + page;
-		url = url + "&range=" + range;
-		location.href = url;
-	}
-</script>
 
 
 <!-- Google Font -->
@@ -60,6 +31,7 @@ function fn_prev(page, range, rangeSize) {
 <link rel="stylesheet" href="${path}/resources/css/owl.carousel.min.css" type="text/css">
 <link rel="stylesheet" href="${path}/resources/css/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="${path}/resources/css/style.css" type="text/css">
+
 </head>
 
 <body>
@@ -96,27 +68,26 @@ function fn_prev(page, range, rangeSize) {
                <div class="col-lg-6 card-margin"  style="margin-bottom:50px">
 			        <div class="search-form">
 			            <div class="card-body p-0">
-			                <form id="searchForm" action="buyList.giv" method="post">
 			                    <div class="row">
 			                        <div class="col-12">
 			                            <div class="row no-gutters">
 			                                <div class="col-lg-3 col-md-3 col-sm-3 p-0" style="padding:0px">
 			                                    <select class="form-control" id="searchType" name="searchType" style="margin-left:10px" >
-			                                        <option value="good_name">상품 이름</option>
-			                                        <option value="good_tag">상품 태그</option>
-			                                        <option value="good_detail">상품 설명</option>
+			                                        <option value="n" <c:out value="${searchCriteriaMJ.searchType == null ? 'selected' : '' }"/>>선택</option>
+			                                        <option value="good_name" <c:out value="${searchCriteriaMJ.searchType eq 'good_name' ? 'selected' : '' }"/>>상품 이름</option>
+			                                        <option value="good_tag" <c:out value="${searchCriteriaMJ.searchType eq 'good_tag' ? 'selected' : '' }"/>>상품 태그</option>
+			                                        <option value="good_detail" <c:out value="${searchCriteriaMJ.searchType eq 'good_detail' ? 'selected' : '' }"/>>상품 정보</option>
 			                                    </select>
 			                                </div>
 			                                <div class="col-lg-8 col-md-3 col-sm-3 p-0" style="padding:0px">
-			                                    <input type="text" placeholder="검색 내용" style="margin-left:10px" class="form-control" id="keyword" name="keyword" >
+					                             <input type="text" placeholder="검색 내용" style="margin-left:10px" class="form-control" id="keywordInput" name="keyword">
 			                                </div>
 			                                <div class="col-lg-1 col-md-1 col-sm-1 p-0" style="padding:0px">
-			                                    <input id="submitbtn" type="submit" class="btn btn-success float-right" style="background-color:#7fad39" value="검색">
+			                                    <input id="searchBtn" type="button" class="btn btn-success float-right" style="background-color:#7fad39" value="검색">
 			                                </div>
 			                            </div>
 			                        </div>
 			                    </div>
-			                </form>
 			            </div>
 			        </div>
 			        
@@ -334,7 +305,7 @@ function fn_prev(page, range, rangeSize) {
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span>${pagingVO.listCnt} </span> Products found</h6>
+                                    <h6><span>${pagingVO.totalCount} </span> Products found</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
@@ -373,22 +344,21 @@ function fn_prev(page, range, rangeSize) {
                     </c:forEach>
                     </div>
                     <!-- pagination{s} -->
-
-					<div id="paginationBox" class="row">
-					<div class="col-4">
-					</div>
-						<ul class="pagination col-4">
-							<c:if test="${pagingVO.prev}">
-								<li class="page-item"><a class="page-link" href="javascript:void(0)" onClick="fn_prev('${pagingVO.page}', '${pagingVO.range}', '${pagingVO.rangeSize}')">Previous</a></li>
-							</c:if>
-							<c:forEach begin="${pagingVO.startPage}" end="${pagingVO.endPage}" var="idx">
-								<li class="page-item <c:out value="${pagingVO.page == idx ? 'active' : ''}"/> "><a class="page-link" href="javascript:void(0)" onClick="fn_pagination('${idx}', '${pagingVO.range}', '${pagingVO.rangeSize}')"> ${idx} </a></li>
-							</c:forEach>
-							<c:if test="${pagingVO.next}">
-								<li class="page-item"><a class="page-link" href="javascript:void(0)" onClick="fn_next('${pagingVO.range}', '${pagingVO.range}', '${pagingVO.rangeSize}')" >Next</a></li>
-							</c:if>
-						</ul>
-						<div class="col-4">
+                    <div class="container">
+                    	<div class="row">
+							<div class="col-lg-6 offset-lg-3 py-5 d-flex">
+								<ul class="pagination mx-auto">
+									<c:if test="${pagingVO.prev}">
+										<li class="page-item"><a class="page-link" href="buyList.giv${pagingVO.makeSearch(startPage-1)}">Previous</a></li>
+									</c:if>
+									<c:forEach begin="${pagingVO.startPage}" end="${pagingVO.endPage}" var="idx">
+										<li class="page-item" <c:out value="${pagingVO.cri.page == idx ? 'class=active' : ''}"/>><a class="page-link" href="buyList.giv${pagingVO.makeSearch(idx) }" > ${idx} </a></li>
+									</c:forEach>
+									<c:if test="${pagingVO.next && pagingVO.endPage > 0}">
+										<li class="page-item"><a class="page-link" href="buyList.giv${pagingVO.makeSearch(pagingVO.endPage+1)}" >Next</a></li>
+									</c:if>
+								</ul>
+							</div>
 						</div>
 					</div>
 					<!-- pagination{e} -->
@@ -420,6 +390,37 @@ function fn_prev(page, range, rangeSize) {
 	<!-- 김민주 -->
 	<!-- 제이쿼리 연동 -->
 	<script src="${path}/resources/js_page/buyList.js"></script>
+	<script type="text/javascript">
+$(function(){
+	
+	$('#searchBtn').click(function(){
+		var pattern_keyword = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-zA-Z]/; // 한글체크
+		if(!pattern_keyword.test($('#keywordInput').val())){
+			alert('검색어는 한글,영어로만 작성해주세요');
+			return false;
+		}
+		self.location = 
+			self.location = "buyList.giv${pagingVO.makeQuery(1)}"+"&searchType=" + $('#searchType option:selected').val()
+			+ "&keyword="+encodeURIComponent($('#keywordInput').val());
+						
+	})
+	//	카테고리의 링크 클릭시 각 베너에 맞게 파라매터 전송
+	$('#categories li a').click(function(){
+		var categories = $(this).text();
+		if(categories == '전체 상품'){
+			categories = '';
+		}
+		self.location = 
+			self.location = "buyList.giv${pagingVO.makeQuery(1)}"+"&categories="+categories;
+	})
+	$('#selectColor > div label').click(function(){
+		var color = $(this).attr('for')
+		self.location = "buyList.giv${pagingVO.makeQuery(1)}"+"&color="+color;
+	})
+	
+	
+})
+</script>
 
 
 </body>
