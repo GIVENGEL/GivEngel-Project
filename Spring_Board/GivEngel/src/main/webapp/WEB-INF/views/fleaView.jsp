@@ -59,7 +59,7 @@
 
 	<!-- Blog Details Section Begin -->
 	<input type="hidden" value="${flea.flea_no }" name="flea_no" id="flea_no" >
-	<input type="hidden" value="${uvo.user_id }" name="user_id" id="user_id">
+	<input type="hidden" value="${user.user_id }" name="user_id" id="user_id">
 	
 	<section class="blog-details spad">
 		<div class="container">
@@ -102,7 +102,7 @@
 										<a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
 										<a href="https://twitter.com/?lang=ko"><i class="fa fa-twitter"></i></a>
 										<a href="https://www.google.co.kr/"><i class="fa fa-google-plus"></i></a> <a href="https://www.google.co.kr/"><i
-											class="fa fa-linkedin"></i></a> <a href="#"><i
+											class="fa fa-linkedin"></i></a> <a href="https://kr.linkedin.com/"><i
 											class="fa fa-envelope"></i></a>
 									</div>
 									<c:if test="${user.user_id == flea.flea_writer && flea.flea_isokay == 'null'}">

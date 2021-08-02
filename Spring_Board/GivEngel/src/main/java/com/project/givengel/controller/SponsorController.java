@@ -202,8 +202,7 @@ public class SponsorController {
 	public void addCashLog(User_cashlogVO vo, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
-		UserVO sessionvo = (UserVO)session.getAttribute("user");
-		vo.setUser_no(sessionvo.getUser_no());
+		UserVO sessionUserVO = (UserVO)session.getAttribute("user");
 	
 		sponService.addCashLog(vo);
 	}
@@ -223,8 +222,9 @@ public class SponsorController {
 	@ResponseBody
 	public void minusCash(UserVO vo, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		UserVO sessionUservo = (UserVO)session.getAttribute("user");
-		vo.setUser_no(sessionUservo.getUser_no());
+        UserVO sessionUservo = (UserVO)session.getAttribute("user");
+        sessionUservo.setUser_cash(sessionUservo.getUser_cash()-vo.getUser_no());
+        session.setAttribute("User", sessionUservo); 
 		sponService.minusCash(vo);
 	}
 	
@@ -242,18 +242,10 @@ public class SponsorController {
 	*****************************************************/
 	 @RequestMapping("/addSponsorTotal.giv") 
 	 @ResponseBody 
-	 public void addSponTotal(SponVO vo, HttpServletRequest request) { 
-		 try {
-		 
+	 public void addSponTotal(SponVO vo, HttpServletRequest request) { 		 
 		 HttpSession session = request.getSession();
-         UserVO sessionUservo = (UserVO)session.getAttribute("user");
-         sessionUservo.setUser_cash(sessionUservo.getUser_cash()-vo.getSpon_total());
-         session.setAttribute("User", sessionUservo);
-         
+		UserVO sessionUserVO = (UserVO)session.getAttribute("user");
 		 sponService.addSponTotal(vo);
-		 }catch(Exception e) {
-			 System.out.println(e);
-		 }
 		}
 	 
 	 

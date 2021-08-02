@@ -91,7 +91,7 @@
 					<div class="col-lg-12 col-md-12 order-md-1 order-2">
 						<div class="blog__sidebar">
 							<!-- 유저번호, 후원단체 이름 히든으로 받기 -->
-							<input type="hidden" id="spon_user_id" value="${uvo.user_id}">
+							<input type="hidden" id="spon_user_id" value="${user.user_id}">
 							<input type="hidden" id="spon_name" name="spon_name" value="${spon.spon_name }">
 							<h2><b>${spon.spon_name }</b> 후원 하기</h2>
 							<hr />
@@ -150,7 +150,7 @@
 								<div class="col-lg-5" >
 									<hr>
 									<input type="number" class="form-control mb-4" name="donationBox_notlogin"
-										id="donationBox_notlogin" placeholder="${user.user_cash }" />
+										id="donationBox_notlogin" placeholder="${User.user_cash }" />
 								</div>
 
 								<div class="col-lg-3">

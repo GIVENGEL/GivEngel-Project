@@ -4,7 +4,7 @@ $(function(){
 		
 		var pattern_num = /[0-9]/;	// 숫자 
 		var pattern_eng = /[a-zA-Z]/;	// 문자 
-		var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
+		var pattern_spc = /[~!@#$%^&*_+|<>?:{}]/; // 특수문자
 		var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크
 		
 		 if($('#flea_title').val() == ""){
@@ -49,7 +49,7 @@ $(function(){
 		      }
 	      
 	      else {
-	         alert("성공");
+	         alert("물품등록 되었습니다. 판매확정은 2~3일 소요될 수 있습니다. 감사합니다.");
 	      }   
 	      
 	   }) // submitBtn end

@@ -207,7 +207,7 @@ $(function() {
 						spon_com_content : $('#editSponCom').val()
 					},
 					success : function() {
-						alert("댓글이 수정되었습니다");
+						
 						listSponCom();
 						} // ajax seuccess
 					
