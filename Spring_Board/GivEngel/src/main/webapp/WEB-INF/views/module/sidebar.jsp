@@ -41,7 +41,7 @@
 			<ul>
 				<li><a id="isOkay">확정 상품순</a></li>
 				<li><a href="#">최신순</a></li>
-				<li><a href="newFleaList.giv" onclick="">댓글순</a></li>
+				<li><a href="#" onclick="">댓글순</a></li>
 				<li><a href="#">가격 낮은순</a></li>
 				<li><a href="#">가격 높은순</a></li>
 			</ul>

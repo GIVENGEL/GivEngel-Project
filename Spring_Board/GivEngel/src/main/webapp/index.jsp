@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>입장 확인</title>
+<title>살아숨쉬는 기부의 즐거움, GivEngel</title>
 
 </head>
 <body>
@@ -14,7 +14,7 @@
 </script>
  
 </body>
-
+ 
  
 </html>
 

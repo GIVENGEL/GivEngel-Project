@@ -594,6 +594,12 @@ $(document).on('click', '.preview', function(){
  * 마지막 수정      :   2021-07-23                          제약조건= 빈칸, 로그인 거르기
  *****************************************************/
 $('.bntReview').on('click', function(){
+	if($('#replyId').val()==""){
+		alert("로그인 후 입력해주세요")
+		
+	} else {
+		
+	
 	var pluss = parseInt($('#reviewplus').text())+1
 	var pluss2 = parseInt($(".reviewplus2").text())+1
 	
@@ -610,8 +616,11 @@ $('.bntReview').on('click', function(){
 			 $('#reviewplus').text(pluss+"개");
 			 $(".reviewplus2").text(pluss2+"개");		
 			 $('#Reviewcontent').val("");		
-			 }  
-	}) 
+			 }
+		 
+		 
+	})
+	}
 });
 
 /*****************************************************

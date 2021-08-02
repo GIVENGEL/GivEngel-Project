@@ -176,7 +176,7 @@
 						
 	
 				</div>
-					<c:if test="${admin.admin_level > 2 }">
+					<c:if test="${admin.admin_level > 3 }">
 					<div class="panel-footer">
 						<div class="input-group">
 							<input name="notice_detail" id="notice_detail" type="text" class="form-control input-md" placeholder="제목#공지 내용" /><span class="input-group-btn">

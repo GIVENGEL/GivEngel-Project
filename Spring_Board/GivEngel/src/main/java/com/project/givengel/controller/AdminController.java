@@ -191,10 +191,10 @@ public class AdminController {
 			vo = (AdminVO)session.getAttribute("admin");
 			insertAdminLogoutLog(vo);
 			session.invalidate();
-			return "/index";
+			return "redirect:index.giv";
 		}
 		else {
-			return "/index";
+			return "redirect:index.giv";
 		}
 		
 	}

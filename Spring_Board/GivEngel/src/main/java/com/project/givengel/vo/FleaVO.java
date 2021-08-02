@@ -32,7 +32,7 @@ public class FleaVO {
 				
 				//***********************************************
 				// 해당 경로로 변경
-				File f = new File("C:\\zzz\\GivEngel\\Spring_Board\\GivEngel\\src\\main\\webapp\\resources\\img\\flea\\"+ flea_img);
+				File f = new File("C:\\Users\\kosmo_\\Documents\\GitHub\\GivEngel-Project\\Spring_Board\\GivEngel\\src\\main\\webapp\\resources\\img\\flea\\"+ flea_img);
 				
 				try {
 					file.transferTo(f);
