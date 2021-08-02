@@ -13,9 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.givengel.service.LogService;
 import com.project.givengel.service.MypageServiceImpl;
 import com.project.givengel.vo.CartVO;
 import com.project.givengel.vo.GoodVO;
+import com.project.givengel.vo.LogVO;
 import com.project.givengel.vo.UserVO;
 import com.project.givengel.vo.User_buylogVO;
 import com.project.givengel.vo.User_cashlogVO;
@@ -25,6 +27,9 @@ public class MypageController {
 	
 	@Autowired 
 	private MypageServiceImpl mypageService;
+	
+	@Autowired
+	private LogService logService;
 	   
 	/*
 	 * @RequestMapping("myPage.giv")
@@ -80,7 +85,7 @@ public class MypageController {
 	} 
 	
 	/*****************************************************
-	    * 함수명          :   genderDetect
+	    * 함수명          :   myPwdConfirm
 	    * 함수 기능       :  비밀번호 변경
 	    * 사용된 함수 : -
 	    * 사용된 서비스       :   myPwdConfirm (Service, dao)
@@ -96,6 +101,10 @@ public class MypageController {
 		System.out.println(vo.getUser_pw()); 
 		int pwd = mypageService.myPwdConfirm(vo); 
 		System.out.println(pwd + "들어오는지 확인");
+		
+		LogVO logvo = new LogVO();
+		logvo.setLog_detail("[USER_UPDATE_ACCOUNT_PW]#"+sessionvo.getUser_id()+"#"+vo.getUser_pw());
+		logService.insertLog(logvo);
 		  
 		return pwd;
 	}
@@ -134,6 +143,10 @@ public class MypageController {
 		vo.setUser_no(sessionvo.getUser_no());
 		mypageService.myNickConfirm(vo);
 		mypageService.userInfoView(vo).getUser_name();
+		
+		LogVO logvo = new LogVO();
+		logvo.setLog_detail("[USER_UPDATE_ACCOUNT_NAME]#"+sessionvo.getUser_id()+"#"+vo.getUser_name());
+		logService.insertLog(logvo);
 		return mypageService.userInfoView(vo).getUser_name();  
 	} 
 	
@@ -151,6 +164,10 @@ public class MypageController {
 		UserVO sessionvo = (UserVO)session.getAttribute("user");
 		vo.setUser_no(sessionvo.getUser_no());
 		int tel = mypageService.myTelConfirm(vo);
+		
+		LogVO logvo = new LogVO();
+		logvo.setLog_detail("[USER_UPDATE_ACCOUNT_TEL]#"+sessionvo.getUser_id()+"#"+vo.getUser_tel());
+		logService.insertLog(logvo);
 		return tel;  
 	} 
 	
@@ -169,6 +186,11 @@ public class MypageController {
 		UserVO sessionvo = (UserVO)session.getAttribute("user");
 		vo.setUser_no(sessionvo.getUser_no());
 		int addr = mypageService.myAddrConfirm(vo);
+		
+		LogVO logvo = new LogVO();
+		logvo.setLog_detail("[USER_UPDATE_ACCOUNT_ADDR]#"+sessionvo.getUser_id()+"#"+vo.getUser_addr());
+		logService.insertLog(logvo);
+		
 		return addr;
 	}
 

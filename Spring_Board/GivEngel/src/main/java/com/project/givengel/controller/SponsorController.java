@@ -14,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.givengel.service.LogService;
 import com.project.givengel.service.MypageServiceImpl;
 import com.project.givengel.service.SponService;
+import com.project.givengel.vo.LogVO;
 import com.project.givengel.vo.SponVO;
 import com.project.givengel.vo.Spon_comVO;
 import com.project.givengel.vo.UserVO;
@@ -29,6 +31,9 @@ public class SponsorController {
 	
 	@Autowired
 	private MypageServiceImpl mypageService;
+	
+	@Autowired
+	private LogService logService;
 
 	
 	/*****************************************************
@@ -225,6 +230,11 @@ public class SponsorController {
         UserVO sessionUservo = (UserVO)session.getAttribute("user");
         sessionUservo.setUser_cash(sessionUservo.getUser_cash()-vo.getUser_no());
         session.setAttribute("User", sessionUservo); 
+        
+        LogVO logvo = new LogVO();
+		logvo.setLog_detail("[USER_SPON#"+sessionUservo.getUser_id()+"#"+vo.getUser_no());
+		logService.insertLog(logvo);
+        
 		sponService.minusCash(vo);
 	}
 	

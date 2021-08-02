@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.givengel.service.GoodListService;
+import com.project.givengel.service.LogService;
 import com.project.givengel.vo.CartVO;
 import com.project.givengel.vo.GoodVO;
 import com.project.givengel.vo.Good_comVO;
+import com.project.givengel.vo.LogVO;
 import com.project.givengel.vo.PagingVO;
 import com.project.givengel.vo.SearchCriteriaGood;
 import com.project.givengel.vo.UserVO;
@@ -31,6 +33,9 @@ public class GoodListController {
 
 	@Autowired
 	private GoodListService goodListService;
+	
+	@Autowired
+	private LogService logService;
 	
 	/*******************************************************
 	 * 상품 영역
@@ -218,7 +223,14 @@ public class GoodListController {
 			vo.setUser_no(uvo.getUser_no());
 			goodListService.addUserBuyLog(vo);
 			result = "1";
+			
+			LogVO logvo = new LogVO();
+			logvo.setLog_detail("[USER_BUY_GOOD]#"+uvo.getUser_id()+"#"+vo.getGood_no());
+			logService.insertLog(logvo);
 		}
+		
+	
+		
 		return result;
 	}
 	

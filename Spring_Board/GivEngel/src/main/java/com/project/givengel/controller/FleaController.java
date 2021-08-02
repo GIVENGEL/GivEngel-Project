@@ -16,10 +16,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mysql.cj.Session;
 import com.project.givengel.service.FleaServiceImpl;
+import com.project.givengel.service.LogService;
+import com.project.givengel.vo.AdminVO;
 import com.project.givengel.vo.Criteria;
 import com.project.givengel.vo.FleaVO;
 import com.project.givengel.vo.Flea_comVO;
+import com.project.givengel.vo.LogVO;
 import com.project.givengel.vo.PageVO;
 import com.project.givengel.vo.SearchCriteria;
 import com.project.givengel.vo.SponVO;
@@ -31,6 +35,9 @@ public class FleaController {
 	@Autowired
 	@Inject
 	private FleaServiceImpl fleaService;
+	
+	@Autowired
+	private LogService logService;
 	
 
 	@RequestMapping("{url}.giv") // 변수처리
@@ -81,8 +88,18 @@ public class FleaController {
 	    * 마지막 수정      :   2021-07-26
 	*****************************************************/
 	@RequestMapping("/fleaWriteAction.giv")
-	public String insertFleaWrite(FleaVO vo) {
+	public String insertFleaWrite(FleaVO vo,HttpServletRequest request) {
 		fleaService.insertFleaWrite(vo);
+		
+		HttpSession session = request.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		if(user != null) {
+			LogVO logvo = new LogVO();
+			logvo.setLog_detail("[USER_INSERT_FLEA]#"+user.getUser_id()+"#"+vo.getFlea_title());
+			logService.insertLog(logvo);
+		}
+		
+			
 		
 		return "redirect:fleaBoard.giv";
 	}
@@ -101,8 +118,21 @@ public class FleaController {
 	*****************************************************/
 	 @RequestMapping(value = "/deleteFleaView.giv", produces = "application/text;charset=UTF-8")
 	 @ResponseBody
-	 public void deleteFlea(FleaVO vo) {
+	 public void deleteFlea(FleaVO vo,HttpServletRequest request) {
+		 
+			HttpSession session = request.getSession();
+			UserVO user = (UserVO)session.getAttribute("user");
+			if(user != null) {
+				LogVO logvo = new LogVO();
+				logvo.setLog_detail("[USER_DELETE_FLEA]#"+user.getUser_id()+"#"+vo.getFlea_no());
+				logService.insertLog(logvo);
+			}
+		 
+		 
 		 fleaService.deleteFlea(vo);
+		 
+		 
+		 
 	 }
 	 
 	 

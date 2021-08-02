@@ -16,7 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.givengel.service.AdminService;
+import com.project.givengel.service.LogService;
 import com.project.givengel.service.LoginService;
+import com.project.givengel.vo.LogVO;
 import com.project.givengel.vo.MsgVO;
 import com.project.givengel.vo.UserVO;
 
@@ -28,6 +30,9 @@ public class LoginController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private LogService logService;
 	
 	
 	
@@ -45,7 +50,10 @@ public class LoginController {
 	public String loginAction(UserVO vo,HttpServletRequest req, RedirectAttributes rttr) {
 		HttpSession session = req.getSession();
 		UserVO login = loginService.login(vo);
-		System.out.println("LoginAction 파라미터 체크 : " + vo.getUser_id());
+		
+		
+		
+		
 		if(login == null) {
 			session.setAttribute("user", null);
 			rttr.addFlashAttribute("msg", false);
@@ -53,6 +61,10 @@ public class LoginController {
 		}else {
 			System.out.println("LoginAction 세션 생성 : " + login.getUser_id());
 			session.setAttribute("user", login);
+
+			LogVO logvo = new LogVO();
+			logvo.setLog_detail("[USER_LOGIN]#"+login.getUser_id());
+			logService.insertLog(logvo);
 		}
 		return "redirect:index.giv";
 	}
@@ -69,6 +81,18 @@ public class LoginController {
 	 *****************************************************/
 	@RequestMapping(value = "/logout.giv", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception{
+		
+	
+		UserVO login = (UserVO)session.getAttribute("user");
+		
+		
+	
+		if(login != null) {
+			LogVO logvo = new LogVO();
+			logvo.setLog_detail("[USER_LOGOUT]#"+login.getUser_id());
+			logService.insertLog(logvo);
+		}
+		
 		session.invalidate();
 		return "redirect:index.giv";
 	}

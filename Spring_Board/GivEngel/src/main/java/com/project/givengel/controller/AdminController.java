@@ -59,7 +59,7 @@ public class AdminController {
 	private GoodListService goodListService;
 	/********************************************************/
 	
-	
+
 
 	
 	/************************************************************************************************************
@@ -398,6 +398,9 @@ public class AdminController {
 		vos.setGood_tag(result_tag);
 		Map<String, GoodVO> map = new HashMap<String, GoodVO>();
 		map.put("good", vos);
+		
+		
+		
 		return map;
 	}
 	
@@ -414,6 +417,14 @@ public class AdminController {
 	public String adminGoodModifyAction(GoodVO vo,String admin,String good_tags,String url) throws IllegalStateException, IOException {	
 		vo.setGood_tag(vo.getGood_tag()+good_tags);
 		adminService.updateGood(vo);
+		
+		if(admin != null) {
+			LogVO logvo = new LogVO();
+			logvo.setLog_detail("[ADMIN_UPDATE_GOOD]#"+admin+"#"+vo.getGood_no());
+			logService.insertLog(logvo);
+		}
+	
+		
 		return "redirect:adminGoodModify.giv";
 	}
 	
@@ -468,8 +479,18 @@ public class AdminController {
 	 * 마지막 수정		:	2021-07-24
 	 *****************************************************/
 	@RequestMapping("/adminGoodDeleteAction.giv")
-	public String adminGoodDeleteAction(GoodVO vo) {
+	public String adminGoodDeleteAction(GoodVO vo,HttpServletRequest request) {
 		adminService.deleteGood(vo);
+		
+		
+		HttpSession session = request.getSession();
+		AdminVO admin = (AdminVO) session.getAttribute("admin");
+		if(admin != null) {
+			LogVO logvo = new LogVO();
+			logvo.setLog_detail("[ADMIN_DELETE_GOOD]#"+admin.getAdmin_id()+"#"+vo.getGood_no());
+			logService.insertLog(logvo);
+		}
+		
 		return "redirect:adminGoodDelete.giv";
 		
 	}
@@ -665,7 +686,7 @@ public class AdminController {
 	 * 마지막 수정		:	2021-07-24
 	 *****************************************************/
 	@RequestMapping("/adminSponModifyAction.giv")
-	public String adminSponModifyAction(SponVO vo) {
+	public String adminSponModifyAction(SponVO vo,HttpServletRequest request) {
 		
 		if(vo.getSpon_end()==null) {
 			vo.setSpon_iscampaign(false);
@@ -674,6 +695,16 @@ public class AdminController {
 			vo.setSpon_iscampaign(true);
 		}
 		adminService.updateSpon(vo);
+		
+		
+		HttpSession session = request.getSession();
+		AdminVO admin = (AdminVO) session.getAttribute("admin");
+		if(admin != null) {
+			LogVO logvo = new LogVO();
+			logvo.setLog_detail("[ADMIN_UPDATE_SPON]#"+admin.getAdmin_id()+"#"+vo.getSpon_no());
+			logService.insertLog(logvo);
+		}
+		
 		return "redirect:adminSponModify.giv";
 	}
 	
@@ -733,8 +764,17 @@ public class AdminController {
 	 * 마지막 수정		:	2021-07-24
 	 *****************************************************/
 	@RequestMapping("/adminSponDeleteAction.giv")
-	public String adminSponDeleteAction(SponVO vo) {
+	public String adminSponDeleteAction(SponVO vo, HttpServletRequest request) {
 		adminService.deleteSpon(vo);
+		
+		HttpSession session = request.getSession();
+		AdminVO admin = (AdminVO) session.getAttribute("admin");
+		if(admin != null) {
+			LogVO logvo = new LogVO();
+			logvo.setLog_detail("[ADMIN_DELETE_SPON]#"+admin.getAdmin_id()+"#"+vo.getSpon_no());
+			logService.insertLog(logvo);
+		}
+		
 		return "redirect:adminSponDelete.giv";
 		
 	}
@@ -847,9 +887,18 @@ public class AdminController {
 	 * 마지막 수정		:	2021-07-25
 	 *****************************************************/
 	@RequestMapping("/adminAccountInsertAction.giv")
-	public String adminAccountInsertAction(AdminVO vo, String pwCheck) {
+	public String adminAccountInsertAction(AdminVO vo, String pwCheck,HttpServletRequest request) {
 		if(vo.getAdmin_pw().equals(pwCheck)) {
 			adminService.insertAdmins(vo);
+			
+			HttpSession session = request.getSession();
+			AdminVO admin = (AdminVO) session.getAttribute("admin");
+			if(admin != null) {
+				LogVO logvo = new LogVO();
+				logvo.setLog_detail("[ADMIN_WELCOME_ACCOUNT]#"+vo.getAdmin_id());
+				logService.insertLog(logvo);
+			}
+			
 			return "redirect:adminAccount.giv";
 		}
 		else {
@@ -897,8 +946,16 @@ public class AdminController {
 	 * 마지막 수정		:	2021-07-24
 	 *****************************************************/
 	@RequestMapping("/adminAccountModifyAction.giv")
-	public String adminAccountModifyAction(AdminVO vo) {
+	public String adminAccountModifyAction(AdminVO vo,HttpServletRequest request) {
 		adminService.updateAdmins(vo);
+		
+		HttpSession session = request.getSession();
+		AdminVO admin = (AdminVO) session.getAttribute("admin");
+		if(admin != null) {
+			LogVO logvo = new LogVO();
+			logvo.setLog_detail("[ADMIN_UPDATE_ACCOUNT]#"+vo.getAdmin_id());
+			logService.insertLog(logvo);
+		}
 		return "redirect:adminAccount.giv";
 	}
 	
@@ -941,8 +998,16 @@ public class AdminController {
 	 * 마지막 수정		:	2021-07-25
 	 *****************************************************/
 	@RequestMapping("/adminAccountDeleteAction.giv")
-	public String adminAccountDeleteAction(AdminVO vo) {
+	public String adminAccountDeleteAction(AdminVO vo,HttpServletRequest request) {
 		adminService.deleteAdmins(vo);
+		
+		HttpSession session = request.getSession();
+		AdminVO admin = (AdminVO) session.getAttribute("admin");
+		if(admin != null) {
+			LogVO logvo = new LogVO();
+			logvo.setLog_detail("[ADMIN_DELETE_ACCOUNT]#"+vo.getAdmin_id());
+			logService.insertLog(logvo);
+		}
 		return "redirect:adminAccount.giv";
 		
 	}
@@ -1037,8 +1102,16 @@ public class AdminController {
 	 * 마지막 수정		:	2021-07-27
 	 *****************************************************/
 	@RequestMapping("/adminUserAccountModifyAction.giv")
-	public String adminUserAccountModifyAction(UserVO vo) {
+	public String adminUserAccountModifyAction(UserVO vo,HttpServletRequest request) {
 		adminService.updateUser(vo);
+		
+		HttpSession session = request.getSession();
+		AdminVO admin = (AdminVO) session.getAttribute("admin");
+		if(admin != null) {
+			LogVO logvo = new LogVO();
+			logvo.setLog_detail("[ADMIN_UPDATE_USER_ACCOUNT]#"+admin.getAdmin_id()+"#"+vo.getUser_id());
+			logService.insertLog(logvo);
+		}
 		return "redirect:adminUserAccount.giv";
 	}
 	
@@ -1079,8 +1152,16 @@ public class AdminController {
 	 * 마지막 수정		:	2021-07-25
 	 *****************************************************/
 	@RequestMapping("/adminUserAccountDeleteAction.giv")
-	public String adminUserAccountDeleteAction(UserVO vo) {
+	public String adminUserAccountDeleteAction(UserVO vo,HttpServletRequest request) {
 		adminService.deleteUser(vo);
+		
+		HttpSession session = request.getSession();
+		AdminVO admin = (AdminVO) session.getAttribute("admin");
+		if(admin != null) {
+			LogVO logvo = new LogVO();
+			logvo.setLog_detail("[ADMIN_DELETE_USER_ACCOUNT]#"+admin.getAdmin_id()+"#"+vo.getUser_id());
+			logService.insertLog(logvo);
+		}
 		return "redirect:adminUserAccount.giv";
 
 	}
@@ -1207,10 +1288,18 @@ public class AdminController {
 	 *****************************************************/
 	@RequestMapping("/adminFleaTestAction.giv")
 	@ResponseBody
-	public void adminFleaTestAction(String test,int flea_no) {
+	public void adminFleaTestAction(String test,int flea_no,HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("test", test);
 		map.put("flea_no",flea_no);
+		
+		HttpSession session = request.getSession();
+		AdminVO admin = (AdminVO) session.getAttribute("admin");
+		if(admin != null) {
+			LogVO logvo = new LogVO();
+			logvo.setLog_detail("[ADMIN_UPDATE_FLEA_TEST]#"+admin.getAdmin_id()+"#"+flea_no);
+			logService.insertLog(logvo);
+		}
 		
 		adminService.updateFleaTest(map);
 	}
@@ -1255,8 +1344,17 @@ public class AdminController {
 	 * 마지막 수정		:	2021-07-26
 	 *****************************************************/
 	@RequestMapping("/adminFleaDeleteAction.giv")
-	public String adminFleaDeleteAction(FleaVO vo) {
+	public String adminFleaDeleteAction(FleaVO vo,HttpServletRequest request) {
 		adminService.deleteFlea(vo);
+		
+		
+		HttpSession session = request.getSession();
+		AdminVO admin = (AdminVO) session.getAttribute("admin");
+		if(admin != null) {
+			LogVO logvo = new LogVO();
+			logvo.setLog_detail("[ADMIN_DELETE_FLEA]#"+admin.getAdmin_id()+"#"+vo.getFlea_no());
+			logService.insertLog(logvo);
+		}
 		return "redirect:adminFlea.giv";
 
 	}

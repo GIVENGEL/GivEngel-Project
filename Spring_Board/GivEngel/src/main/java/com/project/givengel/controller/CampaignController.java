@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.givengel.service.CampaignServiceImpl;
+import com.project.givengel.service.LogService;
 import com.project.givengel.service.MypageServiceImpl;
+import com.project.givengel.vo.LogVO;
 import com.project.givengel.vo.SponVO;
 import com.project.givengel.vo.Spon_comVO;
 import com.project.givengel.vo.UserVO;
@@ -30,6 +32,8 @@ public class CampaignController {
 	@Autowired
 	private MypageServiceImpl mypageService;
 
+	@Autowired
+	private LogService logService;
 	
 	
 	/*****************************************************
@@ -154,6 +158,11 @@ public class CampaignController {
 			UserVO sessionvo = (UserVO)session.getAttribute("user");
 			cashvo.setUser_no(sessionvo.getUser_no());
 		campaignService.campaignLog(cashvo); 
+		
+		LogVO logvo = new LogVO();
+		logvo.setLog_detail("[USER_SPON]#"+sessionvo.getUser_id()+"#"+cashvo.getUser_cashlog_price());
+		logService.insertLog(logvo);
+		
 		} catch(Exception e) {
 			System.out.println(e);
 		}
@@ -174,6 +183,7 @@ public class CampaignController {
 		vo.setUser_no(sessionUservo.getUser_no());
 		try {  
 		campaignService.camUserCash(vo);
+
 		}catch(NullPointerException e) {
 			System.out.println(e);
 		}
