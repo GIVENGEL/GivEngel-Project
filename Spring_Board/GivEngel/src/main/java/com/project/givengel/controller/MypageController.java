@@ -97,9 +97,8 @@ public class MypageController {
 		HttpSession session = req.getSession();
 		UserVO sessionvo = (UserVO)session.getAttribute("user");
 		vo.setUser_no(sessionvo.getUser_no());
-		System.out.println(sessionvo.getUser_no() + "넘버확인"); 
-		System.out.println(vo.getUser_pw()); 
-		int pwd = mypageService.myPwdConfirm(vo); 
+		int pwd = mypageService.myPwdConfirm(vo);
+		sessionvo.setUser_pw(vo.getUser_pw());
 		System.out.println(pwd + "들어오는지 확인");
 		
 		LogVO logvo = new LogVO();
@@ -143,7 +142,7 @@ public class MypageController {
 		vo.setUser_no(sessionvo.getUser_no());
 		mypageService.myNickConfirm(vo);
 		mypageService.userInfoView(vo).getUser_name();
-		
+		sessionvo.setUser_name(vo.getUser_name());
 		LogVO logvo = new LogVO();
 		logvo.setLog_detail("[USER_UPDATE_ACCOUNT_NAME]#"+sessionvo.getUser_id()+"#"+vo.getUser_name());
 		logService.insertLog(logvo);
@@ -163,9 +162,9 @@ public class MypageController {
 		HttpSession session = req.getSession();
 		UserVO sessionvo = (UserVO)session.getAttribute("user");
 		vo.setUser_no(sessionvo.getUser_no());
-		int tel = mypageService.myTelConfirm(vo);
-		
-		LogVO logvo = new LogVO();
+		sessionvo.setUser_tel(vo.getUser_tel());
+		int tel = mypageService.myTelConfirm(vo);  
+		LogVO logvo = new LogVO(); 
 		logvo.setLog_detail("[USER_UPDATE_ACCOUNT_TEL]#"+sessionvo.getUser_id()+"#"+vo.getUser_tel());
 		logService.insertLog(logvo);
 		return tel;  
@@ -185,6 +184,7 @@ public class MypageController {
 		HttpSession session = req.getSession();
 		UserVO sessionvo = (UserVO)session.getAttribute("user");
 		vo.setUser_no(sessionvo.getUser_no());
+		sessionvo.setUser_addr(vo.getUser_addr());
 		int addr = mypageService.myAddrConfirm(vo);
 		
 		LogVO logvo = new LogVO();

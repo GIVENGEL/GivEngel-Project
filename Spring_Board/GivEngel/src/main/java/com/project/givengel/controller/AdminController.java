@@ -138,6 +138,24 @@ public class AdminController {
 		}
 	}
 	
+	@RequestMapping("/updateCheckMsg.giv")
+	@ResponseBody
+	public void updateCheckMsg(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		AdminVO admin = (AdminVO)session.getAttribute("admin");
+		MsgVO vo = new MsgVO();
+		vo.setMsg_to(admin.getAdmin_id());
+		
+		
+		List<MsgVO> list = new ArrayList<MsgVO>();
+		list = adminService.myMsg(admin.getAdmin_id());
+		session.setAttribute("myMsg", list);
+		session.setAttribute("msgCnt", list.size());
+		
+		adminService.updateCheckMsg(vo);
+		
+	}
+	
 	
 	/*****************************************************
 	 * 함수명 			: 	insertAdminLoginLog
@@ -1758,6 +1776,8 @@ public class AdminController {
 	
 	
 	
+	
+	
 	@RequestMapping("/timeLine.giv")
 	@ResponseBody
 	public Map<String, Object> timeLine(String formatDate,HttpServletRequest request) {
@@ -1777,7 +1797,7 @@ public class AdminController {
 		return map ;
 	}
 	
-	@RequestMapping("/sendToDev.giv")
+	@RequestMapping("/ToDev.giv")
 	@ResponseBody
 	public void sendToDev(String msg,HttpServletRequest request) {
 		MsgVO temp = new MsgVO();

@@ -179,6 +179,22 @@
 		<script src="${path}/resources/js/admin/custom.js"></script>
 		<script>
 			window.onload = function() {
+				
+				 $(document).on("click","#myMsgCheck",function(){
+
+						$.ajax({
+							url:"updateCheckMsg.giv",
+							type:"post",
+							
+							success:function(data){
+								$("#msgcount").text("0");
+								
+							}
+						});
+				
+					
+					
+				})
 
 
 				function checkform() {

@@ -226,6 +226,21 @@
 		<script>
 			window.onload = function() {
 
+				 $(document).on("click","#myMsgCheck",function(){
+
+						$.ajax({
+							url:"updateCheckMsg.giv",
+							type:"post",
+							
+							success:function(data){
+								$("#msgcount").text("0");
+								
+							}
+						});
+				
+					
+					
+				})
 				
 				/* <div class="col-sm-3 col-md-2">
 				<div class="thumbnail">

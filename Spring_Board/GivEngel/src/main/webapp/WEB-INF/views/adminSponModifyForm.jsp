@@ -274,6 +274,22 @@
 		<script>
 			window.onload = function() {
 	 
+				 $(document).on("click","#myMsgCheck",function(){
+
+						$.ajax({
+							url:"updateCheckMsg.giv",
+							type:"post",
+							
+							success:function(data){
+								$("#msgcount").text("0");
+								
+							}
+						});
+				
+					
+					
+				})
+				
 				 $('#calendar').datepicker({
 					format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
 						//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
@@ -332,6 +348,7 @@
 			                 // 추후에 yyyy-mm-dd 형태로 변경하는 코드를 업로드 하겠습니다. 
 			            })
 
+			            
 				function checkform() {
 					var spon_name = $("#spon_name").val();
 					var admin = $("#admin");

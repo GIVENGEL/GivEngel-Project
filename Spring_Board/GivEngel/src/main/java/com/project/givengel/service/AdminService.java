@@ -118,6 +118,7 @@ public interface AdminService {
 	* 개발자 모드 메시지 데이터 관리 DAO 						*
 	************************************************/
 	public void insertMsg(MsgVO vo);
+	public void updateCheckMsg(MsgVO vo);
 	public List<MsgVO> selectMsg(MsgVO vo);
 	public List<MsgVO> myMsg(String msg_from);
 	public List<MsgVO> timeLine(MsgVO vo);

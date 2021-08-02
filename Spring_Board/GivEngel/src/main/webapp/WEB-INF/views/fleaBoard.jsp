@@ -144,7 +144,7 @@
 											<c:set var="i" value="${i+1}" />
 										</ul>
 										<h5>
-											<a href="#">${flea.flea_title }</a>
+											<a href="fleaView.giv?flea_no=${flea.flea_no }">${flea.flea_title }</a>
 													<c:choose>
 											<c:when test="${flea.flea_isokay == null }">
 												<span style="font-size: 15px; color: gray;">미확정</span>

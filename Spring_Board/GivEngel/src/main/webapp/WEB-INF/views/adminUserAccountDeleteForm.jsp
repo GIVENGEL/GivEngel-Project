@@ -183,7 +183,22 @@
 		<script>
 			window.onload = function() {
 
+				 $(document).on("click","#myMsgCheck",function(){
 
+						$.ajax({
+							url:"updateCheckMsg.giv",
+							type:"post",
+							
+							success:function(data){
+								$("#msgcount").text("0");
+								
+							}
+						});
+				
+					
+					
+				})
+				
 				function checkform() {
 					var user_check = $("#user_check").val();
 					var user_check2 = $("#user_check2").val();

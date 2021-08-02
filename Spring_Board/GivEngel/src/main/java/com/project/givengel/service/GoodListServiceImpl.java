@@ -31,9 +31,9 @@ public class GoodListServiceImpl implements GoodListService {
 	
 //	인기상품(like 순)
 	@Override
-	public List<GoodVO> getPopularGoodList(SearchCriteriaGood cri) {
+	public List<GoodVO> getPopularGoodList() {
 		
-		return goodDAO.getPopularGoodList(cri);
+		return goodDAO.getPopularGoodList();
 	}
 	
 //  최신상품(date 순 정렬) 가져옴

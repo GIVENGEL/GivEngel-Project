@@ -39,9 +39,9 @@ public class GoodDAOImpl implements GoodDAO {
 	
 //	인기상품(like 순 정렬) 가져옴
 	@Override
-	public List<GoodVO> getPopularGoodList(SearchCriteriaGood cri) {
+	public List<GoodVO> getPopularGoodList() {
 		
-		return mybatis.selectList("GoodDAO.getGoodList",cri);
+		return mybatis.selectList("GoodDAO.getPopularGoodList");
 	}
 
 //  최신상품(date 순 정렬) 가져옴

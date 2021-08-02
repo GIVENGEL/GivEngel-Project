@@ -8,12 +8,10 @@
 
 </head>
 <body>
-<h1>입장 확인</h1>
-<hr>
-    
-<br>
-		<br> <a href="index.giv">메인으로 가기</a>
-		<br> <a href="adminLogin.giv">어드민 로그인</a>
+
+<script>
+		 location. href="index.giv";
+</script>
  
 </body>
 
@@ -21,3 +19,4 @@
 </html>
 
 
+ 

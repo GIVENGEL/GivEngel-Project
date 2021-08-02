@@ -498,6 +498,22 @@
 	<script src="${path}/resources/js/admin/custom.js"></script>
 	<script>
 	window.onload = function () {
+		
+		 $(document).on("click","#myMsgCheck",function(){
+
+				$.ajax({
+					url:"updateCheckMsg.giv",
+					type:"post",
+					
+					success:function(data){
+						$("#msgcount").text("0");
+						
+					}
+				});
+		
+			
+			
+		})
 		setTimeout(function() { 
 			var chart1 = document.getElementById("line-chart").getContext("2d");
 			window.myLine = new Chart(chart1).Line(lineChartData, {

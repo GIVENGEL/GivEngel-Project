@@ -227,6 +227,7 @@ WHERE good_tag LIKE '%BOTTOM%';
 	<select id="selectFleaList" resultType="FleaVO">
 		SELECT *
 		FROM flea
+		ORDER BY flea_date DESC
 	</select>
 	<select id="selectFlea" parameterType="FleaVO" resultType="FleaVO">
 		SELECT *

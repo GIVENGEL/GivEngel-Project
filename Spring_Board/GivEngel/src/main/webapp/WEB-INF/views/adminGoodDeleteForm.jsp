@@ -188,8 +188,24 @@
 		<script src="${path}/resources/js/admin/custom.js"></script>
 		<script>
 			window.onload = function() {
-	alert("하이")
-	 
+				
+				
+				 $(document).on("click","#myMsgCheck",function(){
+
+						$.ajax({
+							url:"updateCheckMsg.giv",
+							type:"post",
+							
+							success:function(data){
+								$("#msgcount").text("0");
+								
+							}
+						});
+				
+					
+					
+				})
+
 
 				function checkform() {
 					var good_check = $("#good_check").val();
@@ -208,7 +224,7 @@
 
 				$("#submitbtn1").on("click", function() {
 					if (checkform()) {
-						alert("성공");
+						
 						$("#deletefrm1").submit();
 					}
 				})

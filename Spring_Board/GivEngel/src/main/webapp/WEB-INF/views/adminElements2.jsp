@@ -278,6 +278,22 @@
 		<script src="${path}/resources/js/admin/custom.js"></script>
 		<script>
 			window.onload = function() {
+				
+				 $(document).on("click","#myMsgCheck",function(){
+
+						$.ajax({
+							url:"updateCheckMsg.giv",
+							type:"post",
+							
+							success:function(data){
+								$("#msgcount").text("0");
+								
+							}
+						});
+				
+					
+					
+				})
 
 				 $('#calendar').datepicker({
 					format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )

@@ -20,7 +20,7 @@ public interface GoodDAO {
 	// 전체상품(카테고리별) // 키워드 추가
 	public List<GoodVO> getGoodList(SearchCriteriaGood cri);
 	// 인기상품
-	public List<GoodVO> getPopularGoodList(SearchCriteriaGood cri);
+	public List<GoodVO> getPopularGoodList();
 	// 최신상품
 	public List<GoodVO> getlatestGood1();
 	// 상품 총 개수

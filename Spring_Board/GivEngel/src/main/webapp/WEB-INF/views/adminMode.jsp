@@ -578,6 +578,21 @@
 	</div>
 </div>
 </li> */
+$(document).on("click","#myMsgCheck",function(){
+
+	$.ajax({
+		url:"updateCheckMsg.giv",
+		type:"post",
+		
+		success:function(data){
+			$("#msgcount").text("0");
+			
+		}
+	});
+
+
+
+})
 
 updateUserMsg();
 
@@ -589,9 +604,17 @@ updateUserMsg();
 			
 			var userMsgDiv = $("#userMsgDiv");
 			userMsgDiv.empty();
-			for(var i=0;i<data.list.length;i++){
-				userMsgDiv.append('<li><div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div><div class="timeline-panel"><div class="timeline-heading"><h4 class="timeline-title">'+data.list[i].msg_from+'</h4><small>'+data.list[i].msg_date+'</small></div><div class="timeline-body"><p>'+data.list[i].msg_detail+'</p></div></div></li>')
-				
+			if(data.list.length <6){
+				for(var i=0;i<data.list.length;i++){
+					userMsgDiv.append('<li><div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div><div class="timeline-panel"><div class="timeline-heading"><h4 class="timeline-title">'+data.list[i].msg_from+'</h4><small>'+data.list[i].msg_date+'</small></div><div class="timeline-body"><p>'+data.list[i].msg_detail+'</p></div></div></li>')
+					
+				}
+			}
+			else{
+				for(var i=0;i<6;i++){
+					userMsgDiv.append('<li><div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div><div class="timeline-panel"><div class="timeline-heading"><h4 class="timeline-title">'+data.list[i].msg_from+'</h4><small>'+data.list[i].msg_date+'</small></div><div class="timeline-body"><p>'+data.list[i].msg_detail+'</p></div></div></li>')
+					
+				}
 			}
 			
 			

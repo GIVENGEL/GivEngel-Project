@@ -18,7 +18,7 @@ public interface GoodListService {
 	// 전체상품
 	public List<GoodVO> getGoodList(SearchCriteriaGood cri);
 	// 인기상품
-	public List<GoodVO> getPopularGoodList(SearchCriteriaGood cri);
+	public List<GoodVO> getPopularGoodList();
 	// 최신상품
 	public List<GoodVO> getlatestGood1();
 	// 총 상품 수 

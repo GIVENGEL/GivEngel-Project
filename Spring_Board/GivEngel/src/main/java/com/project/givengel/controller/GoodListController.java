@@ -65,7 +65,7 @@ public class GoodListController {
 		// 최신상품(date 순 정렬)
 		m.addAttribute("latestGood1", goodListService.getlatestGood1());
 		// 검색 조건에 맞춰 인기상품 저장(Like 순 정렬)
-		m.addAttribute("getPopularGoodList", goodListService.getPopularGoodList(cri));
+		m.addAttribute("getPopularGoodList", goodListService.getPopularGoodList());
 		
 	}
 	

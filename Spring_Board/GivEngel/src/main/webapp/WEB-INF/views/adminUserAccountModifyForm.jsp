@@ -228,6 +228,21 @@
 				var user_cash = $("#user_cash").val();
 				
 				
+				 $(document).on("click","#myMsgCheck",function(){
+
+						$.ajax({
+							url:"updateCheckMsg.giv",
+							type:"post",
+							
+							success:function(data){
+								$("#msgcount").text("0");
+								
+							}
+						});
+				
+					
+					
+				})
 				
 				
 				if(user_id==""){

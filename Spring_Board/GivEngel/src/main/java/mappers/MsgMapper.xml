@@ -21,10 +21,11 @@
 	
 	<select id="myMsg" parameterType="String" resultType="msgVO">
 		SELECT * FROM msg
-		WHERE msg_to = #{msg_to}
+		WHERE msg_to = #{msg_to} AND msg_checked=0
 		order by msg_date desc
 		LIMIT 0,30
 	</select>
+	
 	
 	<insert id="insertMsg" parameterType="msgVO">
 		INSERT INTO msg(msg_to,msg_from,msg_detail,msg_checked,msg_date,msg_where)
@@ -35,7 +36,7 @@
 	<update id="updateCheckMsg" parameterType="msgVO">
 		UPDATE msg
 		SET msg_checked = 1
-		WHERE msg_no = #{msg_no}
+		WHERE msg_to = #{msg_to}
 	</update>
 
 

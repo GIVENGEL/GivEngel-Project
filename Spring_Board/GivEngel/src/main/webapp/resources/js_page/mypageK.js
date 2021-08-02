@@ -124,8 +124,7 @@ $(function(){
 	
 	
 	//닉네임 변경 클릭시
-	$("#nickModifybtn").on('click', function(){
-		alert("눌리는지 확인")
+	$("#nickModifybtn").on('click', function(){ 
 		if($("#myNewNick").val()=="") {
 			alert("변경할 닉네임을 입력해주세요.")
 		} else if(!user_nameCheck.test($("#myNewNick").val())){

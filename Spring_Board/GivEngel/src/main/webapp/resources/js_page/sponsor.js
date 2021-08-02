@@ -26,7 +26,14 @@ $(function() {
 			$('#guideText').css('color', 'red');
 			$('#donationBox').focus();
 			return false;
+		}else if( parseInt($('#donationBox').val()) < 0 ) { // 입력한 금액이 유저의 마일리지보다 크다면
+			$('#guideText').text('정확한 금액을 입력해주세요');
+			$('#guideText').css('color', 'red');
+			$('#donationBox').focus();
+			return false;
 		}
+		
+		
 		
 		else if ( $('#donationBox').val() == "") {
 			$('#guideText').text('사용할 마일리지를 입력해주세요');

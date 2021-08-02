@@ -20,7 +20,7 @@
 				</button>
 				<a class="navbar-brand" href="adminMode.giv"><span>GivEngel</span>Admin</a>
 				<ul class="nav navbar-top-links navbar-right">
-					<li id="msgDropBtn" class="dropdown"><a class="dropdown-toggle count-info"
+					<li id="msgDropBtn" class="dropdown"><a id="myMsgCheck" class="dropdown-toggle count-info"
 						data-toggle="dropdown" href="#"> <em class="fa fa-envelope"></em><span
 							class="label label-danger" id="msgcount">${msgCnt}</span>
 					</a>

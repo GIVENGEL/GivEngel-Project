@@ -331,6 +331,9 @@ public class AdminDAOImpl implements AdminDAO {
 	public void insertMsg(MsgVO vo) {
 		mybatis.insert("MsgDAO.insertMsg",vo);
 	}
+	public void updateCheckMsg(MsgVO vo) {
+		mybatis.update("MsgDAO.updateCheckMsg",vo);
+	}
 	public List<MsgVO> selectMsg(MsgVO vo){
 		return mybatis.selectList("MsgDAO.selectMsg",vo);
 	}

@@ -311,6 +311,9 @@ public class AdminServiceImpl implements AdminService {
 	public void insertMsg(MsgVO vo) {
 		adminDAO.insertMsg(vo);
 	}
+	public void updateCheckMsg(MsgVO vo) {
+		adminDAO.updateCheckMsg(vo);
+	}
 	@Override
 	public List<MsgVO> selectMsg(MsgVO vo){
 		return adminDAO.selectMsg(vo);
